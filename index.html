@@ -200,8 +200,23 @@
   .word-card:hover::before { width: 4px; }
   .word-uk { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
   .word-en { font-size: 15px; color: var(--sage); font-weight: 500; margin-bottom: 6px; }
-  .word-note { font-size: 12px; color: var(--muted); font-style: italic; }
+  .word-gtranslate { font-size: 12px; color: var(--lavender); margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
+  .word-gtranslate a { color: var(--lavender); text-decoration: none; opacity: 0.7; font-size: 11px; }
+  .word-gtranslate a:hover { opacity: 1; text-decoration: underline; }
+  .word-note { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 4px; }
   .word-date { font-size: 11px; color: var(--border); margin-top: 8px; font-family: 'DM Mono', monospace; }
+  /* translate field styles */
+  .translate-wrap { position: relative; }
+  .translate-btn {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    background: var(--sage-pale); border: none; border-radius: 4px;
+    color: var(--sage); font-size: 11px; font-weight: 600; padding: 3px 8px;
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .translate-btn:hover { background: var(--sage); color: #fff; }
+  .translate-btn.loading { opacity: 0.6; cursor: wait; }
+  .translate-indicator { font-size: 11px; color: var(--sage); margin-top: 3px; height: 14px; font-style: italic; }
   .word-actions { position: absolute; top: 12px; right: 12px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s; }
   .word-card:hover .word-actions { opacity: 1; }
   .word-action-btn {
@@ -413,17 +428,37 @@
     <div class="card-title">✏️ Додати нове слово</div>
     <div class="input-row">
       <div class="input-group">
-        <label>Українською</label>
-        <input type="text" id="word-uk" placeholder="напр. яблуко" autocomplete="off">
+        <label>🇺🇦 Слово українською</label>
+        <div class="translate-wrap">
+          <input type="text" id="word-uk" placeholder="напр. яблуко" autocomplete="off"
+            oninput="scheduleTranslate('uk')">
+          <button class="translate-btn" id="translate-to-en-btn" onclick="doTranslate('uk')" title="Перекласти на англійську">EN →</button>
+        </div>
+        <div class="translate-indicator" id="indicator-uk"></div>
       </div>
       <div class="input-group">
-        <label>English</label>
-        <input type="text" id="word-en" placeholder="e.g. apple" autocomplete="off">
+        <label>🇬🇧 Слово англійською</label>
+        <div class="translate-wrap">
+          <input type="text" id="word-en" placeholder="e.g. apple" autocomplete="off"
+            oninput="scheduleTranslate('en')">
+          <button class="translate-btn" id="translate-to-uk-btn" onclick="doTranslate('en')" title="Перекласти на українську">УКР →</button>
+        </div>
+        <div class="translate-indicator" id="indicator-en"></div>
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-group">
+        <label>🔗 Google Translate → УКР (посилання)</label>
+        <input type="url" id="word-gt-uk" placeholder="Заповниться автоматично або вставте вручну" style="font-size:12px; color:var(--lavender)">
+      </div>
+      <div class="input-group">
+        <label>🔗 Google Translate → EN (посилання)</label>
+        <input type="url" id="word-gt-en" placeholder="Заповниться автоматично або вставте вручну" style="font-size:12px; color:var(--lavender)">
       </div>
     </div>
     <div class="input-group" style="margin-bottom:16px">
       <label>Нотатка (необов'язково)</label>
-      <input type="text" id="word-note" placeholder="напр. «яблуко» — фрукт, множина: яблука">
+      <input type="text" id="word-note" placeholder="напр. контекст, приклад, граматика…">
     </div>
     <button class="btn btn-primary" id="add-btn" onclick="addWord()">
       ＋ Додати слово
@@ -864,24 +899,28 @@ async function addWord() {
   const uk = document.getElementById('word-uk').value.trim();
   const en = document.getElementById('word-en').value.trim();
   const note = document.getElementById('word-note').value.trim();
-  if (!uk || !en) { showToast('Заповніть обидва поля!', 'error'); return; }
+  const gtUK = document.getElementById('word-gt-uk').value.trim();
+  const gtEN = document.getElementById('word-gt-en').value.trim();
+  if (!uk || !en) { showToast('Заповніть хоча б УКР і EN поля!', 'error'); return; }
 
   const btn = document.getElementById('add-btn');
   btn.disabled = true; btn.innerHTML = '⏳ Додаю…';
 
-  const word = { uk, en, note, date: new Date().toISOString().slice(0,10) };
+  const word = { uk, en, gtUK, gtEN, note, date: new Date().toISOString().slice(0,10) };
 
-  // Одразу додаємо локально і показуємо — не чекаємо Sheets
   allWords.unshift(word);
   saveLocal();
   document.getElementById('word-uk').value = '';
   document.getElementById('word-en').value = '';
+  document.getElementById('word-gt-uk').value = '';
+  document.getElementById('word-gt-en').value = '';
   document.getElementById('word-note').value = '';
+  document.getElementById('indicator-uk').textContent = '';
+  document.getElementById('indicator-en').textContent = '';
   btn.disabled = false; btn.innerHTML = '＋ Додати слово';
   updateStats(); renderRecent(); renderAllWords();
   showToast('✓ Слово «' + uk + '» додано!', 'success');
 
-  // Фонова синхронізація з Google Sheets
   if (API_URL) { apiFetch('addWord', word).catch(() => {}); }
 }
 
@@ -893,16 +932,23 @@ function saveLocal() {
 // WORDS: RENDER
 // ════════════════════════════════════════════
 function wordCardHTML(w, highlight = '') {
-  const ukHL = highlight ? w.uk.replace(new RegExp(highlight, 'gi'), m => `<span class="highlight">${m}</span>`) : w.uk;
-  const enHL = highlight ? w.en.replace(new RegExp(highlight, 'gi'), m => `<span class="highlight">${m}</span>`) : w.en;
+  const esc = s => String(s||'').replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+  const hl = (s) => {
+    if (!highlight || !s) return esc(s);
+    return esc(s).replace(new RegExp(highlight.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'), m => `<span class="highlight">${m}</span>`);
+  };
+  const gtUK = w.gtUK || (w.en ? `https://translate.google.com/?sl=en&tl=uk&text=${encodeURIComponent(w.en)}&op=translate` : '');
+  const gtEN = w.gtEN || (w.uk ? `https://translate.google.com/?sl=uk&tl=en&text=${encodeURIComponent(w.uk)}&op=translate` : '');
   return `
     <div class="word-card">
       <div class="word-actions">
-        <button class="word-action-btn del" onclick="deleteWord('${w.uk}', '${w.en}', this)" title="Видалити">✕</button>
+        <button class="word-action-btn del" onclick="deleteWord('${esc(w.uk)}', '${esc(w.en)}', this)" title="Видалити">✕</button>
       </div>
-      <div class="word-uk">${ukHL}</div>
-      <div class="word-en">${enHL}</div>
-      ${w.note ? `<div class="word-note">${w.note}</div>` : ''}
+      <div class="word-uk">${hl(w.uk)}</div>
+      <div class="word-en">${hl(w.en)}</div>
+      ${gtUK ? `<div class="word-gtranslate">🔗 <a href="${gtUK}" target="_blank">GT → УКР</a></div>` : ''}
+      ${gtEN ? `<div class="word-gtranslate">🔗 <a href="${gtEN}" target="_blank">GT → EN</a></div>` : ''}
+      ${w.note ? `<div class="word-note">${esc(w.note)}</div>` : ''}
       ${w.date ? `<div class="word-date">${w.date}</div>` : ''}
     </div>`;
 }
@@ -1114,6 +1160,70 @@ function insertTemplate(type) {
   notesEditor.value = txt.slice(0, pos) + templates[type] + txt.slice(pos);
   notesDirty = true;
   document.getElementById('notes-status').textContent = '⬤ Не збережено';
+}
+
+
+// ════════════════════════════════════════════
+// AUTO-TRANSLATE (Google Translate free API)
+// ════════════════════════════════════════════
+let translateTimer = null;
+
+function scheduleTranslate(direction) {
+  clearTimeout(translateTimer);
+  // Оновлюємо GT-посилання одразу
+  updateGTLinks();
+  // Автопереклад через 800мс після останнього символу
+  translateTimer = setTimeout(() => doTranslate(direction), 800);
+}
+
+function updateGTLinks() {
+  const uk = document.getElementById('word-uk').value.trim();
+  const en = document.getElementById('word-en').value.trim();
+  if (uk) {
+    document.getElementById('word-gt-en').value =
+      `https://translate.google.com/?sl=uk&tl=en&text=${encodeURIComponent(uk)}&op=translate`;
+  }
+  if (en) {
+    document.getElementById('word-gt-uk').value =
+      `https://translate.google.com/?sl=en&tl=uk&text=${encodeURIComponent(en)}&op=translate`;
+  }
+}
+
+async function doTranslate(direction) {
+  const fromId = direction === 'uk' ? 'word-uk' : 'word-en';
+  const toId   = direction === 'uk' ? 'word-en' : 'word-uk';
+  const indId  = direction === 'uk' ? 'indicator-en' : 'indicator-uk';
+  const btnId  = direction === 'uk' ? 'translate-to-en-btn' : 'translate-to-uk-btn';
+  const fromLang = direction === 'uk' ? 'uk' : 'en';
+  const toLang   = direction === 'uk' ? 'en' : 'uk';
+
+  const text = document.getElementById(fromId).value.trim();
+  if (!text) return;
+
+  const btn = document.getElementById(btnId);
+  const ind = document.getElementById(indId);
+  btn.classList.add('loading');
+  ind.textContent = '⏳ Перекладаю…';
+
+  try {
+    // Використовуємо безкоштовний Google Translate API (неофіційний)
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLang}&tl=${toLang}&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    // Результат: [[["translation","original",null,null,1],...],...]
+    const translated = data[0].map(item => item[0]).join('');
+    if (translated) {
+      document.getElementById(toId).value = translated;
+      ind.textContent = '✓ Перекладено автоматично';
+      updateGTLinks();
+      // Очищаємо повідомлення через 3с
+      setTimeout(() => { ind.textContent = ''; }, 3000);
+    }
+  } catch(e) {
+    ind.textContent = '⚠ Не вдалося перекласти автоматично';
+    setTimeout(() => { ind.textContent = ''; }, 3000);
+  }
+  btn.classList.remove('loading');
 }
 
 // ════════════════════════════════════════════
