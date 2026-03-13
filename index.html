@@ -665,7 +665,7 @@ function showPage(id) {
 // ════════════════════════════════════════════
 // SETUP
 // ════════════════════════════════════════════
-function saveApiUrl() {
+async function saveApiUrl() {
   const url = document.getElementById('api-url-input').value.trim();
   if (!url || !url.startsWith('https://script.google.com')) {
     showToast('Вставте правильний URL Google Apps Script', 'error'); return;
@@ -673,8 +673,9 @@ function saveApiUrl() {
   API_URL = url;
   localStorage.setItem('dict_api_url', url);
   document.getElementById('setup-banner').style.display = 'none';
-  showToast('Підключено! Завантажую дані…', 'success');
-  loadAllData();
+  showToast('Підключаю…', 'success');
+  await loadAllData();
+  showToast('✓ Дані завантажено!', 'success');
 }
 
 if (API_URL) {
@@ -718,23 +719,35 @@ async function apiPost(action, data = {}) {
 // ════════════════════════════════════════════
 async function loadAllData() {
   if (!API_URL) { renderLocalWords(); return; }
-  const data = await apiFetch('getWords');
-  if (data && data.words) {
-    allWords = data.words;
-    updateStats();
-    renderRecent();
-    renderAllWords();
-  }
-  const vData = await apiFetch('getVerbs');
-  if (vData && vData.verbs) {
-    allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
-    renderVerbs(allVerbs);
-  }
-  const nData = await apiFetch('getNotes');
-  if (nData && nData.notes) {
-    document.getElementById('notes-editor').value = nData.notes;
-    document.getElementById('notes-status').textContent = 'Синхронізовано';
-  }
+
+  // Одразу рендеримо локальні — щоб не висіти на "Завантажую..."
+  renderLocalWords();
+
+  try {
+    const data = await apiFetch('getWords');
+    if (data && Array.isArray(data.words)) {
+      const sheetKeys = new Set(data.words.map(w => w.uk + '|' + w.en));
+      const localOnly = allWords.filter(w => !sheetKeys.has(w.uk + '|' + w.en));
+      allWords = [...data.words, ...localOnly];
+      updateStats(); renderRecent(); renderAllWords();
+    }
+  } catch(e) { console.warn('getWords failed', e); }
+
+  try {
+    const vData = await apiFetch('getVerbs');
+    if (vData && Array.isArray(vData.verbs) && vData.verbs.length > 0) {
+      allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
+      renderVerbs(allVerbs);
+    }
+  } catch(e) { console.warn('getVerbs failed', e); }
+
+  try {
+    const nData = await apiFetch('getNotes');
+    if (nData && nData.notes) {
+      document.getElementById('notes-editor').value = nData.notes;
+      document.getElementById('notes-status').textContent = 'Синхронізовано ☁️';
+    }
+  } catch(e) { console.warn('getNotes failed', e); }
 }
 
 function renderLocalWords() {
