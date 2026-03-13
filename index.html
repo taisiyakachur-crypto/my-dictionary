@@ -718,36 +718,34 @@ async function apiPost(action, data = {}) {
 // LOAD DATA
 // ════════════════════════════════════════════
 async function loadAllData() {
-  if (!API_URL) { renderLocalWords(); return; }
-
-  // Одразу рендеримо локальні — щоб не висіти на "Завантажую..."
+  // Завжди показуємо локальні дані одразу
   renderLocalWords();
+  if (!API_URL) return;
 
-  try {
-    const data = await apiFetch('getWords');
-    if (data && Array.isArray(data.words)) {
-      const sheetKeys = new Set(data.words.map(w => w.uk + '|' + w.en));
-      const localOnly = allWords.filter(w => !sheetKeys.has(w.uk + '|' + w.en));
-      allWords = [...data.words, ...localOnly];
-      updateStats(); renderRecent(); renderAllWords();
-    }
-  } catch(e) { console.warn('getWords failed', e); }
+  // Завантажуємо слова з Google Sheets
+  apiFetch('getWords').then(data => {
+    if (!data || !Array.isArray(data.words)) return;
+    // Обʼєднуємо Sheets + локальні (без дублів)
+    const sheetKeys = new Set(data.words.map(w => w.uk + '|' + w.en));
+    const localOnly = allWords.filter(w => !sheetKeys.has(w.uk + '|' + w.en));
+    allWords = [...data.words, ...localOnly];
+    saveLocal(); // синхронізуємо localStorage з Sheets
+    updateStats(); renderRecent(); renderAllWords();
+  }).catch(() => {});
 
-  try {
-    const vData = await apiFetch('getVerbs');
-    if (vData && Array.isArray(vData.verbs) && vData.verbs.length > 0) {
-      allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
-      renderVerbs(allVerbs);
-    }
-  } catch(e) { console.warn('getVerbs failed', e); }
+  // Завантажуємо додаткові дієслова з Sheets
+  apiFetch('getVerbs').then(vData => {
+    if (!vData || !Array.isArray(vData.verbs) || vData.verbs.length === 0) return;
+    allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
+    renderVerbs(allVerbs);
+  }).catch(() => {});
 
-  try {
-    const nData = await apiFetch('getNotes');
-    if (nData && nData.notes) {
-      document.getElementById('notes-editor').value = nData.notes;
-      document.getElementById('notes-status').textContent = 'Синхронізовано ☁️';
-    }
-  } catch(e) { console.warn('getNotes failed', e); }
+  // Завантажуємо нотатки
+  apiFetch('getNotes').then(nData => {
+    if (!nData || !nData.notes) return;
+    document.getElementById('notes-editor').value = nData.notes;
+    document.getElementById('notes-status').textContent = 'Синхронізовано ☁️';
+  }).catch(() => {});
 }
 
 function renderLocalWords() {
@@ -768,32 +766,22 @@ async function addWord() {
   if (!uk || !en) { showToast('Заповніть обидва поля!', 'error'); return; }
 
   const btn = document.getElementById('add-btn');
-  btn.disabled = true; btn.textContent = '⏳ Додаю…';
+  btn.disabled = true; btn.innerHTML = '⏳ Додаю…';
 
   const word = { uk, en, note, date: new Date().toISOString().slice(0,10) };
 
-  if (API_URL) {
-    const res = await apiPost('addWord', word);
-    if (res && res.success) {
-      allWords.unshift(word);
-      showToast('✓ Слово «' + uk + '» додано!', 'success');
-    } else {
-      // Fallback to local
-      allWords.unshift(word);
-      saveLocal();
-      showToast('✓ Збережено локально (перевірте API)', 'success');
-    }
-  } else {
-    allWords.unshift(word);
-    saveLocal();
-    showToast('✓ Слово «' + uk + '» збережено!', 'success');
-  }
-
+  // Одразу додаємо локально і показуємо — не чекаємо Sheets
+  allWords.unshift(word);
+  saveLocal();
   document.getElementById('word-uk').value = '';
   document.getElementById('word-en').value = '';
   document.getElementById('word-note').value = '';
   btn.disabled = false; btn.innerHTML = '＋ Додати слово';
   updateStats(); renderRecent(); renderAllWords();
+  showToast('✓ Слово «' + uk + '» додано!', 'success');
+
+  // Фонова синхронізація з Google Sheets
+  if (API_URL) { apiFetch('addWord', word).catch(() => {}); }
 }
 
 function saveLocal() {
