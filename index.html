@@ -683,32 +683,34 @@ if (API_URL) {
 }
 
 // ════════════════════════════════════════════
-// API
+// API — JSONP (обходить CORS для Apps Script)
 // ════════════════════════════════════════════
-async function apiFetch(action, data = {}) {
-  if (!API_URL) return null;
-  const url = API_URL + '?action=' + action + '&' + new URLSearchParams(data);
-  try {
-    const res = await fetch(url);
-    return await res.json();
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
+function apiFetch(action, data = {}) {
+  if (!API_URL) return Promise.resolve(null);
+  return new Promise((resolve) => {
+    const cbName = '_cb_' + Date.now();
+    const url = API_URL + '?action=' + action + '&callback=' + cbName + '&' + new URLSearchParams(data);
+    const script = document.createElement('script');
+    const timer = setTimeout(() => {
+      delete window[cbName]; script.remove();
+      // Fallback: спробувати звичайний fetch (на випадок якщо JSONP не підтримується)
+      fetch(API_URL + '?action=' + action + '&' + new URLSearchParams(data), {redirect:'follow'})
+        .then(r => r.json()).then(resolve).catch(() => resolve(null));
+    }, 8000);
+    window[cbName] = (result) => {
+      clearTimeout(timer); delete window[cbName]; script.remove(); resolve(result);
+    };
+    script.src = url;
+    script.onerror = () => { clearTimeout(timer); delete window[cbName]; resolve(null); };
+    document.head.appendChild(script);
+  });
 }
 
 async function apiPost(action, data = {}) {
   if (!API_URL) return null;
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action, ...data })
-    });
-    return await res.json();
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
+  // Apps Script не підтримує POST з браузера через CORS
+  // Тому POST відправляємо як GET з параметрами через JSONP
+  return apiFetch(action, data);
 }
 
 // ════════════════════════════════════════════
