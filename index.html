@@ -434,14 +434,12 @@
   <!-- Recent words -->
   <div class="card">
     <div class="card-title">🕐 Останні додані <span class="tag tag-new" id="recent-count-tag">…</span></div>
-    <div id="recent-loading" class="loading"><div class="spinner"></div> Завантаження…</div>
     <div class="words-grid" id="recent-words-grid"></div>
   </div>
 
   <!-- All words (lazy loaded) -->
   <div class="card">
     <div class="card-title">📚 Всі слова <span class="tag tag-count" id="all-count-tag">…</span></div>
-    <div id="all-words-loading" class="loading"><div class="spinner"></div> Завантаження…</div>
     <div class="words-grid" id="all-words-grid"></div>
     <div style="margin-top:16px" id="load-more-wrap" style="display:none">
       <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreWords()">Завантажити ще…</button>
@@ -461,8 +459,6 @@
     <input type="text" id="verb-search" placeholder="Пошук дієслова… (to be, був, been)" oninput="searchVerbs()">
     <button class="search-clear" id="verb-clear" style="display:none" onclick="clearVerbSearch()">✕</button>
   </div>
-
-  <div id="verbs-loading" class="loading"><div class="spinner"></div> Завантаження дієслів…</div>
 
   <div class="table-wrap" id="verbs-table-wrap" style="display:none">
     <table class="verbs-table">
@@ -717,30 +713,25 @@ async function apiPost(action, data = {}) {
 // ════════════════════════════════════════════
 // LOAD DATA
 // ════════════════════════════════════════════
-async function loadAllData() {
-  // Завжди показуємо локальні дані одразу
-  renderLocalWords();
+function loadAllData() {
   if (!API_URL) return;
-
-  // Завантажуємо слова з Google Sheets
+  // Слова — синхронізуємо Sheets → localStorage → UI
   apiFetch('getWords').then(data => {
     if (!data || !Array.isArray(data.words)) return;
-    // Обʼєднуємо Sheets + локальні (без дублів)
     const sheetKeys = new Set(data.words.map(w => w.uk + '|' + w.en));
     const localOnly = allWords.filter(w => !sheetKeys.has(w.uk + '|' + w.en));
     allWords = [...data.words, ...localOnly];
-    saveLocal(); // синхронізуємо localStorage з Sheets
+    saveLocal();
     updateStats(); renderRecent(); renderAllWords();
+    showToast('☁️ Синхронізовано з Google Sheets', 'success');
   }).catch(() => {});
-
-  // Завантажуємо додаткові дієслова з Sheets
+  // Дієслова
   apiFetch('getVerbs').then(vData => {
-    if (!vData || !Array.isArray(vData.verbs) || vData.verbs.length === 0) return;
+    if (!vData || !Array.isArray(vData.verbs) || !vData.verbs.length) return;
     allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
     renderVerbs(allVerbs);
   }).catch(() => {});
-
-  // Завантажуємо нотатки
+  // Нотатки
   apiFetch('getNotes').then(nData => {
     if (!nData || !nData.notes) return;
     document.getElementById('notes-editor').value = nData.notes;
@@ -808,8 +799,6 @@ function wordCardHTML(w, highlight = '') {
 
 function renderRecent() {
   const grid = document.getElementById('recent-words-grid');
-  const loading = document.getElementById('recent-loading');
-  loading.style.display = 'none';
   const recent = allWords.slice(0, 10);
   document.getElementById('recent-count-tag').textContent = recent.length;
   grid.innerHTML = recent.map(w => wordCardHTML(w)).join('');
@@ -817,8 +806,6 @@ function renderRecent() {
 
 function renderAllWords() {
   const grid = document.getElementById('all-words-grid');
-  const loading = document.getElementById('all-words-loading');
-  loading.style.display = 'none';
   displayedCount = Math.min(PAGE_SIZE, allWords.length);
   document.getElementById('all-count-tag').textContent = allWords.length;
   grid.innerHTML = allWords.slice(0, displayedCount).map(w => wordCardHTML(w)).join('');
@@ -904,7 +891,6 @@ function clearSearch() {
 // ════════════════════════════════════════════
 function renderVerbs(verbs) {
   const tbody = document.getElementById('verbs-tbody');
-  document.getElementById('verbs-loading').style.display = 'none';
   document.getElementById('verbs-table-wrap').style.display = 'block';
   tbody.innerHTML = verbs.map(v => `
     <tr>
@@ -1036,9 +1022,15 @@ function showToast(msg, type = '') {
 // INIT
 // ════════════════════════════════════════════
 window.onload = () => {
-  renderLocalWords();
-  if (API_URL) loadAllData();
+  // Одразу рендеримо все — без очікування
+  const stored = JSON.parse(localStorage.getItem('dict_words') || '[]');
+  allWords = stored;
+  updateStats();
+  renderRecent();
+  renderAllWords();
   renderVerbs(BUILT_IN_VERBS);
+  // Фонова синхронізація з Sheets
+  if (API_URL) loadAllData();
 };
 
 // ════════════════════════════════════════════
