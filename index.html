@@ -448,12 +448,20 @@
     </div>
     <div class="input-row">
       <div class="input-group">
-        <label>🔗 Google Translate → УКР (посилання)</label>
-        <input type="url" id="word-gt-uk" placeholder="Заповниться автоматично або вставте вручну" style="font-size:12px; color:var(--lavender)">
+        <label>🤖 Google Translate → УКР</label>
+        <div class="translate-wrap">
+          <input type="text" id="word-gt-uk" placeholder="Автоматично з'явиться переклад…" readonly
+            style="background:var(--sage-pale); color:var(--sage); cursor:default; padding-right:70px">
+          <button class="translate-btn" onclick="doTranslateTo('en','uk')" title="Оновити">↺ GT</button>
+        </div>
       </div>
       <div class="input-group">
-        <label>🔗 Google Translate → EN (посилання)</label>
-        <input type="url" id="word-gt-en" placeholder="Заповниться автоматично або вставте вручну" style="font-size:12px; color:var(--lavender)">
+        <label>🤖 Google Translate → EN</label>
+        <div class="translate-wrap">
+          <input type="text" id="word-gt-en" placeholder="Автоматично з'явиться переклад…" readonly
+            style="background:var(--sage-pale); color:var(--sage); cursor:default; padding-right:70px">
+          <button class="translate-btn" onclick="doTranslateTo('uk','en')" title="Оновити">↺ GT</button>
+        </div>
       </div>
     </div>
     <div class="input-group" style="margin-bottom:16px">
@@ -912,8 +920,13 @@ async function addWord() {
   saveLocal();
   document.getElementById('word-uk').value = '';
   document.getElementById('word-en').value = '';
-  document.getElementById('word-gt-uk').value = '';
-  document.getElementById('word-gt-en').value = '';
+  const gtUkEl = document.getElementById('word-gt-uk');
+  const gtEnEl = document.getElementById('word-gt-en');
+  gtUkEl.value = ''; delete gtUkEl.dataset.autoFilled;
+  gtEnEl.value = ''; delete gtEnEl.dataset.autoFilled;
+  const enEl = document.getElementById('word-en');
+  const ukEl2 = document.getElementById('word-uk');
+  delete enEl.dataset.autoFilled; delete ukEl2.dataset.autoFilled;
   document.getElementById('word-note').value = '';
   document.getElementById('indicator-uk').textContent = '';
   document.getElementById('indicator-en').textContent = '';
@@ -937,8 +950,8 @@ function wordCardHTML(w, highlight = '') {
     if (!highlight || !s) return esc(s);
     return esc(s).replace(new RegExp(highlight.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'), m => `<span class="highlight">${m}</span>`);
   };
-  const gtUK = w.gtUK || (w.en ? `https://translate.google.com/?sl=en&tl=uk&text=${encodeURIComponent(w.en)}&op=translate` : '');
-  const gtEN = w.gtEN || (w.uk ? `https://translate.google.com/?sl=uk&tl=en&text=${encodeURIComponent(w.uk)}&op=translate` : '');
+  const gtUK = w.gtUK || '';
+  const gtEN = w.gtEN || '';
   return `
     <div class="word-card">
       <div class="word-actions">
@@ -946,8 +959,8 @@ function wordCardHTML(w, highlight = '') {
       </div>
       <div class="word-uk">${hl(w.uk)}</div>
       <div class="word-en">${hl(w.en)}</div>
-      ${gtUK ? `<div class="word-gtranslate">🔗 <a href="${gtUK}" target="_blank">GT → УКР</a></div>` : ''}
-      ${gtEN ? `<div class="word-gtranslate">🔗 <a href="${gtEN}" target="_blank">GT → EN</a></div>` : ''}
+      ${gtUK ? `<div class="word-gtranslate"><span style="opacity:.5;font-size:10px">🤖 УКР</span> ${esc(gtUK)}</div>` : ''}
+      ${gtEN ? `<div class="word-gtranslate"><span style="opacity:.5;font-size:10px">🤖 EN</span> ${esc(gtEN)}</div>` : ''}
       ${w.note ? `<div class="word-note">${esc(w.note)}</div>` : ''}
       ${w.date ? `<div class="word-date">${w.date}</div>` : ''}
     </div>`;
@@ -1168,62 +1181,78 @@ function insertTemplate(type) {
 // ════════════════════════════════════════════
 let translateTimer = null;
 
+// Викликається при введенні в поле УКР або EN
 function scheduleTranslate(direction) {
   clearTimeout(translateTimer);
-  // Оновлюємо GT-посилання одразу
-  updateGTLinks();
-  // Автопереклад через 800мс після останнього символу
-  translateTimer = setTimeout(() => doTranslate(direction), 800);
+  translateTimer = setTimeout(() => {
+    // Перекладаємо основне поле (UK→EN або EN→UK)
+    doTranslate(direction);
+    // Паралельно оновлюємо обидва GT поля
+    doTranslateTo('uk', 'en');
+    doTranslateTo('en', 'uk');
+  }, 700);
 }
 
-function updateGTLinks() {
-  const uk = document.getElementById('word-uk').value.trim();
-  const en = document.getElementById('word-en').value.trim();
-  if (uk) {
-    document.getElementById('word-gt-en').value =
-      `https://translate.google.com/?sl=uk&tl=en&text=${encodeURIComponent(uk)}&op=translate`;
-  }
-  if (en) {
-    document.getElementById('word-gt-uk').value =
-      `https://translate.google.com/?sl=en&tl=uk&text=${encodeURIComponent(en)}&op=translate`;
-  }
-}
-
+// Переклад з поля word-uk → word-en або навпаки (основні поля)
 async function doTranslate(direction) {
-  const fromId = direction === 'uk' ? 'word-uk' : 'word-en';
-  const toId   = direction === 'uk' ? 'word-en' : 'word-uk';
-  const indId  = direction === 'uk' ? 'indicator-en' : 'indicator-uk';
-  const btnId  = direction === 'uk' ? 'translate-to-en-btn' : 'translate-to-uk-btn';
+  const fromId   = direction === 'uk' ? 'word-uk' : 'word-en';
+  const toId     = direction === 'uk' ? 'word-en' : 'word-uk';
+  const indId    = direction === 'uk' ? 'indicator-en' : 'indicator-uk';
+  const btnId    = direction === 'uk' ? 'translate-to-en-btn' : 'translate-to-uk-btn';
   const fromLang = direction === 'uk' ? 'uk' : 'en';
   const toLang   = direction === 'uk' ? 'en' : 'uk';
 
   const text = document.getElementById(fromId).value.trim();
   if (!text) return;
 
+  const toField = document.getElementById(toId);
+  // Не перезаписуємо якщо користувач вже щось ввів вручну
+  if (toField.value.trim() && !toField.dataset.autoFilled) return;
+
   const btn = document.getElementById(btnId);
   const ind = document.getElementById(indId);
   btn.classList.add('loading');
   ind.textContent = '⏳ Перекладаю…';
 
-  try {
-    // Використовуємо безкоштовний Google Translate API (неофіційний)
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLang}&tl=${toLang}&dt=t&q=${encodeURIComponent(text)}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    // Результат: [[["translation","original",null,null,1],...],...]
-    const translated = data[0].map(item => item[0]).join('');
-    if (translated) {
-      document.getElementById(toId).value = translated;
-      ind.textContent = '✓ Перекладено автоматично';
-      updateGTLinks();
-      // Очищаємо повідомлення через 3с
-      setTimeout(() => { ind.textContent = ''; }, 3000);
-    }
-  } catch(e) {
-    ind.textContent = '⚠ Не вдалося перекласти автоматично';
+  const result = await fetchTranslation(text, fromLang, toLang);
+  btn.classList.remove('loading');
+
+  if (result) {
+    toField.value = result;
+    toField.dataset.autoFilled = '1';
+    ind.textContent = '✓ Перекладено';
+    setTimeout(() => { ind.textContent = ''; }, 2500);
+  } else {
+    ind.textContent = '⚠ Не вдалося — введіть вручну';
     setTimeout(() => { ind.textContent = ''; }, 3000);
   }
-  btn.classList.remove('loading');
+}
+
+// Переклад у GT-поля (word-gt-uk і word-gt-en) — текст перекладу, не посилання
+async function doTranslateTo(fromDir, toDir) {
+  const fromId   = fromDir === 'uk' ? 'word-uk' : 'word-en';
+  const gtId     = toDir   === 'uk' ? 'word-gt-uk' : 'word-gt-en';
+  const fromLang = fromDir === 'uk' ? 'uk' : 'en';
+  const toLang   = toDir   === 'uk' ? 'uk' : 'en';
+
+  const text = document.getElementById(fromId).value.trim();
+  if (!text) return;
+
+  const result = await fetchTranslation(text, fromLang, toLang);
+  if (result) document.getElementById(gtId).value = result;
+}
+
+// Базова функція перекладу через Google Translate API
+async function fetchTranslation(text, from, to) {
+  if (from === to) return text;
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data[0].map(item => item[0]).join('').trim() || null;
+  } catch(e) {
+    return null;
+  }
 }
 
 // ════════════════════════════════════════════
