@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мій англійський словник</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --paper: #faf7f2;
+    --cream: #f0ebe0;
+    --sage: #5c7a5e;
+    --sage-light: #8aab8c;
+    --sage-pale: #e8f0e8;
+    --gold: #c5973a;
+    --gold-pale: #fdf3e0;
+    --terracotta: #c4614a;
+    --terra-pale: #fdeae6;
+    --lavender: #7b6fa0;
+    --lav-pale: #eeeaf7;
+    --muted: #7a7268;
+    --border: #ddd8ce;
+    --shadow: 0 2px 16px rgba(26,23,20,0.08);
+    --shadow-lg: 0 8px 40px rgba(26,23,20,0.14);
+    --radius: 12px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; gap: 0;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--ink);
+    margin-right: auto;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--sage); }
+  .nav-tabs { display: flex; gap: 2px; }
+  .nav-tab {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.18s ease;
+    border: none; background: none;
+    white-space: nowrap;
+  }
+  .nav-tab:hover { color: var(--ink); background: var(--cream); }
+  .nav-tab.active { color: var(--sage); background: var(--sage-pale); }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: calc(100vh - 60px); padding: 32px 24px; max-width: 980px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* ── PAGE HEADERS ── */
+  .page-header { margin-bottom: 32px; }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .page-header p { color: var(--muted); font-size: 14px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 600;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* ── SETUP BANNER ── */
+  .setup-banner {
+    background: linear-gradient(135deg, var(--gold-pale), #fff8ed);
+    border: 1px solid #e8c87a;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .setup-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .setup-banner h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #8a6420; }
+  .setup-banner p { font-size: 13px; color: #9a7535; margin-bottom: 8px; }
+  .setup-banner code {
+    display: block;
+    background: rgba(0,0,0,0.06); border-radius: 4px;
+    padding: 8px 12px; font-family: 'DM Mono', monospace;
+    font-size: 12px; color: #6a4e10;
+    word-break: break-all; margin-bottom: 8px;
+  }
+  .setup-banner input {
+    width: 100%; border: 1px solid #e8c87a; border-radius: var(--radius-sm);
+    padding: 8px 12px; font-size: 13px; font-family: 'DM Mono', monospace;
+    background: #fff; outline: none; color: var(--ink);
+  }
+  .setup-banner input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,151,58,0.12); }
+  .setup-save-btn {
+    margin-top: 8px;
+    padding: 8px 16px; border-radius: var(--radius-sm);
+    background: var(--gold); color: #fff; border: none;
+    font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.15s;
+  }
+  .setup-save-btn:hover { opacity: 0.88; }
+
+  /* ── FORM ── */
+  .input-row { display: flex; gap: 12px; margin-bottom: 12px; }
+  .input-group { flex: 1; }
+  .input-group label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .input-group input, .input-group textarea, .input-group select {
+    width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 14px; font-size: 14px; font-family: 'DM Sans', sans-serif;
+    background: var(--paper); outline: none; color: var(--ink); transition: border 0.15s;
+  }
+  .input-group textarea { resize: vertical; min-height: 80px; }
+  .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+    border-color: var(--sage); background: #fff;
+    box-shadow: 0 0 0 3px rgba(92,122,94,0.1);
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    padding: 10px 20px; border-radius: var(--radius-sm); border: none;
+    font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary { background: var(--sage); color: #fff; }
+  .btn-primary:hover { background: #4a6b4c; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(92,122,94,0.3); }
+  .btn-secondary { background: var(--cream); color: var(--ink); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+  .btn-danger { background: var(--terra-pale); color: var(--terracotta); border: 1px solid #f0b8ad; }
+  .btn-danger:hover { background: #fad5ce; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+  /* ── SEARCH BOX ── */
+  .search-wrap { position: relative; margin-bottom: 16px; }
+  .search-wrap input {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 40px;
+    padding: 12px 20px 12px 46px; font-size: 15px; background: #fff;
+    outline: none; transition: all 0.18s; font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+  }
+  .search-wrap input:focus { border-color: var(--sage); box-shadow: 0 0 0 4px rgba(92,122,94,0.1); }
+  .search-icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 17px; pointer-events: none;
+  }
+  .search-clear {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); background: none; border: none; cursor: pointer; font-size: 18px;
+    padding: 2px 4px; border-radius: 50%; transition: background 0.12s;
+  }
+  .search-clear:hover { background: var(--cream); color: var(--ink); }
+
+  /* ── WORD LIST ── */
+  .words-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .word-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; transition: all 0.15s; position: relative; overflow: hidden;
+  }
+  .word-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--sage-light); border-radius: 3px 0 0 3px;
+    transition: width 0.15s;
+  }
+  .word-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); border-color: var(--sage-light); }
+  .word-card:hover::before { width: 4px; }
+  .word-uk { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .word-en { font-size: 15px; color: var(--sage); font-weight: 500; margin-bottom: 6px; }
+  .word-note { font-size: 12px; color: var(--muted); font-style: italic; }
+  .word-date { font-size: 11px; color: var(--border); margin-top: 8px; font-family: 'DM Mono', monospace; }
+  .word-actions { position: absolute; top: 12px; right: 12px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s; }
+  .word-card:hover .word-actions { opacity: 1; }
+  .word-action-btn {
+    width: 28px; height: 28px; border: none; border-radius: 6px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; transition: background 0.12s;
+  }
+  .word-action-btn.del { background: var(--terra-pale); color: var(--terracotta); }
+  .word-action-btn.del:hover { background: #fad5ce; }
+
+  /* ── TAG ── */
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .tag-new { background: var(--sage-pale); color: var(--sage); }
+  .tag-count { background: var(--cream); color: var(--muted); }
+
+  /* ── SEARCH RESULTS ── */
+  .results-count { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .highlight { background: #fff3c0; border-radius: 2px; padding: 0 1px; }
+  .no-results { text-align: center; padding: 60px 20px; }
+  .no-results .emoji { font-size: 40px; margin-bottom: 12px; }
+  .no-results h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 8px; }
+  .no-results p { color: var(--muted); font-size: 14px; }
+
+  /* ── PAGE 2: VERBS TABLE ── */
+  .verbs-table { width: 100%; border-collapse: collapse; }
+  .verbs-table th {
+    text-align: left; padding: 12px 16px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--muted); background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 60px;
+  }
+  .verbs-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+  .verbs-table tr:last-child td { border-bottom: none; }
+  .verbs-table tr:hover td { background: var(--paper); }
+  .verb-v1 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; }
+  .verb-v2, .verb-v3 { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--sage); }
+  .verb-uk { color: var(--muted); font-size: 13px; }
+  .verb-cat {
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    font-size: 11px; font-weight: 500; background: var(--lav-pale); color: var(--lavender);
+  }
+  .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+
+  /* ── PAGE 3: LINKS ── */
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .link-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px; text-decoration: none; color: inherit;
+    transition: all 0.18s; display: block;
+  }
+  .link-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: var(--sage-light); }
+  .link-icon { font-size: 28px; margin-bottom: 12px; }
+  .link-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .link-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+  .link-url { font-size: 11px; color: var(--sage); font-family: 'DM Mono', monospace; }
+  .link-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600;
+    margin: 28px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    color: var(--ink);
+  }
+
+  /* ── PAGE 4: NOTES ── */
+  .notes-editor {
+    width: 100%; min-height: 400px; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; font-family: 'DM Sans', sans-serif;
+    font-size: 15px; line-height: 1.7; color: var(--ink); background: #fff;
+    outline: none; resize: vertical; transition: border 0.15s;
+  }
+  .notes-editor:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(92,122,94,0.1); }
+  .notes-toolbar {
+    display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center;
+  }
+  .notes-toolbar-btn {
+    padding: 6px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+    background: #fff; color: var(--ink); font-size: 13px; cursor: pointer;
+    transition: all 0.12s; font-family: 'DM Sans', sans-serif; font-weight: 500;
+  }
+  .notes-toolbar-btn:hover { background: var(--cream); border-color: var(--sage); color: var(--sage); }
+  .notes-status { font-size: 12px; color: var(--sage); margin-left: auto; font-style: italic; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    padding: 12px 20px; border-radius: var(--radius);
+    background: var(--ink); color: #fff;
+    font-size: 13px; font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(100px) scale(0.9); opacity: 0;
+    transition: all 0.25s cubic-bezier(.175,.885,.32,1.275);
+    max-width: 320px;
+  }
+  .toast.show { transform: translateY(0) scale(1); opacity: 1; }
+  .toast.success { background: var(--sage); }
+  .toast.error { background: var(--terracotta); }
+
+  /* ── LOADING ── */
+  .loading { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; padding: 20px 0; }
+  .spinner {
+    width: 18px; height: 18px; border: 2px solid var(--border);
+    border-top-color: var(--sage); border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── STATS ROW ── */
+  .stats-row { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat-box {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 20px; flex: 1; min-width: 100px; text-align: center;
+  }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+  /* ── FILTER ROW ── */
+  .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: #fff; color: var(--muted); font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.14s; font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover { border-color: var(--sage); color: var(--sage); }
+  .filter-btn.active { background: var(--sage); color: #fff; border-color: var(--sage); }
+
+  /* ── DIVIDER ── */
+  .section-divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .nav-logo { font-size: 15px; }
+    .nav-tab { padding: 7px 10px; font-size: 12px; }
+    .page { padding: 20px 14px; }
+    .input-row { flex-direction: column; }
+    .words-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Мій <span>Словник</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('dict')">📖 Словник</button>
+    <button class="nav-tab" onclick="showPage('verbs')">🔤 Дієслова</button>
+    <button class="nav-tab" onclick="showPage('links')">🔗 Посилання</button>
+    <button class="nav-tab" onclick="showPage('notes')">📝 Нотатки</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════ PAGE 1: DICTIONARY ════════════════════════════ -->
+<div id="page-dict" class="page active">
+  <div class="page-header">
+    <h1>Словник УКР ↔ ENG</h1>
+    <p>Додавайте слова та знаходьте їх миттєво</p>
+  </div>
+
+  <div class="setup-banner" id="setup-banner">
+    <div class="setup-icon">⚙️</div>
+    <div style="flex:1">
+      <h3>Підключення Google Таблиці</h3>
+      <p>Вставте URL вашого Google Apps Script (детальна інструкція нижче в README)</p>
+      <input type="url" id="api-url-input" placeholder="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" />
+      <button class="setup-save-btn" onclick="saveApiUrl()">Зберегти та підключити</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" id="stat-total">—</div>
+      <div class="stat-label">Всього слів</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="stat-today">—</div>
+      <div class="stat-label">Додано сьогодні</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="stat-week">—</div>
+      <div class="stat-label">Цього тижня</div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="card">
+    <div class="card-title">🔍 Пошук у словнику</div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Пошук по-українськи або by English…" oninput="onSearch()">
+      <button class="search-clear" id="search-clear" style="display:none" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter('all', this)">Всі</button>
+      <button class="filter-btn" onclick="setFilter('uk', this)">🇺🇦 УКР → ENG</button>
+      <button class="filter-btn" onclick="setFilter('en', this)">🇬🇧 ENG → УКР</button>
+    </div>
+    <div class="results-count" id="results-count" style="display:none"></div>
+    <div id="search-results-area" style="display:none">
+      <div class="words-grid" id="search-results-grid"></div>
+    </div>
+  </div>
+
+  <!-- Add word -->
+  <div class="card">
+    <div class="card-title">✏️ Додати нове слово</div>
+    <div class="input-row">
+      <div class="input-group">
+        <label>Українською</label>
+        <input type="text" id="word-uk" placeholder="напр. яблуко" autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label>English</label>
+        <input type="text" id="word-en" placeholder="e.g. apple" autocomplete="off">
+      </div>
+    </div>
+    <div class="input-group" style="margin-bottom:16px">
+      <label>Нотатка (необов'язково)</label>
+      <input type="text" id="word-note" placeholder="напр. «яблуко» — фрукт, множина: яблука">
+    </div>
+    <button class="btn btn-primary" id="add-btn" onclick="addWord()">
+      ＋ Додати слово
+    </button>
+    <span id="add-status" style="margin-left:12px; font-size:13px; color:var(--muted)"></span>
+  </div>
+
+  <!-- Recent words -->
+  <div class="card">
+    <div class="card-title">🕐 Останні додані <span class="tag tag-new" id="recent-count-tag">…</span></div>
+    <div id="recent-loading" class="loading"><div class="spinner"></div> Завантаження…</div>
+    <div class="words-grid" id="recent-words-grid"></div>
+  </div>
+
+  <!-- All words (lazy loaded) -->
+  <div class="card">
+    <div class="card-title">📚 Всі слова <span class="tag tag-count" id="all-count-tag">…</span></div>
+    <div id="all-words-loading" class="loading"><div class="spinner"></div> Завантаження…</div>
+    <div class="words-grid" id="all-words-grid"></div>
+    <div style="margin-top:16px" id="load-more-wrap" style="display:none">
+      <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreWords()">Завантажити ще…</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════ PAGE 2: VERBS ════════════════════════════ -->
+<div id="page-verbs" class="page">
+  <div class="page-header">
+    <h1>Неправильні дієслова</h1>
+    <p>V1 (інфінітив) · V2 (Past Simple) · V3 (Past Participle)</p>
+  </div>
+
+  <div class="search-wrap" style="margin-bottom:20px">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="verb-search" placeholder="Пошук дієслова… (to be, був, been)" oninput="searchVerbs()">
+    <button class="search-clear" id="verb-clear" style="display:none" onclick="clearVerbSearch()">✕</button>
+  </div>
+
+  <div id="verbs-loading" class="loading"><div class="spinner"></div> Завантаження дієслів…</div>
+
+  <div class="table-wrap" id="verbs-table-wrap" style="display:none">
+    <table class="verbs-table">
+      <thead>
+        <tr>
+          <th>V1 (Infinitive)</th>
+          <th>V2 (Past Simple)</th>
+          <th>V3 (Past Participle)</th>
+          <th>Українська</th>
+          <th>Категорія</th>
+        </tr>
+      </thead>
+      <tbody id="verbs-tbody"></tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:20px">
+    <div class="card">
+      <div class="card-title">✏️ Додати дієслово</div>
+      <div class="input-row">
+        <div class="input-group"><label>V1 (to …)</label><input type="text" id="v1" placeholder="go"></div>
+        <div class="input-group"><label>V2</label><input type="text" id="v2" placeholder="went"></div>
+        <div class="input-group"><label>V3</label><input type="text" id="v3" placeholder="gone"></div>
+      </div>
+      <div class="input-row">
+        <div class="input-group"><label>Переклад</label><input type="text" id="v-uk" placeholder="йти, іти"></div>
+        <div class="input-group"><label>Категорія</label><input type="text" id="v-cat" placeholder="рух, дія…"></div>
+      </div>
+      <button class="btn btn-primary" onclick="addVerb()">＋ Додати дієслово</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════ PAGE 3: LINKS ════════════════════════════ -->
+<div id="page-links" class="page">
+  <div class="page-header">
+    <h1>Корисні посилання</h1>
+    <p>Ресурси для вивчення англійської мови</p>
+  </div>
+
+  <div class="link-section-title">📖 Словники та переклад</div>
+  <div class="links-grid">
+    <a href="https://www.deepl.com" target="_blank" class="link-card">
+      <div class="link-icon">🌐</div>
+      <div class="link-name">DeepL</div>
+      <div class="link-desc">Найточніший AI-перекладач. Відмінно передає нюанси і контекст.</div>
+      <div class="link-url">deepl.com</div>
+    </a>
+    <a href="https://context.reverso.net" target="_blank" class="link-card">
+      <div class="link-icon">🔍</div>
+      <div class="link-name">Reverso Context</div>
+      <div class="link-desc">Переклад з реальними прикладами з книг, субтитрів, документів.</div>
+      <div class="link-url">context.reverso.net</div>
+    </a>
+    <a href="https://www.macmillandictionary.com" target="_blank" class="link-card">
+      <div class="link-icon">📕</div>
+      <div class="link-name">Macmillan Dictionary</div>
+      <div class="link-desc">Тлумачний словник з визначеннями, прикладами і вимовою.</div>
+      <div class="link-url">macmillandictionary.com</div>
+    </a>
+    <a href="https://www.linguee.com" target="_blank" class="link-card">
+      <div class="link-icon">🔤</div>
+      <div class="link-name">Linguee</div>
+      <div class="link-desc">Переклад з паралельними текстами — бачите слово у реченні.</div>
+      <div class="link-url">linguee.com</div>
+    </a>
+  </div>
+
+  <div class="link-section-title">🎧 Слухання та вимова</div>
+  <div class="links-grid">
+    <a href="https://youglish.com" target="_blank" class="link-card">
+      <div class="link-icon">🎬</div>
+      <div class="link-name">YouGlish</div>
+      <div class="link-desc">Знаходить відео на YouTube де вимовляється потрібне слово.</div>
+      <div class="link-url">youglish.com</div>
+    </a>
+    <a href="https://forvo.com" target="_blank" class="link-card">
+      <div class="link-icon">🎙️</div>
+      <div class="link-name">Forvo</div>
+      <div class="link-desc">Вимова від носіїв мови. Різні акценти: британський, американський.</div>
+      <div class="link-url">forvo.com</div>
+    </a>
+    <a href="https://www.bbc.co.uk/learningenglish" target="_blank" class="link-card">
+      <div class="link-icon">📻</div>
+      <div class="link-name">BBC Learning English</div>
+      <div class="link-desc">Безкоштовні уроки від BBC. Подкасти, відео, граматика.</div>
+      <div class="link-url">bbc.co.uk/learningenglish</div>
+    </a>
+    <a href="https://elllo.org" target="_blank" class="link-card">
+      <div class="link-icon">🌍</div>
+      <div class="link-name">ELLLO</div>
+      <div class="link-desc">Тисячі аудіо-уроків з носіями з різних країн.</div>
+      <div class="link-url">elllo.org</div>
+    </a>
+  </div>
+
+  <div class="link-section-title">✏️ Граматика та практика</div>
+  <div class="links-grid">
+    <a href="https://www.perfect-english-grammar.com" target="_blank" class="link-card">
+      <div class="link-icon">📐</div>
+      <div class="link-name">Perfect English Grammar</div>
+      <div class="link-desc">Чіткі пояснення граматики + завдання для практики.</div>
+      <div class="link-url">perfect-english-grammar.com</div>
+    </a>
+    <a href="https://www.englisch-hilfen.de/en/" target="_blank" class="link-card">
+      <div class="link-icon">🏋️</div>
+      <div class="link-name">Englisch Hilfen</div>
+      <div class="link-desc">Тисячі тестів та вправ по граматиці з автоматичною перевіркою.</div>
+      <div class="link-url">englisch-hilfen.de</div>
+    </a>
+    <a href="https://www.italki.com" target="_blank" class="link-card">
+      <div class="link-icon">💬</div>
+      <div class="link-name">iTalki</div>
+      <div class="link-desc">Розмовна практика з носіями. Платні уроки та мовні обміни.</div>
+      <div class="link-url">italki.com</div>
+    </a>
+    <a href="https://anki.tenderapp.com" target="_blank" class="link-card">
+      <div class="link-icon">🃏</div>
+      <div class="link-name">Anki</div>
+      <div class="link-desc">Картки з інтервальним повторенням — найефективніший спосіб запам'ятати слова.</div>
+      <div class="link-url">apps.ankiweb.net</div>
+    </a>
+  </div>
+
+  <!-- Add custom link -->
+  <div class="section-divider"></div>
+  <div class="card">
+    <div class="card-title">＋ Додати своє посилання</div>
+    <div class="input-row">
+      <div class="input-group"><label>Назва</label><input type="text" id="link-name" placeholder="Google Translate"></div>
+      <div class="input-group"><label>URL</label><input type="url" id="link-url" placeholder="https://translate.google.com"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-group"><label>Іконка (emoji)</label><input type="text" id="link-icon" placeholder="🌐" maxlength="4"></div>
+      <div class="input-group"><label>Опис</label><input type="text" id="link-desc" placeholder="Короткий опис…"></div>
+    </div>
+    <button class="btn btn-primary" onclick="addCustomLink()">＋ Додати</button>
+  </div>
+  <div class="link-section-title" id="custom-links-title" style="display:none">⭐ Мої посилання</div>
+  <div class="links-grid" id="custom-links-grid"></div>
+</div>
+
+<!-- ════════════════════════════ PAGE 4: NOTES ════════════════════════════ -->
+<div id="page-notes" class="page">
+  <div class="page-header">
+    <h1>Мої нотатки</h1>
+    <p>Особистий простір для записів, правил та спостережень</p>
+  </div>
+
+  <div class="card">
+    <div class="notes-toolbar">
+      <button class="notes-toolbar-btn" onclick="insertTemplate('rule')">📌 Правило</button>
+      <button class="notes-toolbar-btn" onclick="insertTemplate('phrase')">💬 Фраза</button>
+      <button class="notes-toolbar-btn" onclick="insertTemplate('mistake')">⚠️ Помилка</button>
+      <button class="notes-toolbar-btn" onclick="insertTemplate('topic')">📂 Тема</button>
+      <button class="btn btn-primary" style="margin-left:auto; padding:7px 16px; font-size:13px" onclick="saveNotes()">💾 Зберегти</button>
+      <span class="notes-status" id="notes-status">Зміни не збережені</span>
+    </div>
+    <textarea class="notes-editor" id="notes-editor" placeholder="Почніть писати свої нотатки…
+
+Ідеї що записувати:
+• Граматичні правила, які плутаєте
+• Корисні фрази та ідіоми
+• Типові помилки та як їх уникати
+• Нові теми які хочете вивчити"></textarea>
+  </div>
+
+  <!-- Saved notes from Sheets -->
+  <div class="card" id="notes-history-card" style="display:none">
+    <div class="card-title">☁️ Збережені нотатки</div>
+    <div id="notes-history"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════
+let API_URL = localStorage.getItem('dict_api_url') || '';
+let allWords = [];
+let allVerbs = BUILT_IN_VERBS;
+let currentFilter = 'all';
+let displayedCount = 0;
+const PAGE_SIZE = 30;
+
+// ════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'verbs' && allVerbs.length > 0) renderVerbs(allVerbs);
+}
+
+// ════════════════════════════════════════════
+// SETUP
+// ════════════════════════════════════════════
+function saveApiUrl() {
+  const url = document.getElementById('api-url-input').value.trim();
+  if (!url || !url.startsWith('https://script.google.com')) {
+    showToast('Вставте правильний URL Google Apps Script', 'error'); return;
+  }
+  API_URL = url;
+  localStorage.setItem('dict_api_url', url);
+  document.getElementById('setup-banner').style.display = 'none';
+  showToast('Підключено! Завантажую дані…', 'success');
+  loadAllData();
+}
+
+if (API_URL) {
+  document.getElementById('setup-banner').style.display = 'none';
+  document.getElementById('api-url-input').value = API_URL;
+}
+
+// ════════════════════════════════════════════
+// API
+// ════════════════════════════════════════════
+async function apiFetch(action, data = {}) {
+  if (!API_URL) return null;
+  const url = API_URL + '?action=' + action + '&' + new URLSearchParams(data);
+  try {
+    const res = await fetch(url);
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+async function apiPost(action, data = {}) {
+  if (!API_URL) return null;
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action, ...data })
+    });
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+// ════════════════════════════════════════════
+// LOAD DATA
+// ════════════════════════════════════════════
+async function loadAllData() {
+  if (!API_URL) { renderLocalWords(); return; }
+  const data = await apiFetch('getWords');
+  if (data && data.words) {
+    allWords = data.words;
+    updateStats();
+    renderRecent();
+    renderAllWords();
+  }
+  const vData = await apiFetch('getVerbs');
+  if (vData && vData.verbs) {
+    allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
+    renderVerbs(allVerbs);
+  }
+  const nData = await apiFetch('getNotes');
+  if (nData && nData.notes) {
+    document.getElementById('notes-editor').value = nData.notes;
+    document.getElementById('notes-status').textContent = 'Синхронізовано';
+  }
+}
+
+function renderLocalWords() {
+  const stored = JSON.parse(localStorage.getItem('dict_words') || '[]');
+  allWords = stored;
+  updateStats();
+  renderRecent();
+  renderAllWords();
+}
+
+// ════════════════════════════════════════════
+// WORDS: ADD
+// ════════════════════════════════════════════
+async function addWord() {
+  const uk = document.getElementById('word-uk').value.trim();
+  const en = document.getElementById('word-en').value.trim();
+  const note = document.getElementById('word-note').value.trim();
+  if (!uk || !en) { showToast('Заповніть обидва поля!', 'error'); return; }
+
+  const btn = document.getElementById('add-btn');
+  btn.disabled = true; btn.textContent = '⏳ Додаю…';
+
+  const word = { uk, en, note, date: new Date().toISOString().slice(0,10) };
+
+  if (API_URL) {
+    const res = await apiPost('addWord', word);
+    if (res && res.success) {
+      allWords.unshift(word);
+      showToast('✓ Слово «' + uk + '» додано!', 'success');
+    } else {
+      // Fallback to local
+      allWords.unshift(word);
+      saveLocal();
+      showToast('✓ Збережено локально (перевірте API)', 'success');
+    }
+  } else {
+    allWords.unshift(word);
+    saveLocal();
+    showToast('✓ Слово «' + uk + '» збережено!', 'success');
+  }
+
+  document.getElementById('word-uk').value = '';
+  document.getElementById('word-en').value = '';
+  document.getElementById('word-note').value = '';
+  btn.disabled = false; btn.innerHTML = '＋ Додати слово';
+  updateStats(); renderRecent(); renderAllWords();
+}
+
+function saveLocal() {
+  localStorage.setItem('dict_words', JSON.stringify(allWords));
+}
+
+// ════════════════════════════════════════════
+// WORDS: RENDER
+// ════════════════════════════════════════════
+function wordCardHTML(w, highlight = '') {
+  const ukHL = highlight ? w.uk.replace(new RegExp(highlight, 'gi'), m => `<span class="highlight">${m}</span>`) : w.uk;
+  const enHL = highlight ? w.en.replace(new RegExp(highlight, 'gi'), m => `<span class="highlight">${m}</span>`) : w.en;
+  return `
+    <div class="word-card">
+      <div class="word-actions">
+        <button class="word-action-btn del" onclick="deleteWord('${w.uk}', '${w.en}', this)" title="Видалити">✕</button>
+      </div>
+      <div class="word-uk">${ukHL}</div>
+      <div class="word-en">${enHL}</div>
+      ${w.note ? `<div class="word-note">${w.note}</div>` : ''}
+      ${w.date ? `<div class="word-date">${w.date}</div>` : ''}
+    </div>`;
+}
+
+function renderRecent() {
+  const grid = document.getElementById('recent-words-grid');
+  const loading = document.getElementById('recent-loading');
+  loading.style.display = 'none';
+  const recent = allWords.slice(0, 10);
+  document.getElementById('recent-count-tag').textContent = recent.length;
+  grid.innerHTML = recent.map(w => wordCardHTML(w)).join('');
+}
+
+function renderAllWords() {
+  const grid = document.getElementById('all-words-grid');
+  const loading = document.getElementById('all-words-loading');
+  loading.style.display = 'none';
+  displayedCount = Math.min(PAGE_SIZE, allWords.length);
+  document.getElementById('all-count-tag').textContent = allWords.length;
+  grid.innerHTML = allWords.slice(0, displayedCount).map(w => wordCardHTML(w)).join('');
+  const lmWrap = document.getElementById('load-more-wrap');
+  if (allWords.length > displayedCount) {
+    lmWrap.style.display = 'block';
+  } else {
+    lmWrap.style.display = 'none';
+  }
+}
+
+function loadMoreWords() {
+  const grid = document.getElementById('all-words-grid');
+  const next = allWords.slice(displayedCount, displayedCount + PAGE_SIZE);
+  grid.innerHTML += next.map(w => wordCardHTML(w)).join('');
+  displayedCount += next.length;
+  if (displayedCount >= allWords.length) document.getElementById('load-more-wrap').style.display = 'none';
+}
+
+async function deleteWord(uk, en, btn) {
+  if (!confirm(`Видалити «${uk} — ${en}»?`)) return;
+  allWords = allWords.filter(w => w.uk !== uk || w.en !== en);
+  saveLocal();
+  if (API_URL) await apiPost('deleteWord', { uk, en });
+  updateStats(); renderRecent(); renderAllWords();
+  showToast('Слово видалено', 'success');
+}
+
+function updateStats() {
+  const today = new Date().toISOString().slice(0,10);
+  const weekAgo = new Date(Date.now() - 7*24*60*60*1000).toISOString().slice(0,10);
+  document.getElementById('stat-total').textContent = allWords.length;
+  document.getElementById('stat-today').textContent = allWords.filter(w => w.date === today).length;
+  document.getElementById('stat-week').textContent = allWords.filter(w => w.date >= weekAgo).length;
+}
+
+// ════════════════════════════════════════════
+// SEARCH
+// ════════════════════════════════════════════
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  onSearch();
+}
+
+function onSearch() {
+  const q = document.getElementById('search-input').value.trim();
+  document.getElementById('search-clear').style.display = q ? 'block' : 'none';
+  const area = document.getElementById('search-results-area');
+  const countEl = document.getElementById('results-count');
+  if (!q) { area.style.display = 'none'; countEl.style.display = 'none'; return; }
+
+  const ql = q.toLowerCase();
+  let results = allWords.filter(w => {
+    if (currentFilter === 'uk') return w.uk.toLowerCase().includes(ql);
+    if (currentFilter === 'en') return w.en.toLowerCase().includes(ql);
+    return w.uk.toLowerCase().includes(ql) || w.en.toLowerCase().includes(ql) || (w.note && w.note.toLowerCase().includes(ql));
+  });
+
+  area.style.display = 'block';
+  countEl.style.display = 'block';
+  const grid = document.getElementById('search-results-grid');
+
+  if (results.length === 0) {
+    grid.innerHTML = `<div class="no-results" style="grid-column:1/-1"><div class="emoji">🔍</div><h3>Нічого не знайдено</h3><p>Спробуйте інший запит або додайте нове слово!</p></div>`;
+    countEl.textContent = 'Результатів не знайдено';
+  } else {
+    grid.innerHTML = results.map(w => wordCardHTML(w, q)).join('');
+    countEl.textContent = `Знайдено: ${results.length} слів`;
+  }
+}
+
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  document.getElementById('search-results-area').style.display = 'none';
+  document.getElementById('results-count').style.display = 'none';
+}
+
+// ════════════════════════════════════════════
+// VERBS
+// ════════════════════════════════════════════
+function renderVerbs(verbs) {
+  const tbody = document.getElementById('verbs-tbody');
+  document.getElementById('verbs-loading').style.display = 'none';
+  document.getElementById('verbs-table-wrap').style.display = 'block';
+  tbody.innerHTML = verbs.map(v => `
+    <tr>
+      <td><span class="verb-v1">${v[0]}</span></td>
+      <td><span class="verb-v2">${v[1]}</span></td>
+      <td><span class="verb-v3">${v[2]}</span></td>
+      <td><span class="verb-uk">${v[3]}</span></td>
+      <td><span class="verb-cat">${v[4] || ''}</span></td>
+    </tr>`).join('');
+}
+
+function searchVerbs() {
+  const q = document.getElementById('verb-search').value.toLowerCase().trim();
+  document.getElementById('verb-clear').style.display = q ? 'block' : 'none';
+  const filtered = q ? allVerbs.filter(v => v.some(col => col.toLowerCase().includes(q))) : allVerbs;
+  renderVerbs(filtered);
+}
+
+function clearVerbSearch() {
+  document.getElementById('verb-search').value = '';
+  document.getElementById('verb-clear').style.display = 'none';
+  renderVerbs(allVerbs);
+}
+
+async function addVerb() {
+  const v1 = document.getElementById('v1').value.trim();
+  const v2 = document.getElementById('v2').value.trim();
+  const v3 = document.getElementById('v3').value.trim();
+  const uk = document.getElementById('v-uk').value.trim();
+  const cat = document.getElementById('v-cat').value.trim();
+  if (!v1 || !v2 || !v3) { showToast('Заповніть V1, V2, V3!', 'error'); return; }
+  const verb = [v1, v2, v3, uk, cat];
+  allVerbs.push(verb);
+  if (API_URL) await apiPost('addVerb', { v1, v2, v3, uk, cat });
+  renderVerbs(allVerbs);
+  ['v1','v2','v3','v-uk','v-cat'].forEach(id => document.getElementById(id).value = '');
+  showToast('✓ Дієслово додано!', 'success');
+}
+
+// ════════════════════════════════════════════
+// LINKS
+// ════════════════════════════════════════════
+let customLinks = JSON.parse(localStorage.getItem('custom_links') || '[]');
+renderCustomLinks();
+
+function addCustomLink() {
+  const name = document.getElementById('link-name').value.trim();
+  const url = document.getElementById('link-url').value.trim();
+  const icon = document.getElementById('link-icon').value.trim() || '🔗';
+  const desc = document.getElementById('link-desc').value.trim();
+  if (!name || !url) { showToast('Введіть назву та URL!', 'error'); return; }
+  customLinks.push({ name, url, icon, desc });
+  localStorage.setItem('custom_links', JSON.stringify(customLinks));
+  renderCustomLinks();
+  ['link-name','link-url','link-icon','link-desc'].forEach(id => document.getElementById(id).value = '');
+  showToast('✓ Посилання додано!', 'success');
+}
+
+function renderCustomLinks() {
+  const grid = document.getElementById('custom-links-grid');
+  const title = document.getElementById('custom-links-title');
+  if (customLinks.length === 0) { grid.innerHTML = ''; title.style.display = 'none'; return; }
+  title.style.display = 'block';
+  grid.innerHTML = customLinks.map((l, i) => `
+    <a href="${l.url}" target="_blank" class="link-card" style="position:relative">
+      <div class="link-icon">${l.icon}</div>
+      <div class="link-name">${l.name}</div>
+      <div class="link-desc">${l.desc}</div>
+      <div class="link-url">${l.url}</div>
+      <button onclick="event.preventDefault();deleteCustomLink(${i})" style="position:absolute;top:10px;right:10px;background:var(--terra-pale);border:none;border-radius:4px;padding:2px 6px;cursor:pointer;color:var(--terracotta);font-size:12px">✕</button>
+    </a>`).join('');
+}
+
+function deleteCustomLink(i) {
+  customLinks.splice(i, 1);
+  localStorage.setItem('custom_links', JSON.stringify(customLinks));
+  renderCustomLinks();
+}
+
+// ════════════════════════════════════════════
+// NOTES
+// ════════════════════════════════════════════
+const notesEditor = document.getElementById('notes-editor');
+let notesDirty = false;
+const savedNotes = localStorage.getItem('my_notes');
+if (savedNotes) { notesEditor.value = savedNotes; document.getElementById('notes-status').textContent = 'Локально збережено'; }
+
+notesEditor.addEventListener('input', () => {
+  notesDirty = true;
+  document.getElementById('notes-status').textContent = '⬤ Не збережено';
+});
+
+async function saveNotes() {
+  const text = notesEditor.value;
+  localStorage.setItem('my_notes', text);
+  if (API_URL) await apiPost('saveNotes', { notes: text });
+  notesDirty = false;
+  document.getElementById('notes-status').textContent = '✓ Збережено';
+  showToast('Нотатки збережені!', 'success');
+}
+
+function insertTemplate(type) {
+  const templates = {
+    rule: '\n\n📌 ПРАВИЛО:\n──────────\n[назва правила]\n\nПрояснення: \nПриклади:\n  • \n  • ',
+    phrase: '\n\n💬 ФРАЗА:\n──────────\n[англійська фраза]\n→ [переклад]\nКонтекст: ',
+    mistake: '\n\n⚠️ ТИПОВА ПОМИЛКА:\n──────────\n❌ Неправильно: \n✓ Правильно: \nЧому: ',
+    topic: '\n\n📂 ТЕМА: [назва теми]\n══════════════════════\n\n'
+  };
+  const pos = notesEditor.selectionStart;
+  const txt = notesEditor.value;
+  notesEditor.value = txt.slice(0, pos) + templates[type] + txt.slice(pos);
+  notesDirty = true;
+  document.getElementById('notes-status').textContent = '⬤ Не збережено';
+}
+
+// ════════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════════
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+window.onload = () => {
+  renderLocalWords();
+  if (API_URL) loadAllData();
+  renderVerbs(BUILT_IN_VERBS);
+};
+
+// ════════════════════════════════════════════
+// BUILT-IN IRREGULAR VERBS (100 найважливіших)
+// ════════════════════════════════════════════
+const BUILT_IN_VERBS = [
+  ['be','was/were','been','бути','буття'],
+  ['have','had','had','мати','володіння'],
+  ['do','did','done','робити','дія'],
+  ['say','said','said','говорити','мовлення'],
+  ['get','got','got/gotten','отримувати','отримання'],
+  ['make','made','made','робити/створювати','створення'],
+  ['go','went','gone','іти','рух'],
+  ['know','knew','known','знати','знання'],
+  ['take','took','taken','брати','взяття'],
+  ['see','saw','seen','бачити','сприйняття'],
+  ['come','came','come','приходити','рух'],
+  ['think','thought','thought','думати','мислення'],
+  ['look','looked','looked','дивитися','сприйняття'],
+  ['want','wanted','wanted','хотіти','бажання'],
+  ['give','gave','given','давати','передача'],
+  ['use','used','used','використовувати','дія'],
+  ['find','found','found','знаходити','пошук'],
+  ['tell','told','told','розповідати','мовлення'],
+  ['ask','asked','asked','питати','мовлення'],
+  ['seem','seemed','seemed','здаватися','стан'],
+  ['feel','felt','felt','відчувати','відчуття'],
+  ['try','tried','tried','намагатися','дія'],
+  ['leave','left','left','залишати','рух'],
+  ['call','called','called','телефонувати/кликати','мовлення'],
+  ['keep','kept','kept','тримати/зберігати','дія'],
+  ['let','let','let','дозволяти','дозвіл'],
+  ['begin','began','begun','починати','дія'],
+  ['show','showed','shown','показувати','демонстрація'],
+  ['hear','heard','heard','чути','сприйняття'],
+  ['play','played','played','грати','дія'],
+  ['run','ran','run','бігти','рух'],
+  ['move','moved','moved','рухатися','рух'],
+  ['live','lived','lived','жити','стан'],
+  ['believe','believed','believed','вірити','стан'],
+  ['hold','held','held','тримати','дія'],
+  ['bring','brought','brought','приносити','рух'],
+  ['write','wrote','written','писати','дія'],
+  ['buy','bought','bought','купувати','дія'],
+  ['speak','spoke','spoken','говорити','мовлення'],
+  ['meet','met','met','зустрічати','взаємодія'],
+  ['sit','sat','sat','сидіти','стан'],
+  ['stand','stood','stood','стояти','стан'],
+  ['lose','lost','lost','втрачати','дія'],
+  ['pay','paid','paid','платити','дія'],
+  ['send','sent','sent','надсилати','передача'],
+  ['fall','fell','fallen','падати','рух'],
+  ['cut','cut','cut','різати','дія'],
+  ['read','read','read','читати','дія'],
+  ['sleep','slept','slept','спати','стан'],
+  ['hit','hit','hit','вдарити','дія'],
+  ['drive','drove','driven','вести (авто)','рух'],
+  ['eat','ate','eaten','їсти','дія'],
+  ['drink','drank','drunk','пити','дія'],
+  ['fly','flew','flown','летіти','рух'],
+  ['grow','grew','grown','рости','стан'],
+  ['throw','threw','thrown','кидати','дія'],
+  ['break','broke','broken','ламати','дія'],
+  ['choose','chose','chosen','вибирати','дія'],
+  ['draw','drew','drawn','малювати','дія'],
+  ['win','won','won','перемагати','дія'],
+  ['swim','swam','swum','плисти','рух'],
+  ['teach','taught','taught','вчити','навчання'],
+  ['catch','caught','caught','ловити','дія'],
+  ['sell','sold','sold','продавати','дія'],
+  ['spend','spent','spent','витрачати','дія'],
+  ['build','built','built','будувати','дія'],
+  ['grow','grew','grown','рости/вирощувати','стан'],
+  ['hurt','hurt','hurt','боліти/ранити','дія'],
+  ['put','put','put','класти','дія'],
+  ['set','set','set','ставити/встановлювати','дія'],
+  ['shoot','shot','shot','стріляти','дія'],
+  ['forget','forgot','forgotten','забувати','стан'],
+  ['forgive','forgave','forgiven','прощати','дія'],
+  ['hide','hid','hidden','ховати','дія'],
+  ['ride','rode','ridden','їхати верхи','рух'],
+  ['rise','rose','risen','підніматися','рух'],
+  ['shake','shook','shaken','трясти','дія'],
+  ['sing','sang','sung','співати','мистецтво'],
+  ['sink','sank','sunk','тонути','рух'],
+  ['steal','stole','stolen','красти','дія'],
+  ['strike','struck','struck','страйкувати/вдарити','дія'],
+  ['swear','swore','sworn','клястися','мовлення'],
+  ['tear','tore','torn','рвати','дія'],
+  ['wear','wore','worn','носити','стан'],
+  ['wake','woke','woken','прокидатися','стан'],
+  ['understand','understood','understood','розуміти','мислення'],
+  ['bite','bit','bitten','кусати','дія'],
+  ['beat','beat','beaten','бити/перемагати','дія'],
+  ['blow','blew','blown','дути','дія'],
+  ['dig','dug','dug','копати','дія'],
+  ['forbid','forbade','forbidden','забороняти','дозвіл'],
+  ['freeze','froze','frozen','замерзати','стан'],
+  ['hang','hung','hung','вішати','дія'],
+  ['lend','lent','lent','позичати (давати)','дія'],
+  ['light','lit','lit','запалювати','дія'],
+  ['mean','meant','meant','означати','мовлення'],
+  ['ring','rang','rung','дзвонити','дія'],
+  ['smell','smelt','smelt','нюхати/пахнути','відчуття'],
+  ['stick','stuck','stuck','клеїти/прилипати','дія'],
+  ['sweep','swept','swept','підмітати','дія'],
+  ['swing','swung','swung','гойдатися','рух'],
+];
+</script>
+</body>
+</html>
