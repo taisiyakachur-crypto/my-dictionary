@@ -542,7 +542,6 @@
           <th>V2 (Past Simple)</th>
           <th>V3 (Past Participle)</th>
           <th>Українська</th>
-          <th>Категорія</th>
         </tr>
       </thead>
       <tbody id="verbs-tbody"></tbody>
@@ -559,7 +558,6 @@
       </div>
       <div class="input-row">
         <div class="input-group"><label>Переклад</label><input type="text" id="v-uk" placeholder="йти, іти"></div>
-        <div class="input-group"><label>Категорія</label><input type="text" id="v-cat" placeholder="рух, дія…"></div>
       </div>
       <button class="btn btn-primary" onclick="addVerb()">＋ Додати дієслово</button>
     </div>
@@ -1150,7 +1148,6 @@ function renderVerbs(verbs) {
       <td><span class="verb-v2">${v[1]}</span></td>
       <td><span class="verb-v3">${v[2]}</span></td>
       <td><span class="verb-uk">${v[3]}</span></td>
-      <td><span class="verb-cat">${v[4] || ''}</span></td>
     </tr>`).join('');
 }
 
@@ -1172,13 +1169,12 @@ async function addVerb() {
   const v2 = document.getElementById('v2').value.trim();
   const v3 = document.getElementById('v3').value.trim();
   const uk = document.getElementById('v-uk').value.trim();
-  const cat = document.getElementById('v-cat').value.trim();
   if (!v1 || !v2 || !v3) { showToast('Заповніть V1, V2, V3!', 'error'); return; }
   const verb = [v1, v2, v3, uk, cat];
   allVerbs.push(verb);
   if (API_URL) await apiPost('addVerb', { v1, v2, v3, uk, cat });
   renderVerbs(allVerbs);
-  ['v1','v2','v3','v-uk','v-cat'].forEach(id => document.getElementById(id).value = '');
+  ['v1','v2','v3','v-uk'].forEach(id => document.getElementById(id).value = '');
   showToast('✓ Дієслово додано!', 'success');
 }
 
