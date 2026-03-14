@@ -434,10 +434,11 @@
   <div class="nav-logo">My <span>Dictionary</span></div>
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="showPage('dict')">📖 Dictionary</button>
+    <button class="nav-tab" onclick="showPage('allwords')">📋 All Words</button>
+    <button class="nav-tab" onclick="showPage('practice')">🎯 Practice</button>
     <button class="nav-tab" onclick="showPage('verbs')">🔤 Irregular Verbs</button>
     <button class="nav-tab" onclick="showPage('links')">🔗 Links</button>
     <button class="nav-tab" onclick="showPage('notes')">📝 Notes</button>
-    <button class="nav-tab" onclick="showPage('allwords')">📋 All Words</button>
   </div>
 </nav>
 
@@ -836,6 +837,40 @@
   </div>
 </div>
 
+<!-- ════════════════════════════ PAGE 6: PRACTICE ════════════════════════════ -->
+<div id="page-practice" class="page">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+    <div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px">Practice</h1>
+      <p style="color:var(--muted);font-size:14px">20 random words to study · <span id="practice-pool-size"></span></p>
+    </div>
+    <button class="btn btn-primary" style="margin-left:auto" onclick="refreshPractice()">
+      🔀 New random set
+    </button>
+  </div>
+
+  <div id="practice-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
+    <div style="font-size:40px;margin-bottom:12px">📖</div>
+    <div style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px">No words yet</div>
+    <div style="font-size:14px">Add words in the Dictionary tab first</div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden" id="practice-card">
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed">
+      <thead>
+        <tr>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:20%">🇺🇦 Ukrainian</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:20%">🇬🇧 English</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:16%">🤖 GT → UKR</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:16%">🤖 GT → EN</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border)">Note</th>
+        </tr>
+      </thead>
+      <tbody id="practice-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -970,6 +1005,7 @@ function showPage(id) {
   event.currentTarget.classList.add('active');
   if (id === 'verbs') renderVerbs(allVerbs);
   if (id === 'allwords') filterAllWords();
+  if (id === 'practice') renderPractice();
 }
 
 // ════════════════════════════════════════════
@@ -1971,6 +2007,57 @@ async function saveEditWord() {
     apiFetch('addWord', { uk: newUk, en: newEn, gtUK, gtEN, note,
       date: allWords[idx].date || new Date().toISOString().slice(0,10) }).catch(()=>{});
   }
+}
+
+// ════════════════════════════════════════════
+// PRACTICE — random 20 words
+// ════════════════════════════════════════════
+const PRACTICE_COUNT = 20;
+
+function getRandomWords(pool, n) {
+  if (!pool.length) return [];
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(n, shuffled.length));
+}
+
+function renderPractice() {
+  const tbody   = document.getElementById('practice-tbody');
+  const card    = document.getElementById('practice-card');
+  const empty   = document.getElementById('practice-empty');
+  const poolEl  = document.getElementById('practice-pool-size');
+
+  if (!allWords.length) {
+    card.style.display = 'none';
+    empty.style.display = 'block';
+    poolEl.textContent = '';
+    return;
+  }
+
+  card.style.display = 'block';
+  empty.style.display = 'none';
+  poolEl.textContent = `from ${allWords.length} total`;
+
+  const words = getRandomWords(allWords, PRACTICE_COUNT);
+  const TD = 'padding:10px 14px;vertical-align:top;border-bottom:1px solid var(--border);font-size:14px;word-break:break-word';
+
+  tbody.innerHTML = words.map((w, i) => `
+    <tr style="transition:background .12s"
+      onmouseover="this.style.background='var(--paper)'"
+      onmouseout="this.style.background=''">
+      <td style="${TD};font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
+      <td style="${TD};font-weight:500;color:var(--sage)">${esc(w.en)}</td>
+      <td style="${TD};color:var(--lavender)">${esc(w.gtUK || '')}</td>
+      <td style="${TD};color:var(--lavender)">${esc(w.gtEN || '')}</td>
+      <td style="${TD};color:var(--muted);font-style:italic">${esc(w.note || '')}</td>
+    </tr>`).join('');
+}
+
+function refreshPractice() {
+  renderPractice();
+  // Brief visual feedback on the button
+  const btn = event.currentTarget;
+  btn.textContent = '✓ Updated!';
+  setTimeout(() => { btn.innerHTML = '🔀 New random set'; }, 1200);
 }
 
 window.onload = () => {
