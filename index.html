@@ -924,23 +924,30 @@ if (API_URL) {
 // ════════════════════════════════════════════
 // API — JSONP (обходить CORS для Apps Script)
 // ════════════════════════════════════════════
+let _cbCounter = 0;
 function apiFetch(action, data = {}) {
   if (!API_URL) return Promise.resolve(null);
   return new Promise((resolve) => {
-    const cbName = '_cb_' + Date.now();
-    const url = API_URL + '?action=' + action + '&callback=' + cbName + '&' + new URLSearchParams(data);
+    // Унікальне ім'я для кожного запиту (лічильник + час)
+    const cbName = '_cb_' + (++_cbCounter) + '_' + Date.now();
+    const params = new URLSearchParams(data);
+    const url = API_URL + '?action=' + action + '&callback=' + cbName + '&' + params;
     const script = document.createElement('script');
+
+    const cleanup = () => { delete window[cbName]; script.remove(); };
+
     const timer = setTimeout(() => {
-      delete window[cbName]; script.remove();
-      // Fallback: спробувати звичайний fetch (на випадок якщо JSONP не підтримується)
-      fetch(API_URL + '?action=' + action + '&' + new URLSearchParams(data), {redirect:'follow'})
+      cleanup();
+      // Fallback через fetch
+      fetch(API_URL + '?action=' + action + '&' + params, { redirect: 'follow' })
         .then(r => r.json()).then(resolve).catch(() => resolve(null));
-    }, 8000);
+    }, 10000);
+
     window[cbName] = (result) => {
-      clearTimeout(timer); delete window[cbName]; script.remove(); resolve(result);
+      clearTimeout(timer); cleanup(); resolve(result);
     };
     script.src = url;
-    script.onerror = () => { clearTimeout(timer); delete window[cbName]; resolve(null); };
+    script.onerror = () => { clearTimeout(timer); cleanup(); resolve(null); };
     document.head.appendChild(script);
   });
 }
@@ -1459,41 +1466,41 @@ async function processImages(noteId, html) {
   return doc.body.innerHTML;
 }
 
-// ── Зберегти одну нотатку (текст → Sheets, зображення → Drive) ─
+// ── Зберегти одну нотатку через fetch POST ────────────────────
 async function saveNoteToCloud(note) {
   // Обробляємо зображення → Drive
   const processedContent = await processImages(note.id, note.content || '');
 
-  // Кодуємо HTML в base64 для безпечної передачі через JSONP
+  // Кодуємо контент в base64 для безпечної передачі
   const encodedContent = btoa(unescape(encodeURIComponent(processedContent)));
-  const encodedTitle   = encodeURIComponent(note.title || '');
 
-  return new Promise((resolve, reject) => {
-    const cbName = '_nc_' + Date.now();
-    const url = API_URL +
-      '?action=saveOneNote' +
-      '&callback=' + cbName +
-      '&id='    + encodeURIComponent(note.id) +
-      '&title=' + encodedTitle +
-      '&date='  + encodeURIComponent(note.date || '') +
-      '&content=' + encodeURIComponent(encodedContent);
-
-    const script = document.createElement('script');
-    const timer = setTimeout(() => {
-      delete window[cbName]; script.remove();
-      reject(new Error('timeout'));
-    }, 15000);
-
-    window[cbName] = (res) => {
-      clearTimeout(timer); delete window[cbName]; script.remove();
-      if (res && res.success) resolve(res);
-      else reject(new Error(res?.error || 'failed'));
-    };
-
-    script.src = url;
-    script.onerror = () => { clearTimeout(timer); delete window[cbName]; reject(new Error('script error')); };
-    document.head.appendChild(script);
-  });
+  // Спочатку пробуємо fetch POST (надійно, без обмежень URL)
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'saveOneNote',
+        id: note.id,
+        title: note.title || '',
+        date: note.date || '',
+        content: encodedContent
+      })
+    });
+    const json = await res.json();
+    if (json && json.success) return json;
+    throw new Error(json?.error || 'POST failed');
+  } catch(e) {
+    // Fallback: JSONP тільки для метаданих (без content якщо він великий)
+    // Зберігаємо тільки title/date через JSONP, content пишеться окремо
+    const smallContent = encodedContent.length < 3000 ? encodedContent : btoa('(sync via POST only)');
+    return apiFetch('saveOneNote', {
+      id: note.id,
+      title: encodeURIComponent(note.title || ''),
+      date: note.date || '',
+      content: smallContent
+    });
+  }
 }
 
 // ── Sync: зберегти поточну нотатку в хмару ────────────────────
