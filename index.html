@@ -1396,74 +1396,122 @@ function deleteNote(id) {
   if (API_URL) syncNotesToSheets();
 }
 
-// ─── Notes ↔ Sheets sync (зображення стискаються і зберігаються в Sheets) ───
+// ─── Notes sync ──────────────────────────────────────────────
+// Стратегія:
+//   • Текст → зберігається в Google Sheets (через JSONP)
+//   • Зображення → зберігаються в Google Drive (через fetch POST з CORS)
+//   • При завантаженні: текст з Sheets, зображення з Drive за URL
 
-// ── Стиснути зображення через Canvas (max 800px, якість 0.7) ──
-async function compressImage(dataUrl, maxSize = 800, quality = 0.72) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      let w = img.width, h = img.height;
-      if (w > maxSize || h > maxSize) {
-        if (w > h) { h = Math.round(h * maxSize / w); w = maxSize; }
-        else       { w = Math.round(w * maxSize / h); h = maxSize; }
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      resolve(canvas.toDataURL('image/jpeg', quality));
-    };
-    img.onerror = () => resolve(dataUrl); // fallback — оригінал
-    img.src = dataUrl;
+// ── Завантажити одне зображення на Drive через fetch POST ─────
+async function uploadToDrive(base64data, mimeType, fileName) {
+  // Кешуємо: якщо вже є Drive URL для цих даних — повертаємо його
+  const hash = base64data.slice(-32); // останні символи як fingerprint
+  const cacheKey = 'drv_' + fileName;
+  const cached = localStorage.getItem(cacheKey);
+  if (cached && cached.startsWith('https://')) return cached;
+
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action: 'uploadImage',
+      fileName,
+      mimeType,
+      data: base64data
+    })
   });
+  const json = await res.json();
+  if (json && json.url) {
+    localStorage.setItem(cacheKey, json.url);
+    return json.url;
+  }
+  throw new Error(json.error || 'Upload failed');
 }
 
-// ── Стиснути всі base64 зображення в HTML ─────────────────────
-async function compressImagesInHtml(html) {
+// ── Витягти base64 з HTML, завантажити на Drive, повернути HTML з Drive URL ─
+async function processImages(noteId, html) {
   if (!html || !html.includes('data:image')) return html;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const imgs = doc.querySelectorAll('img[src^="data:"]');
-  await Promise.all(Array.from(imgs).map(async img => {
-    const compressed = await compressImage(img.getAttribute('src'));
-    img.setAttribute('src', compressed);
-  }));
+  const imgs = Array.from(doc.querySelectorAll('img[src^="data:"]'));
+  for (let i = 0; i < imgs.length; i++) {
+    const img = imgs[i];
+    const src = img.getAttribute('src');
+    const mime = src.match(/data:(image\/[^;]+)/)?.[1] || 'image/png';
+    const b64  = src.split(',')[1] || '';
+    const ext  = mime.split('/')[1] || 'png';
+    const fileName = noteId + '_' + i + '.' + ext;
+    try {
+      const driveUrl = await uploadToDrive(b64, mime, fileName);
+      img.setAttribute('src', driveUrl);
+    } catch(e) {
+      console.warn('Image upload failed for', fileName, e);
+      // Залишаємо base64 — зображення буде видно локально
+    }
+  }
   return doc.body.innerHTML;
 }
 
-// ── Sync ALL notes → Sheets ────────────────────────────────────
+// ── Зберегти одну нотатку (текст → Sheets, зображення → Drive) ─
+async function saveNoteToCloud(note) {
+  // Обробляємо зображення → Drive
+  const processedContent = await processImages(note.id, note.content || '');
+
+  // Кодуємо HTML в base64 для безпечної передачі через JSONP
+  const encodedContent = btoa(unescape(encodeURIComponent(processedContent)));
+  const encodedTitle   = encodeURIComponent(note.title || '');
+
+  return new Promise((resolve, reject) => {
+    const cbName = '_nc_' + Date.now();
+    const url = API_URL +
+      '?action=saveOneNote' +
+      '&callback=' + cbName +
+      '&id='    + encodeURIComponent(note.id) +
+      '&title=' + encodedTitle +
+      '&date='  + encodeURIComponent(note.date || '') +
+      '&content=' + encodeURIComponent(encodedContent);
+
+    const script = document.createElement('script');
+    const timer = setTimeout(() => {
+      delete window[cbName]; script.remove();
+      reject(new Error('timeout'));
+    }, 15000);
+
+    window[cbName] = (res) => {
+      clearTimeout(timer); delete window[cbName]; script.remove();
+      if (res && res.success) resolve(res);
+      else reject(new Error(res?.error || 'failed'));
+    };
+
+    script.src = url;
+    script.onerror = () => { clearTimeout(timer); delete window[cbName]; reject(new Error('script error')); };
+    document.head.appendChild(script);
+  });
+}
+
+// ── Sync: зберегти поточну нотатку в хмару ────────────────────
 async function syncNotesToSheets() {
   if (!API_URL) return;
   const statusEl = document.getElementById('note-save-status');
   if (statusEl) statusEl.textContent = '☁️ Зберігаю…';
 
-  // Стискаємо зображення перед збереженням
-  const processed = await Promise.all(allNotes.map(async n => {
-    const content = await compressImagesInHtml(n.content || '');
-    return { ...n, content };
-  }));
+  // Зберігаємо тільки нотатку що редагується зараз (швидко)
+  // + у фоні — всі інші
+  const currentNote = allNotes.find(n => n.id === currentNoteId);
+  const others = allNotes.filter(n => n.id !== currentNoteId);
 
-  // Зберігаємо кожну нотатку окремо (обходить ліміт URL для JSONP)
-  let savedCount = 0;
-  for (const p of processed) {
-    // Кодуємо HTML в base64 щоб уникнути проблем зі спецсимволами в URL
-    const encodedContent = btoa(unescape(encodeURIComponent(p.content)));
+  // Спочатку — поточну (з очікуванням)
+  if (currentNote) {
     try {
-      await apiFetch('saveOneNote', {
-        id: p.id,
-        title: encodeURIComponent(p.title),
-        date: p.date,
-        content: encodedContent
-      });
-      savedCount++;
-      // Оновлюємо локальну копію
-      const local = allNotes.find(n => n.id === p.id);
-      if (local) local.content = p.content;
-    } catch(e) { /* продовжуємо з наступною */ }
+      await saveNoteToCloud(currentNote);
+      if (statusEl) statusEl.textContent = '✓ Збережено ☁️';
+    } catch(e) {
+      if (statusEl) statusEl.textContent = '⚠ Лише локально';
+    }
   }
 
-  saveNotesLocal();
-  if (statusEl) statusEl.textContent = savedCount > 0 ? `✓ Збережено ☁️ (${savedCount})` : '⚠ Помилка';
+  // Інші — у фоні без блокування
+  others.forEach(n => saveNoteToCloud(n).catch(() => {}));
 }
 
 // ── Sync Sheets → local (on page load) ───────────────────────
