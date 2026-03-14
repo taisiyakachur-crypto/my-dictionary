@@ -811,24 +811,24 @@
     </div>
   </div>
 
-  <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-    <table id="allwords-table" style="width:100%;border-collapse:collapse">
+  <div class="card" style="padding:0;overflow:hidden">
+    <table id="allwords-table" style="width:100%;border-collapse:collapse;table-layout:fixed">
       <thead>
         <tr>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">#</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🇺🇦 Ukrainian</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🇬🇧 English</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🤖 GT → UKR</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🤖 GT → EN</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">Note</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap"></th>
+          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:36px">#</th>
+          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:18%">🇺🇦 Ukrainian</th>
+          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:18%">🇬🇧 English</th>
+          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → UKR</th>
+          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → EN</th>
+          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">Note</th>
+          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:72px"></th>
         </tr>
       </thead>
       <tbody id="allwords-tbody">
         <tr><td colspan="5" style="padding:40px;text-align:center;color:var(--muted)">Loading…</td></tr>
       </tbody>
     </table>
-  </div></div>
+  </div>
   <div id="allwords-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
     <div style="font-size:36px;margin-bottom:12px">🔍</div>
     <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:6px">Nothing found</div>
@@ -1864,7 +1864,7 @@ function renderAllWordsTable(words) {
   }
   empty.style.display = 'none';
 
-  const TD = 'padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border)';
+  const TD = 'padding:9px 12px;vertical-align:top;border-bottom:1px solid var(--border);word-break:break-word';
   // Зберігаємо поточний список для edit за індексом
   window._editWords = words;
   tbody.innerHTML = words.map((w, i) => `
@@ -1874,7 +1874,7 @@ function renderAllWordsTable(words) {
       <td style="${TD};font-size:15px;font-weight:500;color:var(--sage)">${esc(w.en)}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtUK || '')}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtEN || '')}</td>
-      <td style="${TD};font-size:13px;color:var(--muted);font-style:italic;max-width:220px">${esc(w.note || '')}</td>
+      <td style="${TD};font-size:13px;color:var(--muted);font-style:italic">${esc(w.note || '')}</td>
       <td style="${TD};white-space:nowrap">
         <button onclick="openEditWordByIndex(${i})"
           style="background:var(--sage-pale);border:none;border-radius:5px;padding:4px 10px;
