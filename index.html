@@ -982,12 +982,8 @@ function loadAllData() {
     allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
     renderVerbs(allVerbs);
   }).catch(() => {});
-  // Нотатки
-  apiFetch('getNotes').then(nData => {
-    if (!nData || !nData.notes) return;
-    document.getElementById('notes-editor').value = nData.notes;
-    document.getElementById('notes-status').textContent = 'Синхронізовано ☁️';
-  }).catch(() => {});
+  // Нотатки — завантажуємо з Sheets і мержимо з локальними
+  syncNotesFromSheets();
 }
 
 function renderLocalWords() {
@@ -1348,7 +1344,8 @@ function saveCurrentNote() {
   noteDirty = false;
   document.getElementById('note-save-status').textContent = '✓ Збережено';
   showToast('✓ Нотатку збережено!', 'success');
-  if (API_URL) apiFetch('saveAllNotes', { notes: JSON.stringify(allNotes) }).catch(() => {});
+  // Синхронізуємо з Google Sheets у фоні
+  if (API_URL) syncNotesToSheets();
 }
 
 function deleteNote(id) {
@@ -1357,6 +1354,83 @@ function deleteNote(id) {
   saveNotesLocal();
   renderNotesList();
   showToast('Нотатку видалено', 'success');
+  if (API_URL) syncNotesToSheets();
+}
+
+// ─── Notes ↔ Sheets sync ──────────────────────────────────────
+
+// Зберегти всі нотатки в Sheets (без зображень — base64 занадто великі)
+function notesForSheets(notes) {
+  return notes.map(n => ({
+    id: n.id,
+    title: n.title,
+    // Зберігаємо HTML але без base64 img (замінюємо на placeholder)
+    content: (n.content || '').replace(/src="data:image[^"]*"/g, 'src="__IMG__"'),
+    date: n.date,
+    // Окремо зберігаємо зображення у localStorage під ключем note_imgs_{id}
+  }));
+}
+
+function syncNotesToSheets() {
+  if (!API_URL) return;
+  // Зберігаємо зображення окремо в localStorage (вони залишаться локально)
+  allNotes.forEach(n => {
+    const imgs = [];
+    const tmp = document.createElement('div');
+    tmp.innerHTML = n.content || '';
+    tmp.querySelectorAll('img[src^="data:"]').forEach(img => imgs.push(img.src));
+    if (imgs.length) localStorage.setItem('note_imgs_' + n.id, JSON.stringify(imgs));
+  });
+
+  const payload = JSON.stringify(notesForSheets(allNotes));
+  apiFetch('saveAllNotes', { notes: payload }).then(res => {
+    if (res && res.success) {
+      document.getElementById('note-save-status').textContent = '✓ Збережено + ☁️';
+    }
+  }).catch(() => {});
+}
+
+function syncNotesFromSheets() {
+  if (!API_URL) return;
+  apiFetch('getAllNotes').then(res => {
+    if (!res || !Array.isArray(res.notes) || !res.notes.length) return;
+
+    // Мержимо: Sheets має пріоритет, але відновлюємо base64 зображення з localStorage
+    const sheetsMap = new Map(res.notes.map(n => [n.id, n]));
+    const localMap  = new Map(allNotes.map(n => [n.id, n]));
+
+    const merged = [];
+    // Всі нотатки з Sheets
+    res.notes.forEach(n => {
+      const restored = restoreImages(n);
+      merged.push(restored);
+    });
+    // Локальні нотатки яких немає в Sheets (ще не синхронізовані)
+    allNotes.forEach(n => {
+      if (!sheetsMap.has(n.id)) merged.push(n);
+    });
+
+    if (merged.length > allNotes.length ||
+        JSON.stringify(merged.map(n=>n.id).sort()) !== JSON.stringify(allNotes.map(n=>n.id).sort())) {
+      allNotes = merged;
+      saveNotesLocal();
+      renderNotesList();
+      showToast('☁️ Нотатки синхронізовані', 'success');
+    }
+  }).catch(() => {});
+}
+
+function restoreImages(note) {
+  const savedImgs = JSON.parse(localStorage.getItem('note_imgs_' + note.id) || '[]');
+  if (!savedImgs.length || !note.content.includes('__IMG__')) return note;
+  let content = note.content;
+  let i = 0;
+  content = content.replace(/src="__IMG__"/g, () => {
+    const src = savedImgs[i] || '__IMG__';
+    i++;
+    return `src="${src}"`;
+  });
+  return { ...note, content };
 }
 
 // ─── Formatting ───────────────────────────────────────────────
