@@ -285,23 +285,70 @@
   }
 
   /* ── PAGE 4: NOTES ── */
-  .notes-editor {
-    width: 100%; min-height: 400px; border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 20px; font-family: 'DM Sans', sans-serif;
-    font-size: 15px; line-height: 1.7; color: var(--ink); background: #fff;
-    outline: none; resize: vertical; transition: border 0.15s;
+
+  /* List view */
+  .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 14px; }
+  .note-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px; cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden;
   }
-  .notes-editor:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(92,122,94,0.1); }
+  .note-card::before {
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background: var(--lavender); border-radius:3px 0 0 3px;
+  }
+  .note-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); border-color: var(--lavender); }
+  .note-card-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; margin-bottom:6px; color:var(--ink); }
+  .note-card-preview { font-size:12px; color:var(--muted); line-height:1.5; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .note-card-meta { font-size:11px; color:var(--border); margin-top:10px; font-family:'DM Mono',monospace; display:flex; gap:10px; }
+  .note-card-del { position:absolute; top:10px; right:10px; background:var(--terra-pale); border:none; border-radius:5px; color:var(--terracotta); font-size:12px; padding:3px 7px; cursor:pointer; opacity:0; transition:opacity 0.15s; }
+  .note-card:hover .note-card-del { opacity:1; }
+  .note-tag { display:inline-block; padding:1px 6px; border-radius:10px; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; background:var(--lav-pale); color:var(--lavender); margin-right:4px; }
+
+  /* Editor / viewer */
+  .note-editor-wrap { display:none; }
+  .note-editor-wrap.active { display:block; }
+  .note-list-wrap.hidden { display:none; }
+
   .notes-toolbar {
-    display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center;
+    display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; align-items:center;
+    background:var(--cream); border-radius:var(--radius); padding:10px 12px;
   }
   .notes-toolbar-btn {
-    padding: 6px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);
-    background: #fff; color: var(--ink); font-size: 13px; cursor: pointer;
-    transition: all 0.12s; font-family: 'DM Sans', sans-serif; font-weight: 500;
+    padding:5px 11px; border-radius:var(--radius-sm); border:1px solid var(--border);
+    background:#fff; color:var(--ink); font-size:12px; cursor:pointer;
+    transition:all 0.12s; font-family:'DM Sans',sans-serif; font-weight:500;
   }
-  .notes-toolbar-btn:hover { background: var(--cream); border-color: var(--sage); color: var(--sage); }
-  .notes-status { font-size: 12px; color: var(--sage); margin-left: auto; font-style: italic; }
+  .notes-toolbar-btn:hover { background:var(--lav-pale); border-color:var(--lavender); color:var(--lavender); }
+  .notes-toolbar-sep { width:1px; background:var(--border); height:20px; margin:0 2px; }
+  .notes-status { font-size:11px; color:var(--muted); font-style:italic; }
+
+  /* Rich editor (contenteditable) */
+  .rich-editor {
+    min-height:420px; border:1px solid var(--border); border-radius:var(--radius);
+    padding:24px; font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8;
+    color:var(--ink); background:#fff; outline:none; transition:border 0.15s;
+    overflow-y:auto;
+  }
+  .rich-editor:focus { border-color:var(--lavender); box-shadow:0 0 0 3px rgba(123,111,160,0.1); }
+  .rich-editor h2 { font-family:'Playfair Display',serif; font-size:22px; margin:16px 0 8px; }
+  .rich-editor h3 { font-family:'Playfair Display',serif; font-size:17px; margin:12px 0 6px; }
+  .rich-editor table { border-collapse:collapse; width:100%; margin:12px 0; }
+  .rich-editor th, .rich-editor td { border:1px solid var(--border); padding:8px 12px; text-align:left; font-size:14px; }
+  .rich-editor th { background:var(--cream); font-weight:600; }
+  .rich-editor img { max-width:100%; border-radius:var(--radius-sm); margin:8px 0; }
+  .rich-editor ul, .rich-editor ol { padding-left:24px; margin:8px 0; }
+  .rich-editor blockquote { border-left:3px solid var(--lavender); padding-left:16px; color:var(--muted); margin:8px 0; }
+
+  /* Viewer */
+  .note-viewer { min-height:300px; }
+  .note-viewer h2 { font-family:'Playfair Display',serif; font-size:22px; margin:16px 0 8px; }
+  .note-viewer table { border-collapse:collapse; width:100%; margin:12px 0; }
+  .note-viewer th, .note-viewer td { border:1px solid var(--border); padding:8px 12px; font-size:14px; }
+  .note-viewer th { background:var(--cream); font-weight:600; }
+  .note-viewer img { max-width:100%; border-radius:var(--radius-sm); margin:8px 0; }
+  .note-viewer ul, .note-viewer ol { padding-left:24px; margin:8px 0; }
+
+  .notes-status { font-size:12px; color:var(--sage); font-style:italic; }
 
   /* ── TOAST ── */
   .toast {
@@ -646,34 +693,85 @@
 
 <!-- ════════════════════════════ PAGE 4: NOTES ════════════════════════════ -->
 <div id="page-notes" class="page">
-  <div class="page-header">
-    <h1>Мої нотатки</h1>
-    <p>Особистий простір для записів, правил та спостережень</p>
-  </div>
 
-  <div class="card">
-    <div class="notes-toolbar">
-      <button class="notes-toolbar-btn" onclick="insertTemplate('rule')">📌 Правило</button>
-      <button class="notes-toolbar-btn" onclick="insertTemplate('phrase')">💬 Фраза</button>
-      <button class="notes-toolbar-btn" onclick="insertTemplate('mistake')">⚠️ Помилка</button>
-      <button class="notes-toolbar-btn" onclick="insertTemplate('topic')">📂 Тема</button>
-      <button class="btn btn-primary" style="margin-left:auto; padding:7px 16px; font-size:13px" onclick="saveNotes()">💾 Зберегти</button>
-      <span class="notes-status" id="notes-status">Зміни не збережені</span>
+  <!-- LIST VIEW -->
+  <div id="notes-list-view" class="note-list-wrap">
+    <div class="page-header" style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+      <div>
+        <h1 style="margin-bottom:4px">Мої нотатки</h1>
+        <p style="color:var(--muted);font-size:14px">Натисніть на нотатку щоб відкрити · <span id="notes-count-label">0 нотаток</span></p>
+      </div>
+      <button class="btn btn-primary" style="margin-left:auto;white-space:nowrap" onclick="openNewNote()">＋ Нова нотатка</button>
     </div>
-    <textarea class="notes-editor" id="notes-editor" placeholder="Почніть писати свої нотатки…
-
-Ідеї що записувати:
-• Граматичні правила, які плутаєте
-• Корисні фрази та ідіоми
-• Типові помилки та як їх уникати
-• Нові теми які хочете вивчити"></textarea>
+    <div class="notes-grid" id="notes-grid">
+      <div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
+        <div style="font-size:40px;margin-bottom:12px">📝</div>
+        <div style="font-size:16px;font-family:'Playfair Display',serif;margin-bottom:6px">Ще немає нотаток</div>
+        <div style="font-size:13px">Натисніть «＋ Нова нотатка» щоб почати</div>
+      </div>
+    </div>
   </div>
 
-  <!-- Saved notes from Sheets -->
-  <div class="card" id="notes-history-card" style="display:none">
-    <div class="card-title">☁️ Збережені нотатки</div>
-    <div id="notes-history"></div>
+  <!-- EDITOR VIEW -->
+  <div id="notes-editor-view" class="note-editor-wrap">
+    <!-- Back + title row -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="btn btn-secondary" onclick="closeEditor()" style="flex-shrink:0">← Назад</button>
+      <input type="text" id="note-title-input" placeholder="Назва нотатки…"
+        style="flex:1;min-width:180px;border:none;border-bottom:2px solid var(--border);border-radius:0;
+        background:transparent;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+        color:var(--ink);outline:none;padding:4px 0;"
+        oninput="markNoteDirty()">
+      <span id="note-save-status" class="notes-status">—</span>
+      <button class="btn btn-primary" onclick="saveCurrentNote()" style="flex-shrink:0">💾 Зберегти</button>
+    </div>
+
+    <!-- Formatting toolbar -->
+    <div class="notes-toolbar">
+      <button class="notes-toolbar-btn" onclick="fmt('bold')" title="Жирний"><b>B</b></button>
+      <button class="notes-toolbar-btn" onclick="fmt('italic')" title="Курсив"><i>I</i></button>
+      <button class="notes-toolbar-btn" onclick="fmt('underline')" title="Підкреслення"><u>U</u></button>
+      <div class="notes-toolbar-sep"></div>
+      <button class="notes-toolbar-btn" onclick="fmtBlock('h2')" title="Заголовок">H2</button>
+      <button class="notes-toolbar-btn" onclick="fmtBlock('h3')" title="Підзаголовок">H3</button>
+      <button class="notes-toolbar-btn" onclick="fmt('insertUnorderedList')" title="Список">• список</button>
+      <button class="notes-toolbar-btn" onclick="fmt('insertOrderedList')" title="Нумерований список">1. список</button>
+      <div class="notes-toolbar-sep"></div>
+      <button class="notes-toolbar-btn" onclick="insertTable()" title="Таблиця">⊞ Таблиця</button>
+      <button class="notes-toolbar-btn" onclick="insertImageFromUrl()" title="Зображення за URL">🌐 Фото URL</button>
+      <button class="notes-toolbar-btn" onclick="document.getElementById('img-upload').click()" title="Завантажити зображення">📎 Фото файл</button>
+      <input type="file" id="img-upload" accept="image/*" style="display:none" onchange="insertImageFromFile(event)">
+      <div class="notes-toolbar-sep"></div>
+      <button class="notes-toolbar-btn" onclick="insertTemplate2('rule')">📌 Правило</button>
+      <button class="notes-toolbar-btn" onclick="insertTemplate2('phrase')">💬 Фраза</button>
+      <button class="notes-toolbar-btn" onclick="insertTemplate2('mistake')">⚠️ Помилка</button>
+    </div>
+
+    <!-- Paste hint -->
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">
+      💡 Скріншоти: просто вставте з буфера обміну <kbd style="background:var(--cream);padding:1px 5px;border-radius:3px;font-size:11px">Ctrl+V</kbd> прямо в редактор
+    </div>
+
+    <!-- Rich editor -->
+    <div class="rich-editor" id="rich-editor" contenteditable="true"
+      data-placeholder="Почніть писати…"
+      onpaste="handlePaste(event)"
+      oninput="markNoteDirty()"></div>
   </div>
+
+  <!-- VIEWER VIEW -->
+  <div id="notes-viewer-view" style="display:none">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="btn btn-secondary" onclick="closeViewer()">← Назад</button>
+      <h2 id="viewer-title" style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin:0;flex:1"></h2>
+      <button class="btn btn-secondary" onclick="editCurrentNote()">✏️ Редагувати</button>
+    </div>
+    <div class="card">
+      <div class="note-viewer" id="note-viewer-content"></div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:12px;font-family:'DM Mono',monospace" id="viewer-meta"></div>
+  </div>
+
 </div>
 
 <!-- TOAST -->
@@ -1140,39 +1238,213 @@ function deleteCustomLink(i) {
 }
 
 // ════════════════════════════════════════════
-// NOTES
+// NOTES — Rich editor system
 // ════════════════════════════════════════════
-const notesEditor = document.getElementById('notes-editor');
-let notesDirty = false;
-const savedNotes = localStorage.getItem('my_notes');
-if (savedNotes) { notesEditor.value = savedNotes; document.getElementById('notes-status').textContent = 'Локально збережено'; }
+let allNotes = JSON.parse(localStorage.getItem('all_notes') || '[]');
+let currentNoteId = null;
+let noteDirty = false;
 
-notesEditor.addEventListener('input', () => {
-  notesDirty = true;
-  document.getElementById('notes-status').textContent = '⬤ Не збережено';
-});
-
-async function saveNotes() {
-  const text = notesEditor.value;
-  localStorage.setItem('my_notes', text);
-  if (API_URL) await apiPost('saveNotes', { notes: text });
-  notesDirty = false;
-  document.getElementById('notes-status').textContent = '✓ Збережено';
-  showToast('Нотатки збережені!', 'success');
+function saveNotesLocal() {
+  localStorage.setItem('all_notes', JSON.stringify(allNotes));
 }
 
-function insertTemplate(type) {
-  const templates = {
-    rule: '\n\n📌 ПРАВИЛО:\n──────────\n[назва правила]\n\nПрояснення: \nПриклади:\n  • \n  • ',
-    phrase: '\n\n💬 ФРАЗА:\n──────────\n[англійська фраза]\n→ [переклад]\nКонтекст: ',
-    mistake: '\n\n⚠️ ТИПОВА ПОМИЛКА:\n──────────\n❌ Неправильно: \n✓ Правильно: \nЧому: ',
-    topic: '\n\n📂 ТЕМА: [назва теми]\n══════════════════════\n\n'
+function renderNotesList() {
+  const grid = document.getElementById('notes-grid');
+  const countLabel = document.getElementById('notes-count-label');
+  countLabel.textContent = allNotes.length + ' ' + (allNotes.length === 1 ? 'нотатка' : allNotes.length < 5 ? 'нотатки' : 'нотаток');
+  if (!allNotes.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
+      <div style="font-size:40px;margin-bottom:12px">📝</div>
+      <div style="font-size:16px;font-family:'Playfair Display',serif;margin-bottom:6px">Ще немає нотаток</div>
+      <div style="font-size:13px">Натисніть «＋ Нова нотатка» щоб почати</div></div>`;
+    return;
+  }
+  grid.innerHTML = allNotes.slice().reverse().map(n => {
+    const preview = n.content.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,120);
+    const hasImg = n.content.includes('<img');
+    const hasTable = n.content.includes('<table');
+    return `<div class="note-card" onclick="viewNote('${n.id}')">
+      <button class="note-card-del" onclick="event.stopPropagation();deleteNote('${n.id}')">✕</button>
+      <div class="note-card-title">${n.title || 'Без назви'}</div>
+      <div class="note-card-preview">${preview || '(порожня нотатка)'}</div>
+      <div class="note-card-meta">
+        <span>${n.date || ''}</span>
+        ${hasImg ? '<span>🖼 фото</span>' : ''}
+        ${hasTable ? '<span>⊞ таблиця</span>' : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openNewNote() {
+  currentNoteId = 'note_' + Date.now();
+  noteDirty = false;
+  document.getElementById('note-title-input').value = '';
+  document.getElementById('rich-editor').innerHTML = '';
+  document.getElementById('note-save-status').textContent = 'Нова нотатка';
+  showEditorView();
+  document.getElementById('note-title-input').focus();
+}
+
+function viewNote(id) {
+  const note = allNotes.find(n => n.id === id);
+  if (!note) return;
+  currentNoteId = id;
+  document.getElementById('viewer-title').textContent = note.title || 'Без назви';
+  document.getElementById('note-viewer-content').innerHTML = note.content || '';
+  document.getElementById('viewer-meta').textContent = 'Збережено: ' + (note.date || '');
+  document.getElementById('notes-list-view').classList.add('hidden');
+  document.getElementById('notes-editor-view').classList.remove('active');
+  document.getElementById('notes-viewer-view').style.display = 'block';
+}
+
+function editCurrentNote() {
+  const note = allNotes.find(n => n.id === currentNoteId);
+  if (!note) return;
+  document.getElementById('note-title-input').value = note.title || '';
+  document.getElementById('rich-editor').innerHTML = note.content || '';
+  document.getElementById('note-save-status').textContent = 'Редагування';
+  noteDirty = false;
+  document.getElementById('notes-viewer-view').style.display = 'none';
+  document.getElementById('notes-editor-view').classList.add('active');
+}
+
+function closeViewer() {
+  document.getElementById('notes-viewer-view').style.display = 'none';
+  document.getElementById('notes-list-view').classList.remove('hidden');
+  currentNoteId = null;
+}
+
+function showEditorView() {
+  document.getElementById('notes-list-view').classList.add('hidden');
+  document.getElementById('notes-viewer-view').style.display = 'none';
+  document.getElementById('notes-editor-view').classList.add('active');
+}
+
+function closeEditor() {
+  if (noteDirty && !confirm('Є незбережені зміни. Закрити?')) return;
+  document.getElementById('notes-editor-view').classList.remove('active');
+  document.getElementById('notes-list-view').classList.remove('hidden');
+  currentNoteId = null; noteDirty = false;
+}
+
+function markNoteDirty() {
+  noteDirty = true;
+  document.getElementById('note-save-status').textContent = '⬤ Не збережено';
+}
+
+function saveCurrentNote() {
+  const title = document.getElementById('note-title-input').value.trim() || 'Без назви';
+  const content = document.getElementById('rich-editor').innerHTML;
+  const date = new Date().toLocaleDateString('uk-UA');
+  const existing = allNotes.find(n => n.id === currentNoteId);
+  if (existing) {
+    existing.title = title; existing.content = content; existing.date = date;
+  } else {
+    allNotes.push({ id: currentNoteId, title, content, date });
+  }
+  saveNotesLocal();
+  renderNotesList();
+  noteDirty = false;
+  document.getElementById('note-save-status').textContent = '✓ Збережено';
+  showToast('✓ Нотатку збережено!', 'success');
+  if (API_URL) apiFetch('saveAllNotes', { notes: JSON.stringify(allNotes) }).catch(() => {});
+}
+
+function deleteNote(id) {
+  if (!confirm('Видалити нотатку?')) return;
+  allNotes = allNotes.filter(n => n.id !== id);
+  saveNotesLocal();
+  renderNotesList();
+  showToast('Нотатку видалено', 'success');
+}
+
+// ─── Formatting ───────────────────────────────────────────────
+function fmt(cmd, val) { document.execCommand(cmd, false, val || null); }
+function fmtBlock(tag) { document.execCommand('formatBlock', false, tag); }
+
+function insertTable() {
+  const rows = parseInt(prompt('Кількість рядків:', '3') || '3');
+  const cols = parseInt(prompt('Кількість колонок:', '3') || '3');
+  if (!rows || !cols) return;
+  let html = '<table><thead><tr>';
+  for (let c = 0; c < cols; c++) html += `<th>Колонка ${c+1}</th>`;
+  html += '</tr></thead><tbody>';
+  for (let r = 0; r < rows; r++) {
+    html += '<tr>';
+    for (let c = 0; c < cols; c++) html += '<td>&nbsp;</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table><p><br></p>';
+  document.execCommand('insertHTML', false, html);
+  markNoteDirty();
+}
+
+function insertImageFromUrl() {
+  const url = prompt('Вставте URL зображення:');
+  if (!url) return;
+  document.execCommand('insertHTML', false, `<img src="${url}" alt="зображення"><p><br></p>`);
+  markNoteDirty();
+}
+
+function insertImageFromFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    document.execCommand('insertHTML', false, `<img src="${e.target.result}" alt="${file.name}"><p><br></p>`);
+    markNoteDirty();
   };
-  const pos = notesEditor.selectionStart;
-  const txt = notesEditor.value;
-  notesEditor.value = txt.slice(0, pos) + templates[type] + txt.slice(pos);
-  notesDirty = true;
-  document.getElementById('notes-status').textContent = '⬤ Не збережено';
+  reader.readAsDataURL(file);
+  event.target.value = '';
+}
+
+function handlePaste(event) {
+  // Вставка скріншотів / зображень з буфера
+  const items = event.clipboardData?.items;
+  if (!items) return;
+  for (const item of items) {
+    if (item.type.startsWith('image/')) {
+      event.preventDefault();
+      const file = item.getAsFile();
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.execCommand('insertHTML', false, `<img src="${e.target.result}" alt="скріншот"><p><br></p>`);
+        markNoteDirty();
+      };
+      reader.readAsDataURL(file);
+      return;
+    }
+  }
+}
+
+function insertTemplate2(type) {
+  const editor = document.getElementById('rich-editor');
+  editor.focus();
+  const templates = {
+    rule: '<h3>📌 Правило</h3><p><strong>Суть:</strong> </p><p><strong>Приклади:</strong></p><ul><li></li><li></li></ul>',
+    phrase: '<h3>💬 Фраза</h3><p><em>англійська фраза</em> → переклад</p><p><strong>Контекст:</strong> </p>',
+    mistake: '<h3>⚠️ Типова помилка</h3><p>❌ <strong>Неправильно:</strong> </p><p>✓ <strong>Правильно:</strong> </p><p><strong>Чому:</strong> </p>',
+  };
+  document.execCommand('insertHTML', false, templates[type] || '');
+  markNoteDirty();
+}
+
+// ─── Placeholder for empty editor ─────────────────────────────
+document.getElementById('rich-editor').addEventListener('focus', function() {
+  if (!this.innerHTML || this.innerHTML === '<br>') this.innerHTML = '';
+});
+
+// ─── Init notes ───────────────────────────────────────────────
+renderNotesList();
+
+// Legacy: migrate old single-note format
+const oldNote = localStorage.getItem('my_notes');
+if (oldNote && oldNote.trim() && !allNotes.length) {
+  const migrated = { id: 'note_legacy', title: 'Стара нотатка', content: '<pre>' + oldNote + '</pre>', date: new Date().toLocaleDateString('uk-UA') };
+  allNotes.push(migrated);
+  saveNotesLocal();
+  renderNotesList();
 }
 
 
