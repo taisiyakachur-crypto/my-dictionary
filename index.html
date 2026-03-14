@@ -378,14 +378,6 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ── STATS ROW ── */
-  .stats-row { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-  .stat-box {
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px 20px; flex: 1; min-width: 100px; text-align: center;
-  }
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; line-height: 1; }
-  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
-
   /* ── FILTER ROW ── */
   .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
   .filter-btn {
@@ -435,22 +427,6 @@
       <p>Вставте URL вашого Google Apps Script (детальна інструкція нижче в README)</p>
       <input type="url" id="api-url-input" placeholder="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" />
       <button class="setup-save-btn" onclick="saveApiUrl()">Зберегти та підключити</button>
-    </div>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats-row" id="stats-row">
-    <div class="stat-box">
-      <div class="stat-num" id="stat-total">—</div>
-      <div class="stat-label">Всього слів</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stat-today">—</div>
-      <div class="stat-label">Додано сьогодні</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stat-week">—</div>
-      <div class="stat-label">Цього тижня</div>
     </div>
   </div>
 
@@ -1111,13 +1087,7 @@ async function deleteWord(uk, en, btn) {
   showToast('Слово видалено', 'success');
 }
 
-function updateStats() {
-  const today = new Date().toISOString().slice(0,10);
-  const weekAgo = new Date(Date.now() - 7*24*60*60*1000).toISOString().slice(0,10);
-  document.getElementById('stat-total').textContent = allWords.length;
-  document.getElementById('stat-today').textContent = allWords.filter(w => w.date === today).length;
-  document.getElementById('stat-week').textContent = allWords.filter(w => w.date >= weekAgo).length;
-}
+function updateStats() {}
 
 // ════════════════════════════════════════════
 // SEARCH
