@@ -1396,91 +1396,74 @@ function deleteNote(id) {
   if (API_URL) syncNotesToSheets();
 }
 
-// ─── Notes ↔ Sheets + Drive sync ────────────────────────────
+// ─── Notes ↔ Sheets sync (зображення стискаються і зберігаються в Sheets) ───
 
-// ── Upload one image to Google Drive via Apps Script ──────────
-async function uploadImageToDrive(base64data, mimeType, noteId, imgIndex) {
-  const cacheKey = 'drv_' + noteId + '_' + imgIndex;
-  const cached = localStorage.getItem(cacheKey);
-  if (cached && cached.startsWith('http')) return cached; // вже є Drive URL
-
-  try {
-    const res = await apiFetch('uploadImage', {
-      noteId,
-      imgIndex,
-      mimeType: mimeType || 'image/png',
-      data: base64data
-    });
-    if (res && res.url) {
-      localStorage.setItem(cacheKey, res.url);
-      return res.url;
-    }
-  } catch(e) {}
-  // Fallback — зберігаємо base64 локально
-  localStorage.setItem(cacheKey, base64data);
-  return base64data;
+// ── Стиснути зображення через Canvas (max 800px, якість 0.7) ──
+async function compressImage(dataUrl, maxSize = 800, quality = 0.72) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      let w = img.width, h = img.height;
+      if (w > maxSize || h > maxSize) {
+        if (w > h) { h = Math.round(h * maxSize / w); w = maxSize; }
+        else       { w = Math.round(w * maxSize / h); h = maxSize; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = () => resolve(dataUrl); // fallback — оригінал
+    img.src = dataUrl;
+  });
 }
 
-// ── Extract base64 images, upload to Drive, return clean HTML ─
-async function processImagesForSave(noteId, html) {
+// ── Стиснути всі base64 зображення в HTML ─────────────────────
+async function compressImagesInHtml(html) {
   if (!html || !html.includes('data:image')) return html;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
   const imgs = doc.querySelectorAll('img[src^="data:"]');
-  await Promise.all(Array.from(imgs).map(async (img, i) => {
-    const src = img.getAttribute('src');
-    const mime = src.match(/data:(image\/[^;]+)/)?.[1] || 'image/png';
-    const b64  = src.split(',')[1] || '';
-    const url  = await uploadImageToDrive(b64, mime, noteId, i);
-    img.setAttribute('src', url);
+  await Promise.all(Array.from(imgs).map(async img => {
+    const compressed = await compressImage(img.getAttribute('src'));
+    img.setAttribute('src', compressed);
   }));
   return doc.body.innerHTML;
 }
 
-// ── Restore images: if src is base64 cached locally → use it ──
-function restoreCachedImages(noteId, html) {
-  if (!html) return html;
-  // Drive URLs don't need restoring; only repair broken __IMG__ placeholders
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  const imgs = doc.querySelectorAll('img');
-  imgs.forEach((img, i) => {
-    const src = img.getAttribute('src') || '';
-    if (src.startsWith('http')) return; // Drive URL — OK
-    if (!src || src === '__IMG__') {
-      const cached = localStorage.getItem('drv_' + noteId + '_' + i);
-      if (cached) img.setAttribute('src', cached);
-    }
-  });
-  return doc.body.innerHTML;
-}
-
-// ── Sync ALL notes → Sheets (with images on Drive) ────────────
+// ── Sync ALL notes → Sheets ────────────────────────────────────
 async function syncNotesToSheets() {
   if (!API_URL) return;
   const statusEl = document.getElementById('note-save-status');
   if (statusEl) statusEl.textContent = '☁️ Зберігаю…';
 
-  // Process each note: upload base64 images → Drive
+  // Стискаємо зображення перед збереженням
   const processed = await Promise.all(allNotes.map(async n => {
-    const cleanContent = await processImagesForSave(n.id, n.content || '');
-    return { ...n, content: cleanContent };
+    const content = await compressImagesInHtml(n.content || '');
+    return { ...n, content };
   }));
 
-  // Save processed notes to Sheets
-  apiFetch('saveAllNotes', { notes: JSON.stringify(processed) }).then(res => {
-    if (res && res.success) {
-      // Update local copies with Drive URLs
-      processed.forEach(p => {
-        const local = allNotes.find(n => n.id === p.id);
-        if (local) local.content = p.content;
+  // Зберігаємо кожну нотатку окремо (обходить ліміт URL для JSONP)
+  let savedCount = 0;
+  for (const p of processed) {
+    // Кодуємо HTML в base64 щоб уникнути проблем зі спецсимволами в URL
+    const encodedContent = btoa(unescape(encodeURIComponent(p.content)));
+    try {
+      await apiFetch('saveOneNote', {
+        id: p.id,
+        title: encodeURIComponent(p.title),
+        date: p.date,
+        content: encodedContent
       });
-      saveNotesLocal();
-      if (statusEl) statusEl.textContent = '✓ Збережено ☁️';
-    }
-  }).catch(() => {
-    if (statusEl) statusEl.textContent = '⚠ Помилка sync';
-  });
+      savedCount++;
+      // Оновлюємо локальну копію
+      const local = allNotes.find(n => n.id === p.id);
+      if (local) local.content = p.content;
+    } catch(e) { /* продовжуємо з наступною */ }
+  }
+
+  saveNotesLocal();
+  if (statusEl) statusEl.textContent = savedCount > 0 ? `✓ Збережено ☁️ (${savedCount})` : '⚠ Помилка';
 }
 
 // ── Sync Sheets → local (on page load) ───────────────────────
@@ -1489,15 +1472,9 @@ function syncNotesFromSheets() {
   apiFetch('getAllNotes').then(res => {
     if (!res || !Array.isArray(res.notes) || !res.notes.length) return;
 
-    // Restore any locally-cached images for notes that came from Sheets
-    const restored = res.notes.map(n => ({
-      ...n,
-      content: restoreCachedImages(n.id, n.content)
-    }));
-
-    const sheetsIds = new Set(restored.map(n => n.id));
+    const sheetsIds = new Set(res.notes.map(n => n.id));
     const localOnly = allNotes.filter(n => !sheetsIds.has(n.id));
-    const merged = [...restored, ...localOnly];
+    const merged = [...res.notes, ...localOnly];
 
     const changed =
       merged.length !== allNotes.length ||
