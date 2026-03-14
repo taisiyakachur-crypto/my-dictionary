@@ -2,7 +2,10 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="My Dictionary">
 <title>My English Dictionary</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
 <meta name="description" content="Особистий словник УКР ↔ ENG">
@@ -45,6 +48,7 @@
     min-height: 100vh;
     font-size: 15px;
     line-height: 1.6;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   /* ── NAV ── */
@@ -52,8 +56,11 @@
     position: sticky; top: 0; z-index: 100;
     background: rgba(250,247,242,0.92);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
     display: flex; align-items: center; gap: 0;
     height: 60px;
   }
@@ -403,12 +410,114 @@
   .section-divider { height: 1px; background: var(--border); margin: 24px 0; }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    .nav-logo { font-size: 15px; }
-    .nav-tab { padding: 7px 10px; font-size: 12px; }
-    .page { padding: 20px 14px; }
-    .input-row { flex-direction: column; }
-    .words-grid { grid-template-columns: 1fr; }
+  /* ══════════════════════════════════════════
+     MOBILE — iPhone 14 Pro Max (430px wide)
+  ══════════════════════════════════════════ */
+  @media (max-width: 700px) {
+
+    /* ── Nav: scrollable row ── */
+    nav { padding: 0 12px; height: auto; min-height: 52px; flex-wrap: nowrap; overflow-x: auto; gap: 0; }
+    nav::-webkit-scrollbar { display: none; }
+    .nav-logo { font-size: 14px; white-space: nowrap; padding: 10px 0; margin-right: 8px; flex-shrink: 0; }
+    .nav-tabs { gap: 2px; flex-shrink: 0; }
+    .nav-tab { padding: 8px 10px; font-size: 12px; white-space: nowrap; }
+
+    /* ── Pages ── */
+    .page { padding: 16px 14px; }
+    .page-header h1 { font-size: 24px; }
+    .page-header { margin-bottom: 20px; }
+
+    /* ── Cards ── */
+    .card { padding: 16px; margin-bottom: 14px; }
+    .card-title { font-size: 14px; }
+
+    /* ── Forms ── */
+    .input-row { flex-direction: column; gap: 8px; }
+    .input-group input, .input-group textarea, .input-group select { font-size: 16px; } /* prevent iOS zoom */
+
+    /* ── Words grid ── */
+    .words-grid { grid-template-columns: 1fr; gap: 8px; }
+    .word-card { padding: 14px; }
+    .word-uk { font-size: 15px; }
+    .word-en { font-size: 14px; }
+    .word-actions { opacity: 1; } /* always visible on mobile */
+
+    /* ── Search ── */
+    .search-wrap input { font-size: 16px; padding: 12px 16px 12px 42px; }
+    .filter-row { gap: 6px; }
+    .filter-btn { padding: 6px 12px; font-size: 12px; }
+
+    /* ── Buttons ── */
+    .btn { padding: 10px 16px; font-size: 14px; }
+
+    /* ── Verbs table ── */
+    .table-wrap { border-radius: var(--radius); overflow: hidden; }
+    .verbs-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .verbs-table th, .verbs-table td { white-space: nowrap; padding: 10px 12px; }
+
+    /* ── All Words & Practice tables ── */
+    #allwords-table, #page-practice table {
+      table-layout: auto !important;
+      font-size: 13px;
+    }
+    #allwords-table td, #allwords-table th,
+    #page-practice table td, #page-practice table th {
+      padding: 8px 10px;
+      white-space: normal;
+      word-break: break-word;
+    }
+    /* hide GT columns on mobile to save space */
+    #allwords-table th:nth-child(4),
+    #allwords-table th:nth-child(5),
+    #allwords-table td:nth-child(4),
+    #allwords-table td:nth-child(5),
+    #page-practice table th:nth-child(3),
+    #page-practice table th:nth-child(4),
+    #page-practice table td:nth-child(3),
+    #page-practice table td:nth-child(4) { display: none; }
+
+    /* ── Links grid ── */
+    .links-grid { grid-template-columns: 1fr; gap: 10px; }
+    .link-card { padding: 16px; }
+    .link-section-title { font-size: 16px; }
+
+    /* ── Notes ── */
+    .notes-grid { grid-template-columns: 1fr; gap: 10px; }
+    .notes-toolbar { gap: 4px; padding: 8px; }
+    .notes-toolbar-btn { padding: 5px 8px; font-size: 11px; }
+    .rich-editor { min-height: 300px; padding: 14px; font-size: 15px; }
+    #notes-editor-view > div:first-child { flex-wrap: wrap; gap: 8px; }
+    #note-title-input { font-size: 18px !important; }
+
+    /* ── Practice header ── */
+    #page-practice > div:first-child { flex-direction: column; align-items: flex-start; gap: 10px; }
+    #page-practice > div:first-child button { width: 100%; justify-content: center; }
+
+    /* ── All Words header ── */
+    #page-allwords > div:first-child { flex-direction: column; align-items: flex-start; gap: 10px; }
+    #page-allwords > div:first-child > div:last-child { width: 100%; }
+    #page-allwords .search-wrap { min-width: unset !important; width: 100%; }
+    #page-allwords select { width: 100%; }
+
+    /* ── Edit modal ── */
+    .modal { padding: 20px; }
+    .modal h3 { font-size: 17px; }
+
+    /* ── Stats / count tags ── */
+    .tag { font-size: 10px; }
+
+    /* ── Setup banner ── */
+    .setup-banner { flex-direction: column; gap: 8px; }
+  }
+
+  /* Touch-friendly tap targets */
+  @media (hover: none) {
+    .word-actions { opacity: 1; }
+    .note-card-del { opacity: 1; }
+    .word-card:hover { transform: none; }
+    .link-card:hover { transform: none; }
+    .note-card:hover { transform: none; }
+    .btn-primary:hover { transform: none; }
   }
   /* ── Edit Word Modal ── */
   .modal-overlay {
