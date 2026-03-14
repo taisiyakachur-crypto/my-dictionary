@@ -421,6 +421,7 @@
     <button class="nav-tab" onclick="showPage('verbs')">🔤 Дієслова</button>
     <button class="nav-tab" onclick="showPage('links')">🔗 Посилання</button>
     <button class="nav-tab" onclick="showPage('notes')">📝 Нотатки</button>
+    <button class="nav-tab" onclick="showPage('allwords')">📋 Всі слова</button>
   </div>
 </nav>
 
@@ -771,6 +772,62 @@
 
 </div>
 
+<!-- ════════════════════════════ PAGE 5: ALL WORDS ════════════════════════════ -->
+<div id="page-allwords" class="page">
+  <div class="page-header" style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+    <div>
+      <h1 style="margin-bottom:4px">Всі слова</h1>
+      <p style="color:var(--muted);font-size:14px">Повний список · <span id="allwords-count">0 слів</span></p>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div class="search-wrap" style="margin-bottom:0;min-width:220px">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="allwords-search" placeholder="Фільтр…" oninput="filterAllWords()">
+      </div>
+      <select id="allwords-sort" onchange="filterAllWords()"
+        style="border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;
+        font-size:13px;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);outline:none">
+        <option value="date-desc">Нові спочатку</option>
+        <option value="date-asc">Старі спочатку</option>
+        <option value="uk-asc">А→Я (УКР)</option>
+        <option value="en-asc">A→Z (EN)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <table id="allwords-table" style="width:100%;border-collapse:collapse">
+      <thead>
+        <tr>
+          <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
+            letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);
+            position:sticky;top:60px">#</th>
+          <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
+            letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);
+            position:sticky;top:60px">🇺🇦 Українська</th>
+          <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
+            letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);
+            position:sticky;top:60px">🇬🇧 English</th>
+          <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
+            letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);
+            position:sticky;top:60px">Нотатка</th>
+          <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
+            letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);
+            position:sticky;top:60px">Дата</th>
+        </tr>
+      </thead>
+      <tbody id="allwords-tbody">
+        <tr><td colspan="5" style="padding:40px;text-align:center;color:var(--muted)">Завантаження…</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="allwords-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
+    <div style="font-size:36px;margin-bottom:12px">🔍</div>
+    <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:6px">Нічого не знайдено</div>
+    <div style="font-size:13px">Спробуйте інший запит</div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -903,7 +960,8 @@ function showPage(id) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   event.currentTarget.classList.add('active');
-  if (id === 'verbs' && allVerbs.length > 0) renderVerbs(allVerbs);
+  if (id === 'verbs') renderVerbs(allVerbs);
+  if (id === 'allwords') filterAllWords();
 }
 
 // ════════════════════════════════════════════
@@ -977,7 +1035,7 @@ function loadAllData() {
     const localOnly = allWords.filter(w => !sheetKeys.has(w.uk + '|' + w.en));
     allWords = [...data.words, ...localOnly];
     saveLocal();
-    updateStats(); renderRecent(); renderAllWords();
+    updateStats(); renderRecent(); renderAllWords(); filterAllWords();
     showToast('☁️ Синхронізовано з Google Sheets', 'success');
   }).catch(() => {});
   // Дієслова
@@ -1781,6 +1839,66 @@ function showToast(msg, type = '') {
 // ════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════
+// ════════════════════════════════════════════
+// PAGE 5 — ALL WORDS TABLE
+// ════════════════════════════════════════════
+function renderAllWordsTable(words) {
+  const tbody = document.getElementById('allwords-tbody');
+  const empty = document.getElementById('allwords-empty');
+  const countEl = document.getElementById('allwords-count');
+
+  countEl.textContent = words.length + ' ' +
+    (words.length === 1 ? 'слово' : words.length < 5 ? 'слова' : 'слів');
+
+  if (!words.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = words.map((w, i) => `
+    <tr style="border-bottom:1px solid var(--border);transition:background .12s"
+      onmouseover="this.style.background='var(--paper)'"
+      onmouseout="this.style.background=''">
+      <td style="padding:11px 20px;font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap">${i + 1}</td>
+      <td style="padding:11px 16px;font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
+      <td style="padding:11px 16px;font-size:15px;font-weight:500;color:var(--sage)">${esc(w.en)}</td>
+      <td style="padding:11px 16px;font-size:13px;color:var(--muted);font-style:italic;max-width:260px">${esc(w.note || '')}</td>
+      <td style="padding:11px 16px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap">${esc(w.date || '')}</td>
+    </tr>`).join('');
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function filterAllWords() {
+  const q    = (document.getElementById('allwords-search').value || '').trim().toLowerCase();
+  const sort = document.getElementById('allwords-sort').value;
+
+  let words = [...allWords];
+
+  // Фільтр
+  if (q) {
+    words = words.filter(w =>
+      (w.uk || '').toLowerCase().includes(q) ||
+      (w.en || '').toLowerCase().includes(q) ||
+      (w.note || '').toLowerCase().includes(q)
+    );
+  }
+
+  // Сортування
+  words.sort((a, b) => {
+    if (sort === 'uk-asc') return (a.uk||'').localeCompare(b.uk||'', 'uk');
+    if (sort === 'en-asc') return (a.en||'').localeCompare(b.en||'', 'en');
+    if (sort === 'date-asc') return (a.date||'') < (b.date||'') ? -1 : 1;
+    return (a.date||'') > (b.date||'') ? -1 : 1; // date-desc (default)
+  });
+
+  renderAllWordsTable(words);
+}
+
 window.onload = () => {
   // Одразу рендеримо все — без очікування
   const stored = JSON.parse(localStorage.getItem('dict_words') || '[]');
