@@ -991,6 +991,8 @@ function loadAllData() {
     allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
     renderVerbs(allVerbs);
   }).catch(() => {});
+  // Посилання — синхронізуємо з Sheets
+  syncLinksFromSheets();
   // Нотатки — завантажуємо з Sheets і мержимо з локальними
   syncNotesFromSheets();
 }
@@ -1208,38 +1210,69 @@ async function addVerb() {
 let customLinks = JSON.parse(localStorage.getItem('custom_links') || '[]');
 renderCustomLinks();
 
+function saveLinksLocal() {
+  localStorage.setItem('custom_links', JSON.stringify(customLinks));
+}
+
 function addCustomLink() {
   const name = document.getElementById('link-name').value.trim();
-  const url = document.getElementById('link-url').value.trim();
+  const url  = document.getElementById('link-url').value.trim();
   const icon = document.getElementById('link-icon').value.trim() || '🔗';
   const desc = document.getElementById('link-desc').value.trim();
   if (!name || !url) { showToast('Введіть назву та URL!', 'error'); return; }
   customLinks.push({ name, url, icon, desc });
-  localStorage.setItem('custom_links', JSON.stringify(customLinks));
+  saveLinksLocal();
   renderCustomLinks();
   ['link-name','link-url','link-icon','link-desc'].forEach(id => document.getElementById(id).value = '');
   showToast('✓ Посилання додано!', 'success');
+  if (API_URL) syncLinksToSheets();
 }
 
 function renderCustomLinks() {
-  const grid = document.getElementById('custom-links-grid');
+  const grid  = document.getElementById('custom-links-grid');
   const title = document.getElementById('custom-links-title');
-  if (customLinks.length === 0) { grid.innerHTML = ''; title.style.display = 'none'; return; }
+  if (!customLinks.length) { grid.innerHTML = ''; title.style.display = 'none'; return; }
   title.style.display = 'block';
   grid.innerHTML = customLinks.map((l, i) => `
     <a href="${l.url}" target="_blank" class="link-card" style="position:relative">
       <div class="link-icon">${l.icon}</div>
       <div class="link-name">${l.name}</div>
-      <div class="link-desc">${l.desc}</div>
+      <div class="link-desc">${l.desc || ''}</div>
       <div class="link-url">${l.url}</div>
-      <button onclick="event.preventDefault();deleteCustomLink(${i})" style="position:absolute;top:10px;right:10px;background:var(--terra-pale);border:none;border-radius:4px;padding:2px 6px;cursor:pointer;color:var(--terracotta);font-size:12px">✕</button>
+      <button onclick="event.preventDefault();deleteCustomLink(${i})"
+        style="position:absolute;top:10px;right:10px;background:var(--terra-pale);border:none;
+        border-radius:4px;padding:2px 6px;cursor:pointer;color:var(--terracotta);font-size:12px">✕</button>
     </a>`).join('');
 }
 
 function deleteCustomLink(i) {
   customLinks.splice(i, 1);
-  localStorage.setItem('custom_links', JSON.stringify(customLinks));
+  saveLinksLocal();
   renderCustomLinks();
+  if (API_URL) syncLinksToSheets();
+  showToast('Посилання видалено', 'success');
+}
+
+// ── Sync custom links → Sheets ────────────────────────────────
+function syncLinksToSheets() {
+  if (!API_URL || !customLinks.length) return;
+  // Зберігаємо кожне посилання через apiFetch
+  apiFetch('saveLinks', { links: encodeURIComponent(JSON.stringify(customLinks)) })
+    .catch(() => {});
+}
+
+// ── Sync Sheets → local ───────────────────────────────────────
+function syncLinksFromSheets() {
+  if (!API_URL) return;
+  apiFetch('getLinks').then(res => {
+    if (!res || !Array.isArray(res.links) || !res.links.length) return;
+    // Мержимо: Sheets має пріоритет, локальні яких немає в Sheets — додаємо
+    const sheetUrls = new Set(res.links.map(l => l.url));
+    const localOnly = customLinks.filter(l => !sheetUrls.has(l.url));
+    customLinks = [...res.links, ...localOnly];
+    saveLinksLocal();
+    renderCustomLinks();
+  }).catch(() => {});
 }
 
 // ════════════════════════════════════════════
