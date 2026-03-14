@@ -793,42 +793,42 @@
   <div class="page-header" style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
     <div>
       <h1 style="margin-bottom:4px">All Words</h1>
-      <p style="color:var(--muted);font-size:14px">Повний список · <span id="allwords-count">0 слів</span></p>
+      <p style="color:var(--muted);font-size:14px">Full list · <span id="allwords-count">0 words</span></p>
     </div>
     <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <div class="search-wrap" style="margin-bottom:0;min-width:220px">
         <span class="search-icon">🔍</span>
-        <input type="text" id="allwords-search" placeholder="Фільтр…" oninput="filterAllWords()">
+        <input type="text" id="allwords-search" placeholder="Filter…" oninput="filterAllWords()">
       </div>
       <select id="allwords-sort" onchange="filterAllWords()"
         style="border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;
         font-size:13px;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);outline:none">
-        <option value="date-desc">Нові спочатку</option>
-        <option value="date-asc">Старі спочатку</option>
-        <option value="uk-asc">А→Я (УКР)</option>
+        <option value="date-desc">Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="uk-asc">А→Я (UKR)</option>
         <option value="en-asc">A→Z (EN)</option>
       </select>
     </div>
   </div>
 
-  <div class="card" style="padding:0;overflow:hidden">
+  <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
     <table id="allwords-table" style="width:100%;border-collapse:collapse">
       <thead>
         <tr>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:60px;white-space:nowrap">#</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:60px;white-space:nowrap">🇺🇦 Ukrainian</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:60px;white-space:nowrap">🇬🇧 English</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:60px;white-space:nowrap">🤖 GT → UKR</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:60px;white-space:nowrap">🤖 GT → EN</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:60px;white-space:nowrap">Note</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:60px;white-space:nowrap"></th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">#</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🇺🇦 Ukrainian</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🇬🇧 English</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🤖 GT → UKR</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">🤖 GT → EN</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">Note</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap"></th>
         </tr>
       </thead>
       <tbody id="allwords-tbody">
         <tr><td colspan="5" style="padding:40px;text-align:center;color:var(--muted)">Loading…</td></tr>
       </tbody>
     </table>
-  </div>
+  </div></div>
   <div id="allwords-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
     <div style="font-size:36px;margin-bottom:12px">🔍</div>
     <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:6px">Nothing found</div>
@@ -1855,7 +1855,7 @@ function renderAllWordsTable(words) {
   const empty = document.getElementById('allwords-empty');
   const countEl = document.getElementById('allwords-count');
 
-  countEl.textContent = words.length + (words.length === 1 ? ' word' : ' words');
+  countEl.textContent = words.length + ' words';
 
   if (!words.length) {
     tbody.innerHTML = '';
@@ -1865,6 +1865,8 @@ function renderAllWordsTable(words) {
   empty.style.display = 'none';
 
   const TD = 'padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border)';
+  // Зберігаємо поточний список для edit за індексом
+  window._editWords = words;
   tbody.innerHTML = words.map((w, i) => `
     <tr style="transition:background .12s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background=''">
       <td style="${TD};font-size:12px;color:var(--muted);font-family:'DM Mono',monospace">${i + 1}</td>
@@ -1874,7 +1876,7 @@ function renderAllWordsTable(words) {
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtEN || '')}</td>
       <td style="${TD};font-size:13px;color:var(--muted);font-style:italic;max-width:220px">${esc(w.note || '')}</td>
       <td style="${TD};white-space:nowrap">
-        <button onclick="openEditWord('${esc(w.uk)}','${esc(w.en)}')"
+        <button onclick="openEditWordByIndex(${i})"
           style="background:var(--sage-pale);border:none;border-radius:5px;padding:4px 10px;
           cursor:pointer;font-size:12px;color:var(--sage);font-family:'DM Sans',sans-serif;font-weight:500">
           ✏️ Edit
@@ -1916,9 +1918,19 @@ function filterAllWords() {
 // ════════════════════════════════════════════
 // EDIT WORD
 // ════════════════════════════════════════════
+function openEditWordByIndex(i) {
+  const word = (window._editWords || allWords)[i];
+  if (!word) return;
+  openEditWordObj(word);
+}
+
 function openEditWord(uk, en) {
   const word = allWords.find(w => w.uk === uk && w.en === en);
   if (!word) return;
+  openEditWordObj(word);
+}
+
+function openEditWordObj(word) {
   document.getElementById('edit-orig-uk').value = word.uk;
   document.getElementById('edit-orig-en').value = word.en;
   document.getElementById('edit-uk').value    = word.uk;
