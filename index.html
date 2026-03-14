@@ -696,13 +696,22 @@
 
   <!-- LIST VIEW -->
   <div id="notes-list-view" class="note-list-wrap">
-    <div class="page-header" style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+    <div class="page-header" style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
       <div>
         <h1 style="margin-bottom:4px">Мої нотатки</h1>
         <p style="color:var(--muted);font-size:14px">Натисніть на нотатку щоб відкрити · <span id="notes-count-label">0 нотаток</span></p>
       </div>
       <button class="btn btn-primary" style="margin-left:auto;white-space:nowrap" onclick="openNewNote()">＋ Нова нотатка</button>
     </div>
+    <!-- Notes search -->
+    <div class="search-wrap" style="margin-bottom:16px">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="notes-search-input"
+        placeholder="Пошук по назві та тексту нотаток…"
+        oninput="searchNotes()">
+      <button class="search-clear" id="notes-search-clear" style="display:none" onclick="clearNotesSearch()">✕</button>
+    </div>
+    <div id="notes-search-count" style="font-size:13px;color:var(--muted);margin-bottom:10px;display:none"></div>
     <div class="notes-grid" id="notes-grid">
       <div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
         <div style="font-size:40px;margin-bottom:12px">📝</div>
@@ -1244,32 +1253,62 @@ function saveNotesLocal() {
   localStorage.setItem('all_notes', JSON.stringify(allNotes));
 }
 
-function renderNotesList() {
+function noteCardHTML(n, highlight) {
+  const rawText = (n.content || '').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+  let preview = rawText.slice(0, 120);
+  const title  = n.title || 'Без назви';
+  // Highlight search matches
+  if (highlight) {
+    const re = new RegExp(highlight.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+    const hlTitle   = title.replace(re, m => `<span class="highlight">${m}</span>`);
+    const hlPreview = preview.replace(re, m => `<span class="highlight">${m}</span>`);
+    const hasImg    = (n.content||'').includes('<img');
+    const hasTable  = (n.content||'').includes('<table');
+    return `<div class="note-card" onclick="viewNote('${n.id}')">
+      <button class="note-card-del" onclick="event.stopPropagation();deleteNote('${n.id}')">✕</button>
+      <div class="note-card-title">${hlTitle}</div>
+      <div class="note-card-preview">${hlPreview || '(порожня нотатка)'}</div>
+      <div class="note-card-meta">
+        <span>${n.date||''}</span>
+        ${hasImg ? '<span>🖼 фото</span>' : ''}
+        ${hasTable ? '<span>⊞ таблиця</span>' : ''}
+      </div></div>`;
+  }
+  const hasImg   = (n.content||'').includes('<img');
+  const hasTable = (n.content||'').includes('<table');
+  return `<div class="note-card" onclick="viewNote('${n.id}')">
+    <button class="note-card-del" onclick="event.stopPropagation();deleteNote('${n.id}')">✕</button>
+    <div class="note-card-title">${title}</div>
+    <div class="note-card-preview">${preview || '(порожня нотатка)'}</div>
+    <div class="note-card-meta">
+      <span>${n.date||''}</span>
+      ${hasImg ? '<span>🖼 фото</span>' : ''}
+      ${hasTable ? '<span>⊞ таблиця</span>' : ''}
+    </div></div>`;
+}
+
+function renderNotesGrid(notes, highlight) {
   const grid = document.getElementById('notes-grid');
+  if (!notes.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted)">
+      <div style="font-size:32px;margin-bottom:10px">🔍</div>
+      <div style="font-size:15px">Нічого не знайдено</div></div>`;
+    return;
+  }
+  grid.innerHTML = notes.slice().reverse().map(n => noteCardHTML(n, highlight)).join('');
+}
+
+function renderNotesList() {
   const countLabel = document.getElementById('notes-count-label');
   countLabel.textContent = allNotes.length + ' ' + (allNotes.length === 1 ? 'нотатка' : allNotes.length < 5 ? 'нотатки' : 'нотаток');
   if (!allNotes.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
+    document.getElementById('notes-grid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
       <div style="font-size:40px;margin-bottom:12px">📝</div>
       <div style="font-size:16px;font-family:'Playfair Display',serif;margin-bottom:6px">Ще немає нотаток</div>
       <div style="font-size:13px">Натисніть «＋ Нова нотатка» щоб почати</div></div>`;
     return;
   }
-  grid.innerHTML = allNotes.slice().reverse().map(n => {
-    const preview = n.content.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,120);
-    const hasImg = n.content.includes('<img');
-    const hasTable = n.content.includes('<table');
-    return `<div class="note-card" onclick="viewNote('${n.id}')">
-      <button class="note-card-del" onclick="event.stopPropagation();deleteNote('${n.id}')">✕</button>
-      <div class="note-card-title">${n.title || 'Без назви'}</div>
-      <div class="note-card-preview">${preview || '(порожня нотатка)'}</div>
-      <div class="note-card-meta">
-        <span>${n.date || ''}</span>
-        ${hasImg ? '<span>🖼 фото</span>' : ''}
-        ${hasTable ? '<span>⊞ таблиця</span>' : ''}
-      </div>
-    </div>`;
-  }).join('');
+  renderNotesGrid(allNotes);
 }
 
 function openNewNote() {
@@ -1357,61 +1396,114 @@ function deleteNote(id) {
   if (API_URL) syncNotesToSheets();
 }
 
-// ─── Notes ↔ Sheets sync ──────────────────────────────────────
+// ─── Notes ↔ Sheets + Drive sync ────────────────────────────
 
-// Зберегти всі нотатки в Sheets (без зображень — base64 занадто великі)
-function notesForSheets(notes) {
-  return notes.map(n => ({
-    id: n.id,
-    title: n.title,
-    // Зберігаємо HTML але без base64 img (замінюємо на placeholder)
-    content: (n.content || '').replace(/src="data:image[^"]*"/g, 'src="__IMG__"'),
-    date: n.date,
-    // Окремо зберігаємо зображення у localStorage під ключем note_imgs_{id}
-  }));
-}
+// ── Upload one image to Google Drive via Apps Script ──────────
+async function uploadImageToDrive(base64data, mimeType, noteId, imgIndex) {
+  const cacheKey = 'drv_' + noteId + '_' + imgIndex;
+  const cached = localStorage.getItem(cacheKey);
+  if (cached && cached.startsWith('http')) return cached; // вже є Drive URL
 
-function syncNotesToSheets() {
-  if (!API_URL) return;
-  // Зберігаємо зображення окремо в localStorage (вони залишаться локально)
-  allNotes.forEach(n => {
-    const imgs = [];
-    const tmp = document.createElement('div');
-    tmp.innerHTML = n.content || '';
-    tmp.querySelectorAll('img[src^="data:"]').forEach(img => imgs.push(img.src));
-    if (imgs.length) localStorage.setItem('note_imgs_' + n.id, JSON.stringify(imgs));
-  });
-
-  const payload = JSON.stringify(notesForSheets(allNotes));
-  apiFetch('saveAllNotes', { notes: payload }).then(res => {
-    if (res && res.success) {
-      document.getElementById('note-save-status').textContent = '✓ Збережено + ☁️';
+  try {
+    const res = await apiFetch('uploadImage', {
+      noteId,
+      imgIndex,
+      mimeType: mimeType || 'image/png',
+      data: base64data
+    });
+    if (res && res.url) {
+      localStorage.setItem(cacheKey, res.url);
+      return res.url;
     }
-  }).catch(() => {});
+  } catch(e) {}
+  // Fallback — зберігаємо base64 локально
+  localStorage.setItem(cacheKey, base64data);
+  return base64data;
 }
 
+// ── Extract base64 images, upload to Drive, return clean HTML ─
+async function processImagesForSave(noteId, html) {
+  if (!html || !html.includes('data:image')) return html;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const imgs = doc.querySelectorAll('img[src^="data:"]');
+  await Promise.all(Array.from(imgs).map(async (img, i) => {
+    const src = img.getAttribute('src');
+    const mime = src.match(/data:(image\/[^;]+)/)?.[1] || 'image/png';
+    const b64  = src.split(',')[1] || '';
+    const url  = await uploadImageToDrive(b64, mime, noteId, i);
+    img.setAttribute('src', url);
+  }));
+  return doc.body.innerHTML;
+}
+
+// ── Restore images: if src is base64 cached locally → use it ──
+function restoreCachedImages(noteId, html) {
+  if (!html) return html;
+  // Drive URLs don't need restoring; only repair broken __IMG__ placeholders
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const imgs = doc.querySelectorAll('img');
+  imgs.forEach((img, i) => {
+    const src = img.getAttribute('src') || '';
+    if (src.startsWith('http')) return; // Drive URL — OK
+    if (!src || src === '__IMG__') {
+      const cached = localStorage.getItem('drv_' + noteId + '_' + i);
+      if (cached) img.setAttribute('src', cached);
+    }
+  });
+  return doc.body.innerHTML;
+}
+
+// ── Sync ALL notes → Sheets (with images on Drive) ────────────
+async function syncNotesToSheets() {
+  if (!API_URL) return;
+  const statusEl = document.getElementById('note-save-status');
+  if (statusEl) statusEl.textContent = '☁️ Зберігаю…';
+
+  // Process each note: upload base64 images → Drive
+  const processed = await Promise.all(allNotes.map(async n => {
+    const cleanContent = await processImagesForSave(n.id, n.content || '');
+    return { ...n, content: cleanContent };
+  }));
+
+  // Save processed notes to Sheets
+  apiFetch('saveAllNotes', { notes: JSON.stringify(processed) }).then(res => {
+    if (res && res.success) {
+      // Update local copies with Drive URLs
+      processed.forEach(p => {
+        const local = allNotes.find(n => n.id === p.id);
+        if (local) local.content = p.content;
+      });
+      saveNotesLocal();
+      if (statusEl) statusEl.textContent = '✓ Збережено ☁️';
+    }
+  }).catch(() => {
+    if (statusEl) statusEl.textContent = '⚠ Помилка sync';
+  });
+}
+
+// ── Sync Sheets → local (on page load) ───────────────────────
 function syncNotesFromSheets() {
   if (!API_URL) return;
   apiFetch('getAllNotes').then(res => {
     if (!res || !Array.isArray(res.notes) || !res.notes.length) return;
 
-    // Мержимо: Sheets має пріоритет, але відновлюємо base64 зображення з localStorage
-    const sheetsMap = new Map(res.notes.map(n => [n.id, n]));
-    const localMap  = new Map(allNotes.map(n => [n.id, n]));
+    // Restore any locally-cached images for notes that came from Sheets
+    const restored = res.notes.map(n => ({
+      ...n,
+      content: restoreCachedImages(n.id, n.content)
+    }));
 
-    const merged = [];
-    // Всі нотатки з Sheets
-    res.notes.forEach(n => {
-      const restored = restoreImages(n);
-      merged.push(restored);
-    });
-    // Локальні нотатки яких немає в Sheets (ще не синхронізовані)
-    allNotes.forEach(n => {
-      if (!sheetsMap.has(n.id)) merged.push(n);
-    });
+    const sheetsIds = new Set(restored.map(n => n.id));
+    const localOnly = allNotes.filter(n => !sheetsIds.has(n.id));
+    const merged = [...restored, ...localOnly];
 
-    if (merged.length > allNotes.length ||
-        JSON.stringify(merged.map(n=>n.id).sort()) !== JSON.stringify(allNotes.map(n=>n.id).sort())) {
+    const changed =
+      merged.length !== allNotes.length ||
+      JSON.stringify(merged.map(n=>n.id).sort()) !== JSON.stringify(allNotes.map(n=>n.id).sort());
+
+    if (changed) {
       allNotes = merged;
       saveNotesLocal();
       renderNotesList();
@@ -1420,17 +1512,40 @@ function syncNotesFromSheets() {
   }).catch(() => {});
 }
 
-function restoreImages(note) {
-  const savedImgs = JSON.parse(localStorage.getItem('note_imgs_' + note.id) || '[]');
-  if (!savedImgs.length || !note.content.includes('__IMG__')) return note;
-  let content = note.content;
-  let i = 0;
-  content = content.replace(/src="__IMG__"/g, () => {
-    const src = savedImgs[i] || '__IMG__';
-    i++;
-    return `src="${src}"`;
+// ─── Notes search ─────────────────────────────────────────────
+function searchNotes() {
+  const q = document.getElementById('notes-search-input').value.trim().toLowerCase();
+  const clearBtn = document.getElementById('notes-search-clear');
+  const countEl  = document.getElementById('notes-search-count');
+  clearBtn.style.display = q ? 'block' : 'none';
+
+  if (!q) {
+    countEl.style.display = 'none';
+    renderNotesList();
+    return;
+  }
+
+  const results = allNotes.filter(n => {
+    const titleMatch = (n.title || '').toLowerCase().includes(q);
+    // Пошук по тексту (прибираємо HTML теги)
+    const textContent = (n.content || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').toLowerCase();
+    const contentMatch = textContent.includes(q);
+    return titleMatch || contentMatch;
   });
-  return { ...note, content };
+
+  countEl.style.display = 'block';
+  countEl.textContent = results.length
+    ? `Знайдено: ${results.length} нотаток за запитом «${q}»`
+    : `Нічого не знайдено за «${q}»`;
+
+  renderNotesGrid(results, q);
+}
+
+function clearNotesSearch() {
+  document.getElementById('notes-search-input').value = '';
+  document.getElementById('notes-search-clear').style.display = 'none';
+  document.getElementById('notes-search-count').style.display = 'none';
+  renderNotesList();
 }
 
 // ─── Formatting ───────────────────────────────────────────────
