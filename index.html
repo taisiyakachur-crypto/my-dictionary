@@ -350,8 +350,14 @@
   /* Viewer */
   .note-viewer { min-height:300px; }
   .note-viewer h2 { font-family:'Playfair Display',serif; font-size:22px; margin:16px 0 8px; }
-  .note-viewer table { border-collapse:collapse; width:100%; margin:12px 0; }
-  .note-viewer th, .note-viewer td { border:1px solid var(--border); padding:8px 12px; font-size:14px; }
+  /* Таблиці з прокруткою — не виходять за межі */
+  .note-viewer table, .rich-editor table {
+    border-collapse:collapse; width:100%; margin:12px 0;
+    table-layout: fixed; word-wrap: break-word;
+  }
+  .note-viewer .table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0; }
+  .note-viewer .table-scroll table { width:max-content; min-width:100%; margin:0; }
+  .note-viewer th, .note-viewer td { border:1px solid var(--border); padding:8px 12px; font-size:14px; vertical-align:top; }
   .note-viewer th { background:var(--cream); font-weight:600; }
   .note-viewer img { max-width:100%; border-radius:var(--radius-sm); margin:8px 0; }
   .note-viewer ul, .note-viewer ol { padding-left:24px; margin:8px 0; }
@@ -1340,7 +1346,13 @@ function viewNote(id) {
   if (!note) return;
   currentNoteId = id;
   document.getElementById('viewer-title').textContent = note.title || 'Без назви';
-  document.getElementById('note-viewer-content').innerHTML = note.content || '';
+  // Обгортаємо таблиці в scrollable div щоб не виходили за рамки
+  const rawHtml = note.content || '';
+  const wrapped = rawHtml.replace(
+    /<table/gi,
+    '<div class="table-scroll" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0"><table style="width:max-content;min-width:100%;margin:0"'
+  ).replace(/<\/table>/gi, '</table></div>');
+  document.getElementById('note-viewer-content').innerHTML = wrapped;
   document.getElementById('viewer-meta').textContent = 'Збережено: ' + (note.date || '');
   document.getElementById('notes-list-view').classList.add('hidden');
   document.getElementById('notes-editor-view').classList.remove('active');
