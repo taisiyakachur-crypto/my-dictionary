@@ -869,11 +869,17 @@
       <button class="notes-toolbar-btn" onclick="insertTemplate2('rule')">📌 Rule</button>
       <button class="notes-toolbar-btn" onclick="insertTemplate2('phrase')">💬 Phrase</button>
       <button class="notes-toolbar-btn" onclick="insertTemplate2('mistake')">⚠️ Mistake</button>
+      <div class="notes-toolbar-sep"></div>
+      <button class="notes-toolbar-btn" onclick="openHtmlPasteModal()"
+        style="background:var(--lav-pale);color:var(--lavender);border-color:var(--lavender)"
+        title="Paste raw HTML and render it as note content">
+        &lt;/&gt; Paste HTML
+      </button>
     </div>
 
     <!-- Paste hint -->
     <div style="font-size:12px;color:var(--muted);margin-bottom:8px">
-      💡 Screenshots: just paste from clipboard <kbd style="background:var(--cream);padding:1px 5px;border-radius:3px;font-size:11px">Ctrl+V</kbd> directly into the editor
+      💡 Screenshots: paste from clipboard <kbd style="background:var(--cream);padding:1px 5px;border-radius:3px;font-size:11px">Ctrl+V</kbd> · HTML pages: use <b>&lt;/&gt; Paste HTML</b> button
     </div>
 
     <!-- Rich editor -->
@@ -2169,6 +2175,69 @@ function refreshPractice() {
   setTimeout(() => { btn.innerHTML = '🔀 New random set'; }, 1200);
 }
 
+// ════════════════════════════════════════════
+// HTML PASTE — insert raw HTML into note
+// ════════════════════════════════════════════
+function openHtmlPasteModal() {
+  document.getElementById('html-paste-input').value = '';
+  document.getElementById('html-paste-preview').style.display = 'none';
+  document.getElementById('html-paste-preview-content').innerHTML = '';
+  document.getElementById('html-paste-modal').style.display = 'flex';
+  setTimeout(() => document.getElementById('html-paste-input').focus(), 50);
+}
+
+function closeHtmlPasteModal() {
+  document.getElementById('html-paste-modal').style.display = 'none';
+}
+
+function sanitizeAndWrapHtml(raw) {
+  // Extract <style> block if present
+  const styleMatch = raw.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+  const styleContent = styleMatch ? styleMatch[1] : '';
+
+  // Remove full HTML document tags but keep inner content
+  let body = raw
+    .replace(/<html[^>]*>/gi, '').replace(/<\/html>/gi, '')
+    .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
+    .replace(/<body[^>]*>/gi, '').replace(/<\/body>/gi, '')
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<!DOCTYPE[^>]*>/gi, '')
+    .trim();
+
+  // Wrap with scoped style to avoid bleeding into the rest of the page
+  const scopeId = 'html-note-' + Date.now();
+  const scoped = styleContent
+    ? `<style>${styleContent.replace(/([^{}]+)\{/g, (m, sel) => {
+        // Prefix each selector with our scope id
+        return sel.split(',').map(s => `#${scopeId} ${s.trim()}`).join(', ') + ' {';
+      })}</style><div id="${scopeId}">${body}</div>`
+    : `<div id="${scopeId}">${body}</div>`;
+
+  return scoped;
+}
+
+function previewHtmlPaste() {
+  const raw = document.getElementById('html-paste-input').value.trim();
+  if (!raw) return;
+  const preview = document.getElementById('html-paste-preview');
+  const previewContent = document.getElementById('html-paste-preview-content');
+  previewContent.innerHTML = sanitizeAndWrapHtml(raw);
+  preview.style.display = 'block';
+}
+
+function insertHtmlPaste() {
+  const raw = document.getElementById('html-paste-input').value.trim();
+  if (!raw) { showToast('Paste some HTML first!', 'error'); return; }
+  const wrapped = sanitizeAndWrapHtml(raw);
+  const editor = document.getElementById('rich-editor');
+  editor.focus();
+  // Insert at end of editor
+  editor.innerHTML += wrapped;
+  markNoteDirty();
+  closeHtmlPasteModal();
+  showToast('✓ HTML inserted!', 'success');
+}
+
 window.onload = () => {
   // Одразу рендеримо все — без очікування
   const stored = JSON.parse(localStorage.getItem('dict_words') || '[]');
@@ -2216,6 +2285,39 @@ window.onload = () => {
     <div style="display:flex;gap:10px;justify-content:flex-end">
       <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
       <button class="btn btn-primary" onclick="saveEditWord()">💾 Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- HTML PASTE MODAL -->
+<div class="modal-overlay" id="html-paste-modal" style="display:none"
+  onclick="if(event.target===this)closeHtmlPasteModal()">
+  <div class="modal" style="max-width:680px">
+    <button class="modal-close" onclick="closeHtmlPasteModal()">✕</button>
+    <h3 style="margin-bottom:6px">⟨/⟩ Paste HTML</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">
+      Paste the full HTML content below. The &lt;style&gt; block will be preserved so your tables and formatting look exactly as designed.
+    </p>
+    <textarea id="html-paste-input"
+      style="width:100%;height:240px;border:1px solid var(--border);border-radius:var(--radius-sm);
+      padding:12px;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;
+      background:var(--paper);color:var(--ink);line-height:1.5"
+      placeholder="Paste your HTML here…&#10;&#10;Tip: copy everything between <style>...</style> and the content div."></textarea>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap">
+      <button class="btn btn-secondary" onclick="closeHtmlPasteModal()">Cancel</button>
+      <button class="btn" onclick="previewHtmlPaste()"
+        style="background:var(--lav-pale);color:var(--lavender);border:1px solid var(--lavender)">
+        👁 Preview
+      </button>
+      <button class="btn btn-primary" onclick="insertHtmlPaste()">✓ Insert into note</button>
+    </div>
+    <!-- Preview area -->
+    <div id="html-paste-preview" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:14px">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--muted);margin-bottom:10px">Preview</div>
+      <div id="html-paste-preview-content"
+        style="border:1px solid var(--border);border-radius:var(--radius-sm);
+        padding:16px;max-height:400px;overflow-y:auto;background:#fff"></div>
     </div>
   </div>
 </div>
