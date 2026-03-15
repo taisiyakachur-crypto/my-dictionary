@@ -547,6 +547,7 @@
     <button class="nav-tab" onclick="showPage('practice')">🎯 Practice</button>
     <button class="nav-tab" onclick="showPage('quantifiers')">📊 Quantifiers</button>
     <button class="nav-tab" onclick="showPage('conditionals')">🔀 Conditionals</button>
+    <button class="nav-tab" onclick="showPage('tenses')">🕐 Tenses</button>
     <button class="nav-tab" onclick="showPage('verbs')">🔤 Irregular Verbs</button>
     <button class="nav-tab" onclick="showPage('links')">🔗 Links</button>
     <button class="nav-tab" onclick="showPage('notes')">📝 Notes</button>
@@ -1070,7 +1071,6 @@
     font-size: 15px;
     line-height: 1.65;
   }
-#quantifiers-scope /* ── HERO ── */
   .hero {
 
     background: var(--ink);
@@ -1140,7 +1140,6 @@
 #quantifiers-scope .q-page {
     max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px;
   }
-#quantifiers-scope /* ── SECTION HEADERS ── */
   .section-head {
 
     display: flex;
@@ -1171,7 +1170,6 @@
     border-radius: 4px;
     white-space: nowrap;
   }
-#quantifiers-scope /* ── NOUN TYPE BADGES ── */
   .badge {
 
     display: inline-flex;
@@ -1191,7 +1189,6 @@
  background: var(--uncount-light); color: var(--uncount); }
 #quantifiers-scope .badge.both {
  background: var(--both-light);    color: var(--both); }
-#quantifiers-scope /* ── WORD CARDS ── */
   .cards-grid {
 
     display: grid;
@@ -1268,7 +1265,6 @@
  margin-top: 6px; }
 #quantifiers-scope .example strong {
  font-style: normal; font-weight: 600; }
-#quantifiers-scope /* ── COMPARISON CARDS (little vs a little) ── */
   .compare-block {
 
     display: grid;
@@ -1319,12 +1315,10 @@
     border-radius: 50%;
     flex-shrink: 0;
   }
-#quantifiers-scope /* neg = red dot, #quantifiers-scope pos = green dot */
   .neg-dot {
  background: var(--neg); }
 #quantifiers-scope .pos-dot {
  background: var(--pos); }
-#quantifiers-scope /* little/a little = blue family, #quantifiers-scope few/a few = purple family */
   .little-neg .compare-header {
  background: #FBE9E4; }
 #quantifiers-scope .little-neg .compare-header .word {
@@ -1341,7 +1335,6 @@
  background: #EAF9F0; }
 #quantifiers-scope .few-pos .compare-header .word {
  color: var(--both); }
-#quantifiers-scope /* ── VISUAL SCALE ── */
   .scale-block {
 
     background: var(--card);
@@ -1403,7 +1396,6 @@
     color: var(--muted);
     padding-left: 12px;
   }
-#quantifiers-scope /* ── RULE BOX ── */
   .rule-box {
 
     background: var(--accent-light);
@@ -1443,7 +1435,6 @@
     flex-shrink: 0;
     margin-top: 1px;
   }
-#quantifiers-scope /* ── CORRECT / WRONG ── */
   .tick-cross {
 
     display: flex;
@@ -1470,7 +1461,6 @@
  color: var(--pos); }
 #quantifiers-scope .strikethrough {
  text-decoration: line-through; color: var(--muted); }
-#quantifiers-scope /* ── NOUN TYPE TABLE ── */
   .noun-table {
 
     width: 100%;
@@ -1508,7 +1498,6 @@
     font-size: 13px;
     font-weight: 500;
   }
-#quantifiers-scope /* ── ENOUGH SPECIAL ── */
   .enough-positions {
 
     display: grid;
@@ -1544,7 +1533,6 @@
     margin-bottom: 10px;
     color: var(--ink);
   }
-#quantifiers-scope /* ── MEGA TABLE ── */
   .mega-wrap {
 
     overflow-x: auto;
@@ -1589,7 +1577,6 @@
  font-style: italic; font-size: 13px; color: #3A3020; }
 #quantifiers-scope .mega-table .ex-cell strong {
  font-style: normal; font-weight: 600; color: var(--ink); }
-#quantifiers-scope /* ── FOOTER ── */
   .footer {
 
     text-align: center;
@@ -1599,7 +1586,6 @@
     border-top: 1px solid var(--border);
     margin-top: 64px;
   }
-#quantifiers-scope /* ── ANIMATIONS ── */
   @keyframes fadeUp {
 
     from { opacity: 0; transform: translateY(18px); }
@@ -1619,7 +1605,6 @@
  animation-delay: 0.20s; }
 #quantifiers-scope .word-card:nth-child(6) {
  animation-delay: 0.25s; }
-#quantifiers-scope /* count/uncount color stripe on left of card */
   .word-card.c {
  border-left: 4px solid var(--count); }
 #quantifiers-scope .word-card.u {
@@ -1631,10 +1616,6 @@
   </style>
   <div id="quantifiers-scope" style="font-family:'DM Sans',sans-serif">
 <!-- HERO -->
-<div class="hero">
-  <h1>Quantifiers<br><em>Visual Grammar Guide</em></h1>
-  <p>little · a little · few · a few · much · many · a lot of · enough · too much · too many</p>
-</div>
 
 <!-- NAV -->
 <div class="q-nav">
@@ -2343,7 +2324,6 @@
   line-height: 1.7;
   overflow-x: hidden;
 }
-#conditionals-scope /* ── SCROLLBAR ── */
 ::-webkit-scrollbar {
  width: 6px; }
 #conditionals-scope ::-webkit-scrollbar-track {
@@ -2850,7 +2830,6 @@
  color: var(--z0); }
 #conditionals-scope .c0 .f-connector {
  color: var(--z0); opacity: 0.7; }
-#conditionals-scope /* FIRST */
 .c1 .formula-block {
  background: var(--f1l); border-color: var(--f1m); }
 #conditionals-scope .c1 .formula-label {
@@ -2867,7 +2846,6 @@
  color: var(--f1); }
 #conditionals-scope .c1 .f-connector {
  color: var(--f1); opacity: 0.7; }
-#conditionals-scope /* SECOND */
 .c2 .formula-block {
  background: var(--s2l); border-color: var(--s2m); }
 #conditionals-scope .c2 .formula-label {
@@ -2884,7 +2862,6 @@
  color: var(--s2); }
 #conditionals-scope .c2 .f-connector {
  color: var(--s2); opacity: 0.7; }
-#conditionals-scope /* THIRD */
 .c3 .formula-block {
  background: var(--t3l); border-color: var(--t3m); }
 #conditionals-scope .c3 .formula-label {
@@ -2901,7 +2878,6 @@
  color: var(--t3); }
 #conditionals-scope .c3 .f-connector {
  color: var(--t3); opacity: 0.7; }
-#conditionals-scope /* MIXED */
 .cmx .formula-block {
  background: var(--mxl); border-color: var(--mxm); }
 #conditionals-scope .cmx .formula-label {
@@ -2918,7 +2894,6 @@
  color: var(--mx); }
 #conditionals-scope .cmx .f-connector {
  color: var(--mx); opacity: 0.7; }
-#conditionals-scope /* UNLESS */
 .cun .formula-block {
  background: var(--unl); border-color: var(--unm); }
 #conditionals-scope .cun .formula-label {
@@ -3265,28 +3240,6 @@
 <!-- ════════════════════════════════════════
      HERO
 ════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-orbs">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-  </div>
-  <p class="hero-eyebrow">Complete Visual Guide</p>
-  <h1>
-    Conditionals
-    <span class="line2">in English</span>
-  </h1>
-  <p class="hero-desc">Zero · First · Second · Third · Mixed · Unless — all rules, formulas, examples and common mistakes in one place.</p>
-  <div class="hero-pills">
-    <a class="hero-pill hp0" href="#zero"><span class="dot" style="background:var(--z0)"></span>Zero</a>
-    <a class="hero-pill hp1" href="#first"><span class="dot" style="background:var(--f1)"></span>First</a>
-    <a class="hero-pill hp2" href="#second"><span class="dot" style="background:var(--s2)"></span>Second</a>
-    <a class="hero-pill hp3" href="#third"><span class="dot" style="background:var(--t3)"></span>Third</a>
-    <a class="hero-pill hpmx" href="#mixed"><span class="dot" style="background:var(--mx)"></span>Mixed</a>
-    <a class="hero-pill hpun" href="#unless"><span class="dot" style="background:var(--un)"></span>Unless</a>
-  </div>
-</section>
 
 <!-- STICKY NAV -->
 <nav class="sticky-nav">
@@ -4354,6 +4307,1611 @@ function switchTab(btn, panelId) {
   </div>
 </div>
 
+<!-- ════════════════════════════ PAGE 9: TENSES ════════════════════════════ -->
+<div id="page-tenses" class="page" style="padding:0;max-width:100%;background:var(--bg)">
+  <style id="tenses-styles">
+#tenses-scope {
+--bg:#F7F4EE;
+  --bg2:#EDE9E0;
+  --card:#FFFFFF;
+  --ink:#1C1A16;
+  --ink2:#3D3A34;
+  --muted:#8A8680;
+  --border:#DDD9D0;
+  --border2:#C8C4BA;
+
+  /* PRESENT family — warm green */
+  --pr:#1A6B4A;--prl:#E4F2EC;--prm:#B8DDD0;--prd:#0F4430;
+  /* PAST family — deep burgundy */
+  --pa:#7A2040;--pal:#F5E8ED;--pam:#E0B0C0;--pad:#4A1028;
+  /* FUTURE family — ocean blue */
+  --fu:#1A4E7A;--ful:#E4EDF7;--fum:#B0C8E4;--fud:#0D2E4E;
+  /* PERFECT accent — gold */
+  --gd:#B07A10;--gdl:#FDF3DC;--gdm:#F0C870;
+  /* CONTINUOUS accent — coral */
+  --co:#C04830;--col:#FCEAE6;--com:#F0B0A0;
+  /* PERFECT CONTINUOUS — purple */
+  --pc:#5A3A8A;--pcl:#F0EAFB;--pcm:#C8B0E8;
+    display: block;
+}
+#tenses-scope * {
+box-sizing:border-box;margin:0;padding:0}
+
+#tenses-scope {
+scroll-behavior:smooth}
+#tenses-scope ::-webkit-scrollbar {
+width:5px}
+#tenses-scope ::-webkit-scrollbar-track {
+background:var(--bg)}
+#tenses-scope ::-webkit-scrollbar-thumb {
+background:var(--border2);border-radius:3px}
+#tenses-scope {
+
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Lora',serif;
+  font-size:15px;
+  line-height:1.7;
+}
+#tenses-scope .hero {
+
+  background:var(--ink);
+  color:#F7F4EE;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:60px 24px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+#tenses-scope .hero-lines {
+
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,0.04) 59px,rgba(255,255,255,0.04) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,0.04) 59px,rgba(255,255,255,0.04) 60px);
+  pointer-events:none;
+}
+#tenses-scope .hero-glow {
+
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  pointer-events:none;
+}
+#tenses-scope .glow1 {
+width:600px;height:300px;background:var(--pr);opacity:0.15;top:10%;left:-100px;animation:drift1 12s ease-in-out infinite}
+#tenses-scope .glow2 {
+width:500px;height:300px;background:var(--pa);opacity:0.15;bottom:10%;right:-80px;animation:drift2 10s ease-in-out infinite}
+#tenses-scope .glow3 {
+width:400px;height:200px;background:var(--fu);opacity:0.12;top:50%;left:30%;animation:drift3 14s ease-in-out infinite}
+@keyframes drift1 {
+#tenses-scope 0%, #tenses-scope 100% {
+transform:translate(0,0)}
+#tenses-scope 50% {
+transform:translate(40px,-30px)}
+
+}
+@keyframes drift2 {
+#tenses-scope 0%, #tenses-scope 100% {
+transform:translate(0,0)}
+#tenses-scope 50% {
+transform:translate(-40px,20px)}
+
+}
+@keyframes drift3 {
+#tenses-scope 0%, #tenses-scope 100% {
+transform:translate(0,0)}
+#tenses-scope 50% {
+transform:translate(-20px,30px)}
+
+}
+#tenses-scope .hero-tag {
+
+  font-family:'Syne',sans-serif;
+  font-size:11px;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  margin-bottom:24px;
+  position:relative;
+}
+#tenses-scope .hero h1 {
+
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3rem,8vw,6rem);
+  font-weight:800;
+  line-height:0.95;
+  letter-spacing:-0.03em;
+  position:relative;
+  margin-bottom:8px;
+}
+#tenses-scope .hero h1 span {
+
+  display:block;
+  font-weight:400;
+  font-family:'Lora',serif;
+  font-style:italic;
+  font-size:0.4em;
+  letter-spacing:0;
+  color:rgba(255,255,255,0.5);
+  margin-top:12px;
+}
+#tenses-scope .hero-sub {
+
+  font-size:15px;
+  color:rgba(255,255,255,0.45);
+  max-width:500px;
+  position:relative;
+  margin:24px auto 48px;
+  font-style:italic;
+}
+#tenses-scope .timeline-strip {
+
+  display:flex;
+  align-items:center;
+  gap:0;
+  position:relative;
+  width:100%;
+  max-width:760px;
+  margin:0 auto 48px;
+}
+#tenses-scope .tl-line {
+
+  flex:1;height:2px;
+  background:rgba(255,255,255,0.15);
+  position:relative;
+}
+#tenses-scope .tl-dot {
+
+  width:12px;height:12px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.3);
+  background:var(--ink);
+  flex-shrink:0;
+  cursor:default;
+  position:relative;
+}
+#tenses-scope .tl-dot::after {
+
+  content:attr(data-label);
+  position:absolute;
+  top:18px;
+  left:50%;transform:translateX(-50%);
+  font-family:'Syne',sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);
+  white-space:nowrap;
+}
+#tenses-scope .hero-families {
+
+  display:flex;flex-wrap:wrap;
+  gap:10px;justify-content:center;
+  position:relative;
+}
+#tenses-scope .fam-pill {
+
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:30px;
+  font-family:'Syne',sans-serif;
+  font-size:12px;font-weight:700;
+  text-decoration:none;
+  border:1.5px solid;
+  transition:transform 0.2s,box-shadow 0.2s;
+  cursor:pointer;
+}
+#tenses-scope .fam-pill:hover {
+transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.35)}
+#tenses-scope .fp-pr {
+background:rgba(26,107,74,0.25);color:#7ADDB4;border-color:rgba(26,107,74,0.5)}
+#tenses-scope .fp-pa {
+background:rgba(122,32,64,0.25);color:#E89AB8;border-color:rgba(122,32,64,0.5)}
+#tenses-scope .fp-fu {
+background:rgba(26,78,122,0.25);color:#7AB4E8;border-color:rgba(26,78,122,0.5)}
+#tenses-scope .t-nav {
+  position:sticky;top:60px;z-index:10;
+  background:rgba(247,244,238,0.97);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;scrollbar-width:none;
+  display:flex;
+}
+#tenses-scope .t-nav::-webkit-scrollbar {
+display:none}
+#tenses-scope .t-nav-section {
+
+  display:flex;
+  border-right:1px solid var(--border);
+  flex-shrink:0;
+}
+#tenses-scope .t-nav-section:last-child {
+border-right:none}
+#tenses-scope .t-nav-label {
+
+  font-family:'Syne',sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:8px 14px 0;
+  color:var(--muted);
+  align-self:flex-end;
+  white-space:nowrap;
+}
+#tenses-scope .t-nav-item {
+
+  padding:14px 16px;
+  font-family:'Syne',sans-serif;
+  font-size:12px;font-weight:600;
+  color:var(--muted);
+  text-decoration:none;
+  border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+#tenses-scope .t-nav-item:hover {
+color:var(--ink)}
+#tenses-scope .t-nav-item.pr:hover {
+border-color:var(--pr);color:var(--pr)}
+#tenses-scope .t-nav-item.pa:hover {
+border-color:var(--pa);color:var(--pa)}
+#tenses-scope .t-nav-item.fu:hover {
+border-color:var(--fu);color:var(--fu)}
+#tenses-scope .t-page {
+max-width:1120px;margin:0 auto;padding:0 24px 120px}
+#tenses-scope .family-head {
+
+  padding:72px 0 0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:24px 32px;
+  align-items:center;
+  margin-bottom:40px;
+}
+#tenses-scope .family-icon {
+
+  font-size:3.5rem;
+  line-height:1;
+  grid-row:span 2;
+}
+#tenses-scope .family-eyebrow {
+
+  font-family:'Syne',sans-serif;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:4px;
+}
+#tenses-scope .family-title {
+
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-0.025em;
+}
+#tenses-scope .family-desc {
+
+  grid-column:2;
+  font-size:14px;color:var(--muted);
+  font-style:italic;
+  max-width:600px;
+}
+#tenses-scope .tense-card {
+
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:24px;
+  transition:box-shadow 0.2s;
+}
+#tenses-scope .tense-card:hover {
+box-shadow:0 6px 32px rgba(0,0,0,0.08)}
+#tenses-scope .tc-header {
+
+  padding:28px 32px 24px;
+  border-bottom:1px solid var(--border);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:16px;
+  align-items:start;
+}
+#tenses-scope .tc-name {
+
+  font-family:'Syne',sans-serif;
+  font-size:1.5rem;font-weight:800;
+  letter-spacing:-0.02em;
+  margin-bottom:4px;
+}
+#tenses-scope .tc-meaning {
+
+  font-size:13.5px;color:var(--muted);
+  font-style:italic;
+}
+#tenses-scope .tc-badges {
+
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;
+}
+#tenses-scope .badge {
+
+  font-family:'Syne',sans-serif;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.06em;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px;
+}
+#tenses-scope .tc-formula {
+
+  padding:20px 32px;
+  border-bottom:1px solid var(--border);
+  background:var(--bg);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+}
+#tenses-scope .f-label {
+
+  font-family:'Syne',sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--muted);
+  margin-right:4px;
+}
+#tenses-scope .f-chunk {
+
+  display:inline-flex;align-items:center;
+  padding:5px 13px;border-radius:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;font-weight:500;
+  border:1px solid var(--border);
+  background:var(--card);
+  white-space:nowrap;
+}
+#tenses-scope .f-op {
+
+  font-family:'Syne',sans-serif;
+  font-size:12px;font-weight:700;
+  color:var(--muted);
+}
+#tenses-scope .tc-body {
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+}
+@media(max-width:700px) {
+#tenses-scope .tc-body {
+grid-template-columns:1fr}
+
+}
+#tenses-scope .tc-col {
+
+  padding:24px 32px;
+  border-right:1px solid var(--border);
+}
+#tenses-scope .tc-col:last-child {
+border-right:none}
+#tenses-scope .tc-col-title {
+
+  font-family:'Syne',sans-serif;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+#tenses-scope .ex-list {
+list-style:none;display:flex;flex-direction:column;gap:10px}
+#tenses-scope .ex-item {
+
+  padding:10px 14px;
+  background:var(--bg);
+  border-radius:8px;
+  border-left:3px solid var(--border2);
+}
+#tenses-scope .ex-sentence {
+
+  font-style:italic;
+  font-size:14px;
+  line-height:1.55;
+}
+#tenses-scope .ex-sentence strong {
+font-style:normal;font-weight:600}
+#tenses-scope .ex-note {
+
+  font-size:11.5px;color:var(--muted);
+  margin-top:4px;font-style:normal;
+  font-family:'Syne',sans-serif;
+  letter-spacing:0.03em;
+}
+#tenses-scope .usage-list {
+display:flex;flex-direction:column;gap:8px}
+#tenses-scope .usage-row {
+
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13.5px;line-height:1.5;
+}
+#tenses-scope .usage-dot {
+
+  width:7px;height:7px;border-radius:50%;
+  flex-shrink:0;margin-top:7px;
+}
+#tenses-scope .usage-text strong {
+font-weight:600}
+#tenses-scope .signals {
+
+  padding:16px 32px;
+  border-top:1px solid var(--border);
+  background:var(--bg);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+}
+#tenses-scope .sig-label {
+
+  font-family:'Syne',sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);
+  flex-shrink:0;
+}
+#tenses-scope .sig-word {
+
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;font-weight:500;
+  padding:3px 10px;border-radius:5px;
+  border:1px solid var(--border);
+  background:var(--card);
+  white-space:nowrap;
+}
+#tenses-scope .exc-box {
+
+  margin:0 32px 24px;
+  padding:16px 20px;
+  border-radius:10px;
+  border-left:4px solid;
+}
+#tenses-scope .exc-title {
+
+  font-family:'Syne',sans-serif;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:10px;
+}
+#tenses-scope .exc-list {
+list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px}
+#tenses-scope .exc-list li {
+display:flex;gap:8px;align-items:flex-start}
+#tenses-scope .exc-list li::before {
+content:"→";flex-shrink:0;font-weight:700;margin-top:1px}
+#tenses-scope .wr-block {
+
+  padding:16px 32px;
+  border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:8px;
+}
+#tenses-scope .wr-row {
+display:flex;align-items:flex-start;gap:10px;font-size:13.5px}
+#tenses-scope .wr-icon {
+flex-shrink:0;font-size:14px;margin-top:2px}
+#tenses-scope .wr-wrong {
+font-style:italic;text-decoration:line-through;color:#C03030;opacity:0.8}
+#tenses-scope .wr-right {
+font-style:italic;color:#1A6B2A}
+#tenses-scope .wr-why {
+font-size:12px;color:var(--muted);margin-left:24px;margin-top:-4px;font-family:'Syne',sans-serif}
+#tenses-scope .sec-div {
+
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border2) 20%,var(--border2) 80%,transparent);
+  margin:0;
+}
+#tenses-scope .comp-wrap {
+
+  overflow-x:auto;
+  border-radius:16px;
+  border:1px solid var(--border);
+  margin:48px 0 24px;
+}
+#tenses-scope .comp-table {
+
+  width:100%;min-width:900px;
+  border-collapse:collapse;
+  font-size:13px;
+  background:var(--card);
+}
+#tenses-scope .comp-table th {
+
+  background:var(--ink);
+  color:#F7F4EE;
+  padding:13px 16px;
+  font-family:'Syne',sans-serif;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  text-align:left;white-space:nowrap;
+}
+#tenses-scope .comp-table td {
+
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  vertical-align:top;line-height:1.55;
+}
+#tenses-scope .comp-table tr:last-child td {
+border-bottom:none}
+#tenses-scope .comp-table tr:nth-child(even) td {
+background:var(--bg)}
+#tenses-scope .comp-table .tname {
+
+  font-family:'Syne',sans-serif;
+  font-weight:700;font-size:12px;
+  white-space:nowrap;
+}
+#tenses-scope .comp-table .mono {
+
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+}
+#tenses-scope .comp-table .ex-c {
+font-style:italic;font-size:12.5px}
+#tenses-scope .comp-table .ex-c strong {
+font-style:normal;font-weight:600}
+#tenses-scope .footer {
+
+  text-align:center;padding:36px 24px;
+  color:var(--muted);font-size:13px;
+  border-top:1px solid var(--border);
+  font-family:'Syne',sans-serif;
+  letter-spacing:0.04em;
+}
+#tenses-scope .pr .tc-header {
+border-top:3px solid var(--pr)}
+#tenses-scope .pr .tc-name {
+color:var(--pr)}
+#tenses-scope .pr .f-chunk {
+border-color:var(--prm);background:var(--prl)}
+#tenses-scope .pr .badge {
+background:var(--prl);color:var(--prd)}
+#tenses-scope .pr .ex-item {
+border-left-color:var(--prm)}
+#tenses-scope .pr .exc-box {
+border-left-color:var(--pr);background:var(--prl)}
+#tenses-scope .pr .exc-title {
+color:var(--pr)}
+#tenses-scope .pr .usage-dot {
+background:var(--pr)}
+#tenses-scope .pr .sig-word {
+border-color:var(--prm);background:var(--prl)}
+#tenses-scope .pr .wr-right {
+color:var(--pr)}
+#tenses-scope .pa .tc-header {
+border-top:3px solid var(--pa)}
+#tenses-scope .pa .tc-name {
+color:var(--pa)}
+#tenses-scope .pa .f-chunk {
+border-color:var(--pam);background:var(--pal)}
+#tenses-scope .pa .badge {
+background:var(--pal);color:var(--pad)}
+#tenses-scope .pa .ex-item {
+border-left-color:var(--pam)}
+#tenses-scope .pa .exc-box {
+border-left-color:var(--pa);background:var(--pal)}
+#tenses-scope .pa .exc-title {
+color:var(--pa)}
+#tenses-scope .pa .usage-dot {
+background:var(--pa)}
+#tenses-scope .pa .sig-word {
+border-color:var(--pam);background:var(--pal)}
+#tenses-scope .pa .wr-right {
+color:var(--pa)}
+#tenses-scope .fu .tc-header {
+border-top:3px solid var(--fu)}
+#tenses-scope .fu .tc-name {
+color:var(--fu)}
+#tenses-scope .fu .f-chunk {
+border-color:var(--fum);background:var(--ful)}
+#tenses-scope .fu .badge {
+background:var(--ful);color:var(--fud)}
+#tenses-scope .fu .ex-item {
+border-left-color:var(--fum)}
+#tenses-scope .fu .exc-box {
+border-left-color:var(--fu);background:var(--ful)}
+#tenses-scope .fu .exc-title {
+color:var(--fu)}
+#tenses-scope .fu .usage-dot {
+background:var(--fu)}
+#tenses-scope .fu .sig-word {
+border-color:var(--fum);background:var(--ful)}
+#tenses-scope .fu .wr-right {
+color:var(--fu)}
+#tenses-scope .tc-body.single .tc-col {
+border-right:none;grid-column:1/-1}
+#tenses-scope .tc-body.three {
+grid-template-columns:1fr 1fr 1fr}
+@media(max-width:900px) {
+#tenses-scope .tc-body.three {
+grid-template-columns:1fr 1fr}
+
+}
+@media(max-width:600px) {
+#tenses-scope .tc-body.three {
+grid-template-columns:1fr}
+
+}
+@keyframes fadeSlide {
+from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+#tenses-scope .tense-card {
+animation:fadeSlide 0.5s ease both}
+
+
+  </style>
+  <div id="tenses-scope">
+<!-- ══════════════ HERO ══════════════ -->
+
+<!-- ══════════════ NAV ══════════════ -->
+<div class="t-nav">
+  <div class="nav-section">
+    <span class="nav-label">Present</span>
+    <a class="nav-item pr" href="#ps">Simple</a>
+    <a class="nav-item pr" href="#pc">Continuous</a>
+    <a class="nav-item pr" href="#pp">Perfect</a>
+    <a class="nav-item pr" href="#ppc">Perf. Cont.</a>
+  </div>
+  <div class="nav-section">
+    <span class="nav-label">Past</span>
+    <a class="nav-item pa" href="#pas">Simple</a>
+    <a class="nav-item pa" href="#pac">Continuous</a>
+    <a class="nav-item pa" href="#pap">Perfect</a>
+    <a class="nav-item pa" href="#papc">Perf. Cont.</a>
+  </div>
+  <div class="nav-section">
+    <span class="nav-label">Future</span>
+    <a class="nav-item fu" href="#fs">Simple</a>
+    <a class="nav-item fu" href="#fc">Continuous</a>
+    <a class="nav-item fu" href="#fp">Perfect</a>
+    <a class="nav-item fu" href="#fpc">Perf. Cont.</a>
+  </div>
+  <div class="nav-section">
+    <a class="nav-item" href="#compare">Compare All</a>
+    <a class="nav-item" href="#mistakes">Mistakes</a>
+  </div>
+</div>
+
+<div class="t-page">
+
+<!-- ═══════════════════════════════════════
+     PRESENT FAMILY
+═══════════════════════════════════════ -->
+<div id="present">
+  <div class="family-head">
+    <div class="family-icon">🟢</div>
+    <div>
+      <div class="family-eyebrow" style="color:var(--pr)">Present Tenses</div>
+      <div class="family-title">What is happening<br>now &amp; in general</div>
+    </div>
+    <div class="family-desc">Four present tenses cover habits, ongoing actions, recently completed events and long-running ongoing situations. Each has a distinct feeling and purpose.</div>
+  </div>
+
+  <!-- PRESENT SIMPLE -->
+  <div class="tense-card pr" id="ps">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Present Simple</div>
+        <div class="tc-meaning">Facts, habits, routines, general truths</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">habits</span>
+        <span class="badge">facts</span>
+        <span class="badge">schedules</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">Subject</span><span class="f-op">+</span><span class="f-chunk">V (/ V+s/es)</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">don't / doesn't + V</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Do / Does + S + V?</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Habits &amp; routines:</strong> I <em>wake up</em> at 7 every day.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>General truths &amp; facts:</strong> The sun <em>rises</em> in the east.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Permanent states:</strong> She <em>lives</em> in Paris.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Fixed schedules:</strong> The train <em>leaves</em> at 9:15.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Instructions &amp; directions:</strong> You <em>turn</em> left at the lights.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Newspaper headlines:</strong> President <em>signs</em> new law.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Storytelling / commentary:</strong> She <em>opens</em> the door and…</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>drink</strong> coffee every morning.</span><div class="ex-note">habit</div></li>
+          <li class="ex-item"><span class="ex-sentence">Water <strong>boils</strong> at 100 degrees.</span><div class="ex-note">scientific fact</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>doesn't eat</strong> meat.</span><div class="ex-note">permanent fact / choice</div></li>
+          <li class="ex-item"><span class="ex-sentence"><strong>Does</strong> he <strong>work</strong> on Saturdays?</span><div class="ex-note">question about routine</div></li>
+          <li class="ex-item"><span class="ex-sentence">The film <strong>starts</strong> at 8 pm.</span><div class="ex-note">fixed schedule</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ Spelling rules for he/she/it (+s)</div>
+      <ul class="exc-list">
+        <li>Most verbs: just add <strong>-s</strong> → work→works, play→plays, eat→eats</li>
+        <li>Verbs ending -ch, -sh, -ss, -x, -o: add <strong>-es</strong> → watch→watches, go→goes, fix→fixes</li>
+        <li>Verbs ending consonant + y: change y→i, add <strong>-es</strong> → study→studies, carry→carries</li>
+        <li>Irregulars: <strong>be</strong> → is · <strong>have</strong> → has · <strong>do</strong> → does</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">always</span><span class="sig-word">usually</span><span class="sig-word">often</span><span class="sig-word">sometimes</span><span class="sig-word">never</span><span class="sig-word">every day / week</span><span class="sig-word">in the morning</span><span class="sig-word">on Mondays</span>
+    </div>
+  </div>
+
+  <!-- PRESENT CONTINUOUS -->
+  <div class="tense-card pr" id="pc">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Present Continuous</div>
+        <div class="tc-meaning">Actions happening right now or around now; future arrangements</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">right now</span>
+        <span class="badge">temporary</span>
+        <span class="badge">arrangements</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">am / is / are</span><span class="f-op">+</span><span class="f-chunk">V+ing</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">am/is/are + not + V+ing</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Am/Is/Are + S + V+ing?</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Right now:</strong> She <em>is reading</em> at this moment.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Temporary situations:</strong> I <em>am staying</em> at my friend's place this week.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Trends &amp; changes:</strong> The climate <em>is getting</em> warmer.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Future arrangements:</strong> We <em>are meeting</em> at 7 tonight.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Annoying habits (+always):</strong> He <em>is always losing</em> his keys!</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>am writing</strong> an email right now.</span><div class="ex-note">action at this moment</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>is living</strong> in London temporarily.</span><div class="ex-note">temporary state</div></li>
+          <li class="ex-item"><span class="ex-sentence">They <strong>are getting</strong> married next June.</span><div class="ex-note">future arrangement</div></li>
+          <li class="ex-item"><span class="ex-sentence">He <strong>is always interrupting</strong> me!</span><div class="ex-note">annoying habit (irritation)</div></li>
+          <li class="ex-item"><span class="ex-sentence">More people <strong>are working</strong> from home.</span><div class="ex-note">trend / change</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ Non-continuous (stative) verbs — NEVER use with -ing</div>
+      <ul class="exc-list">
+        <li><strong>Emotions:</strong> love, hate, like, want, need, prefer, wish — ✘ I am loving it → ✔ I love it</li>
+        <li><strong>Mental states:</strong> know, believe, understand, remember, forget, think (= opinion), mean</li>
+        <li><strong>Senses:</strong> see, hear, smell, taste, seem, appear — ✘ I am seeing him → ✔ I see him</li>
+        <li><strong>Possession:</strong> have (=own), own, belong, possess, contain</li>
+        <li><strong>Exception!</strong> Some verbs have 2 meanings: I <em>have</em> a car (own) vs I <em>am having</em> lunch (activity)</li>
+      </ul>
+    </div>
+    <div class="exc-box" style="margin-top:-8px">
+      <div class="exc-title">⚠ Spelling rules for -ing</div>
+      <ul class="exc-list">
+        <li>Short vowel + single consonant → double consonant: sit→sitting, run→running, swim→swimming</li>
+        <li>Silent -e → drop e: make→making, write→writing, have→having</li>
+        <li>Ending in -ie → change to -y: lie→lying, die→dying, tie→tying</li>
+        <li>Verb ending in -l (British English) → double l: travel→travelling, cancel→cancelling</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">now</span><span class="sig-word">right now</span><span class="sig-word">at the moment</span><span class="sig-word">currently</span><span class="sig-word">today</span><span class="sig-word">this week</span><span class="sig-word">look! / listen!</span><span class="sig-word">still</span>
+    </div>
+  </div>
+
+  <!-- PRESENT PERFECT -->
+  <div class="tense-card pr" id="pp">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Present Perfect</div>
+        <div class="tc-meaning">Past actions with a present connection; life experiences; recent events</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">experience</span>
+        <span class="badge">result now</span>
+        <span class="badge">unfinished time</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">have / has</span><span class="f-op">+</span><span class="f-chunk">past participle</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">haven't / hasn't + p.p.</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Have / Has + S + p.p.?</span>
+    </div>
+    <div class="tc-body three">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Life experiences</strong> (no specific time): I <em>have been</em> to Japan.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Result in the present:</strong> She <em>has lost</em> her keys (= she can't find them now).</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Unfinished time period:</strong> I <em>have worked</em> here for 3 years.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Recent past (news):</strong> The president <em>has resigned</em>.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>First/second/superlative:</strong> It's the best film I <em>have ever seen</em>.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>have visited</strong> Rome three times.</span><div class="ex-note">life experience</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>has broken</strong> her leg.</span><div class="ex-note">result visible now</div></li>
+          <li class="ex-item"><span class="ex-sentence">We <strong>haven't eaten</strong> yet.</span><div class="ex-note">unfinished situation</div></li>
+          <li class="ex-item"><span class="ex-sentence"><strong>Have</strong> you ever <strong>tried</strong> sushi?</span><div class="ex-note">life experience question</div></li>
+          <li class="ex-item"><span class="ex-sentence">He <strong>has just arrived</strong>.</span><div class="ex-note">very recent past</div></li>
+        </ul>
+      </div>
+      <div class="tc-col" style="border-right:none">
+        <div class="tc-col-title">For vs Since</div>
+        <ul class="ex-list">
+          <li class="ex-item" style="border-left-color:var(--gd);background:var(--gdl)"><span class="ex-sentence"><strong>for</strong> = duration of time</span><div class="ex-note">for 3 years · for a long time · for ages</div></li>
+          <li class="ex-item" style="border-left-color:var(--gd);background:var(--gdl)"><span class="ex-sentence"><strong>since</strong> = point in time</span><div class="ex-note">since 2020 · since Monday · since I was born</div></li>
+          <li class="ex-item"><span class="ex-sentence">I <strong>have lived</strong> here <strong>for</strong> 5 years.</span><div class="ex-note">= 5 years duration</div></li>
+          <li class="ex-item"><span class="ex-sentence">I <strong>have lived</strong> here <strong>since</strong> 2019.</span><div class="ex-note">= started 2019, still now</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ Present Perfect vs Past Simple — key difference</div>
+      <ul class="exc-list">
+        <li><strong>Present Perfect</strong> — no specific time / time period includes now: I <em>have seen</em> that film. / She <em>has lived</em> here for years.</li>
+        <li><strong>Past Simple</strong> — specific time in the past (finished): I <em>saw</em> that film last week. / She <em>lived</em> there in 2010.</li>
+        <li>Never use PP with: yesterday, last week, in 2005, an hour ago, when I was young</li>
+        <li>Use PP with: ever, never, already, yet, just, recently, so far, since, for</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">already</span><span class="sig-word">yet</span><span class="sig-word">just</span><span class="sig-word">ever</span><span class="sig-word">never</span><span class="sig-word">recently</span><span class="sig-word">so far</span><span class="sig-word">for</span><span class="sig-word">since</span><span class="sig-word">still</span>
+    </div>
+  </div>
+
+  <!-- PRESENT PERFECT CONTINUOUS -->
+  <div class="tense-card pr" id="ppc">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Present Perfect Continuous</div>
+        <div class="tc-meaning">An action that started in the past, continued up to now — emphasises duration or visible result</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">how long</span>
+        <span class="badge">visible result</span>
+        <span class="badge">still ongoing</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">have / has</span><span class="f-op">+</span><span class="f-chunk">been</span><span class="f-op">+</span><span class="f-chunk">V+ing</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">haven't/hasn't + been + V+ing</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>How long:</strong> I <em>have been waiting</em> for an hour.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Visible present result:</strong> She looks tired — she <em>has been working</em> all night.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Recent activity (still happening):</strong> I <em>have been studying</em> Japanese lately.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Explaining a current situation:</strong> Why is your shirt wet? I <em>have been swimming</em>.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples + PP vs PPC</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>have been reading</strong> this book for 2 weeks.</span><div class="ex-note">still reading — not finished</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>has been crying</strong> — her eyes are red.</span><div class="ex-note">visible evidence of activity</div></li>
+          <li class="ex-item" style="border-left-color:var(--gdm);background:var(--gdl)"><span class="ex-sentence">I <strong>have read</strong> 3 chapters. (PP)</span><div class="ex-note">completed — focuses on result/number</div></li>
+          <li class="ex-item" style="border-left-color:var(--gdm);background:var(--gdl)"><span class="ex-sentence">I <strong>have been reading</strong> all day. (PPC)</span><div class="ex-note">ongoing — focuses on duration</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ PP vs Present Perfect Continuous</div>
+      <ul class="exc-list">
+        <li>Use <strong>PP</strong> for completed actions / quantity / results: I've written 3 emails.</li>
+        <li>Use <strong>PPC</strong> for duration / ongoing / visible evidence: I've been writing emails all morning.</li>
+        <li>Stative verbs (know, love, want…) use PP even for duration: I <em>have known</em> her for years (NOT have been knowing)</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">for</span><span class="sig-word">since</span><span class="sig-word">how long?</span><span class="sig-word">all day / morning</span><span class="sig-word">lately</span><span class="sig-word">recently</span><span class="sig-word">all this time</span>
+    </div>
+  </div>
+</div><!-- /present -->
+
+<div class="sec-div"></div>
+
+<!-- ═══════════════════════════════════════
+     PAST FAMILY
+═══════════════════════════════════════ -->
+<div id="past">
+  <div class="family-head">
+    <div class="family-icon">🔴</div>
+    <div>
+      <div class="family-eyebrow" style="color:var(--pa)">Past Tenses</div>
+      <div class="family-title">What happened<br>before now</div>
+    </div>
+    <div class="family-desc">Four past tenses distinguish completed actions, ongoing past situations, actions before other past actions, and durations in the past.</div>
+  </div>
+
+  <!-- PAST SIMPLE -->
+  <div class="tense-card pa" id="pas">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Past Simple</div>
+        <div class="tc-meaning">Completed actions at a specific time in the past</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">completed</span>
+        <span class="badge">specific time</span>
+        <span class="badge">sequence</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">Subject + V2 (past form)</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">didn't + V (base)</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Did + S + V (base)?</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Completed past action:</strong> She <em>left</em> at 8.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Series of completed events:</strong> I <em>woke up</em>, <em>showered</em> and <em>had</em> breakfast.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Specific time in past:</strong> We <em>met</em> in 2018.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Past habits (with "used to"):</strong> I <em>used to play</em> football every weekend.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Storytelling / narrative:</strong> She <em>opened</em> the door and <em>saw</em> him.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>visited</strong> Paris last summer.</span><div class="ex-note">specific time</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>didn't come</strong> to the party.</span><div class="ex-note">completed — didn't happen</div></li>
+          <li class="ex-item"><span class="ex-sentence"><strong>Did</strong> you <strong>see</strong> the match yesterday?</span><div class="ex-note">question about specific past</div></li>
+          <li class="ex-item"><span class="ex-sentence">He <strong>woke up</strong>, <strong>dressed</strong> and <strong>left</strong>.</span><div class="ex-note">sequence of events</div></li>
+          <li class="ex-item"><span class="ex-sentence">I <strong>used to smoke</strong> but I stopped.</span><div class="ex-note">past habit, no longer true</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ Irregular verbs — no rule, must memorise</div>
+      <ul class="exc-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 24px">
+        <li>go → <strong>went</strong> → gone</li>
+        <li>see → <strong>saw</strong> → seen</li>
+        <li>have → <strong>had</strong> → had</li>
+        <li>make → <strong>made</strong> → made</li>
+        <li>take → <strong>took</strong> → taken</li>
+        <li>come → <strong>came</strong> → come</li>
+        <li>give → <strong>gave</strong> → given</li>
+        <li>know → <strong>knew</strong> → known</li>
+        <li>think → <strong>thought</strong> → thought</li>
+        <li>get → <strong>got</strong> → got/gotten</li>
+        <li>say → <strong>said</strong> → said</li>
+        <li>write → <strong>wrote</strong> → written</li>
+        <li>buy → <strong>bought</strong> → bought</li>
+        <li>bring → <strong>brought</strong> → brought</li>
+        <li>find → <strong>found</strong> → found</li>
+        <li>feel → <strong>felt</strong> → felt</li>
+        <li>begin → <strong>began</strong> → begun</li>
+        <li>break → <strong>broke</strong> → broken</li>
+        <li>fly → <strong>flew</strong> → flown</li>
+        <li>speak → <strong>spoke</strong> → spoken</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">yesterday</span><span class="sig-word">last week/year</span><span class="sig-word">ago</span><span class="sig-word">in 2005</span><span class="sig-word">when I was young</span><span class="sig-word">then</span><span class="sig-word">at that time</span><span class="sig-word">once</span>
+    </div>
+  </div>
+
+  <!-- PAST CONTINUOUS -->
+  <div class="tense-card pa" id="pac">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Past Continuous</div>
+        <div class="tc-meaning">An ongoing action at a specific moment in the past; interrupted actions; background in stories</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">at that moment</span>
+        <span class="badge">interrupted</span>
+        <span class="badge">background</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">was / were</span><span class="f-op">+</span><span class="f-chunk">V+ing</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">wasn't/weren't + V+ing</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Was/Were + S + V+ing?</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>At a specific past moment:</strong> At 8 pm I <em>was cooking</em> dinner.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Interrupted by shorter action (when):</strong> I <em>was sleeping</em> when the phone rang.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Two parallel past actions (while):</strong> She <em>was reading</em> while he <em>was cooking</em>.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Background in a story:</strong> It <em>was raining</em>. The streets <em>were shining</em>…</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Annoying past habits (+always):</strong> He <em>was always losing</em> his phone.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>was watching</strong> TV when she called.</span><div class="ex-note">interrupted action — PC + PS</div></li>
+          <li class="ex-item"><span class="ex-sentence">They <strong>were playing</strong> football all afternoon.</span><div class="ex-note">ongoing at a past time</div></li>
+          <li class="ex-item"><span class="ex-sentence">While I <strong>was cooking</strong>, he <strong>was cleaning</strong>.</span><div class="ex-note">two simultaneous past actions</div></li>
+          <li class="ex-item"><span class="ex-sentence">The sun <strong>was shining</strong> and birds <strong>were singing</strong>.</span><div class="ex-note">story background / setting</div></li>
+          <li class="ex-item"><span class="ex-sentence">What <strong>were</strong> you <strong>doing</strong> at 9 pm?</span><div class="ex-note">question about past moment</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ When vs While</div>
+      <ul class="exc-list">
+        <li><strong>When</strong> + short action (Past Simple): I was reading <em>when</em> the door opened.</li>
+        <li><strong>While</strong> + ongoing action (Past Continuous): <em>While</em> I was reading, she was sleeping.</li>
+        <li>Both clauses Past Continuous = two parallel activities: While he was singing, she was dancing.</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">when</span><span class="sig-word">while</span><span class="sig-word">as</span><span class="sig-word">at that moment</span><span class="sig-word">at 8 pm yesterday</span><span class="sig-word">all day long</span>
+    </div>
+  </div>
+
+  <!-- PAST PERFECT -->
+  <div class="tense-card pa" id="pap">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Past Perfect</div>
+        <div class="tc-meaning">An action completed BEFORE another past action — the "past of the past"</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">before past</span>
+        <span class="badge">sequence</span>
+        <span class="badge">reported speech</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">had</span><span class="f-op">+</span><span class="f-chunk">past participle</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">hadn't + past participle</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Had + S + past participle?</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Before another past action:</strong> When I arrived, she <em>had already left</em>.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Explaining a past situation:</strong> He was tired because he <em>hadn't slept</em>.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Reported speech (backshift):</strong> She said she <em>had been</em> there.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Third conditional:</strong> If I <em>had known</em>, I would have helped.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Wishes about the past:</strong> I wish I <em>had studied</em> harder.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">By the time we arrived, the film <strong>had started</strong>.</span><div class="ex-note">film started first, then we arrived</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>had never seen</strong> snow before that winter.</span><div class="ex-note">experience before a past point</div></li>
+          <li class="ex-item"><span class="ex-sentence">I couldn't pay — I <strong>had forgotten</strong> my wallet.</span><div class="ex-note">reason in the past</div></li>
+          <li class="ex-item"><span class="ex-sentence">He said he <strong>had finished</strong> the report.</span><div class="ex-note">reported speech backshift</div></li>
+          <li class="ex-item"><span class="ex-sentence"><strong>Had</strong> you <strong>met</strong> her before the party?</span><div class="ex-note">before a past event</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ When Past Perfect is NOT needed</div>
+      <ul class="exc-list">
+        <li>If the sequence of events is clear (using before/after), Past Simple is enough: I <em>had dinner</em> before I <em>went</em> out. = I <em>had dinner</em> before I went out.</li>
+        <li>When "before" or "after" already makes the order clear, both verbs can be Past Simple.</li>
+        <li>Past Perfect is essential when the order is not obvious or you want to emphasize the earlier event.</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">already</span><span class="sig-word">yet</span><span class="sig-word">just</span><span class="sig-word">never … before</span><span class="sig-word">after</span><span class="sig-word">before</span><span class="sig-word">by the time</span><span class="sig-word">when</span>
+    </div>
+  </div>
+
+  <!-- PAST PERFECT CONTINUOUS -->
+  <div class="tense-card pa" id="papc">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Past Perfect Continuous</div>
+        <div class="tc-meaning">An action that was ongoing up to a point in the past — emphasises duration</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">duration before past</span>
+        <span class="badge">cause in past</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">had</span><span class="f-op">+</span><span class="f-chunk">been</span><span class="f-op">+</span><span class="f-chunk">V+ing</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">hadn't been + V+ing</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Duration before a past point:</strong> She <em>had been waiting</em> for 2 hours when he arrived.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Cause of a past situation:</strong> He was exhausted — he <em>had been working</em> all night.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Recently stopped but with visible effect:</strong> Her eyes were red. She <em>had been crying</em>.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>had been studying</strong> for 3 hours before I took a break.</span><div class="ex-note">duration up to past moment</div></li>
+          <li class="ex-item"><span class="ex-sentence">They <strong>had been arguing</strong>, so the atmosphere was tense.</span><div class="ex-note">explains past state</div></li>
+          <li class="ex-item"><span class="ex-sentence">How long <strong>had</strong> you <strong>been waiting</strong>?</span><div class="ex-note">question about past duration</div></li>
+          <li class="ex-item"><span class="ex-sentence">The ground was wet — it <strong>had been raining</strong>.</span><div class="ex-note">evidence of earlier action</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">for</span><span class="sig-word">since</span><span class="sig-word">how long?</span><span class="sig-word">all day</span><span class="sig-word">the whole time</span><span class="sig-word">before</span><span class="sig-word">when</span>
+    </div>
+  </div>
+</div><!-- /past -->
+
+<div class="sec-div"></div>
+
+<!-- ═══════════════════════════════════════
+     FUTURE FAMILY
+═══════════════════════════════════════ -->
+<div id="future">
+  <div class="family-head">
+    <div class="family-icon">🔵</div>
+    <div>
+      <div class="family-eyebrow" style="color:var(--fu)">Future Tenses</div>
+      <div class="family-title">What will happen<br>after now</div>
+    </div>
+    <div class="family-desc">English has multiple ways to express the future — will, going to, present continuous and future perfect each carry different nuances of intention, prediction and completion.</div>
+  </div>
+
+  <!-- FUTURE SIMPLE -->
+  <div class="tense-card fu" id="fs">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Future Simple (will)</div>
+        <div class="tc-meaning">Spontaneous decisions, predictions, promises, offers, facts about the future</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">will</span>
+        <span class="badge">spontaneous</span>
+        <span class="badge">prediction</span>
+        <span class="badge">promise</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">will + base verb</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">won't + base verb</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Will + S + base verb?</span>
+      <span class="f-op" style="margin-left:16px">also</span>
+      <span class="f-chunk">be going to + base verb</span>
+    </div>
+    <div class="tc-body three">
+      <div class="tc-col">
+        <div class="tc-col-title">Will — use when</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Spontaneous decision:</strong> I'm cold. I <em>will close</em> the window.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Promise:</strong> I <em>will call</em> you tomorrow.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Prediction (opinion):</strong> I think it <em>will rain</em>.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Offer:</strong> I <em>will help</em> you with that.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Future fact:</strong> She <em>will be</em> 30 next year.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Request:</strong> <em>Will</em> you help me?</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Going to — use when</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Prior intention/plan:</strong> I <em>am going to study</em> medicine. (decided)</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Prediction with evidence:</strong> Look at those clouds — it <em>is going to rain</em>.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Inevitable outcome:</strong> She <em>is going to have</em> a baby (visible).</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Decided before now:</strong> We <em>are going to move</em> house next month.</div></div>
+        </div>
+      </div>
+      <div class="tc-col" style="border-right:none">
+        <div class="tc-col-title">Examples — will vs going to</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">A: The phone is ringing! B: I <strong>will get</strong> it.</span><div class="ex-note">spontaneous — will</div></li>
+          <li class="ex-item"><span class="ex-sentence">I <strong>am going to buy</strong> a new car. I've already saved the money.</span><div class="ex-note">prior plan — going to</div></li>
+          <li class="ex-item"><span class="ex-sentence">I think Barcelona <strong>will win</strong>.</span><div class="ex-note">opinion prediction — will</div></li>
+          <li class="ex-item"><span class="ex-sentence">Watch out! You <strong>are going to fall</strong>!</span><div class="ex-note">evidence-based — going to</div></li>
+          <li class="ex-item"><span class="ex-sentence">I <strong>won't tell</strong> anyone. I promise.</span><div class="ex-note">promise — will</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">⚠ Will vs Going To — key difference</div>
+      <ul class="exc-list">
+        <li><strong>Will</strong> = decision made AT the moment of speaking (spontaneous) OR general future prediction without specific evidence</li>
+        <li><strong>Going to</strong> = decision made BEFORE speaking (prior intention) OR prediction based on visible evidence/signs</li>
+        <li>Future plans with exact time → prefer Present Continuous: The train <em>is leaving</em> at 8. / We <em>are having</em> dinner at 7.</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">tomorrow</span><span class="sig-word">next week/year</span><span class="sig-word">soon</span><span class="sig-word">in the future</span><span class="sig-word">I think/believe</span><span class="sig-word">probably</span><span class="sig-word">maybe</span>
+    </div>
+  </div>
+
+  <!-- FUTURE CONTINUOUS -->
+  <div class="tense-card fu" id="fc">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Future Continuous</div>
+        <div class="tc-meaning">An action that will be in progress at a specific future moment</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">in progress</span>
+        <span class="badge">at future moment</span>
+        <span class="badge">polite questions</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">will be</span><span class="f-op">+</span><span class="f-chunk">V+ing</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">won't be + V+ing</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Will + S + be + V+ing?</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>In progress at future moment:</strong> At 9 pm I <em>will be sleeping</em>.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Planned / expected action:</strong> I <em>will be meeting</em> the client tomorrow.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Polite / indirect question:</strong> <em>Will you be joining</em> us for dinner?</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Parallel future actions:</strong> While I <em>will be cooking</em>, she <em>will be shopping</em>.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">This time tomorrow I <strong>will be flying</strong> to Tokyo.</span><div class="ex-note">in progress at a future moment</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>will be working</strong> when you arrive.</span><div class="ex-note">ongoing at future time</div></li>
+          <li class="ex-item"><span class="ex-sentence"><strong>Will</strong> you <strong>be using</strong> the car tonight?</span><div class="ex-note">polite question (no pressure)</div></li>
+          <li class="ex-item"><span class="ex-sentence">Don't call at 8 — I <strong>will be having</strong> dinner.</span><div class="ex-note">expected activity at that time</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">at this time tomorrow</span><span class="sig-word">this time next week</span><span class="sig-word">when you arrive</span><span class="sig-word">still</span><span class="sig-word">at … o'clock</span>
+    </div>
+  </div>
+
+  <!-- FUTURE PERFECT -->
+  <div class="tense-card fu" id="fp">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Future Perfect</div>
+        <div class="tc-meaning">An action that will be completed BEFORE a specific future point</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">completed before</span>
+        <span class="badge">by a deadline</span>
+        <span class="badge">achievement</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">will have</span><span class="f-op">+</span><span class="f-chunk">past participle</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">won't have + p.p.</span>
+      <span class="f-op" style="margin-left:16px">?</span>
+      <span class="f-chunk">Will + S + have + p.p.?</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Completed before future deadline:</strong> I <em>will have finished</em> by 5 pm.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Achievement at a future point:</strong> By 2030, she <em>will have worked</em> here for 20 years.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Assumption about the past:</strong> She <em>will have arrived</em> by now.</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">I <strong>will have graduated</strong> by next June.</span><div class="ex-note">completed before future point</div></li>
+          <li class="ex-item"><span class="ex-sentence">By the time you read this, I <strong>will have left</strong>.</span><div class="ex-note">before another future event</div></li>
+          <li class="ex-item"><span class="ex-sentence">She <strong>will have saved</strong> enough money by December.</span><div class="ex-note">achievement by deadline</div></li>
+          <li class="ex-item"><span class="ex-sentence"><strong>Will</strong> you <strong>have finished</strong> by 3 pm?</span><div class="ex-note">question about completion</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">by then</span><span class="sig-word">by + time</span><span class="sig-word">by the time</span><span class="sig-word">before</span><span class="sig-word">already (in future)</span><span class="sig-word">in X years</span>
+    </div>
+  </div>
+
+  <!-- FUTURE PERFECT CONTINUOUS -->
+  <div class="tense-card fu" id="fpc">
+    <div class="tc-header">
+      <div>
+        <div class="tc-name">Future Perfect Continuous</div>
+        <div class="tc-meaning">An action that will have been in progress for a duration up to a specific future point</div>
+      </div>
+      <div class="tc-badges">
+        <span class="badge">how long by then</span>
+        <span class="badge">duration + future</span>
+      </div>
+    </div>
+    <div class="tc-formula">
+      <span class="f-label">+</span>
+      <span class="f-chunk">will have been</span><span class="f-op">+</span><span class="f-chunk">V+ing</span>
+      <span class="f-op" style="margin-left:16px">–</span>
+      <span class="f-chunk">won't have been + V+ing</span>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-title">When to use</div>
+        <div class="usage-list">
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Duration up to future point:</strong> By May, I <em>will have been studying</em> English for 5 years.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Explaining a future state:</strong> She will be tired — she <em>will have been travelling</em> all day.</div></div>
+          <div class="usage-row"><span class="usage-dot"></span><div class="usage-text"><strong>Emphasis on the activity's ongoing nature:</strong> How long <em>will you have been working</em> here by retirement?</div></div>
+        </div>
+      </div>
+      <div class="tc-col">
+        <div class="tc-col-title">Examples</div>
+        <ul class="ex-list">
+          <li class="ex-item"><span class="ex-sentence">By next year, we <strong>will have been living</strong> here for a decade.</span><div class="ex-note">duration until future moment</div></li>
+          <li class="ex-item"><span class="ex-sentence">When she retires, she <strong>will have been teaching</strong> for 35 years.</span><div class="ex-note">achievement of duration</div></li>
+          <li class="ex-item"><span class="ex-sentence">I <strong>will have been waiting</strong> for 3 hours by the time he arrives.</span><div class="ex-note">ongoing up to future moment</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exc-box">
+      <div class="exc-title">Note: This is the rarest tense in everyday English</div>
+      <ul class="exc-list">
+        <li>Used mainly in formal/written contexts or for emphasis on duration.</li>
+        <li>In conversation, Future Perfect is usually preferred: By May I'll have studied English for 5 years.</li>
+      </ul>
+    </div>
+    <div class="signals">
+      <span class="sig-label">Signal words</span>
+      <span class="sig-word">by + time</span><span class="sig-word">for + duration</span><span class="sig-word">when you arrive</span><span class="sig-word">by then</span><span class="sig-word">how long?</span>
+    </div>
+  </div>
+</div><!-- /future -->
+
+<div class="sec-div"></div>
+
+<!-- ═══════════════════════════════════════
+     COMPARE ALL
+═══════════════════════════════════════ -->
+<div id="compare">
+  <div class="family-head" style="padding-top:60px">
+    <div class="family-icon">📊</div>
+    <div>
+      <div class="family-eyebrow" style="color:var(--muted)">All 12 Tenses</div>
+      <div class="family-title">Compare at a glance</div>
+    </div>
+    <div class="family-desc">All tenses, their formulas, time reference, signal words and one key example in a single table.</div>
+  </div>
+
+  <div class="comp-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Tense</th>
+          <th>Formula</th>
+          <th>Time</th>
+          <th>Key signal</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tname" style="color:var(--pr)">Present Simple</td>
+          <td class="mono">S + V(s/es)</td>
+          <td>always / generally</td>
+          <td>always, every day, never</td>
+          <td class="ex-c">She <strong>works</strong> every day.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--pr)">Present Continuous</td>
+          <td class="mono">am/is/are + V-ing</td>
+          <td>right now / temporary</td>
+          <td>now, at the moment</td>
+          <td class="ex-c">She <strong>is working</strong> right now.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--pr)">Present Perfect</td>
+          <td class="mono">have/has + p.p.</td>
+          <td>past → present link</td>
+          <td>already, just, ever, yet</td>
+          <td class="ex-c">She <strong>has worked</strong> here for years.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--pr)">Pres. Perf. Continuous</td>
+          <td class="mono">have/has + been + V-ing</td>
+          <td>duration → now</td>
+          <td>for, since, how long, all day</td>
+          <td class="ex-c">She <strong>has been working</strong> all morning.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--pa)">Past Simple</td>
+          <td class="mono">S + V2 (past form)</td>
+          <td>specific finished past</td>
+          <td>yesterday, ago, last year</td>
+          <td class="ex-c">She <strong>worked</strong> there in 2018.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--pa)">Past Continuous</td>
+          <td class="mono">was/were + V-ing</td>
+          <td>ongoing at past moment</td>
+          <td>when, while, at 9 pm</td>
+          <td class="ex-c">She <strong>was working</strong> when I called.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--pa)">Past Perfect</td>
+          <td class="mono">had + p.p.</td>
+          <td>before another past</td>
+          <td>by the time, already, before</td>
+          <td class="ex-c">She <strong>had worked</strong> there before I joined.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--pa)">Past Perf. Continuous</td>
+          <td class="mono">had + been + V-ing</td>
+          <td>duration before past</td>
+          <td>for, since, all day, before</td>
+          <td class="ex-c">She <strong>had been working</strong> for 3 hrs when I arrived.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--fu)">Future Simple (will)</td>
+          <td class="mono">will + base verb</td>
+          <td>prediction / spontaneous</td>
+          <td>tomorrow, probably, I think</td>
+          <td class="ex-c">She <strong>will work</strong> late tonight.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--fu)">Future Continuous</td>
+          <td class="mono">will be + V-ing</td>
+          <td>ongoing at future moment</td>
+          <td>at this time tomorrow, when</td>
+          <td class="ex-c">She <strong>will be working</strong> at midnight.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--fu)">Future Perfect</td>
+          <td class="mono">will have + p.p.</td>
+          <td>completed before future</td>
+          <td>by then, by next year</td>
+          <td class="ex-c">She <strong>will have worked</strong> here 10 years by June.</td>
+        </tr>
+        <tr>
+          <td class="tname" style="color:var(--fu)">Future Perf. Continuous</td>
+          <td class="mono">will have been + V-ing</td>
+          <td>duration until future</td>
+          <td>for, by the time, how long</td>
+          <td class="ex-c">She <strong>will have been working</strong> for 30 yrs by then.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     COMMON MISTAKES
+═══════════════════════════════════════ -->
+<div id="mistakes">
+  <div class="family-head" style="padding-top:40px">
+    <div class="family-icon">⚠️</div>
+    <div>
+      <div class="family-eyebrow" style="color:#C03030">Common Mistakes</div>
+      <div class="family-title">What everyone<br>gets wrong</div>
+    </div>
+    <div class="family-desc">The most frequent tense errors learners make — with corrections and explanations.</div>
+  </div>
+
+  <div class="mistakes-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:16px">
+    <div class="tense-card" style="border-top:3px solid var(--pr)">
+      <div class="tc-header" style="padding:20px 24px 16px"><div class="tc-name" style="font-size:1.1rem;color:var(--pr)">Present tense mistakes</div></div>
+      <div class="wr-block">
+        <div class="wr-row"><span class="wr-icon">✘</span><span class="wr-wrong">She is knowing the answer.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">She knows the answer.</span></div>
+        <div class="wr-why">Stative verb "know" — never use with -ing.</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">I have seen him yesterday.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">I saw him yesterday.</span></div>
+        <div class="wr-why">Specific past time → Past Simple, not Present Perfect.</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">She work in a bank.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">She works in a bank.</span></div>
+        <div class="wr-why">He/She/It → add -s to the verb in Present Simple.</div>
+      </div>
+    </div>
+    <div class="tense-card" style="border-top:3px solid var(--pa)">
+      <div class="tc-header" style="padding:20px 24px 16px"><div class="tc-name" style="font-size:1.1rem;color:var(--pa)">Past tense mistakes</div></div>
+      <div class="wr-block">
+        <div class="wr-row"><span class="wr-icon">✘</span><span class="wr-wrong">I didn't went to the party.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">I didn't go to the party.</span></div>
+        <div class="wr-why">After did/didn't — use the base verb, not past form.</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">When I arrived, she left.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">When I arrived, she had already left.</span></div>
+        <div class="wr-why">She left before I arrived — use Past Perfect for the earlier action.</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">I was study all night.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">I was studying all night.</span></div>
+        <div class="wr-why">Past Continuous = was/were + V-ING (not base verb).</div>
+      </div>
+    </div>
+    <div class="tense-card" style="border-top:3px solid var(--fu)">
+      <div class="tc-header" style="padding:20px 24px 16px"><div class="tc-name" style="font-size:1.1rem;color:var(--fu)">Future tense mistakes</div></div>
+      <div class="wr-block">
+        <div class="wr-row"><span class="wr-icon">✘</span><span class="wr-wrong">I will to go to the shops.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">I will go to the shops.</span></div>
+        <div class="wr-why">After will — use the base verb (no "to").</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">I'm going to will travel next year.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">I'm going to travel / I will travel next year.</span></div>
+        <div class="wr-why">Don't mix will and going to together.</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">If it will rain, I'll stay home.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">If it rains, I'll stay home.</span></div>
+        <div class="wr-why">In conditional "if" clauses — use Present Simple, not will.</div>
+      </div>
+    </div>
+    <div class="tense-card" style="border-top:3px solid var(--gd)">
+      <div class="tc-header" style="padding:20px 24px 16px"><div class="tc-name" style="font-size:1.1rem;color:var(--gd)">Perfect tense mistakes</div></div>
+      <div class="wr-block">
+        <div class="wr-row"><span class="wr-icon">✘</span><span class="wr-wrong">I have been to Paris last year.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">I went to Paris last year.</span></div>
+        <div class="wr-why">"Last year" is a specific time → Past Simple.</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">She has gone to the shops. (she's here now)</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">She has been to the shops.</span></div>
+        <div class="wr-why">Has gone = she is still away. Has been = she went and came back.</div>
+        <div class="wr-row" style="margin-top:10px"><span class="wr-icon">✘</span><span class="wr-wrong">I am working here since 2018.</span></div>
+        <div class="wr-row"><span class="wr-icon">✔</span><span class="wr-right">I have been working here since 2018.</span></div>
+        <div class="wr-why">Duration from past to present → Present Perfect (Continuous).</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /page -->
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -4491,6 +6049,7 @@ function showPage(id) {
   if (id === 'practice') renderPractice();
   if (id === 'quantifiers') initQuantifiers();
   if (id === 'conditionals') initConditionals();
+  if (id === 'tenses') initTenses();
 }
 
 // ════════════════════════════════════════════
@@ -5606,6 +7165,17 @@ function insertHtmlPaste() {
   markNoteDirty();
   closeHtmlPasteModal();
   showToast('✓ HTML inserted!', 'success');
+}
+
+function initTenses() {
+  document.querySelectorAll('#tenses-scope .t-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const id = a.getAttribute('href').replace('#','');
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
 function initConditionals() {
