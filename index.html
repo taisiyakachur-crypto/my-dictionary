@@ -545,6 +545,7 @@
     <button class="nav-tab active" onclick="showPage('dict')">📖 Dictionary</button>
     <button class="nav-tab" onclick="showPage('allwords')">📋 All Words</button>
     <button class="nav-tab" onclick="showPage('practice')">🎯 Practice</button>
+    <button class="nav-tab" onclick="showPage('quantifiers')">📊 Quantifiers</button>
     <button class="nav-tab" onclick="showPage('verbs')">🔤 Irregular Verbs</button>
     <button class="nav-tab" onclick="showPage('links')">🔗 Links</button>
     <button class="nav-tab" onclick="showPage('notes')">📝 Notes</button>
@@ -986,6 +987,1276 @@
   </div>
 </div>
 
+<!-- ════════════════════════════ PAGE 7: QUANTIFIERS ════════════════════════════ -->
+<div id="page-quantifiers" class="page" style="padding:0;max-width:100%">
+  <style id="quantifiers-styles">
+#quantifiers-scope {
+
+    --bg: #F5F0E8;
+    --card: #FFFDF8;
+    --ink: #1A1408;
+    --muted: #7A7060;
+    --border: #E0D8C8;
+
+    --count: #1B5E8A;
+    --count-light: #EAF3FB;
+    --count-mid: #B5D4F4;
+
+    --uncount: #6B3A8C;
+    --uncount-light: #F3EDFB;
+    --uncount-mid: #D4B8F0;
+
+    --both: #1A7A5A;
+    --both-light: #E5F5EE;
+    --both-mid: #9FE1CB;
+
+    --neg: #C04020;
+    --neg-light: #FAEAE4;
+    --pos: #2E7D32;
+    --pos-light: #E8F5E9;
+
+    --accent: #D4A017;
+    --accent-light: #FDF3D0;
+  }
+#quantifiers-scope * {
+ box-sizing: border-box; margin: 0; padding: 0; }
+#quantifiers-scope {
+
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+#quantifiers-scope /* ── HERO ── */
+  .hero {
+
+    background: var(--ink);
+    color: #F5F0E8;
+    padding: 64px 40px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+#quantifiers-scope .hero::before {
+
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.025) 40px,
+      rgba(255,255,255,0.025) 41px
+    );
+  }
+#quantifiers-scope .hero h1 {
+
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    position: relative;
+  }
+#quantifiers-scope .hero h1 em {
+
+    color: var(--accent);
+    font-style: normal;
+  }
+#quantifiers-scope .hero p {
+
+    margin-top: 16px;
+    font-size: 16px;
+    color: #B0A898;
+    font-weight: 300;
+    position: relative;
+  }
+#quantifiers-scope /* ── NAV PILLS ── */
+  .nav {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 24px 40px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+#quantifiers-scope .nav a {
+
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.2s;
+    background: var(--card);
+  }
+#quantifiers-scope .nav a:hover {
+ border-color: var(--ink); color: var(--ink); }
+#quantifiers-scope /* ── LAYOUT ── */
+  .page {
+ max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
+#quantifiers-scope /* ── SECTION HEADERS ── */
+  .section-head {
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 56px 0 28px;
+  }
+#quantifiers-scope .section-head h2 {
+
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+#quantifiers-scope .section-head .line {
+
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+#quantifiers-scope .section-head .tag {
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+#quantifiers-scope /* ── NOUN TYPE BADGES ── */
+  .badge {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+#quantifiers-scope .badge.count {
+ background: var(--count-light);   color: var(--count); }
+#quantifiers-scope .badge.uncount {
+ background: var(--uncount-light); color: var(--uncount); }
+#quantifiers-scope .badge.both {
+ background: var(--both-light);    color: var(--both); }
+#quantifiers-scope /* ── WORD CARDS ── */
+  .cards-grid {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+#quantifiers-scope .word-card {
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+#quantifiers-scope .word-card:hover {
+
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+#quantifiers-scope .card-top {
+
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+#quantifiers-scope .card-word {
+
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+#quantifiers-scope .card-meaning {
+
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+#quantifiers-scope .card-body {
+ padding: 16px 22px 20px; }
+#quantifiers-scope .card-tone {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+#quantifiers-scope .card-tone.neg {
+ background: var(--neg-light); color: var(--neg); }
+#quantifiers-scope .card-tone.pos {
+ background: var(--pos-light); color: var(--pos); }
+#quantifiers-scope .card-tone.neutral {
+ background: var(--accent-light); color: #8A6000; }
+#quantifiers-scope .example {
+
+    font-size: 13.5px;
+    color: var(--ink);
+    font-style: italic;
+    line-height: 1.6;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--border);
+    margin-top: 8px;
+  }
+#quantifiers-scope .example + .example {
+ margin-top: 6px; }
+#quantifiers-scope .example strong {
+ font-style: normal; font-weight: 600; }
+#quantifiers-scope /* ── COMPARISON CARDS (little vs a little) ── */
+  .compare-block {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+@media (max-width: 600px) {
+#quantifiers-scope .compare-block {
+ grid-template-columns: 1fr; }
+ 
+}
+#quantifiers-scope .compare-card {
+
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+#quantifiers-scope .compare-header {
+
+    padding: 18px 20px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+#quantifiers-scope .compare-header .word {
+
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+#quantifiers-scope .compare-body {
+
+    background: var(--card);
+    padding: 16px 20px 18px;
+  }
+#quantifiers-scope .compare-tone {
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+#quantifiers-scope .tone-dot {
+
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+#quantifiers-scope /* neg = red dot, #quantifiers-scope pos = green dot */
+  .neg-dot {
+ background: var(--neg); }
+#quantifiers-scope .pos-dot {
+ background: var(--pos); }
+#quantifiers-scope /* little/a little = blue family, #quantifiers-scope few/a few = purple family */
+  .little-neg .compare-header {
+ background: #FBE9E4; }
+#quantifiers-scope .little-neg .compare-header .word {
+ color: var(--neg); }
+#quantifiers-scope .little-pos .compare-header {
+ background: var(--pos-light); }
+#quantifiers-scope .little-pos .compare-header .word {
+ color: var(--pos); }
+#quantifiers-scope .few-neg .compare-header {
+ background: #F3EDFB; }
+#quantifiers-scope .few-neg .compare-header .word {
+ color: var(--uncount); }
+#quantifiers-scope .few-pos .compare-header {
+ background: #EAF9F0; }
+#quantifiers-scope .few-pos .compare-header .word {
+ color: var(--both); }
+#quantifiers-scope /* ── VISUAL SCALE ── */
+  .scale-block {
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+#quantifiers-scope .scale-title {
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+#quantifiers-scope .scale-row {
+
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 6px;
+    position: relative;
+  }
+#quantifiers-scope .scale-label {
+
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    min-width: 100px;
+    color: var(--ink);
+  }
+#quantifiers-scope .scale-bar-wrap {
+
+    flex: 1;
+    height: 28px;
+    background: var(--bg);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+#quantifiers-scope .scale-bar {
+
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    transition: width 0.6s ease;
+  }
+#quantifiers-scope .scale-note {
+
+    min-width: 130px;
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 12px;
+  }
+#quantifiers-scope /* ── RULE BOX ── */
+  .rule-box {
+
+    background: var(--accent-light);
+    border: 1px solid #E8CC70;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+#quantifiers-scope .rule-box h4 {
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #8A6000;
+    margin-bottom: 10px;
+  }
+#quantifiers-scope .rule-box ul {
+
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+#quantifiers-scope .rule-box ul li {
+
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+#quantifiers-scope .rule-box ul li::before {
+
+    content: '→';
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+#quantifiers-scope /* ── CORRECT / WRONG ── */
+  .tick-cross {
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+#quantifiers-scope .tick-cross .row {
+
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 14px;
+  }
+#quantifiers-scope .tick-cross .icon {
+
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+#quantifiers-scope .wrong {
+ color: var(--neg); }
+#quantifiers-scope .right {
+ color: var(--pos); }
+#quantifiers-scope .strikethrough {
+ text-decoration: line-through; color: var(--muted); }
+#quantifiers-scope /* ── NOUN TYPE TABLE ── */
+  .noun-table {
+
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    font-size: 14px;
+  }
+#quantifiers-scope .noun-table th {
+
+    background: var(--ink);
+    color: #F5F0E8;
+    padding: 13px 18px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+#quantifiers-scope .noun-table td {
+
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+#quantifiers-scope .noun-table tr:last-child td {
+ border-bottom: none; }
+#quantifiers-scope .noun-table tr:nth-child(even) td {
+ background: var(--bg); }
+#quantifiers-scope .noun-table .word-cell {
+
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+  }
+#quantifiers-scope /* ── ENOUGH SPECIAL ── */
+  .enough-positions {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+@media (max-width: 640px) {
+#quantifiers-scope .enough-positions {
+ grid-template-columns: 1fr; }
+ 
+}
+#quantifiers-scope .pos-card {
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+#quantifiers-scope .pos-card .pos-num {
+
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+#quantifiers-scope .pos-card h4 {
+
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+#quantifiers-scope /* ── MEGA TABLE ── */
+  .mega-wrap {
+
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+#quantifiers-scope .mega-table {
+
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: var(--card);
+  }
+#quantifiers-scope .mega-table thead th {
+
+    background: var(--ink);
+    color: #F5F0E8;
+    padding: 13px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+  }
+#quantifiers-scope .mega-table tbody td {
+
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+#quantifiers-scope .mega-table tbody tr:last-child td {
+ border-bottom: none; }
+#quantifiers-scope .mega-table tbody tr:nth-child(even) td {
+ background: #FAFAF5; }
+#quantifiers-scope .mega-table .w {
+ font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px; }
+#quantifiers-scope .mega-table .def {
+ color: var(--muted); font-size: 12.5px; }
+#quantifiers-scope .mega-table .ex-cell {
+ font-style: italic; font-size: 13px; color: #3A3020; }
+#quantifiers-scope .mega-table .ex-cell strong {
+ font-style: normal; font-weight: 600; color: var(--ink); }
+#quantifiers-scope /* ── FOOTER ── */
+  .footer {
+
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 64px;
+  }
+#quantifiers-scope /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+#quantifiers-scope .word-card, #quantifiers-scope .compare-card, #quantifiers-scope .scale-block, #quantifiers-scope .pos-card {
+
+    animation: fadeUp 0.5s ease both;
+  }
+#quantifiers-scope .word-card:nth-child(2) {
+ animation-delay: 0.05s; }
+#quantifiers-scope .word-card:nth-child(3) {
+ animation-delay: 0.10s; }
+#quantifiers-scope .word-card:nth-child(4) {
+ animation-delay: 0.15s; }
+#quantifiers-scope .word-card:nth-child(5) {
+ animation-delay: 0.20s; }
+#quantifiers-scope .word-card:nth-child(6) {
+ animation-delay: 0.25s; }
+#quantifiers-scope /* count/uncount color stripe on left of card */
+  .word-card.c {
+ border-left: 4px solid var(--count); }
+#quantifiers-scope .word-card.u {
+ border-left: 4px solid var(--uncount); }
+#quantifiers-scope .word-card.b {
+ border-left: 4px solid var(--both); }
+
+
+  </style>
+  <div id="quantifiers-scope" style="font-family:'DM Sans',sans-serif">
+<!-- HERO -->
+<div class="hero">
+  <h1>Quantifiers<br><em>Visual Grammar Guide</em></h1>
+  <p>little · a little · few · a few · much · many · a lot of · enough · too much · too many</p>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#overview">Overview</a>
+  <a href="#little-few">Little vs A Little</a>
+  <a href="#few-afew">Few vs A Few</a>
+  <a href="#much-many">Much & Many</a>
+  <a href="#alot">A lot of / lots of</a>
+  <a href="#too">Too much / Too many</a>
+  <a href="#enough">Enough</a>
+  <a href="#summary">Full Summary</a>
+</nav>
+
+<div class="page">
+
+  <!-- ══════════════════════════════════════════
+       SECTION 1 — OVERVIEW SCALE
+  ══════════════════════════════════════════ -->
+  <div id="overview">
+    <div class="section-head">
+      <h2>How much is it?</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:#EEE8D8;color:#5A5040;">Visual scale</span>
+    </div>
+
+    <div class="scale-block">
+      <div class="scale-title">Countable nouns (people, books, chairs…)</div>
+      <div class="scale-row">
+        <span class="scale-label">few</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:18%;background:#C04020;">not enough</div></div>
+        <span class="scale-note">negative feeling 😟</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-label">a few</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:30%;background:#2E7D32;">some = OK</div></div>
+        <span class="scale-note">positive feeling 😊</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-label">many</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:#1B5E8A;">a large number</div></div>
+        <span class="scale-note">neutral / negative</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-label">too many</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:90%;background:#8B1A1A;">more than needed ⚠</div></div>
+        <span class="scale-note">negative — problem!</span>
+      </div>
+    </div>
+
+    <div class="scale-block">
+      <div class="scale-title">Uncountable nouns (water, money, time…)</div>
+      <div class="scale-row">
+        <span class="scale-label">little</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:18%;background:#C04020;">not enough</div></div>
+        <span class="scale-note">negative feeling 😟</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-label">a little</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:30%;background:#2E7D32;">some = OK</div></div>
+        <span class="scale-note">positive feeling 😊</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-label">much</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:#6B3A8C;">a large amount</div></div>
+        <span class="scale-note">questions / negatives</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-label">too much</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:90%;background:#8B1A1A;">more than needed ⚠</div></div>
+        <span class="scale-note">negative — problem!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 2 — LITTLE vs A LITTLE
+  ══════════════════════════════════════════ -->
+  <div id="little-few">
+    <div class="section-head">
+      <h2>Little vs A little</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:var(--uncount-light);color:var(--uncount);">Uncountable</span>
+    </div>
+
+    <div class="compare-block" style="margin-bottom:16px;">
+      <div class="compare-card little-neg">
+        <div class="compare-header">
+          <div class="word">little</div>
+          <span class="badge uncount">+ uncountable noun</span>
+        </div>
+        <div class="compare-body">
+          <div class="compare-tone">
+            <span class="tone-dot neg-dot"></span>
+            Negative meaning = NOT ENOUGH 😟
+          </div>
+          <div class="example">There's <strong>little</strong> milk left in the fridge. We should buy some today.</div>
+          <div class="example">He has <strong>little</strong> experience with baking, but he's willing to give it a try. (= not much experience)</div>
+          <div class="example">There's <strong>little</strong> hope of finding survivors after the accident.</div>
+        </div>
+      </div>
+
+      <div class="compare-card little-pos">
+        <div class="compare-header">
+          <div class="word">a little</div>
+          <span class="badge uncount">+ uncountable noun</span>
+        </div>
+        <div class="compare-body">
+          <div class="compare-tone">
+            <span class="tone-dot pos-dot"></span>
+            Positive meaning = ENOUGH 😊
+          </div>
+          <div class="example">There is <strong>a little</strong> milk left in the fridge, so we don't need to buy any more today.</div>
+          <div class="example">There is <strong>a little</strong> milk left, but it should be enough for my morning coffee. (= some milk)</div>
+          <div class="example">She has <strong>a little</strong> time before the meeting — enough to grab coffee.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <h4>Key rule</h4>
+      <ul>
+        <li>Both <strong>little</strong> and <strong>a little</strong> go with <strong>uncountable</strong> nouns (milk, money, time, experience…)</li>
+        <li><strong>little</strong> = not much → feels negative, like a problem</li>
+        <li><strong>a little</strong> = some → feels positive, sufficient amount</li>
+        <li>The article <em>a</em> completely changes the feeling of the sentence!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 3 — FEW vs A FEW
+  ══════════════════════════════════════════ -->
+  <div id="few-afew">
+    <div class="section-head">
+      <h2>Few vs A few</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:var(--count-light);color:var(--count);">Countable plural</span>
+    </div>
+
+    <div class="compare-block" style="margin-bottom:16px;">
+      <div class="compare-card few-neg">
+        <div class="compare-header">
+          <div class="word">few</div>
+          <span class="badge count">+ countable plural</span>
+        </div>
+        <div class="compare-body">
+          <div class="compare-tone">
+            <span class="tone-dot neg-dot"></span>
+            Negative meaning = NOT ENOUGH 😟
+          </div>
+          <div class="example">There were <strong>few</strong> customers, so we decided to close the shop early.</div>
+          <div class="example">There are <strong>few</strong> vegetables in the fridge to make a nutritious salad, it would be a good idea to buy some more. (= not many vegetables)</div>
+          <div class="example"><strong>Few</strong> students passed the exam. The teacher was disappointed.</div>
+        </div>
+      </div>
+
+      <div class="compare-card few-pos">
+        <div class="compare-header">
+          <div class="word">a few</div>
+          <span class="badge count">+ countable plural</span>
+        </div>
+        <div class="compare-body">
+          <div class="compare-tone">
+            <span class="tone-dot pos-dot"></span>
+            Positive meaning = ENOUGH 😊
+          </div>
+          <div class="example">There were <strong>a few</strong> customers on the first day, so we made some money.</div>
+          <div class="example">I have <strong>a few</strong> cookbooks that I often refer to for new recipes. (= some cookbooks)</div>
+          <div class="example">I need <strong>a few</strong> minutes to finish this — I'll be right with you.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <h4>Key rule</h4>
+      <ul>
+        <li>Both <strong>few</strong> and <strong>a few</strong> go with <strong>countable plural</strong> nouns (customers, books, friends…)</li>
+        <li><strong>few</strong> = not many → feels negative, not enough</li>
+        <li><strong>a few</strong> = some → feels positive, a small but sufficient number</li>
+        <li>Same trick as little/a little: the article <em>a</em> makes all the difference!</li>
+      </ul>
+    </div>
+
+    <!-- SIDE-BY-SIDE COMPARISON -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:8px;">
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <thead>
+          <tr>
+            <th style="background:#2C3E20;color:#F5F0E8;padding:12px 18px;text-align:left;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;width:25%"></th>
+            <th style="background:#2C3E20;color:#F5F0E8;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">few / little</th>
+            <th style="background:#2C3E20;color:#F5F0E8;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">a few / a little</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:12px 18px;border-bottom:1px solid var(--border);font-weight:600;font-size:13px;">Noun type</td>
+            <td style="padding:12px 18px;border-bottom:1px solid var(--border);">few → plural countable<br>little → uncountable</td>
+            <td style="padding:12px 18px;border-bottom:1px solid var(--border);">a few → plural countable<br>a little → uncountable</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 18px;border-bottom:1px solid var(--border);font-weight:600;font-size:13px;background:var(--bg);">Feeling</td>
+            <td style="padding:12px 18px;border-bottom:1px solid var(--border);background:var(--bg);color:var(--neg);">Negative — not enough</td>
+            <td style="padding:12px 18px;border-bottom:1px solid var(--border);background:var(--bg);color:var(--pos);">Positive — some, sufficient</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 18px;font-weight:600;font-size:13px;">Memory trick</td>
+            <td style="padding:12px 18px;font-style:italic;color:var(--muted);">"There's little hope…" — gloomy!</td>
+            <td style="padding:12px 18px;font-style:italic;color:var(--muted);">"There's a little hope…" — optimistic!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 4 — MUCH & MANY
+  ══════════════════════════════════════════ -->
+  <div id="much-many">
+    <div class="section-head">
+      <h2>Much &amp; Many</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:#FFF3E0;color:#8A5000;">Questions &amp; negatives</span>
+    </div>
+
+    <div class="cards-grid">
+      <div class="word-card u">
+        <div class="card-top">
+          <div>
+            <div class="card-word">much</div>
+            <div class="card-meaning">a large amount of something</div>
+          </div>
+          <span class="badge uncount">uncountable</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone neg">Mainly: negatives &amp; questions</span>
+          <div class="example">Did you consume <strong>much sugar</strong> in your dessert?</div>
+          <div class="example">I didn't eat <strong>much</strong> for dinner.</div>
+          <div class="example">There isn't <strong>much time</strong> left — hurry!</div>
+          <div style="margin-top:10px;">
+            <span class="card-tone neutral">Alone (no noun)</span>
+            <div class="example">They go out for dinner <strong>a lot</strong>. (NOT "much" alone ✗)</div>
+            <div class="example">I don't have <strong>much</strong> — only a little.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="word-card c">
+        <div class="card-top">
+          <div>
+            <div class="card-word">many</div>
+            <div class="card-meaning">a large number of people/things</div>
+          </div>
+          <span class="badge count">countable plural</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone neg">Mainly: negatives &amp; questions</span>
+          <div class="example">There weren't <strong>many options</strong> for vegetarian dishes on the menu.</div>
+          <div class="example">How <strong>many people</strong> attended the food festival?</div>
+          <div style="margin-top:10px;">
+            <span class="card-tone pos">Also OK in positive sentences</span>
+            <div class="example"><strong>Many people</strong> attended the food festival last weekend.</div>
+            <div class="example">She has <strong>many friends</strong> from her university years.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top:16px;">
+      <h4>Much vs Many — quick rule</h4>
+      <ul>
+        <li><strong>much</strong> = with uncountable nouns (water, sugar, time, money)</li>
+        <li><strong>many</strong> = with countable plural nouns (people, books, ideas)</li>
+        <li>Both prefer <strong>negative sentences and questions</strong></li>
+        <li>In positive sentences → use <strong>a lot of</strong> instead (sounds more natural)</li>
+      </ul>
+    </div>
+
+    <div class="tick-cross" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-top:8px;">
+      <div class="row right"><span class="icon">✔</span><span>I don't have <strong>much money</strong> this week.</span></div>
+      <div class="row right"><span class="icon">✔</span><span>There aren't <strong>many seats</strong> left.</span></div>
+      <div class="row right"><span class="icon">✔</span><span>I have <strong>a lot of</strong> money this week. (positive → a lot of)</span></div>
+      <div class="row wrong"><span class="icon">✘</span><span class="strikethrough">I have much money this week.</span> ← sounds unnatural in everyday speech</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 5 — A LOT OF / LOTS OF
+  ══════════════════════════════════════════ -->
+  <div id="alot">
+    <div class="section-head">
+      <h2>A lot of / Lots of / Plenty of / Loads of</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:var(--both-light);color:var(--both);">Both noun types</span>
+    </div>
+
+    <div class="cards-grid">
+      <div class="word-card b">
+        <div class="card-top">
+          <div>
+            <div class="card-word">a lot of</div>
+            <div class="card-meaning">a large quantity / number</div>
+          </div>
+          <span class="badge both">both types</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone pos">Positive, negative, questions</span>
+          <div class="example"><strong>A lot of people</strong> enjoy indulging in a sweet treat after dinner.</div>
+          <div class="example">She has <strong>a lot of</strong> energy because she eats a balanced breakfast.</div>
+          <div class="example">I don't have <strong>a lot of</strong> time, but I'll try to help.</div>
+        </div>
+      </div>
+
+      <div class="word-card b">
+        <div class="card-top">
+          <div>
+            <div class="card-word">lots of</div>
+            <div class="card-meaning">informal = a lot of</div>
+          </div>
+          <span class="badge both">both types</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone neutral">Informal / spoken</span>
+          <div class="example"><strong>Lots of</strong> people enjoy indulging in a sweet treat after dinner.</div>
+          <div class="example">She has <strong>lots of</strong> friends from school.</div>
+          <div class="example">They have <strong>lots of</strong> money saved up for the trip.</div>
+        </div>
+      </div>
+
+      <div class="word-card b">
+        <div class="card-top">
+          <div>
+            <div class="card-word">plenty of</div>
+            <div class="card-meaning">more than enough</div>
+          </div>
+          <span class="badge both">both types</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone pos">= more than enough → positive</span>
+          <div class="example"><strong>Plenty of nutrients</strong> can be found in leafy greens like spinach.</div>
+          <div class="example">Don't worry — there's <strong>plenty of</strong> time before the deadline.</div>
+          <div class="example">We have <strong>plenty of</strong> chairs for everyone.</div>
+        </div>
+      </div>
+
+      <div class="word-card b">
+        <div class="card-top">
+          <div>
+            <div class="card-word">loads of</div>
+            <div class="card-meaning">same as a lot of — very informal</div>
+          </div>
+          <span class="badge both">both types</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone neutral">Very informal / spoken only</span>
+          <div class="example">She has <strong>loads of energy</strong> because she eats a balanced breakfast every morning.</div>
+          <div class="example">They have <strong>loads of</strong> fun at their parties.</div>
+          <div class="example">He spent <strong>loads of</strong> money on the renovation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top:16px;">
+      <h4>Without a noun — use "a lot" (drop "of")</h4>
+      <ul>
+        <li>When there is no noun after, drop "of" → use just <strong>a lot</strong></li>
+        <li>They go out for dinner <strong>a lot</strong>. ✔ (NOT "a lot of" ✗)</li>
+        <li>Formality scale: <strong>a lot of</strong> (neutral) → <strong>lots of</strong> (informal) → <strong>loads of</strong> (very informal)</li>
+        <li><strong>plenty of</strong> = specifically "more than enough" — emphasises sufficiency</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 6 — TOO MUCH / TOO MANY
+  ══════════════════════════════════════════ -->
+  <div id="too">
+    <div class="section-head">
+      <h2>Too much &amp; Too many</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:var(--neg-light);color:var(--neg);">Always negative!</span>
+    </div>
+
+    <div class="cards-grid">
+      <div class="word-card u">
+        <div class="card-top">
+          <div>
+            <div class="card-word">too much</div>
+            <div class="card-meaning">more than we need / want — a problem</div>
+          </div>
+          <span class="badge uncount">uncountable</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone neg">Always = problem / excessive</span>
+          <div class="example">He had <strong>too much caffeine</strong> during the day, making it difficult for him to fall asleep at night.</div>
+          <div class="example">I ate <strong>too much</strong> at dinner — I feel sick.</div>
+          <div class="example">There's <strong>too much noise</strong> in here to concentrate.</div>
+        </div>
+      </div>
+
+      <div class="word-card c">
+        <div class="card-top">
+          <div>
+            <div class="card-word">too many</div>
+            <div class="card-meaning">more than we need / want — a problem</div>
+          </div>
+          <span class="badge count">countable plural</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone neg">Always = problem / excessive</span>
+          <div class="example">He consumed <strong>too many</strong> high-calorie <strong>desserts</strong>, causing him to put on weight.</div>
+          <div class="example">There are <strong>too many people</strong> in this room — it's overcrowded.</div>
+          <div class="example">She made <strong>too many mistakes</strong> in the test.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--neg-light);border:1px solid #F0B0A0;border-radius:12px;padding:20px 24px;margin-top:16px;">
+      <h4 style="font-size:13px;font-weight:600;color:var(--neg);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">⚠ Remember — "too" is ALWAYS negative</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:14px;">
+        <div>
+          <div style="font-weight:600;margin-bottom:6px;">too much (uncountable):</div>
+          <div style="font-style:italic;color:#4A1A0A;">too much sugar, too much time, too much money, too much noise</div>
+        </div>
+        <div>
+          <div style="font-weight:600;margin-bottom:6px;">too many (countable plural):</div>
+          <div style="font-style:italic;color:#4A1A0A;">too many people, too many cars, too many questions, too many calories</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 7 — ENOUGH
+  ══════════════════════════════════════════ -->
+  <div id="enough">
+    <div class="section-head">
+      <h2>Enough &amp; Not enough</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:var(--both-light);color:var(--both);">Both noun types</span>
+    </div>
+
+    <div class="cards-grid" style="margin-bottom:16px;">
+      <div class="word-card b">
+        <div class="card-top">
+          <div>
+            <div class="card-word">enough</div>
+            <div class="card-meaning">as much / as many as you need</div>
+          </div>
+          <span class="badge both">both types</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone pos">Positive — just right</span>
+          <div class="example">There is <strong>enough protein</strong> in this meal to meet your daily requirements.</div>
+          <div class="example">Do we have <strong>enough chairs</strong> for everyone?</div>
+          <div class="example">She's <strong>old enough</strong> to make her own decisions.</div>
+        </div>
+      </div>
+
+      <div class="word-card b">
+        <div class="card-top">
+          <div>
+            <div class="card-word">not enough</div>
+            <div class="card-meaning">less than you need</div>
+          </div>
+          <span class="badge both">both types</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tone neg">Negative — insufficient</span>
+          <div class="example">There are <strong>not enough servings</strong> of fruits and vegetables in your diet.</div>
+          <div class="example">I don't have <strong>enough time</strong> to finish the report today.</div>
+          <div class="example">There aren't <strong>enough</strong> seats on the train.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHERE DOES ENOUGH GO? -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:8px;">
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Where to place "enough" in a sentence</div>
+      <div class="enough-positions">
+        <div class="pos-card">
+          <div class="pos-num">1</div>
+          <h4>Before a NOUN</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">meaning "all that is necessary"</p>
+          <div class="example">I don't have <strong>enough ingredients</strong> to make a cake.</div>
+          <div class="example">We need <strong>enough money</strong> to pay the bills.</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-num">2</div>
+          <h4>After a VERB (no object)</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">stands alone at the end</p>
+          <div class="example">I've eaten <strong>enough</strong>; I don't want any more dessert.</div>
+          <div class="example">Have you slept <strong>enough</strong>?</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-num">3</div>
+          <h4>After an ADJECTIVE / ADVERB</h4>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">always comes after, never before</p>
+          <div class="example">This soup is <strong>hot enough</strong> for me.</div>
+          <div class="example">The steak was cooked <strong>well enough</strong>.</div>
+          <div class="example">She's <strong>tall enough</strong> to reach the shelf.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tick-cross" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;">
+      <div class="row right"><span class="icon">✔</span><span>Is it <strong>hot enough</strong>? (adjective + enough)</span></div>
+      <div class="row right"><span class="icon">✔</span><span>I have <strong>enough time</strong> to finish. (enough + noun)</span></div>
+      <div class="row wrong"><span class="icon">✘</span><span class="strikethrough">Is it enough hot?</span> ← wrong order with adjectives</div>
+      <div class="row wrong"><span class="icon">✘</span><span class="strikethrough">I have enough of time.</span> ← no "of" before a noun</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 8 — FULL SUMMARY TABLE
+  ══════════════════════════════════════════ -->
+  <div id="summary">
+    <div class="section-head">
+      <h2>Full Summary</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:var(--ink);color:#F5F0E8;">All quantifiers</span>
+    </div>
+
+    <div class="mega-wrap">
+      <table class="mega-table">
+        <thead>
+          <tr>
+            <th style="width:14%">Word</th>
+            <th style="width:18%">Meaning</th>
+            <th style="width:16%">Noun type</th>
+            <th style="width:14%">Tone</th>
+            <th style="width:38%">Examples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="w">a lot of / lots of</td>
+            <td>a large quantity</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">neutral / +</span></td>
+            <td class="ex-cell"><strong>Lots of people</strong> enjoy dessert after dinner.<br><strong>A lot of</strong> energy comes from a good breakfast.</td>
+          </tr>
+          <tr>
+            <td class="w">plenty of</td>
+            <td>more than enough</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell"><strong>Plenty of nutrients</strong> can be found in leafy greens.<br>There's <strong>plenty of time</strong> — don't rush.</td>
+          </tr>
+          <tr>
+            <td class="w">loads of</td>
+            <td>same as a lot of (informal)</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">informal +</span></td>
+            <td class="ex-cell">She has <strong>loads of energy</strong> in the morning.<br>He spent <strong>loads of money</strong> on gadgets.</td>
+          </tr>
+          <tr>
+            <td class="w">many</td>
+            <td>a large number</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:#8A5000;font-weight:600;">neutral</span></td>
+            <td class="ex-cell"><strong>Many people</strong> attended the festival.<br>There weren't <strong>many options</strong> for vegetarians.</td>
+          </tr>
+          <tr>
+            <td class="w">much</td>
+            <td>a large amount</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">neg / questions</span></td>
+            <td class="ex-cell">Did you consume <strong>much sugar</strong>?<br>I didn't eat <strong>much</strong> for dinner.</td>
+          </tr>
+          <tr>
+            <td class="w">too many</td>
+            <td>more than needed</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative ⚠</span></td>
+            <td class="ex-cell">He consumed <strong>too many desserts</strong>, putting on weight.<br>There are <strong>too many people</strong> in this room.</td>
+          </tr>
+          <tr>
+            <td class="w">too much</td>
+            <td>more than needed</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative ⚠</span></td>
+            <td class="ex-cell">He had <strong>too much caffeine</strong> and couldn't sleep.<br>There's <strong>too much noise</strong> in here.</td>
+          </tr>
+          <tr>
+            <td class="w">enough</td>
+            <td>as much as you need</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell">There is <strong>enough protein</strong> in this meal.<br>Have you slept <strong>enough</strong>? She's <strong>tall enough</strong>.</td>
+          </tr>
+          <tr>
+            <td class="w">not enough</td>
+            <td>less than you need</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
+            <td class="ex-cell">There are <strong>not enough servings</strong> of vegetables.<br>I don't have <strong>enough time</strong> to finish.</td>
+          </tr>
+          <tr>
+            <td class="w">few</td>
+            <td>not many</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
+            <td class="ex-cell">There are <strong>few vegetables</strong> in the fridge — buy more.<br><strong>Few students</strong> passed the exam.</td>
+          </tr>
+          <tr>
+            <td class="w">little</td>
+            <td>not much</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
+            <td class="ex-cell">He has <strong>little experience</strong> with baking.<br>There's <strong>little hope</strong> of finding them.</td>
+          </tr>
+          <tr>
+            <td class="w">a few</td>
+            <td>some, a small number</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell">I have <strong>a few cookbooks</strong> I often refer to.<br>Give me <strong>a few minutes</strong> — I'll be ready.</td>
+          </tr>
+          <tr>
+            <td class="w">a little</td>
+            <td>some, a small amount</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell">There is <strong>a little milk</strong> left — enough for coffee.<br>She has <strong>a little time</strong> before the meeting.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MEMORY CHEAT SHEET -->
+    <div style="background:var(--ink);color:#F5F0E8;border-radius:16px;padding:28px 32px;margin-top:24px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B0A898;margin-bottom:20px;">Memory cheat sheet</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;font-size:14px;">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);margin-bottom:6px;">Countable plurals</div>
+          <div style="line-height:2;font-size:13px;">few · a few · many<br>too many · a lot of · loads of<br>plenty of · enough</div>
+        </div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#9FE1CB;margin-bottom:6px;">Uncountable</div>
+          <div style="line-height:2;font-size:13px;">little · a little · much<br>too much · a lot of · loads of<br>plenty of · enough</div>
+        </div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5A0A0;margin-bottom:6px;">Always negative</div>
+          <div style="line-height:2;font-size:13px;">few (not enough)<br>little (not enough)<br>too many / too much</div>
+        </div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#A0E8B8;margin-bottom:6px;">Always positive</div>
+          <div style="line-height:2;font-size:13px;">a few (some = good)<br>a little (some = good)<br>enough · plenty of</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -1121,6 +2392,7 @@ function showPage(id) {
   if (id === 'verbs') renderVerbs(allVerbs);
   if (id === 'allwords') filterAllWords();
   if (id === 'practice') renderPractice();
+  if (id === 'quantifiers') initQuantifiers();
 }
 
 // ════════════════════════════════════════════
@@ -2236,6 +3508,17 @@ function insertHtmlPaste() {
   markNoteDirty();
   closeHtmlPasteModal();
   showToast('✓ HTML inserted!', 'success');
+}
+
+function initQuantifiers() {
+  // Fix internal anchor links inside the quantifiers page
+  document.querySelectorAll('#quantifiers-scope .nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href').replace('#', '#'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
 window.onload = () => {
