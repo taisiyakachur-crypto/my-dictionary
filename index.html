@@ -991,6 +991,47 @@
 <div id="page-quantifiers" class="page" style="padding:0;max-width:100%">
   <style id="quantifiers-styles">
 #quantifiers-scope {
+    --q-bg: #F5F0E8;
+    --q-card: #FFFDF8;
+    --q-ink: #1A1408;
+    --q-muted: #7A7060;
+    --q-border: #E0D8C8;
+    --q-count: #1B5E8A;
+    --q-count-light: #EAF3FB;
+    --q-count-mid: #B5D4F4;
+    --q-uncount: #6B3A8C;
+    --q-uncount-light: #F3EDFB;
+    --q-uncount-mid: #D4B8F0;
+    --q-both: #1A7A5A;
+    --q-both-light: #E5F5EE;
+    --q-both-mid: #9FE1CB;
+    --q-neg: #C04020;
+    --q-neg-light: #FAEAE4;
+    --q-pos: #2E7D32;
+    --q-pos-light: #E8F5E9;
+    --q-accent: #D4A017;
+    --q-accent-light: #FDF3D0;
+    /* map the original var names used inside the page */
+    --bg: #F5F0E8;
+    --card: #FFFDF8;
+    --ink: #1A1408;
+    --muted: #7A7060;
+    --border: #E0D8C8;
+    --count: #1B5E8A;
+    --count-light: #EAF3FB;
+    --count-mid: #B5D4F4;
+    --uncount: #6B3A8C;
+    --uncount-light: #F3EDFB;
+    --uncount-mid: #D4B8F0;
+    --both: #1A7A5A;
+    --both-light: #E5F5EE;
+    --both-mid: #9FE1CB;
+    --neg: #C04020;
+    --neg-light: #FAEAE4;
+    --pos: #2E7D32;
+    --pos-light: #E8F5E9;
+    --accent: #D4A017;
+    --accent-light: #FDF3D0;
 
     --bg: #F5F0E8;
     --card: #FFFDF8;
@@ -1072,37 +1113,32 @@
     font-weight: 300;
     position: relative;
   }
-#quantifiers-scope /* ── NAV PILLS ── */
-  .nav {
-
+#quantifiers-scope .q-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    padding: 24px 40px;
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 16px 24px;
+    background: #FFFDF8;
+    border-bottom: 1px solid #E0D8C8;
   }
-#quantifiers-scope .nav a {
-
+#quantifiers-scope .q-nav a {
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
     padding: 6px 14px;
     border-radius: 20px;
-    border: 1px solid var(--border);
-    color: var(--muted);
+    border: 1px solid #E0D8C8;
+    color: #7A7060;
     transition: all 0.2s;
-    background: var(--card);
+    background: #FFFDF8;
   }
-#quantifiers-scope .nav a:hover {
- border-color: var(--ink); color: var(--ink); }
-#quantifiers-scope /* ── LAYOUT ── */
-  .page {
- max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
+#quantifiers-scope .q-nav a:hover {
+    border-color: #1A1408; color: #1A1408;
+  }
+#quantifiers-scope .q-page {
+    max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px;
+  }
 #quantifiers-scope /* ── SECTION HEADERS ── */
   .section-head {
 
@@ -1600,7 +1636,7 @@
 </div>
 
 <!-- NAV -->
-<nav class="nav">
+<div class="q-nav">
   <a href="#overview">Overview</a>
   <a href="#little-few">Little vs A Little</a>
   <a href="#few-afew">Few vs A Few</a>
@@ -1609,9 +1645,9 @@
   <a href="#too">Too much / Too many</a>
   <a href="#enough">Enough</a>
   <a href="#summary">Full Summary</a>
-</nav>
+</div>
 
-<div class="page">
+<div class="q-page">
 
   <!-- ══════════════════════════════════════════
        SECTION 1 — OVERVIEW SCALE
@@ -3512,7 +3548,7 @@ function insertHtmlPaste() {
 
 function initQuantifiers() {
   // Fix internal anchor links inside the quantifiers page
-  document.querySelectorAll('#quantifiers-scope .nav a').forEach(a => {
+  document.querySelectorAll('#quantifiers-scope .q-nav a').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
       const target = document.querySelector(a.getAttribute('href').replace('#', '#'));
