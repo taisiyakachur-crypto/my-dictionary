@@ -546,6 +546,7 @@
     <button class="nav-tab" onclick="showPage('allwords')">📋 All Words</button>
     <button class="nav-tab" onclick="showPage('practice')">🎯 Practice</button>
     <button class="nav-tab" onclick="showPage('quantifiers')">📊 Quantifiers</button>
+    <button class="nav-tab" onclick="showPage('conditionals')">🔀 Conditionals</button>
     <button class="nav-tab" onclick="showPage('verbs')">🔤 Irregular Verbs</button>
     <button class="nav-tab" onclick="showPage('links')">🔗 Links</button>
     <button class="nav-tab" onclick="showPage('notes')">📝 Notes</button>
@@ -2293,6 +2294,2066 @@
   </div>
 </div>
 
+<!-- ════════════════════════════ PAGE 8: CONDITIONALS ════════════════════════════ -->
+<div id="page-conditionals" class="page" style="padding:0;max-width:100%;background:#0D0F14">
+  <style id="conditionals-styles">
+#conditionals-scope {
+    --bg:       #0D0F14;
+    --surface:  #13161D;
+    --card:     #1A1E28;
+    --card2:    #20253200;
+    --border:   rgba(255,255,255,0.08);
+    --border2:  rgba(255,255,255,0.14);
+    --text:     #E8E4DC;
+    --muted:    #7A7870;
+    --faint:    #3A3C42;
+    --z0:  #4A9ECC;
+    --z0l: #0D2A3D;
+    --z0m: #1B4F72;
+    --f1:  #5BB878;
+    --f1l: #0D2918;
+    --f1m: #1A4D2A;
+    --s2:  #E8A030;
+    --s2l: #2E1E04;
+    --s2m: #5A3A08;
+    --t3:  #CC5577;
+    --t3l: #2A0D18;
+    --t3m: #521828;
+    --mx:  #8866DD;
+    --mxl: #1A1030;
+    --mxm: #362060;
+    --un:  #DD8833;
+    --unl: #2A1A04;
+    --unm: #543408;
+    background: #0D0F14;
+    color: #E8E4DC;
+    display: block;
+}
+#conditionals-scope * {
+ box-sizing: border-box; margin: 0; padding: 0; }
+
+#conditionals-scope * {
+ scroll-behavior: smooth; }
+#conditionals-scope {
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+#conditionals-scope /* ── SCROLLBAR ── */
+::-webkit-scrollbar {
+ width: 6px; }
+#conditionals-scope ::-webkit-scrollbar-track {
+ background: var(--bg); }
+#conditionals-scope ::-webkit-scrollbar-thumb {
+ background: var(--faint); border-radius: 3px; }
+#conditionals-scope /* ══════════════════════════
+   HERO
+══════════════════════════ */
+.hero {
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+#conditionals-scope .hero-grid {
+
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+}
+#conditionals-scope .hero-orbs {
+
+  position: absolute; inset: 0; pointer-events: none;
+}
+#conditionals-scope .orb {
+
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  animation: pulse 8s ease-in-out infinite;
+}
+#conditionals-scope .orb1 {
+ width: 500px; height: 500px; background: var(--z0); top: -100px; left: -100px; animation-delay: 0s; }
+#conditionals-scope .orb2 {
+ width: 400px; height: 400px; background: var(--t3); bottom: -80px; right: -80px; animation-delay: 3s; }
+#conditionals-scope .orb3 {
+ width: 300px; height: 300px; background: var(--s2); top: 40%; left: 30%; animation-delay: 5s; }
+@keyframes pulse {
+#conditionals-scope 0%, #conditionals-scope 100% {
+ transform: scale(1); opacity: 0.18; }
+#conditionals-scope 50% {
+ transform: scale(1.1); opacity: 0.25; }
+
+
+}
+#conditionals-scope .hero-eyebrow {
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  position: relative;
+}
+#conditionals-scope .hero h1 {
+
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  position: relative;
+  margin-bottom: 24px;
+}
+#conditionals-scope .hero h1 .line2 {
+
+  display: block;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--muted);
+  font-size: 0.65em;
+}
+#conditionals-scope .hero-desc {
+
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 520px;
+  position: relative;
+  margin-bottom: 48px;
+}
+#conditionals-scope .hero-pills {
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+}
+#conditionals-scope .hero-pill {
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+#conditionals-scope .hero-pill:hover {
+ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+#conditionals-scope .hp0 {
+ background: var(--z0l); color: var(--z0);  border-color: var(--z0m); }
+#conditionals-scope .hp1 {
+ background: var(--f1l); color: var(--f1);  border-color: var(--f1m); }
+#conditionals-scope .hp2 {
+ background: var(--s2l); color: var(--s2);  border-color: var(--s2m); }
+#conditionals-scope .hp3 {
+ background: var(--t3l); color: var(--t3);  border-color: var(--t3m); }
+#conditionals-scope .hpmx {
+ background: var(--mxl); color: var(--mx);  border-color: var(--mxm); }
+#conditionals-scope .hpun {
+ background: var(--unl); color: var(--un);  border-color: var(--unm); }
+#conditionals-scope .dot {
+ width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+#conditionals-scope /* ══════════════════════════
+   NAV
+══════════════════════════ */
+.sticky-nav {
+
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(13,15,20,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#conditionals-scope .sticky-nav::-webkit-scrollbar {
+ display: none; }
+#conditionals-scope .nav-item {
+
+  flex-shrink: 0;
+  padding: 16px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+#conditionals-scope .nav-item:hover {
+ color: var(--text); }
+#conditionals-scope .nav-item.n0 {
+ }
+#conditionals-scope .nav-item.n0:hover {
+ border-color: var(--z0); color: var(--z0); }
+#conditionals-scope .nav-item.n1:hover {
+ border-color: var(--f1); color: var(--f1); }
+#conditionals-scope .nav-item.n2:hover {
+ border-color: var(--s2); color: var(--s2); }
+#conditionals-scope .nav-item.n3:hover {
+ border-color: var(--t3); color: var(--t3); }
+#conditionals-scope .nav-item.nmx:hover {
+ border-color: var(--mx); color: var(--mx); }
+#conditionals-scope .nav-item.nun:hover {
+ border-color: var(--un); color: var(--un); }
+#conditionals-scope /* ══════════════════════════
+   PAGE LAYOUT
+══════════════════════════ */
+.c-page {
+ max-width: 1100px; margin: 0 auto; padding: 0 24px 120px; }
+#conditionals-scope /* ══════════════════════════
+   SECTION HEADERS
+══════════════════════════ */
+.sec-head {
+
+  padding: 80px 0 40px;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+}
+#conditionals-scope .sec-num {
+
+  font-family: 'Fraunces', serif;
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.12;
+  flex-shrink: 0;
+}
+#conditionals-scope .sec-info {
+ flex: 1; }
+#conditionals-scope .sec-eyebrow {
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+#conditionals-scope .sec-title {
+
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+#conditionals-scope .sec-sub {
+
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 8px;
+  max-width: 600px;
+}
+#conditionals-scope /* ══════════════════════════
+   FORMULA BLOCK
+══════════════════════════ */
+.formula-block {
+
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  border: 1px solid;
+}
+#conditionals-scope .formula-label {
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  opacity: 0.7;
+}
+#conditionals-scope .formula-row {
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+#conditionals-scope .f-part {
+
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 15px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+}
+#conditionals-scope .f-connector {
+
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+#conditionals-scope .f-note {
+
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+#conditionals-scope .f-accent {
+ font-style: italic; }
+#conditionals-scope /* ══════════════════════════
+   USAGE CARDS
+══════════════════════════ */
+.usage-grid {
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+#conditionals-scope .usage-card {
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+#conditionals-scope .usage-card:hover {
+ transform: translateY(-2px); }
+#conditionals-scope .usage-icon {
+
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+#conditionals-scope .usage-title {
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+#conditionals-scope .usage-desc {
+
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+#conditionals-scope /* ══════════════════════════
+   EXAMPLE SENTENCES
+══════════════════════════ */
+.examples-block {
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+#conditionals-scope .examples-header {
+
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+#conditionals-scope .example-row {
+
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+#conditionals-scope .example-row:last-child {
+ border-bottom: none; }
+#conditionals-scope .example-row.single {
+ grid-template-columns: 1fr; }
+#conditionals-scope .ex-tag {
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+#conditionals-scope .ex-sentence {
+
+  font-family: 'Instrument Serif', serif;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+#conditionals-scope .ex-sentence em {
+ font-style: normal; font-weight: 600; }
+#conditionals-scope .ex-note {
+
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+@media (max-width: 600px) {
+#conditionals-scope .example-row {
+ grid-template-columns: 1fr; }
+
+
+}
+#conditionals-scope /* ══════════════════════════
+   CORRECT / WRONG
+══════════════════════════ */
+.mistakes-block {
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+#conditionals-scope .mistakes-header {
+
+  padding: 14px 22px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#conditionals-scope .mistake-row {
+
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+}
+#conditionals-scope .mistake-row:last-child {
+ border-bottom: none; }
+#conditionals-scope .mis-wrong {
+
+  font-family: 'Instrument Serif', serif;
+  font-size: 14px;
+  color: #E05555;
+  text-decoration: line-through;
+  text-decoration-color: #E05555;
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+#conditionals-scope .mis-right {
+
+  font-family: 'Instrument Serif', serif;
+  font-size: 14px;
+  color: #66CC77;
+  margin-bottom: 4px;
+}
+#conditionals-scope .mis-why {
+
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+#conditionals-scope .mis-icon {
+ font-size: 13px; margin-right: 6px; }
+#conditionals-scope /* ══════════════════════════
+   COMPARISON TABLE
+══════════════════════════ */
+.comp-table {
+
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  font-size: 13.5px;
+  margin-bottom: 24px;
+}
+#conditionals-scope .comp-table th {
+
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border2);
+  background: rgba(255,255,255,0.03);
+}
+#conditionals-scope .comp-table td {
+
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+#conditionals-scope .comp-table tr:last-child td {
+ border-bottom: none; }
+#conditionals-scope .comp-table tr:nth-child(even) td {
+ background: rgba(255,255,255,0.015); }
+#conditionals-scope .comp-table .feature {
+ font-weight: 600; font-size: 12px; color: var(--muted); white-space: nowrap; }
+#conditionals-scope /* ══════════════════════════
+   DIVIDER
+══════════════════════════ */
+.section-divider {
+
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border2), transparent);
+  margin: 0;
+}
+#conditionals-scope /* ══════════════════════════
+   ZERO CONDITIONAL COLORS
+══════════════════════════ */
+.c0 .formula-block {
+ background: var(--z0l); border-color: var(--z0m); }
+#conditionals-scope .c0 .formula-label {
+ color: var(--z0); }
+#conditionals-scope .c0 .f-part {
+ border-color: rgba(74,158,204,0.25); }
+#conditionals-scope .c0 .ex-tag {
+ background: var(--z0m); color: var(--z0); }
+#conditionals-scope .c0 .usage-card:hover {
+ border-color: var(--z0); }
+#conditionals-scope .c0 .sec-eyebrow {
+ color: var(--z0); }
+#conditionals-scope .c0 .sec-num {
+ color: var(--z0); }
+#conditionals-scope .c0 .f-connector {
+ color: var(--z0); opacity: 0.7; }
+#conditionals-scope /* FIRST */
+.c1 .formula-block {
+ background: var(--f1l); border-color: var(--f1m); }
+#conditionals-scope .c1 .formula-label {
+ color: var(--f1); }
+#conditionals-scope .c1 .f-part {
+ border-color: rgba(91,184,120,0.25); }
+#conditionals-scope .c1 .ex-tag {
+ background: var(--f1m); color: var(--f1); }
+#conditionals-scope .c1 .usage-card:hover {
+ border-color: var(--f1); }
+#conditionals-scope .c1 .sec-eyebrow {
+ color: var(--f1); }
+#conditionals-scope .c1 .sec-num {
+ color: var(--f1); }
+#conditionals-scope .c1 .f-connector {
+ color: var(--f1); opacity: 0.7; }
+#conditionals-scope /* SECOND */
+.c2 .formula-block {
+ background: var(--s2l); border-color: var(--s2m); }
+#conditionals-scope .c2 .formula-label {
+ color: var(--s2); }
+#conditionals-scope .c2 .f-part {
+ border-color: rgba(232,160,48,0.25); }
+#conditionals-scope .c2 .ex-tag {
+ background: var(--s2m); color: var(--s2); }
+#conditionals-scope .c2 .usage-card:hover {
+ border-color: var(--s2); }
+#conditionals-scope .c2 .sec-eyebrow {
+ color: var(--s2); }
+#conditionals-scope .c2 .sec-num {
+ color: var(--s2); }
+#conditionals-scope .c2 .f-connector {
+ color: var(--s2); opacity: 0.7; }
+#conditionals-scope /* THIRD */
+.c3 .formula-block {
+ background: var(--t3l); border-color: var(--t3m); }
+#conditionals-scope .c3 .formula-label {
+ color: var(--t3); }
+#conditionals-scope .c3 .f-part {
+ border-color: rgba(204,85,119,0.25); }
+#conditionals-scope .c3 .ex-tag {
+ background: var(--t3m); color: var(--t3); }
+#conditionals-scope .c3 .usage-card:hover {
+ border-color: var(--t3); }
+#conditionals-scope .c3 .sec-eyebrow {
+ color: var(--t3); }
+#conditionals-scope .c3 .sec-num {
+ color: var(--t3); }
+#conditionals-scope .c3 .f-connector {
+ color: var(--t3); opacity: 0.7; }
+#conditionals-scope /* MIXED */
+.cmx .formula-block {
+ background: var(--mxl); border-color: var(--mxm); }
+#conditionals-scope .cmx .formula-label {
+ color: var(--mx); }
+#conditionals-scope .cmx .f-part {
+ border-color: rgba(136,102,221,0.25); }
+#conditionals-scope .cmx .ex-tag {
+ background: var(--mxm); color: var(--mx); }
+#conditionals-scope .cmx .usage-card:hover {
+ border-color: var(--mx); }
+#conditionals-scope .cmx .sec-eyebrow {
+ color: var(--mx); }
+#conditionals-scope .cmx .sec-num {
+ color: var(--mx); }
+#conditionals-scope .cmx .f-connector {
+ color: var(--mx); opacity: 0.7; }
+#conditionals-scope /* UNLESS */
+.cun .formula-block {
+ background: var(--unl); border-color: var(--unm); }
+#conditionals-scope .cun .formula-label {
+ color: var(--un); }
+#conditionals-scope .cun .f-part {
+ border-color: rgba(221,136,51,0.25); }
+#conditionals-scope .cun .ex-tag {
+ background: var(--unm); color: var(--un); }
+#conditionals-scope .cun .usage-card:hover {
+ border-color: var(--un); }
+#conditionals-scope .cun .sec-eyebrow {
+ color: var(--un); }
+#conditionals-scope .cun .sec-num {
+ color: var(--un); }
+#conditionals-scope .cun .f-connector {
+ color: var(--un); opacity: 0.7; }
+#conditionals-scope /* ══════════════════════════
+   REALITY SCALE (visual)
+══════════════════════════ */
+.reality-scale {
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 40px;
+}
+#conditionals-scope .reality-title {
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+#conditionals-scope .reality-track {
+
+  position: relative;
+  height: 6px;
+  background: var(--faint);
+  border-radius: 3px;
+  margin: 0 8px 48px;
+}
+#conditionals-scope .reality-fill {
+
+  position: absolute;
+  left: 0; top: 0; height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--f1), var(--s2), var(--t3));
+}
+#conditionals-scope .reality-markers {
+
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+#conditionals-scope .reality-dot {
+
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  cursor: default;
+  position: relative;
+  flex-shrink: 0;
+}
+#conditionals-scope .reality-dot .rdlabel {
+
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: center;
+}
+#conditionals-scope .reality-dot .rdsub {
+
+  position: absolute;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+#conditionals-scope /* ══════════════════════════
+   SUMMARY GRID
+══════════════════════════ */
+.summary-grid {
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+#conditionals-scope .sum-card {
+
+  border-radius: 16px;
+  border: 1px solid;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+#conditionals-scope .sum-card::before {
+
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  opacity: 0.06;
+}
+#conditionals-scope .sum-card.s0 {
+ background: var(--z0l); border-color: var(--z0m); }
+#conditionals-scope .sum-card.s0::before {
+ background: var(--z0); }
+#conditionals-scope .sum-card.s1 {
+ background: var(--f1l); border-color: var(--f1m); }
+#conditionals-scope .sum-card.s1::before {
+ background: var(--f1); }
+#conditionals-scope .sum-card.s2 {
+ background: var(--s2l); border-color: var(--s2m); }
+#conditionals-scope .sum-card.s2::before {
+ background: var(--s2); }
+#conditionals-scope .sum-card.s3 {
+ background: var(--t3l); border-color: var(--t3m); }
+#conditionals-scope .sum-card.s3::before {
+ background: var(--t3); }
+#conditionals-scope .sum-card.smx {
+ background: var(--mxl); border-color: var(--mxm); }
+#conditionals-scope .sum-card.smx::before {
+ background: var(--mx); }
+#conditionals-scope .sum-card.sun {
+ background: var(--unl); border-color: var(--unm); }
+#conditionals-scope .sum-card.sun::before {
+ background: var(--un); }
+#conditionals-scope .sum-badge {
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+#conditionals-scope .sum-title {
+
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+#conditionals-scope .sum-formula {
+
+  font-family: 'Instrument Serif', serif;
+  font-size: 13px;
+  opacity: 0.65;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+#conditionals-scope .sum-meaning {
+
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 14px;
+}
+#conditionals-scope .sum-ex {
+
+  font-family: 'Instrument Serif', serif;
+  font-size: 13.5px;
+  font-style: italic;
+  opacity: 0.7;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border-left: 2px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.03);
+}
+#conditionals-scope /* ══════════════════════════
+   UNLESS SPECIAL RULES
+══════════════════════════ */
+.rule-pill {
+
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+#conditionals-scope .rule-icon {
+
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+#conditionals-scope .rule-text {
+ font-size: 14px; line-height: 1.6; }
+#conditionals-scope .rule-text strong {
+ font-weight: 600; }
+#conditionals-scope .rule-text .ex-inline {
+
+  display: block;
+  font-style: italic;
+  font-family: 'Instrument Serif', serif;
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 13.5px;
+}
+#conditionals-scope /* ══════════════════════════
+   INTERACTIVE TOGGLE
+══════════════════════════ */
+.tense-demo {
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+#conditionals-scope .tense-demo-tabs {
+
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#conditionals-scope .tense-demo-tabs::-webkit-scrollbar {
+ display: none; }
+#conditionals-scope .tense-tab {
+
+  flex-shrink: 0;
+  padding: 13px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: 'Instrument Sans', sans-serif;
+}
+#conditionals-scope .tense-tab.active {
+ color: var(--text); }
+#conditionals-scope .tense-panel {
+ display: none; padding: 24px; }
+#conditionals-scope .tense-panel.active {
+ display: block; }
+#conditionals-scope .demo-sentence {
+
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+#conditionals-scope .demo-sentence em {
+
+  font-style: italic;
+  font-weight: 600;
+}
+#conditionals-scope .demo-analysis {
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+#conditionals-scope .demo-chip {
+
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+}
+#conditionals-scope .demo-note {
+ font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+#conditionals-scope /* ══════════════════════════
+   FOOTER
+══════════════════════════ */
+.footer {
+
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--muted);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+}
+#conditionals-scope /* ══════════════════════════
+   UTIL
+══════════════════════════ */
+.two-col {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 640px) {
+#conditionals-scope .two-col {
+ grid-template-columns: 1fr; }
+ 
+}
+#conditionals-scope .highlight-box {
+
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+#conditionals-scope .mb16 {
+ margin-bottom: 16px; }
+#conditionals-scope .mb24 {
+ margin-bottom: 24px; }
+#conditionals-scope .mt8 {
+ margin-top: 8px; }
+#conditionals-scope /* ══════════════════════════
+   ANIMATIONS
+══════════════════════════ */
+@keyframes fadeUp {
+
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#conditionals-scope .fade-in {
+ animation: fadeUp 0.6s ease both; }
+
+
+  </style>
+  <div id="conditionals-scope">
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <p class="hero-eyebrow">Complete Visual Guide</p>
+  <h1>
+    Conditionals
+    <span class="line2">in English</span>
+  </h1>
+  <p class="hero-desc">Zero · First · Second · Third · Mixed · Unless — all rules, formulas, examples and common mistakes in one place.</p>
+  <div class="hero-pills">
+    <a class="hero-pill hp0" href="#zero"><span class="dot" style="background:var(--z0)"></span>Zero</a>
+    <a class="hero-pill hp1" href="#first"><span class="dot" style="background:var(--f1)"></span>First</a>
+    <a class="hero-pill hp2" href="#second"><span class="dot" style="background:var(--s2)"></span>Second</a>
+    <a class="hero-pill hp3" href="#third"><span class="dot" style="background:var(--t3)"></span>Third</a>
+    <a class="hero-pill hpmx" href="#mixed"><span class="dot" style="background:var(--mx)"></span>Mixed</a>
+    <a class="hero-pill hpun" href="#unless"><span class="dot" style="background:var(--un)"></span>Unless</a>
+  </div>
+</section>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <a class="nav-item n0" href="#zero">Zero</a>
+  <a class="nav-item n1" href="#first">First</a>
+  <a class="nav-item n2" href="#second">Second</a>
+  <a class="nav-item n3" href="#third">Third</a>
+  <a class="nav-item nmx" href="#mixed">Mixed</a>
+  <a class="nav-item nun" href="#unless">Unless</a>
+  <a class="nav-item" href="#compare">Compare all</a>
+  <a class="nav-item" href="#mistakes">Mistakes</a>
+</nav>
+
+<div class="c-page">
+
+<!-- ════════════════════════════════════
+     REALITY SCALE
+════════════════════════════════════ -->
+<div style="padding-top:60px;">
+  <div class="reality-scale">
+    <div class="reality-title">Reality &amp; probability scale — where each conditional lives</div>
+    <div class="reality-track">
+      <div class="reality-fill" style="width:100%"></div>
+      <div class="reality-markers">
+        <div class="reality-dot" style="background:var(--z0)">
+          <span class="rdlabel" style="color:var(--z0)">Zero</span>
+          <span class="rdsub">Always true</span>
+        </div>
+        <div class="reality-dot" style="background:var(--f1)">
+          <span class="rdlabel" style="color:var(--f1)">First</span>
+          <span class="rdsub">Likely / real</span>
+        </div>
+        <div class="reality-dot" style="background:var(--s2)">
+          <span class="rdlabel" style="color:var(--s2)">Second</span>
+          <span class="rdsub">Unlikely / unreal</span>
+        </div>
+        <div class="reality-dot" style="background:var(--t3)">
+          <span class="rdlabel" style="color:var(--t3)">Third</span>
+          <span class="rdsub">Impossible (past)</span>
+        </div>
+        <div class="reality-dot" style="background:var(--mx)">
+          <span class="rdlabel" style="color:var(--mx)">Mixed</span>
+          <span class="rdsub">Past → present</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     ZERO CONDITIONAL
+════════════════════════════════════ -->
+<section id="zero" class="c0">
+  <div class="sec-head">
+    <div class="sec-num">0</div>
+    <div class="sec-info">
+      <div class="sec-eyebrow">Zero Conditional</div>
+      <div class="sec-title">General truths &amp; facts</div>
+      <div class="sec-sub">Used for things that are always true — scientific facts, natural laws, habits, instructions.</div>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Formula</div>
+    <div class="formula-row">
+      <span class="f-part">If / When</span>
+      <span class="f-connector">+</span>
+      <span class="f-part"><span class="f-accent">Present Simple</span></span>
+      <span class="f-connector">,</span>
+      <span class="f-part"><span class="f-accent">Present Simple</span></span>
+    </div>
+    <div class="f-note">
+      ✦ "When" can always replace "if" — both clauses describe something that always happens.<br>
+      ✦ The IF clause can come first or second (comma used only when IF comes first).
+    </div>
+  </div>
+
+  <div class="usage-grid">
+    <div class="usage-card">
+      <div class="usage-icon">🔬</div>
+      <div class="usage-title">Scientific facts</div>
+      <div class="usage-desc">Laws of nature that never change. The result is 100% guaranteed.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🌡️</div>
+      <div class="usage-title">Natural processes</div>
+      <div class="usage-desc">Cause-and-effect relationships in the physical world.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🔄</div>
+      <div class="usage-title">Habits &amp; routines</div>
+      <div class="usage-desc">Things that happen every time, automatically, by habit.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">📋</div>
+      <div class="usage-title">Instructions &amp; rules</div>
+      <div class="usage-desc">What to do in a situation — recipes, manuals, instructions.</div>
+    </div>
+  </div>
+
+  <div class="examples-block">
+    <div class="examples-header">Examples</div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">science</span>
+        <div class="ex-sentence">If you <em>heat</em> water to 100°C, it <em>boils</em>.</div>
+        <div class="ex-note">= always true, physical law</div>
+      </div>
+      <div>
+        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">science</span>
+        <div class="ex-sentence">If you <em>mix</em> red and blue, you <em>get</em> purple.</div>
+        <div class="ex-note">= guaranteed result every time</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">nature</span>
+        <div class="ex-sentence">Plants <em>die</em> if they <em>don't get</em> water.</div>
+        <div class="ex-note">= universal truth</div>
+      </div>
+      <div>
+        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">nature</span>
+        <div class="ex-sentence">When it <em>rains</em>, the ground <em>gets</em> wet.</div>
+        <div class="ex-note">= "when" = "if" in zero conditional</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">habit</span>
+        <div class="ex-sentence">If she <em>drinks</em> coffee late, she <em>doesn't sleep</em>.</div>
+        <div class="ex-note">= her personal pattern, always</div>
+      </div>
+      <div>
+        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">instruction</span>
+        <div class="ex-sentence">If the screen <em>freezes</em>, <em>press</em> the reset button.</div>
+        <div class="ex-note">= general instruction / manual</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TENSE DEMO INTERACTIVE -->
+  <div class="tense-demo">
+    <div class="tense-demo-tabs">
+      <button class="tense-tab active" style="border-color:var(--z0);" onclick="switchTab(this,'tab-z0-a')">Positive</button>
+      <button class="tense-tab" onclick="switchTab(this,'tab-z0-b')">Negative</button>
+      <button class="tense-tab" onclick="switchTab(this,'tab-z0-c')">Question</button>
+    </div>
+    <div id="tab-z0-a" class="tense-panel active">
+      <div class="demo-sentence">If you <em>touch</em> fire, you <em>get</em> burned.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--z0);color:var(--z0);">IF + present simple</span>
+        <span class="demo-chip" style="border-color:var(--z0);color:var(--z0);">present simple</span>
+        <span class="demo-chip">general truth</span>
+      </div>
+      <div class="demo-note">Both clauses in <strong>present simple</strong>. The result always follows the condition — no exceptions.</div>
+    </div>
+    <div id="tab-z0-b" class="tense-panel">
+      <div class="demo-sentence">If you <em>don't eat</em> well, your body <em>doesn't function</em> properly.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--z0);color:var(--z0);">IF + don't/doesn't</span>
+        <span class="demo-chip" style="border-color:var(--z0);color:var(--z0);">don't/doesn't</span>
+        <span class="demo-chip">still always true</span>
+      </div>
+      <div class="demo-note">Negative zero conditional: negate both verbs with <strong>don't / doesn't</strong>. The truth still holds.</div>
+    </div>
+    <div id="tab-z0-c" class="tense-panel">
+      <div class="demo-sentence"><em>What happens</em> if you mix vinegar and baking soda?</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--z0);color:var(--z0);">What + present simple</span>
+        <span class="demo-chip">asking about a law/process</span>
+      </div>
+      <div class="demo-note">Questions about general truths or processes. Useful in science, cooking, technology contexts.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     FIRST CONDITIONAL
+════════════════════════════════════ -->
+<section id="first" class="c1">
+  <div class="sec-head">
+    <div class="sec-num">1</div>
+    <div class="sec-info">
+      <div class="sec-eyebrow">First Conditional</div>
+      <div class="sec-title">Real &amp; likely situations</div>
+      <div class="sec-sub">Used for real possibilities in the future — things that could genuinely happen. The speaker believes it's realistic.</div>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Formula</div>
+    <div class="formula-row">
+      <span class="f-part">If</span>
+      <span class="f-connector">+</span>
+      <span class="f-part"><span class="f-accent">Present Simple</span></span>
+      <span class="f-connector">,</span>
+      <span class="f-part"><span class="f-accent">will + base verb</span></span>
+    </div>
+    <div class="f-note">
+      ✦ Never use "will" in the IF clause — use present simple even though you mean the future.<br>
+      ✦ Can also use: <strong>can / may / might / should / must</strong> instead of "will" in the main clause.<br>
+      ✦ Use "going to" instead of "will" for planned actions: If it rains, I'm going to cancel the trip.
+    </div>
+  </div>
+
+  <div class="usage-grid">
+    <div class="usage-card">
+      <div class="usage-icon">⚠️</div>
+      <div class="usage-title">Warnings</div>
+      <div class="usage-desc">Alerting someone to a real future danger or consequence.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🤝</div>
+      <div class="usage-title">Promises</div>
+      <div class="usage-desc">Committing to do something if a condition is met.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🗺️</div>
+      <div class="usage-title">Plans &amp; decisions</div>
+      <div class="usage-desc">What you'll do depending on how a situation turns out.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">💡</div>
+      <div class="usage-title">Suggestions &amp; offers</div>
+      <div class="usage-desc">Offering help or advice based on a likely situation.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🔮</div>
+      <div class="usage-title">Predictions</div>
+      <div class="usage-desc">Predicting what will happen if something occurs.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">📢</div>
+      <div class="usage-title">Threats</div>
+      <div class="usage-desc">Stating negative consequences of an action.</div>
+    </div>
+  </div>
+
+  <div class="examples-block">
+    <div class="examples-header">Examples</div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">warning</span>
+        <div class="ex-sentence">If you <em>touch</em> that wire, you <em>will get</em> hurt.</div>
+        <div class="ex-note">= specific, real current danger</div>
+      </div>
+      <div>
+        <span class="ex-tag">promise</span>
+        <div class="ex-sentence">If you <em>help</em> me move, I <em>will buy</em> you dinner.</div>
+        <div class="ex-note">= a real commitment</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">plan</span>
+        <div class="ex-sentence">If it <em>rains</em> tomorrow, we <em>will cancel</em> the picnic.</div>
+        <div class="ex-note">= a real future possibility</div>
+      </div>
+      <div>
+        <span class="ex-tag">prediction</span>
+        <div class="ex-sentence">If she <em>studies</em> hard, she <em>will pass</em> the exam.</div>
+        <div class="ex-note">= likely outcome</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">modal: might</span>
+        <div class="ex-sentence">If the weather <em>is</em> nice, we <em>might go</em> to the beach.</div>
+        <div class="ex-note">= less certain than "will"</div>
+      </div>
+      <div>
+        <span class="ex-tag">modal: should</span>
+        <div class="ex-sentence">If you <em>feel</em> ill, you <em>should see</em> a doctor.</div>
+        <div class="ex-note">= advice / recommendation</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">modal: can</span>
+        <div class="ex-sentence">If you <em>finish</em> early, you <em>can leave</em>.</div>
+        <div class="ex-note">= permission</div>
+      </div>
+      <div>
+        <span class="ex-tag">going to</span>
+        <div class="ex-sentence">If the traffic <em>is</em> bad, I <em>'m going to</em> take the metro.</div>
+        <div class="ex-note">= planned intention</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tense-demo">
+    <div class="tense-demo-tabs">
+      <button class="tense-tab active" style="border-color:var(--f1);" onclick="switchTab(this,'tab-f1-a')">Positive</button>
+      <button class="tense-tab" onclick="switchTab(this,'tab-f1-b')">Negative</button>
+      <button class="tense-tab" onclick="switchTab(this,'tab-f1-c')">Question</button>
+      <button class="tense-tab" onclick="switchTab(this,'tab-f1-d')">Modals</button>
+    </div>
+    <div id="tab-f1-a" class="tense-panel active">
+      <div class="demo-sentence">If it <em>rains</em> tomorrow, I <em>will stay</em> home.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--f1);color:var(--f1);">IF + present simple</span>
+        <span class="demo-chip" style="border-color:var(--f1);color:var(--f1);">will + base verb</span>
+        <span class="demo-chip">real possibility</span>
+      </div>
+      <div class="demo-note">The condition is realistic — rain tomorrow is possible. The speaker is planning based on it.</div>
+    </div>
+    <div id="tab-f1-b" class="tense-panel">
+      <div class="demo-sentence">If she <em>doesn't call</em> by 6, I <em>won't wait</em> any longer.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--f1);color:var(--f1);">IF + don't/doesn't</span>
+        <span class="demo-chip" style="border-color:var(--f1);color:var(--f1);">won't + base verb</span>
+        <span class="demo-chip">negative consequence</span>
+      </div>
+      <div class="demo-note">Negative first conditional: negate the IF clause with <strong>don't/doesn't</strong>, and the main clause with <strong>won't</strong>.</div>
+    </div>
+    <div id="tab-f1-c" class="tense-panel">
+      <div class="demo-sentence"><em>What will you do</em> if you <em>don't get</em> the job?</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--f1);color:var(--f1);">What will + subject + do</span>
+        <span class="demo-chip">asking about future plans</span>
+      </div>
+      <div class="demo-note">First conditional questions ask about real future possibilities — the asker genuinely wants to know the plan.</div>
+    </div>
+    <div id="tab-f1-d" class="tense-panel">
+      <div class="demo-sentence">If you <em>feel</em> tired, you <em>might want</em> to rest.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--f1);color:var(--f1);">might / can / should / must</span>
+        <span class="demo-chip">softens the certainty</span>
+      </div>
+      <div class="demo-note"><strong>will</strong> = certain · <strong>might/may</strong> = possible · <strong>can</strong> = permission/ability · <strong>should</strong> = advice · <strong>must</strong> = obligation</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     SECOND CONDITIONAL
+════════════════════════════════════ -->
+<section id="second" class="c2">
+  <div class="sec-head">
+    <div class="sec-num">2</div>
+    <div class="sec-info">
+      <div class="sec-eyebrow">Second Conditional</div>
+      <div class="sec-title">Unreal &amp; imaginary present/future</div>
+      <div class="sec-sub">Used for imaginary situations — things that are unlikely, impossible, or hypothetical. The speaker does NOT expect this to happen.</div>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Formula</div>
+    <div class="formula-row">
+      <span class="f-part">If</span>
+      <span class="f-connector">+</span>
+      <span class="f-part"><span class="f-accent">Past Simple</span></span>
+      <span class="f-connector">,</span>
+      <span class="f-part"><span class="f-accent">would + base verb</span></span>
+    </div>
+    <div class="f-note">
+      ✦ Use <strong>"were"</strong> (not "was") for all persons in formal/written English: If I <em>were</em> you… · If she <em>were</em> here…<br>
+      ✦ "Was" is acceptable in informal speech: If I was rich…<br>
+      ✦ Can also use: <strong>could / might</strong> instead of "would" in the main clause.
+    </div>
+  </div>
+
+  <div class="usage-grid">
+    <div class="usage-card">
+      <div class="usage-icon">💭</div>
+      <div class="usage-title">Daydreams &amp; wishes</div>
+      <div class="usage-desc">Imagining a different, better reality — things you wish were true.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🎭</div>
+      <div class="usage-title">Hypothetical situations</div>
+      <div class="usage-desc">Discussing what WOULD happen in an imaginary scenario.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🤔</div>
+      <div class="usage-title">Advice: "If I were you…"</div>
+      <div class="usage-desc">The most common way to give polite advice in English.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🏔️</div>
+      <div class="usage-title">Unlikely / impossible now</div>
+      <div class="usage-desc">Things that are very unlikely or impossible in the present situation.</div>
+    </div>
+  </div>
+
+  <div class="examples-block">
+    <div class="examples-header">Examples</div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">wish / dream</span>
+        <div class="ex-sentence">If I <em>had</em> a million dollars, I <em>would travel</em> the world.</div>
+        <div class="ex-note">= I don't have a million dollars (unreal)</div>
+      </div>
+      <div>
+        <span class="ex-tag">wish / dream</span>
+        <div class="ex-sentence">If I <em>were</em> a bird, I <em>would fly</em> to the ocean.</div>
+        <div class="ex-note">= impossible, but fun to imagine</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">advice</span>
+        <div class="ex-sentence">If I <em>were</em> you, I <em>would apologise</em> immediately.</div>
+        <div class="ex-note">= classic advice formula — very polite</div>
+      </div>
+      <div>
+        <span class="ex-tag">hypothetical</span>
+        <div class="ex-sentence">What <em>would</em> you do if you <em>won</em> the lottery?</div>
+        <div class="ex-note">= imaginary scenario question</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">unlikely</span>
+        <div class="ex-sentence">If he <em>spoke</em> better English, he <em>could get</em> that job.</div>
+        <div class="ex-note">= currently he doesn't speak well enough</div>
+      </div>
+      <div>
+        <span class="ex-tag">modal: might</span>
+        <div class="ex-sentence">If we <em>left</em> now, we <em>might catch</em> the last train.</div>
+        <div class="ex-note">= possible but not certain</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="background:var(--s2l);border:1px solid var(--s2m);">
+    <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--s2);margin-bottom:12px;">⚡ First vs Second — key difference</div>
+    <div class="two-col" style="margin-bottom:0;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--f1);margin-bottom:8px;">FIRST — real, likely</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:14px;font-style:italic;">If it <strong>rains</strong> tomorrow, I <strong>will</strong> cancel the barbecue.</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:5px;">→ Rain is possible. The speaker genuinely expects it might rain.</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--s2);margin-bottom:8px;">SECOND — unreal, unlikely</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:14px;font-style:italic;">If it <strong>rained</strong> every day, I <strong>would move</strong> to Spain.</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:5px;">→ It doesn't rain every day. This is imaginary / hypothetical.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     THIRD CONDITIONAL
+════════════════════════════════════ -->
+<section id="third" class="c3">
+  <div class="sec-head">
+    <div class="sec-num">3</div>
+    <div class="sec-info">
+      <div class="sec-eyebrow">Third Conditional</div>
+      <div class="sec-title">Unreal past — regrets &amp; criticism</div>
+      <div class="sec-sub">Used for imagining a different past — things that did NOT happen. Expresses regrets, criticism, or speculation about past events.</div>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Formula</div>
+    <div class="formula-row">
+      <span class="f-part">If</span>
+      <span class="f-connector">+</span>
+      <span class="f-part"><span class="f-accent">Past Perfect</span></span>
+      <span class="f-connector">,</span>
+      <span class="f-part"><span class="f-accent">would have + past participle</span></span>
+    </div>
+    <div class="f-note">
+      ✦ Past Perfect = <strong>had + past participle</strong> (had gone, had known, had studied)<br>
+      ✦ Can also use: <strong>could have / might have</strong> instead of "would have"<br>
+      ✦ Contractions: would've, could've, might've — very common in speech<br>
+      ✦ "If I had known…" → shortcut: <strong>"Had I known…"</strong> (formal inversion, no "if")
+    </div>
+  </div>
+
+  <div class="usage-grid">
+    <div class="usage-card">
+      <div class="usage-icon">😔</div>
+      <div class="usage-title">Regrets</div>
+      <div class="usage-desc">Wishing you had done something differently in the past.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">😤</div>
+      <div class="usage-title">Criticism</div>
+      <div class="usage-desc">Pointing out what someone should or shouldn't have done.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🔎</div>
+      <div class="usage-title">Speculation</div>
+      <div class="usage-desc">Imagining how a past situation could have been different.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">📜</div>
+      <div class="usage-title">Historical "what ifs"</div>
+      <div class="usage-desc">Discussing how history might have unfolded differently.</div>
+    </div>
+  </div>
+
+  <div class="examples-block">
+    <div class="examples-header">Examples</div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">regret</span>
+        <div class="ex-sentence">If I <em>had studied</em> harder, I <em>would have passed</em> the exam.</div>
+        <div class="ex-note">= I didn't study hard → I failed (real past)</div>
+      </div>
+      <div>
+        <span class="ex-tag">regret</span>
+        <div class="ex-sentence">If she <em>had left</em> earlier, she <em>wouldn't have missed</em> the train.</div>
+        <div class="ex-note">= she left late → she missed it</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">criticism</span>
+        <div class="ex-sentence">If you <em>had listened</em> to me, this <em>wouldn't have happened</em>.</div>
+        <div class="ex-note">= you didn't listen → problem occurred</div>
+      </div>
+      <div>
+        <span class="ex-tag">speculation</span>
+        <div class="ex-sentence">If he <em>had invested</em> in Apple in 2000, he <em>would have become</em> very rich.</div>
+        <div class="ex-note">= he didn't invest (historical what-if)</div>
+      </div>
+    </div>
+    <div class="example-row">
+      <div>
+        <span class="ex-tag">could have</span>
+        <div class="ex-sentence">If we <em>had booked</em> earlier, we <em>could have got</em> cheaper tickets.</div>
+        <div class="ex-note">= possibility in the past</div>
+      </div>
+      <div>
+        <span class="ex-tag">inversion (formal)</span>
+        <div class="ex-sentence"><em>Had I known</em> about the problem, I <em>would have fixed</em> it.</div>
+        <div class="ex-note">= Had I known = If I had known</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tense-demo">
+    <div class="tense-demo-tabs">
+      <button class="tense-tab active" style="border-color:var(--t3);" onclick="switchTab(this,'tab-t3-a')">Full sentence</button>
+      <button class="tense-tab" onclick="switchTab(this,'tab-t3-b')">Contraction</button>
+      <button class="tense-tab" onclick="switchTab(this,'tab-t3-c')">Formal inversion</button>
+    </div>
+    <div id="tab-t3-a" class="tense-panel active">
+      <div class="demo-sentence">If I <em>had known</em> you were coming, I <em>would have cooked</em> dinner.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--t3);color:var(--t3);">had + past participle</span>
+        <span class="demo-chip" style="border-color:var(--t3);color:var(--t3);">would have + p.p.</span>
+        <span class="demo-chip">past — impossible to change</span>
+      </div>
+      <div class="demo-note">Reality: I didn't know you were coming, so I didn't cook dinner. The past is over and cannot be changed.</div>
+    </div>
+    <div id="tab-t3-b" class="tense-panel">
+      <div class="demo-sentence">If I'd known you were coming, I would've cooked dinner.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--t3);color:var(--t3);">I'd = I had</span>
+        <span class="demo-chip" style="border-color:var(--t3);color:var(--t3);">would've = would have</span>
+        <span class="demo-chip">natural in speech</span>
+      </div>
+      <div class="demo-note">In spoken English, contractions are very common. <strong>I'd</strong> (I had), <strong>would've</strong>, <strong>could've</strong>, <strong>might've</strong> — all normal and natural.</div>
+    </div>
+    <div id="tab-t3-c" class="tense-panel">
+      <div class="demo-sentence"><em>Had</em> I known you were coming, I would have cooked dinner.</div>
+      <div class="demo-analysis">
+        <span class="demo-chip" style="border-color:var(--t3);color:var(--t3);">Had + subject + past participle</span>
+        <span class="demo-chip">formal / literary</span>
+      </div>
+      <div class="demo-note">Inversion: drop "if" and put "had" before the subject. Same meaning, more formal. Used in writing, speeches, literature.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     MIXED CONDITIONAL
+════════════════════════════════════ -->
+<section id="mixed" class="cmx">
+  <div class="sec-head">
+    <div class="sec-num" style="font-size:3.5rem;">Mix</div>
+    <div class="sec-info">
+      <div class="sec-eyebrow">Mixed Conditionals</div>
+      <div class="sec-title">Combining past &amp; present</div>
+      <div class="sec-sub">Used when the time of the condition and the result are different — mixing elements of 2nd and 3rd conditionals.</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="formula-block" style="margin-bottom:12px;">
+        <div class="formula-label">Type A — Past condition, present result</div>
+        <div class="formula-row" style="font-size:13px;">
+          <span class="f-part">If + <span class="f-accent">Past Perfect</span></span>
+          <span class="f-connector">,</span>
+          <span class="f-part"><span class="f-accent">would + base verb</span></span>
+        </div>
+        <div class="f-note" style="font-size:12px;">Past event → effect still felt now</div>
+      </div>
+      <div class="examples-block">
+        <div class="examples-header" style="padding:10px 18px;">Examples — type A</div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">If I <em>had studied</em> medicine, I <em>would be</em> a doctor now.</div>
+            <div class="ex-note">= I didn't study medicine (past) → I'm not a doctor today (present)</div>
+          </div>
+        </div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">If she <em>hadn't moved</em> abroad, she <em>would still be</em> working here.</div>
+            <div class="ex-note">= she moved (past) → she doesn't work here now (present)</div>
+          </div>
+        </div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">If he <em>had taken</em> that job, he <em>would be</em> very wealthy now.</div>
+            <div class="ex-note">= past decision → present state</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="formula-block" style="margin-bottom:12px;">
+        <div class="formula-label">Type B — Present condition, past result</div>
+        <div class="formula-row" style="font-size:13px;">
+          <span class="f-part">If + <span class="f-accent">Past Simple</span></span>
+          <span class="f-connector">,</span>
+          <span class="f-part"><span class="f-accent">would have + p.p.</span></span>
+        </div>
+        <div class="f-note" style="font-size:12px;">Current state → how it affected the past</div>
+      </div>
+      <div class="examples-block">
+        <div class="examples-header" style="padding:10px 18px;">Examples — type B</div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">If I <em>were</em> braver, I <em>would have spoken</em> up at the meeting.</div>
+            <div class="ex-note">= I'm not brave (present) → I didn't speak up (past)</div>
+          </div>
+        </div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">If she <em>weren't</em> so shy, she <em>would have asked</em> for help.</div>
+            <div class="ex-note">= she is shy (present) → she didn't ask (past)</div>
+          </div>
+        </div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">If he <em>spoke</em> Spanish, he <em>would have got</em> the job in Madrid.</div>
+            <div class="ex-note">= he doesn't speak Spanish (present) → didn't get job (past)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     UNLESS
+════════════════════════════════════ -->
+<section id="unless" class="cun">
+  <div class="sec-head">
+    <div class="sec-num" style="font-size:2.8rem;">Un-<br>less</div>
+    <div class="sec-info">
+      <div class="sec-eyebrow">Unless</div>
+      <div class="sec-title">The exception condition</div>
+      <div class="sec-sub"><strong>Unless = "if not"</strong> — states the one exception that would prevent the result from happening. Used with zero and first conditionals.</div>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Core meaning</div>
+    <div class="formula-row">
+      <span class="f-part" style="font-size:14px;"><span class="f-accent">Unless</span> + positive present simple</span>
+      <span class="f-connector">=</span>
+      <span class="f-part" style="font-size:14px;"><span class="f-accent">If … not</span> + present simple</span>
+    </div>
+    <div class="f-note">
+      ✦ <strong>Unless you hurry</strong> = <strong>If you don't hurry</strong><br>
+      ✦ Works with zero conditional (always true) AND first conditional (future, real)<br>
+      ✦ Unless is especially powerful in warnings, threats, and ultimatums
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Unless = Zero conditional</div>
+      <div class="examples-block">
+        <div class="examples-header" style="padding:10px 18px;">General truths</div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence"><em>Unless</em> you heat it, ice stays frozen.</div>
+            <div class="ex-note">= If you don't heat it, ice stays frozen.</div>
+          </div>
+        </div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">Plants die <em>unless</em> they get water.</div>
+            <div class="ex-note">= Plants die if they don't get water.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Unless = First conditional</div>
+      <div class="examples-block">
+        <div class="examples-header" style="padding:10px 18px;">Future / real situations</div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence"><em>Unless</em> you hurry, we will miss the train.</div>
+            <div class="ex-note">= If you don't hurry, we will miss the train.</div>
+          </div>
+        </div>
+        <div class="example-row single">
+          <div>
+            <div class="ex-sentence">She won't pass <em>unless</em> she studies.</div>
+            <div class="ex-note">= She won't pass if she doesn't study.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECIAL RULES FOR UNLESS -->
+  <div style="font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin:28px 0 14px;">Special rules &amp; traps</div>
+
+  <div class="rule-pill">
+    <div class="rule-icon">🚫</div>
+    <div class="rule-text">
+      <strong>NEVER use "not" after "unless"</strong> — it creates a double negative
+      <span class="ex-inline">✘ Unless you <u>don't</u> study, you'll fail. ← wrong!</span>
+      <span class="ex-inline">✔ Unless you study, you'll fail.</span>
+    </div>
+  </div>
+  <div class="rule-pill">
+    <div class="rule-icon">🚫</div>
+    <div class="rule-text">
+      <strong>NEVER use "will" after "unless"</strong> — same rule as with "if"
+      <span class="ex-inline">✘ Unless you <u>will call</u> me, I'll leave. ← wrong!</span>
+      <span class="ex-inline">✔ Unless you call me, I'll leave.</span>
+    </div>
+  </div>
+  <div class="rule-pill">
+    <div class="rule-icon">↔️</div>
+    <div class="rule-text">
+      <strong>Unless can come first or second</strong> — both positions are correct
+      <span class="ex-inline">✔ Unless it rains, we'll go to the park. (comma needed)</span>
+      <span class="ex-inline">✔ We'll go to the park unless it rains. (no comma needed)</span>
+    </div>
+  </div>
+  <div class="rule-pill">
+    <div class="rule-icon">⚡</div>
+    <div class="rule-text">
+      <strong>Unless is especially strong in warnings &amp; ultimatums</strong>
+      <span class="ex-inline">✔ Unless you apologise right now, I'm leaving.</span>
+      <span class="ex-inline">✔ Unless you pay by Friday, we will cancel your account.</span>
+    </div>
+  </div>
+  <div class="rule-pill">
+    <div class="rule-icon">❌</div>
+    <div class="rule-text">
+      <strong>Unless is NOT used for past unreal / hypothetical situations</strong>
+      <span class="ex-inline">✘ Unless she had known, she wouldn't have come. ← unnatural</span>
+      <span class="ex-inline">✔ If she hadn't known, she wouldn't have come. ← correct</span>
+    </div>
+  </div>
+
+  <!-- UNLESS VS IF NOT COMPARISON -->
+  <div class="comp-table-wrap" style="margin-top:28px;">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Situation</th>
+          <th style="width:35%;color:var(--un);">Unless…</th>
+          <th style="width:35%;color:var(--f1);">If … not…</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="feature">Warning</td>
+          <td style="font-style:italic;">Unless you wear a helmet, you could get hurt.</td>
+          <td style="font-style:italic;">If you don't wear a helmet, you could get hurt.</td>
+        </tr>
+        <tr>
+          <td class="feature">Threat / ultimatum</td>
+          <td style="font-style:italic;">Unless you stop, I will call the police.</td>
+          <td style="font-style:italic;">If you don't stop, I will call the police.</td>
+        </tr>
+        <tr>
+          <td class="feature">Condition</td>
+          <td style="font-style:italic;">Unless it stops raining, the match is cancelled.</td>
+          <td style="font-style:italic;">If it doesn't stop raining, the match is cancelled.</td>
+        </tr>
+        <tr>
+          <td class="feature">General truth</td>
+          <td style="font-style:italic;">Unless you exercise, your health declines.</td>
+          <td style="font-style:italic;">If you don't exercise, your health declines.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     COMPARE ALL
+════════════════════════════════════ -->
+<section id="compare">
+  <div class="sec-head" style="padding-top:60px;">
+    <div class="sec-info">
+      <div class="sec-eyebrow" style="color:var(--muted);">All Conditionals</div>
+      <div class="sec-title" style="font-family:'Fraunces',serif;">Compare at a glance</div>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="sum-card s0">
+      <span class="sum-badge" style="background:var(--z0m);color:var(--z0);">Zero</span>
+      <div class="sum-title" style="color:var(--z0);">General truth</div>
+      <div class="sum-formula">If + present simple, present simple</div>
+      <div class="sum-meaning">Always true. Scientific facts, natural laws, habits. Can replace "if" with "when".</div>
+      <div class="sum-ex">If you heat water to 100°C, it boils.</div>
+    </div>
+    <div class="sum-card s1">
+      <span class="sum-badge" style="background:var(--f1m);color:var(--f1);">First</span>
+      <div class="sum-title" style="color:var(--f1);">Real future</div>
+      <div class="sum-formula">If + present simple, will + base verb</div>
+      <div class="sum-meaning">Real, likely future situation. Warnings, promises, plans, predictions.</div>
+      <div class="sum-ex">If it rains tomorrow, I will stay home.</div>
+    </div>
+    <div class="sum-card s2">
+      <span class="sum-badge" style="background:var(--s2m);color:var(--s2);">Second</span>
+      <div class="sum-title" style="color:var(--s2);">Unreal present</div>
+      <div class="sum-formula">If + past simple, would + base verb</div>
+      <div class="sum-meaning">Imaginary, hypothetical, unlikely. Dreams, wishes, polite advice.</div>
+      <div class="sum-ex">If I had more time, I would learn piano.</div>
+    </div>
+    <div class="sum-card s3">
+      <span class="sum-badge" style="background:var(--t3m);color:var(--t3);">Third</span>
+      <div class="sum-title" style="color:var(--t3);">Unreal past</div>
+      <div class="sum-formula">If + past perfect, would have + p.p.</div>
+      <div class="sum-meaning">Impossible — past cannot be changed. Regrets, criticism, speculation.</div>
+      <div class="sum-ex">If I had known, I would have helped.</div>
+    </div>
+    <div class="sum-card smx">
+      <span class="sum-badge" style="background:var(--mxm);color:var(--mx);">Mixed A</span>
+      <div class="sum-title" style="color:var(--mx);">Past → present</div>
+      <div class="sum-formula">If + past perfect, would + base verb</div>
+      <div class="sum-meaning">Past event still affects the present. A decision made then = current state.</div>
+      <div class="sum-ex">If I had studied medicine, I would be a doctor now.</div>
+    </div>
+    <div class="sum-card sun">
+      <span class="sum-badge" style="background:var(--unm);color:var(--un);">Unless</span>
+      <div class="sum-title" style="color:var(--un);">The exception</div>
+      <div class="sum-formula">Unless + positive present simple</div>
+      <div class="sum-meaning">= "if not". States the ONE thing that prevents the result. Zero &amp; first only.</div>
+      <div class="sum-ex">Unless you hurry, we'll miss the train.</div>
+    </div>
+  </div>
+
+  <!-- MEGA COMPARISON TABLE -->
+  <div style="overflow-x:auto;border-radius:16px;border:1px solid var(--border);margin-bottom:24px;">
+    <table class="comp-table" style="min-width:750px;">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>IF clause</th>
+          <th>Main clause</th>
+          <th>Time</th>
+          <th>Reality</th>
+          <th>Key use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:700;color:var(--z0);">Zero</td>
+          <td>present simple</td>
+          <td>present simple</td>
+          <td>always</td>
+          <td>100% true</td>
+          <td>facts, laws, habits</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--f1);">First</td>
+          <td>present simple</td>
+          <td>will / can / might + base</td>
+          <td>future</td>
+          <td>real / likely</td>
+          <td>warnings, promises, plans</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--s2);">Second</td>
+          <td>past simple</td>
+          <td>would / could + base</td>
+          <td>present/future</td>
+          <td>unreal / unlikely</td>
+          <td>wishes, dreams, advice</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--t3);">Third</td>
+          <td>past perfect</td>
+          <td>would/could have + p.p.</td>
+          <td>past</td>
+          <td>impossible</td>
+          <td>regrets, criticism</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--mx);">Mixed A</td>
+          <td>past perfect</td>
+          <td>would + base</td>
+          <td>past → now</td>
+          <td>unreal</td>
+          <td>past cause, present effect</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--mx);">Mixed B</td>
+          <td>past simple</td>
+          <td>would have + p.p.</td>
+          <td>now → past</td>
+          <td>unreal</td>
+          <td>present state, past effect</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--un);">Unless</td>
+          <td>present simple (+)</td>
+          <td>same as zero or first</td>
+          <td>general / future</td>
+          <td>real</td>
+          <td>exceptions, warnings</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     COMMON MISTAKES
+════════════════════════════════════ -->
+<section id="mistakes">
+  <div class="sec-head" style="padding-top:40px;">
+    <div class="sec-info">
+      <div class="sec-eyebrow" style="color:#E05555;">Common Mistakes</div>
+      <div class="sec-title" style="font-family:'Fraunces',serif;">What everyone gets wrong</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="mistakes-block">
+      <div class="mistakes-header">
+        <span style="font-size:16px;">⚡</span> Will in the IF clause
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">✘</span>If it will rain tomorrow, we will cancel it.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>If it rains tomorrow, we will cancel it.</div>
+        <div class="mis-why">Never use "will" in the IF clause — use present simple for all conditional types.</div>
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">✘</span>If she will agree, we can start.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>If she agrees, we can start.</div>
+        <div class="mis-why">Even though the meaning is future, the IF clause uses present simple.</div>
+      </div>
+    </div>
+
+    <div class="mistakes-block">
+      <div class="mistakes-header">
+        <span style="font-size:16px;">🔀</span> Was vs Were in second conditional
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">informal</span>If I was you, I would leave.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>If I were you, I would leave.</div>
+        <div class="mis-why">"Were" is correct for all subjects in formal English. "Was" is accepted in casual speech only.</div>
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">informal</span>If he was taller, he would be a model.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>If he were taller, he would be a model.</div>
+        <div class="mis-why">Subjunctive "were" is used in formal/written second conditional.</div>
+      </div>
+    </div>
+
+    <div class="mistakes-block">
+      <div class="mistakes-header">
+        <span style="font-size:16px;">🕰️</span> Would in the IF clause
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">✘</span>If I would have money, I'd travel.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>If I had money, I would travel.</div>
+        <div class="mis-why">No "would" in the IF clause — this is a very common mistake for learners.</div>
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">✘</span>If she would have called, I'd have come.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>If she had called, I would have come.</div>
+        <div class="mis-why">Past perfect in IF clause, "would have" in main clause — never "would have" in IF clause.</div>
+      </div>
+    </div>
+
+    <div class="mistakes-block">
+      <div class="mistakes-header">
+        <span style="font-size:16px;">🚫</span> "Not" after unless
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">✘</span>Unless you don't study, you'll fail.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>Unless you study, you'll fail.</div>
+        <div class="mis-why">Unless already contains the negative meaning. Adding "not" creates a double negative.</div>
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">✘</span>Unless it won't rain, we'll go out.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>Unless it rains, we'll go out.</div>
+        <div class="mis-why">Never use "will" or negative forms after "unless" — use positive present simple.</div>
+      </div>
+    </div>
+
+    <div class="mistakes-block">
+      <div class="mistakes-header">
+        <span style="font-size:16px;">📅</span> Second vs Third confusion
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">wrong tense</span>If I studied harder, I would have passed.</div>
+        <div class="mis-right"><span class="mis-icon">✔ third</span>If I had studied harder, I would have passed.</div>
+        <div class="mis-why">For past situations: use past perfect in IF clause. Past simple = second conditional (present/future).</div>
+      </div>
+    </div>
+
+    <div class="mistakes-block">
+      <div class="mistakes-header">
+        <span style="font-size:16px;">🔀</span> Comma placement
+      </div>
+      <div class="mistake-row">
+        <div class="mis-wrong"><span class="mis-icon">✘</span>I will help you if you ask me.</div>
+        <div class="mis-right"><span class="mis-icon">✔</span>If you ask me, I will help you.</div>
+        <div class="mis-why">Use a comma ONLY when the IF clause comes first. No comma when the main clause comes first.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- end .page -->
+
+
+
+<script>
+function switchTab(btn, panelId) {
+  const demo = btn.closest('.tense-demo');
+  demo.querySelectorAll('.tense-tab').forEach(t => {
+    t.classList.remove('active');
+    t.style.borderBottomColor = 'transparent';
+    t.style.color = '';
+  });
+  demo.querySelectorAll('.tense-panel').forEach(p => p.classList.remove('active'));
+
+  btn.classList.add('active');
+  const activeColor = getComputedStyle(document.documentElement)
+    .getPropertyValue(btn.style.borderColor ? '--text' : '--text').trim();
+  btn.style.color = 'var(--text)';
+
+  document.getElementById(panelId).classList.add('active');
+}
+</script>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -2429,6 +4490,7 @@ function showPage(id) {
   if (id === 'allwords') filterAllWords();
   if (id === 'practice') renderPractice();
   if (id === 'quantifiers') initQuantifiers();
+  if (id === 'conditionals') initConditionals();
 }
 
 // ════════════════════════════════════════════
@@ -3544,6 +5606,18 @@ function insertHtmlPaste() {
   markNoteDirty();
   closeHtmlPasteModal();
   showToast('✓ HTML inserted!', 'success');
+}
+
+function initConditionals() {
+  // Fix internal anchor links
+  document.querySelectorAll('#conditionals-scope .sticky-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const id = a.getAttribute('href').replace('#','');
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
 function initQuantifiers() {
