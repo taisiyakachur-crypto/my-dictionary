@@ -549,6 +549,7 @@
     <button class="nav-tab" onclick="showPage('conditionals')">🔀 Conditionals</button>
     <button class="nav-tab" onclick="showPage('tenses')">🕐 Tenses</button>
     <button class="nav-tab" onclick="showPage('verbs')">🔤 Irregular Verbs</button>
+    <button class="nav-tab" onclick="showPage('phrasal')">↗️ Phrasal Verbs</button>
     <button class="nav-tab" onclick="showPage('links')">🔗 Links</button>
     <button class="nav-tab" onclick="showPage('notes')">📝 Notes</button>
   </div>
@@ -6063,6 +6064,38 @@ animation:fadeSlide 0.5s ease both}
   </div>
 </div>
 
+<!-- ════════════════════════════ PAGE 10: PHRASAL VERBS ════════════════════════════ -->
+<div id="page-phrasal" class="page">
+  <style>
+    .pv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+    .pv-verb{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink)}
+    .pv-uk{font-size:15px;color:var(--sage);font-weight:600}
+    .pv-meaning{font-size:13px;color:var(--ink2)}
+    .pv-example{font-size:13px;font-style:italic;color:var(--muted);background:var(--bg2,#f7f4ee);padding:8px 10px;border-radius:6px;border-left:3px solid var(--gold,#c8a96e)}
+    .pv-example span{font-style:normal;color:var(--ink2);display:block;margin-top:3px}
+    .pv-tip{font-size:12px;color:#7c6fcd}
+    .pv-tag{font-size:11px;background:#f0f5f0;color:var(--sage);padding:2px 8px;border-radius:20px;white-space:nowrap}
+    .phrasal-filter-btn.active{background:var(--sage)!important;color:#fff!important;border-color:var(--sage)!important}
+  </style>
+  <div class="page-header">
+    <h1>Phrasal Verbs</h1>
+    <p>Фразові дієслова з перекладом, прикладами та поясненнями</p>
+  </div>
+
+  <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+    <div class="search-wrap" style="flex:1;min-width:220px;margin-bottom:0">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="phrasal-search" placeholder="Пошук: break down / зламатися…" oninput="searchPhrasal()">
+      <button class="search-clear" id="phrasal-clear" style="display:none" onclick="clearPhrasalSearch()">✕</button>
+    </div>
+    <div id="phrasal-count" style="font-size:13px;color:var(--muted);white-space:nowrap"></div>
+  </div>
+
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px" id="phrasal-filters"></div>
+
+  <div id="phrasal-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px"></div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -6201,6 +6234,7 @@ function showPage(id) {
   if (id === 'quantifiers') initQuantifiers();
   if (id === 'conditionals') initConditionals();
   if (id === 'tenses') initTenses();
+  if (id === 'phrasal') initPhrasal();
 }
 
 // ════════════════════════════════════════════
@@ -7363,6 +7397,283 @@ window.onload = () => {
   // Фонова синхронізація з Sheets
   if (API_URL) loadAllData();
 };
+
+// ════════════════════════════════════════════
+// PHRASAL VERBS
+// ════════════════════════════════════════════
+const PHRASAL_VERBS = [
+  // BREAK
+  {verb:'break down',uk:'зламатися; впасти в сльози',meaning:'1. Перестати працювати (техніка/машина). 2. Втратити емоційний контроль.',example:'My car broke down on the highway.',exampleUk:'Моя машина зламалась на шосе.',tip:'З транспортом або технікою; також про емоційний зрив'},
+  {verb:'break in',uk:'вламуватися; перебивати',meaning:'1. Незаконно проникнути у приміщення. 2. Перервати розмову.',example:'Someone broke in and stole the laptop.',exampleUk:'Хтось вломився і вкрав ноутбук.',tip:'Break into — коли вказуємо місце: break into a house'},
+  {verb:'break into',uk:'вламуватися до; раптово почати',meaning:'Увійти силою; або раптово почати щось (break into song).',example:'They broke into the building at night.',exampleUk:'Вони вломились у будівлю вночі.',tip:'Завжди потребує об\'єкта після into'},
+  {verb:'break off',uk:'переривати; відламувати',meaning:'Раптово зупинити або закінчити щось; відламати шматок.',example:'She broke off the engagement suddenly.',exampleUk:'Вона раптово розірвала заручини.',tip:'Часто про стосунки або переговори'},
+  {verb:'break out',uk:'спалахувати; тікати',meaning:'1. Раптово почати (пожежа, конфлікт). 2. Втекти з в\'язниці.',example:'A fire broke out in the warehouse.',exampleUk:'На складі спалахнула пожежа.',tip:'Break out in — про шкірні реакції: break out in a rash'},
+  {verb:'break through',uk:'прориватися; досягати прориву',meaning:'Подолати перешкоду; досягти значного успіху.',example:'Scientists finally broke through with a new treatment.',exampleUk:'Науковці нарешті досягли прориву з новим лікуванням.',tip:'Часто вживається у переносному сенсі — про досягнення'},
+  {verb:'break up',uk:'розлучатися; розходитися',meaning:'1. Закінчити стосунки. 2. Розбити на частини. 3. Завершити (зустріч).',example:'They broke up after two years together.',exampleUk:'Вони розійшлися після двох років разом.',tip:'Break up with somebody — конкретна форма для стосунків'},
+  // BRING
+  {verb:'bring about',uk:'спричиняти; призводити до',meaning:'Стати причиною змін або результату.',example:'The new law brought about significant changes.',exampleUk:'Новий закон призвів до значних змін.',tip:'Синонім: cause, lead to — але bring about звучить формальніше'},
+  {verb:'bring back',uk:'повертати; нагадувати',meaning:'1. Повернути щось. 2. Відновити (традицію). 3. Нагадати спогад.',example:'That song brings back so many memories.',exampleUk:'Ця пісня нагадує стільки спогадів.',tip:'Bring back memories — дуже поширений вираз'},
+  {verb:'bring in',uk:'заробляти; залучати; вводити',meaning:'1. Приносити дохід. 2. Залучати (спеціаліста). 3. Ввести (закон).',example:'The project brings in over €10,000 a month.',exampleUk:'Проєкт приносить понад 10 000 євро на місяць.',tip:'Bring in an expert — запросити зовнішнього фахівця'},
+  {verb:'bring out',uk:'видавати; виявляти; підкреслювати',meaning:'1. Випустити продукт/книгу. 2. Виявити якість у людині.',example:'Stress really brings out the worst in people.',exampleUk:'Стрес справді виявляє найгірше в людях.',tip:'Bring out the best/worst in someone — дуже популярний вислів'},
+  {verb:'bring up',uk:'виховувати; піднімати тему',meaning:'1. Виховувати дитину. 2. Згадати тему в розмові.',example:'She was brought up in a small village.',exampleUk:'Вона виросла в маленькому селі.',tip:'Bring up a topic/issue — підняти питання на обговорення'},
+  // CALL
+  {verb:'call back',uk:'передзвонити',meaning:'Зателефонувати у відповідь або пізніше.',example:'I\'ll call you back in ten minutes.',exampleUk:'Я передзвоню тобі через десять хвилин.',tip:'Can also mean to recall a product: the company called back the defective cars'},
+  {verb:'call in',uk:'викликати; зайти; повідомити',meaning:'1. Попросити прийти. 2. Зайти ненадовго. 3. Повідомити по телефону.',example:'She called in sick this morning.',exampleUk:'Вона зателефонувала вранці і сказала, що хвора.',tip:'Call in sick — стандартний вираз для дзвінка на роботу через хворобу'},
+  {verb:'call off',uk:'скасовувати',meaning:'Скасувати заплановану подію або дію.',example:'The match was called off due to rain.',exampleUk:'Матч був скасований через дощ.',tip:'Синонім: cancel. Використовується і про страйки, і про весілля'},
+  {verb:'call on',uk:'відвідати; звертатися до',meaning:'1. Нанести короткий візит. 2. Попросити когось відповісти.',example:'The teacher called on me to answer.',exampleUk:'Вчитель звернувся до мене з проханням відповісти.',tip:'У класі: call on a student — попросити учня відповісти'},
+  {verb:'call out',uk:'викликати; вигукувати; критикувати',meaning:'1. Голосно кликати. 2. Публічно критикувати когось за погану поведінку.',example:'She called him out for lying on social media.',exampleUk:'Вона публічно розкритикувала його за брехню в соцмережах.',tip:'Call out = publicly criticize — дуже поширено в сучасній англійській'},
+  // CARRY
+  {verb:'carry on',uk:'продовжувати',meaning:'Продовжувати робити щось незважаючи на труднощі.',example:'Carry on — don\'t let criticism stop you.',exampleUk:'Продовжуй — не дозволяй критиці зупинити тебе.',tip:'"Keep calm and carry on" — знаменита британська фраза'},
+  {verb:'carry out',uk:'виконувати; проводити',meaning:'Виконати завдання, план або дослідження.',example:'The team carried out a series of tests.',exampleUk:'Команда провела серію тестів.',tip:'Синонім: perform, execute. Carry out research/an investigation — часта комбінація'},
+  {verb:'carry through',uk:'доводити до кінця; підтримувати',meaning:'1. Завершити щось незважаючи на труднощі. 2. Допомогти пережити складний час.',example:'Her determination carried her through the crisis.',exampleUk:'Її рішучість допомогла їй пережити кризу.',tip:'Carry through — підкреслює подолання труднощів'},
+  // COME
+  {verb:'come across',uk:'натрапляти; справляти враження',meaning:'1. Випадково знайти. 2. Справляти певне враження.',example:'I came across this photo while cleaning.',exampleUk:'Я натрапила на це фото під час прибирання.',tip:'Come across as confident — справляти враження впевненої людини'},
+  {verb:'come along',uk:'приєднуватися; просуватися',meaning:'1. Прийти разом з кимось. 2. Розвиватися або прогресувати.',example:'How is your project coming along?',exampleUk:'Як просувається твій проєкт?',tip:'Come along = make progress — запитання про хід справ'},
+  {verb:'come apart',uk:'розпадатися; розвалюватися',meaning:'Розвалитися на частини фізично або метафорично.',example:'The old suitcase came apart at the seams.',exampleUk:'Стара валіза розійшлась по швах.',tip:'Також про стосунки або плани: everything came apart'},
+  {verb:'come back',uk:'повертатися',meaning:'Повернутися до місця або стану; відновитися.',example:'She came back from Paris last night.',exampleUk:'Вона повернулась з Парижа вчора ввечері.',tip:'Make a comeback — відродження (про кар\'єру чи моду)'},
+  {verb:'come down',uk:'знижуватися; падати; хворіти',meaning:'1. Опуститися вниз. 2. Знизитися (ціни). 3. Захворіти.',example:'Prices came down significantly last quarter.',exampleUk:'Ціни значно знизились у минулому кварталі.',tip:'Come down with a cold/flu — захворіти на застуду'},
+  {verb:'come in',uk:'входити; прибувати; надходити',meaning:'1. Увійти. 2. Прибути (потяг, новини). 3. Фінішувати.',example:'Come in, the door is open.',exampleUk:'Заходь, двері відчинені.',tip:'Come in handy — стати в нагоді (дуже поширений вираз)'},
+  {verb:'come off',uk:'відпадати; вдаватися; виглядати',meaning:'1. Відпасти або відокремитися. 2. Вдатися, спрацювати. 3. Виглядати певним чином.',example:'The plan came off better than expected.',exampleUk:'План спрацював краще, ніж очікувалось.',tip:'Come off well/badly — виглядати добре/погано в якійсь ситуації'},
+  {verb:'come out',uk:'виходити; розкриватися; виявлятися',meaning:'1. Вийти (книга, фільм). 2. Стати відомим. 3. Зізнатися в орієнтації.',example:'Her new album came out last Friday.',exampleUk:'Її новий альбом вийшов у п\'ятницю.',tip:'Come out = be published/released — стандартний вираз для виходу продукту'},
+  {verb:'come up',uk:'виникати; підніматися; наближатися',meaning:'1. Виникнути (проблема, тема). 2. Підійти до когось. 3. Наближатися (дата).',example:'Something came up and I had to leave early.',exampleUk:'Щось виникло, і мені довелось піти раніше.',tip:'Come up in conversation — з\'явитися у розмові'},
+  {verb:'come up with',uk:'придумувати; знаходити рішення',meaning:'Знайти ідею, план або відповідь.',example:'She came up with a brilliant solution.',exampleUk:'Вона придумала блискуче рішення.',tip:'Один з найпоширеніших фразових дієслів у бізнес-контексті'},
+  // CUT
+  {verb:'cut back',uk:'скорочувати; зменшувати',meaning:'Зменшити витрати, виробництво або споживання.',example:'We need to cut back on expenses.',exampleUk:'Нам потрібно скоротити витрати.',tip:'Cut back on spending/sugar — типові поєднання'},
+  {verb:'cut down',uk:'зменшувати; зрубувати',meaning:'1. Зменшити споживання. 2. Зрубати дерево.',example:'I\'m trying to cut down on coffee.',exampleUk:'Я намагаюся пити менше кави.',tip:'Cut down on = reduce consumption — синонім cut back on'},
+  {verb:'cut in',uk:'перебивати; вклинюватися',meaning:'1. Перервати розмову. 2. Різко вклинитися у черзі або трафіку.',example:'Sorry to cut in, but I have a question.',exampleUk:'Вибач, що перебиваю, але маю запитання.',tip:'Вважається грубою поведінкою — cut in line означає лізти без черги'},
+  {verb:'cut off',uk:'відрізати; відключати; переривати',meaning:'1. Відрізати. 2. Відключити (електрику, зв\'язок). 3. Перервати раптово.',example:'The storm cut off electricity for hours.',exampleUk:'Шторм відключив електрику на кілька годин.',tip:'Cut off mid-sentence — перервати посеред речення'},
+  {verb:'cut out',uk:'вирізати; кидати; виходити з ладу',meaning:'1. Вирізати. 2. Кинути звичку. 3. (про мотор) заглохнути.',example:'Cut out the sugar if you want to lose weight.',exampleUk:'Відмовся від цукру, якщо хочеш схуднути.',tip:'Cut it out! — розмовна форма: припини це робити!'},
+  // DO
+  {verb:'do away with',uk:'позбуватися; скасовувати',meaning:'Усунути або скасувати щось.',example:'It\'s time to do away with outdated rules.',exampleUk:'Час позбутися застарілих правил.',tip:'Формальніший варіант: abolish. Часто про закони, традиції'},
+  {verb:'do up',uk:'застібати; ремонтувати; прикрашати',meaning:'1. Застебнути (одяг). 2. Відремонтувати чи прикрасити.',example:'They did up the old house beautifully.',exampleUk:'Вони чудово відремонтували старий будинок.',tip:'Do up a zip/button — застібнути блискавку/ґудзик'},
+  {verb:'do without',uk:'обходитися без',meaning:'Обійтися без чогось.',example:'I can\'t do without my morning coffee.',exampleUk:'Я не можу обійтися без ранкової кави.',tip:'Підкреслює необхідність або залежність від чогось'},
+  // FALL
+  {verb:'fall apart',uk:'розпадатися; розвалюватися',meaning:'1. Розвалитися фізично. 2. Зазнати краху (план, стосунки).',example:'Their marriage fell apart after five years.',exampleUk:'Їхній шлюб розвалився після п\'яти років.',tip:'Everything is falling apart — ситуація виходить з-під контролю'},
+  {verb:'fall behind',uk:'відставати',meaning:'Не встигати за темпом або не дотримуватися строків.',example:'Don\'t fall behind on your payments.',exampleUk:'Не відставай від своїх платежів.',tip:'Fall behind schedule/on payments — типові поєднання'},
+  {verb:'fall for',uk:'закохуватися; вестися на',meaning:'1. Закохатися. 2. Повірити у щось хибне.',example:'I can\'t believe I fell for that trick.',exampleUk:'Не можу повірити, що вівся на цей трюк.',tip:'Fall for a scam/lie — потрапити на шахрайство чи брехню'},
+  {verb:'fall off',uk:'падати; зменшуватися',meaning:'1. Впасти з чогось. 2. Зменшитися (продажі, якість).',example:'Sales fell off sharply in winter.',exampleUk:'Продажі різко впали взимку.',tip:'Fall off = decline — про показники, продажі, увагу'},
+  {verb:'fall out',uk:'сваритися; випадати',meaning:'1. Посваритися з кимось. 2. Випасти (волосся, зуби).',example:'She fell out with her best friend over money.',exampleUk:'Вона посварилася з найкращою подругою через гроші.',tip:'Fall out with somebody — посваритися конкретно з кимось'},
+  {verb:'fall through',uk:'зірватися; не відбутися',meaning:'Не здійснитися (про план, угоду).',example:'The deal fell through at the last minute.',exampleUk:'Угода зірвалась в останню хвилину.',tip:'Fall through — підкреслює провал у найостанніший момент'},
+  // GET
+  {verb:'get across',uk:'донести (ідею); пояснити',meaning:'Успішно передати ідею або повідомлення.',example:'She struggled to get her point across.',exampleUk:'Їй важко давалося донести свою думку.',tip:'Get a message/idea across — ключове поєднання'},
+  {verb:'get along',uk:'ладити; поживати',meaning:'1. Мати гарні стосунки. 2. Просуватися вперед.',example:'Do you get along with your colleagues?',exampleUk:'Ти ладнаєш з колегами?',tip:'Get along / get on — обидва варіанти правильні й рівнозначні'},
+  {verb:'get away',uk:'тікати; відпочивати',meaning:'1. Втекти або уникнути. 2. Поїхати у відпустку.',example:'We\'re getting away for the weekend.',exampleUk:'Ми виїжджаємо на вихідні.',tip:'Get away with something — уникнути покарання за вчинок'},
+  {verb:'get back',uk:'повертатися; відповідати',meaning:'1. Повернутися. 2. Передзвонити або написати у відповідь.',example:'I\'ll get back to you by tomorrow.',exampleUk:'Я відповім тобі до завтра.',tip:'Get back to me — стандартна бізнес-фраза'},
+  {verb:'get by',uk:'якось справлятися; виживати',meaning:'Мати достатньо для виживання, справлятися з труднощами.',example:'It\'s hard to get by on minimum wage.',exampleUk:'Важко виживати на мінімальну зарплату.',tip:'Just getting by — ледь-ледь зводити кінці з кінцями'},
+  {verb:'get down',uk:'пригнічувати; записувати',meaning:'1. Засмутити або пригнітити. 2. Записати (інформацію).',example:'The grey weather really gets me down.',exampleUk:'Похмура погода мене дійсно пригнічує.',tip:'Get down to business — перейти до справи'},
+  {verb:'get in',uk:'потрапляти; прибувати',meaning:'1. Увійти або потрапити всередину. 2. Прибути (поїзд, рейс).',example:'What time does your flight get in?',exampleUk:'О котрій прилітає твій рейс?',tip:'Get in touch — зв\'язатися. Get in the car — сідати в авто (не into)'},
+  {verb:'get off',uk:'виходити; уникати покарання',meaning:'1. Вийти з транспорту. 2. Уникнути покарання.',example:'Get off at the third stop.',exampleUk:'Виходь на третій зупинці.',tip:'Get off easy — відбутися легко, уникнути серйозних наслідків'},
+  {verb:'get on',uk:'сідати; поживати; просуватися',meaning:'1. Сісти в транспорт. 2. Поживати / ладити. 3. Старіти.',example:'How are you getting on with the project?',exampleUk:'Як ти просуваєшся з проєктом?',tip:'Getting on in years — літня людина; Get on well — ладити добре'},
+  {verb:'get out',uk:'виходити; виїжджати; уникати',meaning:'1. Вийти. 2. Стати відомим. 3. Уникнути ситуації.',example:'The secret got out before the announcement.',exampleUk:'Секрет розкрився до оголошення.',tip:'Get out of = avoid doing: She got out of washing the dishes'},
+  {verb:'get over',uk:'одужати; пережити; подолати',meaning:'1. Одужати (після хвороби). 2. Пережити (розлучення). 3. Подолати (страх).',example:'It took months to get over the breakup.',exampleUk:'Знадобилися місяці, щоб пережити розставання.',tip:'Get over it! — розмовна форма: перестань про це думати'},
+  {verb:'get through',uk:'зв\'язатися; впоратися; пережити',meaning:'1. Встановити зв\'язок (по телефону). 2. Пережити важкий час.',example:'I couldn\'t get through to customer service.',exampleUk:'Я не міг додзвонитися до служби підтримки.',tip:'Get through to somebody — до них доноситись (ідея або дзвінок)'},
+  {verb:'get together',uk:'збиратися; зустрічатися',meaning:'Зустрітися з людьми неформально.',example:'We should get together for coffee sometime.',exampleUk:'Ми маємо якось зустрітися на каву.',tip:'A get-together — неформальна вечірка (іменник)'},
+  {verb:'get up',uk:'вставати; підніматися',meaning:'1. Встати з ліжка. 2. Підвестися.',example:'I get up at 7 every morning.',exampleUk:'Я встаю о 7 кожного ранку.',tip:'Get up to — займатися чимось: What did you get up to?'},
+  // GIVE
+  {verb:'give away',uk:'роздавати; видавати секрет',meaning:'1. Роздати безкоштовно. 2. Ненавмисно розкрити щось.',example:'He gave away the ending of the movie.',exampleUk:'Він виказав кінцівку фільму.',tip:'A giveaway — безкоштовний подарунок або ознака'},
+  {verb:'give back',uk:'повертати',meaning:'Повернути щось власнику.',example:'Can you give back the book I lent you?',exampleUk:'Можеш повернути книгу, яку я тобі позичила?',tip:'Give back to the community — робити внесок у суспільство'},
+  {verb:'give in',uk:'здаватися; поступатися',meaning:'Припинити опір і погодитися.',example:'After hours of arguing, he finally gave in.',exampleUk:'Після годин суперечок він нарешті здався.',tip:'Give in to pressure/temptation — піддатися тиску/спокусі'},
+  {verb:'give out',uk:'роздавати; вичерпуватися; виходити з ладу',meaning:'1. Роздати (листівки, їжу). 2. Закінчитись. 3. Відмовити (про орган, машину).',example:'Her voice gave out after three hours of singing.',exampleUk:'Її голос зник після трьох годин співів.',tip:'Supplies gave out = закінчились запаси'},
+  {verb:'give up',uk:'кидати; здаватися; відмовлятися',meaning:'1. Припинити спроби. 2. Відмовитися від звички.',example:'Never give up on your dreams.',exampleUk:'Ніколи не здавайся своїм мріям.',tip:'Give up smoking/drinking — кинути палити/пити'},
+  // GO
+  {verb:'go ahead',uk:'продовжувати; будь ласка',meaning:'1. Продовжити дію. 2. Дати дозвіл (Go ahead!).',example:'Go ahead, I\'m listening.',exampleUk:'Продовжуй, я слухаю.',tip:'Go-ahead = дозвіл: give the go-ahead — дати зелене світло'},
+  {verb:'go back',uk:'повертатися; сягати (в часі)',meaning:'1. Повернутися. 2. Мати довгу історію.',example:'Our friendship goes back twenty years.',exampleUk:'Наша дружба сягає двадцяти років.',tip:'Go back to basics — повернутися до основ'},
+  {verb:'go by',uk:'проходити (час); проїжджати; орієнтуватися',meaning:'1. Минати (про час). 2. Проїхати повз. 3. Орієнтуватися на щось.',example:'Time goes by so fast.',exampleUk:'Час минає так швидко.',tip:'Go by the book — діяти за правилами'},
+  {verb:'go for',uk:'намагатися отримати; нападати; підходити',meaning:'1. Намагатися досягти. 2. Напасти. 3. Підходити (стиль).',example:'She went for the promotion.',exampleUk:'Вона намагалась отримати підвищення.',tip:'Go for it! — дерзай, спробуй!'},
+  {verb:'go off',uk:'вибухати; спрацьовувати; псуватися',meaning:'1. Вибухнути або спрацювати (сигнал). 2. Зіпсуватися (їжа). 3. Піти.',example:'The alarm went off at 6 AM.',exampleUk:'Будильник спрацював о 6 ранку.',tip:'The milk has gone off — молоко прокисло'},
+  {verb:'go on',uk:'тривати; відбуватися; продовжувати',meaning:'1. Тривати. 2. Відбуватися. 3. Продовжити.',example:'What\'s going on here?',exampleUk:'Що тут відбувається?',tip:'Go on + -ing: go on talking — продовжувати говорити'},
+  {verb:'go out',uk:'виходити; зустрічатися; гаснути',meaning:'1. Вийти (на вулицю). 2. Зустрічатися (романтично). 3. Погаснути.',example:'Are you going out tonight?',exampleUk:'Ти виходиш сьогодні ввечері?',tip:'Go out with somebody — зустрічатися (романтика)'},
+  {verb:'go over',uk:'переглядати; повторювати; перевищувати',meaning:'1. Переглянути або повторити. 2. Перевищити (бюджет).',example:'Let\'s go over the main points again.',exampleUk:'Давайте ще раз повторимо основні пункти.',tip:'Go over budget — вийти за межі бюджету'},
+  {verb:'go through',uk:'переживати; витрачати; проходити',meaning:'1. Пережити щось важке. 2. Переглянути детально. 3. Витратити.',example:'She went through a really difficult year.',exampleUk:'Вона пережила справді важкий рік.',tip:'Go through customs — проходити митницю'},
+  {verb:'go up',uk:'підніматися; зростати',meaning:'Збільшитися (ціни, температура) або фізично піднятися.',example:'Prices have gone up again.',exampleUk:'Ціни знову зросли.',tip:'Антонім: go down. Come up / go up — різні значення'},
+  {verb:'go with',uk:'поєднуватися; підходити; погоджуватися',meaning:'1. Пасувати, добре поєднуватись. 2. Вибрати варіант.',example:'This wine goes well with cheese.',exampleUk:'Це вино добре поєднується з сиром.',tip:'Go with your gut — діяти за інтуїцією'},
+  // GROW
+  {verb:'grow apart',uk:'віддалятися один від одного',meaning:'Поступово стати далекими (про людей, стосунки).',example:'Over the years we just grew apart.',exampleUk:'З роками ми просто віддалились один від одного.',tip:'Описує природне охолодження стосунків без конфлікту'},
+  {verb:'grow up',uk:'вирости; дорослішати',meaning:'Стати дорослим; поводитися дорослим чином.',example:'Where did you grow up?',exampleUk:'Де ти виріс?',tip:'Grow up! — розмовна форма: поводься як дорослий!'},
+  {verb:'grow out of',uk:'переростати; позбуватися з часом',meaning:'Стати занадто дорослим для чогось або виправитися з часом.',example:'Most children grow out of bad habits.',exampleUk:'Більшість дітей переростають погані звички.',tip:'Also literal: the child grew out of her shoes — витросла з взуття'},
+  // HOLD
+  {verb:'hold back',uk:'стримуватися; затримувати',meaning:'1. Не дати чомусь рухатися вперед. 2. Приховати або не розкрити.',example:'Don\'t hold back — tell me what you really think.',exampleUk:'Не стримуйся — скажи мені, що ти справді думаєш.',tip:'Hold back tears — стримувати сльози'},
+  {verb:'hold on',uk:'зачекай; триматися',meaning:'1. Почекати. 2. Триматися міцно. 3. Не здаватися.',example:'Hold on, I\'ll be right back.',exampleUk:'Почекай, я зараз повернусь.',tip:'Hold on a second — попросити коротко почекати'},
+  {verb:'hold out',uk:'витримувати; пропонувати; сподіватися',meaning:'1. Не здаватися попри тиск. 2. Запропонувати (руку).',example:'How long can you hold out without food?',exampleUk:'Як довго ти витримаєш без їжі?',tip:'Hold out hope — зберігати надію'},
+  {verb:'hold up',uk:'затримувати; пограбувати; тримати',meaning:'1. Затримати рух. 2. Пограбувати (банк). 3. Залишатись у гарному стані.',example:'Traffic held us up for an hour.',exampleUk:'Затори затримали нас на годину.',tip:'A holdup = затримка або пограбування (іменник)'},
+  // KEEP
+  {verb:'keep away',uk:'триматися осторонь; не підпускати',meaning:'Не наближатися до чогось або не дозволяти комусь наближатися.',example:'Keep away from the edge.',exampleUk:'Тримайся подалі від краю.',tip:'Keep away from = avoid (небезпечне місце або ситуація)'},
+  {verb:'keep on',uk:'продовжувати; наполягати',meaning:'Продовжувати щось робити, не зупиняючись.',example:'Keep on trying, you\'ll get there.',exampleUk:'Продовжуй намагатись, ти досягнеш.',tip:'Keep on + -ing: keep on talking — не зупинятися'},
+  {verb:'keep out',uk:'не пускати; не заходити',meaning:'Не дозволяти входити або самому не входити.',example:'Keep out! Private property.',exampleUk:'Не входити! Приватна власність.',tip:'Keep out of trouble — не вплутуватися у неприємності'},
+  {verb:'keep up',uk:'не відставати; підтримувати',meaning:'1. Рухатися з тим же темпом. 2. Підтримувати рівень.',example:'The pace was too fast for me to keep up.',exampleUk:'Темп був занадто швидким, щоб я встигав.',tip:'Keep up the good work! — заохочення продовжувати'},
+  {verb:'keep up with',uk:'встигати за; бути в курсі',meaning:'Іти в ногу (з людиною, змінами, новинами).',example:'It\'s hard to keep up with technology.',exampleUk:'Важко встигати за технологіями.',tip:'Keep up with the news/trends — бути в курсі подій'},
+  // LOOK
+  {verb:'look after',uk:'доглядати; піклуватися',meaning:'Піклуватися про когось або щось.',example:'Can you look after my cat while I\'m away?',exampleUk:'Чи можеш ти доглянути мого кота, поки мене немає?',tip:'Look after yourself — стережи себе (прощання)'},
+  {verb:'look at',uk:'дивитися на; розглядати',meaning:'1. Направити погляд. 2. Розглянути (ситуацію).',example:'Look at that sunset!',exampleUk:'Подивись на той захід сонця!',tip:'Look at it this way — розглянь це з іншого боку'},
+  {verb:'look for',uk:'шукати',meaning:'Намагатися знайти людину або річ.',example:'I\'m looking for my keys.',exampleUk:'Я шукаю свої ключі.',tip:'Відрізняється від look up: look for = загальний пошук'},
+  {verb:'look forward to',uk:'чекати з нетерпінням',meaning:'З радістю очікувати майбутнього.',example:'I\'m looking forward to the holidays.',exampleUk:'Я з нетерпінням чекаю свят.',tip:'Завжди + noun/-ing: look forward to hearing from you'},
+  {verb:'look into',uk:'досліджувати; розслідувати',meaning:'Детально вивчити або перевірити.',example:'We\'ll look into the matter right away.',exampleUk:'Ми розберемось із цим питанням одразу.',tip:'Look into a complaint — розглянути скаргу'},
+  {verb:'look out',uk:'остерігатися; пильнувати',meaning:'Бути обережним, стежити за небезпекою.',example:'Look out! There\'s a car coming.',exampleUk:'Обережно! Їде машина.',tip:'Look out for = watch out for (попередження)'},
+  {verb:'look over',uk:'переглядати; перевіряти',meaning:'Швидко або ретельно переглянути.',example:'Can you look over my report before I send it?',exampleUk:'Чи можеш переглянути мій звіт перед відправкою?',tip:'Менш ретельно, ніж look into — поверхневий огляд'},
+  {verb:'look up',uk:'шукати в словнику; покращуватися',meaning:'1. Знайти інформацію (у словнику, інтернеті). 2. Ставати кращим.',example:'Things are finally looking up for us.',exampleUk:'Нарешті справи покращуються для нас.',tip:'Look up a word — знайти слово у словнику'},
+  {verb:'look up to',uk:'поважати; брати приклад',meaning:'Захоплюватися кимось і вважати взірцем.',example:'She has always looked up to her older sister.',exampleUk:'Вона завжди брала приклад зі своєї старшої сестри.',tip:'Антонім: look down on — зневажати'},
+  // MAKE
+  {verb:'make do',uk:'обходитися; задовольнятися',meaning:'Впоратися, маючи менше або щось неідеальне.',example:'We didn\'t have cream, so we made do with yoghurt.',exampleUk:'У нас не було вершків, тому обійшлись йогуртом.',tip:'Make do with = use something imperfect as a substitute'},
+  {verb:'make out',uk:'розібрати; стверджувати; складати',meaning:'1. Ледве розчути або побачити. 2. Стверджувати. 3. Виписати (чек).',example:'I could barely make out what he was saying.',exampleUk:'Я ледве міг розібрати, що він говорив.',tip:'Make out a cheque — виписати чек на когось'},
+  {verb:'make up',uk:'вигадувати; миритися; гримуватися',meaning:'1. Вигадати (історію). 2. Помиритися. 3. Нанести макіяж. 4. Скласти (відсоток).',example:'Stop making up excuses!',exampleUk:'Перестань вигадувати відмовки!',tip:'Make up your mind — прийняти рішення'},
+  {verb:'make up for',uk:'компенсувати; відшкодовувати',meaning:'Компенсувати щось погане або втрачене.',example:'Nothing can make up for lost time.',exampleUk:'Ніщо не може компенсувати втрачений час.',tip:'Make up for lost time — наздогнати втрачене'},
+  // PICK
+  {verb:'pick on',uk:'чіплятися; дражнити',meaning:'Постійно дражнити або несправедливо ставитися до когось.',example:'Why are you always picking on me?',exampleUk:'Чому ти завжди чіпляєшся до мене?',tip:'Синонім: bully, tease. Особливо про знущання у школі'},
+  {verb:'pick out',uk:'вибирати; розрізняти; виділяти',meaning:'1. Вибрати з кількох варіантів. 2. Розгледіти серед інших.',example:'Can you pick out the odd one?',exampleUk:'Чи можеш ти виділити зайве?',tip:'Pick out = identify or choose something specific'},
+  {verb:'pick up',uk:'підбирати; вчитися; покращуватися',meaning:'1. Підняти. 2. Забрати (людину). 3. Опанувати мимоволі. 4. Покращитись.',example:'She picked up Spanish in just a few months.',exampleUk:'Вона опанувала іспанську лише за кілька місяців.',tip:'Pick up the bill — заплатити за рахунок. Pick up speed — набрати швидкість'},
+  {verb:'pick up on',uk:'помічати; підхоплювати тему',meaning:'Помітити щось, що інші пропустили; повернутися до теми.',example:'She picked up on the mistake immediately.',exampleUk:'Вона одразу помітила помилку.',tip:'Про тонкощі або нюанси, які важко помітити'},
+  // PUT
+  {verb:'put away',uk:'прибирати; відкладати',meaning:'1. Повернути річ на місце. 2. Відкласти гроші. 3. Ув\'язнити.',example:'Put your toys away before dinner.',exampleUk:'Прибери іграшки перед вечерею.',tip:'Put money away = save money — відкладати на майбутнє'},
+  {verb:'put down',uk:'класти; принижувати; записувати',meaning:'1. Покласти на поверхню. 2. Принизити когось. 3. Записати. 4. Усипити тварину.',example:'Don\'t put yourself down so much.',exampleUk:'Не принижуй себе так.',tip:'A put-down = образлива репліка (іменник)'},
+  {verb:'put off',uk:'відкладати; відштовхувати',meaning:'1. Відкласти на пізніше. 2. Відлякати або відвернути бажання.',example:'Stop putting off what you can do today.',exampleUk:'Перестань відкладати те, що можна зробити сьогодні.',tip:'Put off by = disgusted or discouraged by something'},
+  {verb:'put on',uk:'одягати; надягати; набирати вагу',meaning:'1. Одягти (одяг). 2. Увімкнути. 3. Набрати вагу. 4. Організувати.',example:'Put on your coat, it\'s cold outside.',exampleUk:'Одягни пальто, надворі холодно.',tip:'Put on weight vs lose weight — набрати/скинути вагу'},
+  {verb:'put out',uk:'гасити; публікувати; турбувати',meaning:'1. Загасити. 2. Опублікувати. 3. Завдати клопоту.',example:'Please put out your cigarette.',exampleUk:'Будь ласка, загасіть сигарету.',tip:'Put out a statement — зробити офіційну заяву'},
+  {verb:'put through',uk:'з\'єднувати (по телефону); змушувати пережити',meaning:'1. З\'єднати з абонентом. 2. Змусити когось пережити щось важке.',example:'I\'ll put you through to the manager.',exampleUk:'Я з\'єднаю вас із менеджером.',tip:'Put through hell/a lot — змусити пережити багато труднощів'},
+  {verb:'put up',uk:'розміщувати; ставити; терпіти',meaning:'1. Розмістити (плакат, гостя). 2. Збудувати. 3. Забезпечити (гроші).',example:'Can you put me up for the night?',exampleUk:'Чи можеш ти прийняти мене на ніч?',tip:'Put up resistance — чинити опір'},
+  {verb:'put up with',uk:'терпіти; миритися з',meaning:'Терпіти щось неприємне або некомфортне.',example:'I can\'t put up with this noise any longer.',exampleUk:'Я більше не можу терпіти цей шум.',tip:'Синонім: tolerate, endure — але put up with звучить розмовніше'},
+  // RUN
+  {verb:'run away',uk:'тікати; втікати',meaning:'Втекти від небезпеки або відповідальності.',example:'Don\'t run away from your problems.',exampleUk:'Не тікай від своїх проблем.',tip:'Runaway = втікач (іменник); a runaway success — несподіваний успіх'},
+  {verb:'run into',uk:'натрапляти; врізатися',meaning:'1. Випадково зустріти. 2. Фізично врізатися. 3. Наштовхнутися на проблему.',example:'I ran into my old teacher at the supermarket.',exampleUk:'Я випадково зустрів свою колишню вчительку в супермаркеті.',tip:'Run into trouble/problems — зіткнутися з труднощами'},
+  {verb:'run out',uk:'вичерпуватися; закінчуватися',meaning:'Закінчитись (запаси, час, терпіння).',example:'We\'ve run out of milk.',exampleUk:'У нас закінчилось молоко.',tip:'Run out of time — вийти за ліміт часу. Run out of patience — втратити терпіння'},
+  {verb:'run over',uk:'переїхати; перевищувати час; швидко переглянути',meaning:'1. Збити (машиною). 2. Вийти за ліміт часу. 3. Швидко повторити.',example:'Let\'s run over the key points quickly.',exampleUk:'Давайте швидко пробіжимося по ключових пунктах.',tip:'Run over time — затягнути понад розклад'},
+  {verb:'run through',uk:'повторювати; витрачати; пронизувати',meaning:'1. Швидко переглянути/повторити. 2. Витратити (гроші). 3. Пронизувати.',example:'Can we run through the presentation once more?',exampleUk:'Чи можемо ми ще раз пробігтися по презентації?',tip:'Run through money quickly — витрати гроші швидко'},
+  // SET
+  {verb:'set aside',uk:'відкладати; ігнорувати',meaning:'1. Зберегти для спеціального використання. 2. Відкинути (почуття).',example:'Set aside some money for emergencies.',exampleUk:'Відкладай гроші на непередбачені випадки.',tip:'Set aside differences — відкласти розбіжності заради мети'},
+  {verb:'set back',uk:'затримувати; відкидати назад',meaning:'1. Уповільнити прогрес. 2. Вартувати (певну суму).',example:'The delay set us back by three weeks.',exampleUk:'Затримка відкинула нас на три тижні назад.',tip:'A setback = невдача, перешкода (іменник)'},
+  {verb:'set in',uk:'починатися (негативне)',meaning:'Почати проявлятися (про щось небажане: погода, гнилизна, розпач).',example:'Panic set in when the power went out.',exampleUk:'Паніка охопила, коли пропало світло.',tip:'Зазвичай про негативні явища: doubt, rot, decay set in'},
+  {verb:'set off',uk:'вирушати; спрацьовувати; спричиняти',meaning:'1. Вирушити в дорогу. 2. Активувати сигнал. 3. Спричинити ланцюгову реакцію.',example:'We set off early to avoid traffic.',exampleUk:'Ми виїхали рано, щоб уникнути заторів.',tip:'Set off an alarm — спрацювати сигналізацію'},
+  {verb:'set out',uk:'вирушати; ставити за мету; викладати',meaning:'1. Розпочати подорож. 2. Поставити перед собою мету. 3. Викласти по порядку.',example:'She set out to change the company\'s culture.',exampleUk:'Вона поставила за мету змінити культуру компанії.',tip:'Set out to do = have the intention and start working on it'},
+  {verb:'set up',uk:'засновувати; налаштовувати; організовувати',meaning:'1. Заснувати (компанію). 2. Налаштувати (техніку). 3. Підставити когось.',example:'He set up his own business at 25.',exampleUk:'Він відкрив власний бізнес у 25 років.',tip:'Setup = конфігурація (іменник). Set up = підставити когось'},
+  // SHOW
+  {verb:'show off',uk:'хвалитися; демонструвати',meaning:'Намагатися справити враження на інших своїми здібностями або речами.',example:'He was showing off his new car to everyone.',exampleUk:'Він демонстрував свою нову машину всім.',tip:'Show-off = хвалько (іменник). Зазвичай негативний відтінок'},
+  {verb:'show up',uk:'з\'являтися; приходити; виявляти',meaning:'1. Прийти (часто несподівано або запізно). 2. Бути видимим. 3. Принизити когось.',example:'He finally showed up an hour late.',exampleUk:'Він нарешті з\'явився із запізненням на годину.',tip:'Show up = arrive. Also: make visible (показати щось прихованим)'},
+  {verb:'show around',uk:'показувати місце; водити на екскурсію',meaning:'Показати комусь нове місце або будівлю.',example:'Let me show you around the office.',exampleUk:'Дозволь показати тобі офіс.',tip:'Show someone around = give a tour'},
+  // TAKE
+  {verb:'take after',uk:'бути схожим на (батьків)',meaning:'Нагадувати одного з батьків зовнішністю або характером.',example:'She takes after her mother — same eyes and smile.',exampleUk:'Вона схожа на матір — ті ж очі і посмішка.',tip:'Take after — тільки про спадкову схожість з батьками/родичами'},
+  {verb:'take apart',uk:'розбирати; критикувати',meaning:'1. Розібрати на частини. 2. Ретельно розкритикувати.',example:'He took apart every argument in the essay.',exampleUk:'Він розкритикував кожен аргумент у есе.',tip:'Take it apart = disassemble it literally or figuratively'},
+  {verb:'take away',uk:'забирати; брати з собою; виносити',meaning:'1. Забрати. 2. Взяти їжу з собою. 3. Відняти (число).',example:'What do you take away from this lesson?',exampleUk:'Що ти виносиш з цього уроку?',tip:'Takeaway = урок/висновок або їжа на виніс (іменник)'},
+  {verb:'take back',uk:'повертати; брати назад слова',meaning:'1. Повернути (товар). 2. Відкликати (слова, обіцянку).',example:'I take back everything I said.',exampleUk:'Я беру назад усе, що сказав.',tip:'Take back = retract a statement. Can also: take back to the past — перенести у спогади'},
+  {verb:'take down',uk:'знімати; записувати; демонтувати',meaning:'1. Зняти (з полиці, стіни). 2. Записати (інформацію). 3. Демонтувати.',example:'Take down these notes carefully.',exampleUk:'Обережно запиши ці нотатки.',tip:'Take down = write down (важливо на заняттях чи нарадах)'},
+  {verb:'take in',uk:'розуміти; обманювати; приймати',meaning:'1. Зрозуміти або засвоїти. 2. Бути обманутим. 3. Прийняти (людину).',example:'There was so much to take in at once.',exampleUk:'Було так багато для сприйняття одразу.',tip:'I was taken in = мене обдурили'},
+  {verb:'take off',uk:'злітати; знімати; різко зростати',meaning:'1. Злетіти (літак). 2. Зняти одяг. 3. Стрімко зрости.',example:'The business really took off last year.',exampleUk:'Бізнес справді злетів минулого року.',tip:'Take a day off — взяти вихідний. Take off = become very successful'},
+  {verb:'take on',uk:'наймати; братися за; набувати',meaning:'1. Найняти на роботу. 2. Взятися за завдання. 3. Набути характеристику.',example:'The company is taking on new staff.',exampleUk:'Компанія набирає нових співробітників.',tip:'Take on too much = взяти на себе забагато обов\'язків'},
+  {verb:'take out',uk:'виводити; виймати; брати (кредит)',meaning:'1. Вийняти. 2. Вивести (на побачення). 3. Оформити (кредит, страховку).',example:'Can I take you out for dinner?',exampleUk:'Чи можу я запросити тебе на вечерю?',tip:'Take out a loan/insurance — оформити кредит/страховку'},
+  {verb:'take over',uk:'перебирати контроль; захоплювати',meaning:'Взяти під контроль (компанію, ситуацію, роль).',example:'She took over as CEO last month.',exampleUk:'Вона зайняла посаду генерального директора минулого місяця.',tip:'Takeover bid = пропозиція про поглинання компанії (іменник)'},
+  {verb:'take up',uk:'займатися; займати місце/час',meaning:'1. Почати займатися (хобі). 2. Зайняти простір або час.',example:'I\'ve taken up yoga recently.',exampleUk:'Нещодавно я почала займатися йогою.',tip:'Take up space/time = consume resources. Take up a hobby = start a new activity'},
+  // THINK
+  {verb:'think about',uk:'думати про; розглядати',meaning:'Розмірковувати про щось або когось.',example:'I\'ve been thinking about changing jobs.',exampleUk:'Я думав про зміну роботи.',tip:'Think about = consider broadly; think of = a specific idea or person'},
+  {verb:'think over',uk:'обдумувати; зважувати',meaning:'Ретельно розглянути перед прийняттям рішення.',example:'Think it over before you decide.',exampleUk:'Обдумай це перед тим, як вирішити.',tip:'Give me time to think it over — дай мені час подумати'},
+  {verb:'think up',uk:'вигадувати; придумувати',meaning:'Придумати (план, відповідь, виправдання).',example:'He always thinks up excuses.',exampleUk:'Він завжди вигадує відмовки.',tip:'Синонім: come up with, devise. Think up a plan — придумати план'},
+  // THROW
+  {verb:'throw away',uk:'викидати; змарнувати',meaning:'1. Викинути непотрібне. 2. Змарнувати можливість.',example:'Don\'t throw away this opportunity.',exampleUk:'Не марнуй цю можливість.',tip:'Throwaway comment = мимохідна, невагома фраза (прикметник)'},
+  {verb:'throw in',uk:'включати безкоштовно; кидати до купи',meaning:'Додати щось безкоштовно; або кинути в суміш.',example:'They threw in free delivery with the order.',exampleUk:'Вони додали безкоштовну доставку до замовлення.',tip:'Throw in the towel = здатися (boxing idiom)'},
+  {verb:'throw out',uk:'виганяти; відкидати; викидати',meaning:'1. Виганяти (людину). 2. Відхилити (ідею). 3. Викинути (сміття).',example:'The judge threw out the case.',exampleUk:'Суддя відхилив справу.',tip:'Throw out = reject completely. Get thrown out = бути вигнаним'},
+  {verb:'throw up',uk:'блювати; раптово піднімати',meaning:'1. Блювати. 2. Раптово підняти (проблему). 3. Побудувати нашвидку.',example:'The smell made me want to throw up.',exampleUk:'Цей запах змушував мене нудити.',tip:'Throw up a problem = несподівано виявити проблему'},
+  // TURN
+  {verb:'turn around',uk:'розвертатися; виправляти ситуацію',meaning:'1. Повернутися в іншому напрямку. 2. Поліпшити (бізнес, ситуацію).',example:'The new CEO turned the company around.',exampleUk:'Новий директор вивів компанію з кризи.',tip:'Turnaround = кардинальна зміна на краще (іменник)'},
+  {verb:'turn down',uk:'відмовляти; зменшувати (гучність)',meaning:'1. Відхилити (пропозицію). 2. Зменшити гучність або температуру.',example:'She turned down a job offer in London.',exampleUk:'Вона відмовила від пропозиції роботи в Лондоні.',tip:'Turn down the music/heat — зменшити гучність/температуру'},
+  {verb:'turn in',uk:'здавати; лягати спати; доносити',meaning:'1. Здати (роботу, зброю). 2. Піти спати. 3. Донести на когось.',example:'I turned in my assignment early.',exampleUk:'Я здала роботу достроково.',tip:'Turn in for the night = іти спати (розмовне)'},
+  {verb:'turn into',uk:'перетворюватися на',meaning:'Стати чимось іншим.',example:'The caterpillar turns into a butterfly.',exampleUk:'Гусінь перетворюється на метелика.',tip:'Відрізняється від turn into (місце): she turned into the street — завернула на вулицю'},
+  {verb:'turn off',uk:'вимикати; відштовхувати',meaning:'1. Вимкнути (пристрій). 2. Відштовхнути (інтерес).',example:'Turn off the lights when you leave.',exampleUk:'Вимкни світло, коли виходиш.',tip:'Turn-off = відштовхуючий чинник (іменник). That\'s a real turn-off'},
+  {verb:'turn on',uk:'вмикати; нападати; збуджувати',meaning:'1. Увімкнути. 2. Напасти несподівано. 3. Зацікавити.',example:'Turn on the TV, please.',exampleUk:'Увімкни телевізор, будь ласка.',tip:'Turn on someone = раптово напасти на союзника'},
+  {verb:'turn out',uk:'виявлятися; виробляти; прийти',meaning:'1. Виявитися (результат). 2. Виробити. 3. З\'явитися (натовп).',example:'Everything turned out fine in the end.',exampleUk:'Зрештою все виявилось добре.',tip:'It turned out that... — виявилось, що...'},
+  {verb:'turn over',uk:'перевертати; передавати; обертати',meaning:'1. Перевернути. 2. Передати (справу). 3. Мати оборот (бізнес).',example:'Turn over the page.',exampleUk:'Переверни сторінку.',tip:'Turnover = обіг (бізнес) або плинність кадрів (іменник)'},
+  {verb:'turn up',uk:'з\'являтися; збільшувати (гучність)',meaning:'1. З\'явитися (часто несподівано). 2. Збільшити гучність.',example:'He turned up uninvited.',exampleUk:'Він з\'явився без запрошення.',tip:'Something will turn up — щось обов\'язково знайдеться'},
+  // WORK
+  {verb:'work on',uk:'працювати над; вдосконалювати',meaning:'Витрачати час і зусилля на щось.',example:'I\'ve been working on my presentation all week.',exampleUk:'Я працювала над презентацією весь тиждень.',tip:'Work on yourself = саморозвиток. Work on it = вдосконалюй'},
+  {verb:'work out',uk:'тренуватися; виходити; розраховувати',meaning:'1. Займатися спортом. 2. Вийти добре/погано. 3. Обчислити або знайти рішення.',example:'It all worked out in the end.',exampleUk:'Зрештою все вийшло добре.',tip:'Workout = тренування (іменник). Work out a solution — знайти рішення'},
+  {verb:'work through',uk:'опрацьовувати; долати поступово',meaning:'Систематично розглянути або подолати (проблему, почуття).',example:'It took years to work through her grief.',exampleUk:'Знадобились роки, щоб пережити її горе.',tip:'Work through issues — опрацювати проблеми (психологічний контекст)'},
+  {verb:'work up',uk:'розвивати поступово; збуджувати',meaning:'1. Поступово розвинути (ідею, план). 2. Збудитися (емоційно).',example:'I can\'t work up the courage to ask.',exampleUk:'Я не можу зібрати сміливість, щоб запитати.',tip:'Work up an appetite — нагуляти апетит. Work yourself up = хвилюватися'}
+];
+
+let phrasalFilter = 'all';
+let phrasalQuery = '';
+
+function initPhrasal() {
+  buildPhrasalFilterBtns();
+  renderPhrasal();
+}
+
+function buildPhrasalFilterBtns() {
+  const letters = [...new Set(PHRASAL_VERBS.map(v => v.verb[0].toUpperCase()))].sort();
+  const container = document.getElementById('phrasal-filters');
+  container.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'btn btn-secondary phrasal-filter-btn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = function(){ filterPhrasal('all', this); };
+  container.appendChild(allBtn);
+  letters.forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-secondary phrasal-filter-btn';
+    btn.textContent = l;
+    btn.onclick = function(){ filterPhrasal(l, this); };
+    container.appendChild(btn);
+  });
+}
+
+function filterPhrasal(letter, btn) {
+  phrasalFilter = letter;
+  document.querySelectorAll('.phrasal-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPhrasal();
+}
+
+function searchPhrasal() {
+  phrasalQuery = document.getElementById('phrasal-search').value.trim().toLowerCase();
+  document.getElementById('phrasal-clear').style.display = phrasalQuery ? 'block' : 'none';
+  if (phrasalQuery) {
+    phrasalFilter = 'all';
+    document.querySelectorAll('.phrasal-filter-btn').forEach(b => b.classList.remove('active'));
+    const allBtn = document.querySelector('.phrasal-filter-btn');
+    if (allBtn) allBtn.classList.add('active');
+  }
+  renderPhrasal();
+}
+
+function clearPhrasalSearch() {
+  document.getElementById('phrasal-search').value = '';
+  phrasalQuery = '';
+  document.getElementById('phrasal-clear').style.display = 'none';
+  renderPhrasal();
+}
+
+function renderPhrasal() {
+  let list = PHRASAL_VERBS;
+  if (phrasalFilter !== 'all') {
+    list = list.filter(v => v.verb[0].toUpperCase() === phrasalFilter);
+  }
+  if (phrasalQuery) {
+    const q = phrasalQuery;
+    list = list.filter(v =>
+      v.verb.toLowerCase().includes(q) ||
+      v.uk.toLowerCase().includes(q) ||
+      v.meaning.toLowerCase().includes(q) ||
+      v.example.toLowerCase().includes(q) ||
+      v.tip.toLowerCase().includes(q)
+    );
+  }
+  const countEl = document.getElementById('phrasal-count');
+  if (countEl) countEl.textContent = list.length + ' verb' + (list.length !== 1 ? 's' : '');
+  const grid = document.getElementById('phrasal-grid');
+  if (!grid) return;
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Нічого не знайдено 🔍</div>';
+    return;
+  }
+  grid.innerHTML = list.map(v => `
+    <div class="pv-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+        <span class="pv-verb">to ${v.verb}</span>
+        <span class="pv-tag">${v.verb.split(' ')[0]}</span>
+      </div>
+      <div class="pv-uk">${v.uk}</div>
+      <div class="pv-meaning">${v.meaning}</div>
+      <div class="pv-example">"${v.example}"<span>${v.exampleUk}</span></div>
+      <div class="pv-tip">💡 ${v.tip}</div>
+    </div>
+  `).join('');
+}
 </script>
 
 <!-- EDIT WORD MODAL -->
