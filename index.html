@@ -7583,7 +7583,173 @@ const PHRASAL_VERBS = [
   {verb:'work on',uk:'працювати над; вдосконалювати',meaning:'Витрачати час і зусилля на щось.',example:'I\'ve been working on my presentation all week.',exampleUk:'Я працювала над презентацією весь тиждень.',tip:'Work on yourself = саморозвиток. Work on it = вдосконалюй'},
   {verb:'work out',uk:'тренуватися; виходити; розраховувати',meaning:'1. Займатися спортом. 2. Вийти добре/погано. 3. Обчислити або знайти рішення.',example:'It all worked out in the end.',exampleUk:'Зрештою все вийшло добре.',tip:'Workout = тренування (іменник). Work out a solution — знайти рішення'},
   {verb:'work through',uk:'опрацьовувати; долати поступово',meaning:'Систематично розглянути або подолати (проблему, почуття).',example:'It took years to work through her grief.',exampleUk:'Знадобились роки, щоб пережити її горе.',tip:'Work through issues — опрацювати проблеми (психологічний контекст)'},
-  {verb:'work up',uk:'розвивати поступово; збуджувати',meaning:'1. Поступово розвинути (ідею, план). 2. Збудитися (емоційно).',example:'I can\'t work up the courage to ask.',exampleUk:'Я не можу зібрати сміливість, щоб запитати.',tip:'Work up an appetite — нагуляти апетит. Work yourself up = хвилюватися'}
+  {verb:'work up',uk:'розвивати поступово; збуджувати',meaning:'1. Поступово розвинути (ідею, план). 2. Збудитися (емоційно).',example:'I can\'t work up the courage to ask.',exampleUk:'Я не можу зібрати сміливість, щоб запитати.',tip:'Work up an appetite — нагуляти апетит. Work yourself up = хвилюватися'},
+  // ASK
+  {verb:'ask out',uk:'запросити на побачення',meaning:'Попросити когось піти на побачення.',example:'He finally asked her out.',exampleUk:'Він нарешті запросив її на побачення.',tip:'Ask out = romantic invitation. Ask around = розпитувати різних людей'},
+  {verb:'ask around',uk:'розпитувати; обходити',meaning:'Запитати у кількох людей про щось.',example:'I\'ll ask around and see if anyone knows.',exampleUk:'Я порозпитую і побачу, чи хтось знає.',tip:'Ask around = survey several people informally'},
+  // BACK
+  {verb:'back down',uk:'відступати; відмовлятися від позиції',meaning:'Відмовитися від своєї думки або позиції під тиском.',example:'He refused to back down despite criticism.',exampleUk:'Він відмовився відступати попри критику.',tip:'Синонім: give in, but back down підкреслює публічне відступлення'},
+  {verb:'back off',uk:'відступати; перестати тиснути',meaning:'Припинити тиск або загрозу; відійти.',example:'Back off — this is none of your business.',exampleUk:'Відступи — це не твоя справа.',tip:'Back off! — попередження припинити втручання'},
+  {verb:'back up',uk:'підтримувати; резервувати; відступати',meaning:'1. Підтримати (слова, думку). 2. Зробити резервну копію. 3. Відступити назад.',example:'Back up your files before updating.',exampleUk:'Зроби резервну копію файлів перед оновленням.',tip:'Backup = резервна копія (іменник). Back me up = підтримай мою думку'},
+  // CHEER
+  {verb:'cheer up',uk:'підбадьорюватися; підбадьорити',meaning:'Стати або зробити когось щасливішим.',example:'Cheer up! Things will get better.',exampleUk:'Підбадьорся! Все стане краще.',tip:'Cheer up = imperative command to feel better. Cheer someone up = зробити когось веселішим'},
+  // CHECK
+  {verb:'check in',uk:'реєструватися; відзначатися',meaning:'1. Зареєструватися (готель, аеропорт). 2. Зв\'язатися, щоб повідомити про себе.',example:'We need to check in before 3 PM.',exampleUk:'Нам потрібно зареєструватися до 15:00.',tip:'Check-in = реєстрація (іменник). Check in with someone = коротко зв\'язатися'},
+  {verb:'check out',uk:'виїжджати; перевіряти; дивитися',meaning:'1. Виїхати з готелю. 2. Перевірити. 3. Поглянути на щось цікаве.',example:'Check out this amazing view!',exampleUk:'Подивись на цей неймовірний краєвид!',tip:'Checkout = виїзд або каса (іменник). Check out of the hotel — від\'їжджати'},
+  {verb:'check up on',uk:'перевіряти; стежити за',meaning:'Перевірити стан здоров\'я або прогрес когось.',example:'The nurse checks up on patients every hour.',exampleUk:'Медсестра перевіряє пацієнтів щогодини.',tip:'Check up on = monitor someone\'s wellbeing or progress'},
+  // CHIP
+  {verb:'chip in',uk:'скидатися; вставити слово',meaning:'1. Скинутися грошима разом з іншими. 2. Раптово долучитися до розмови.',example:'We all chipped in to buy a gift.',exampleUk:'Ми всі скинулись, щоб купити подарунок.',tip:'Chip in = contribute money or a comment'},
+  // COUNT
+  {verb:'count on',uk:'розраховувати на; покладатися',meaning:'Довіряти комусь або чомусь; бути певним.',example:'You can always count on me.',exampleUk:'На мене завжди можна покластися.',tip:'Синонім: rely on, depend on. Count on someone = trust them to help'},
+  {verb:'count out',uk:'виключати; відраховувати',meaning:'1. Виключити когось з плану. 2. Відрахувати (гроші, об\'єкти).',example:'Count me out — I\'m busy that day.',exampleUk:'Мене виключіть — я зайнятий того дня.',tip:'Count me out/in — популярна розмовна відповідь'},
+  // DEAL
+  {verb:'deal with',uk:'справлятися; мати справу з; вирішувати',meaning:'Впоратись з проблемою або ситуацією; обробляти.',example:'How do you deal with stress?',exampleUk:'Як ти справляєшся зі стресом?',tip:'Deal with = handle/manage. Deal with it! — розмовне: впорайся/змирися'},
+  // DIG
+  {verb:'dig in',uk:'братися за їжу; окопуватися',meaning:'1. Починати їсти. 2. Міцно триматися позиції.',example:'Dig in — the food\'s getting cold!',exampleUk:'Беріться за їжу — вона охолоне!',tip:'Dig in! = informal invitation to start eating'},
+  {verb:'dig up',uk:'розкопувати; знаходити (інформацію)',meaning:'1. Викопати. 2. Знайти приховану або забуту інформацію.',example:'She dug up some interesting facts about the case.',exampleUk:'Вона розкопала деякі цікаві факти про справу.',tip:'Dig up dirt on someone = знайти компромат'},
+  // DRAG
+  {verb:'drag on',uk:'затягуватися; тягнутися',meaning:'Тривати набагато довше, ніж потрібно.',example:'The meeting dragged on for three hours.',exampleUk:'Нарада тягнулась цілих три години.',tip:'Drag on = feel like it lasts too long (negative connotation)'},
+  // DRESS
+  {verb:'dress up',uk:'наряджатися; одягатися святково',meaning:'Надягнути святковий або офіційний одяг; вдягтися в костюм.',example:'Everyone dressed up for the gala dinner.',exampleUk:'Всі нарядились на святковий вечір.',tip:'Dress up as = переодягнутися (на Хеловін тощо)'},
+  // DROP
+  {verb:'drop by',uk:'заскочити; навідатися ненадовго',meaning:'Зайти до когось без попередньої домовленості.',example:'Drop by anytime — you\'re always welcome.',exampleUk:'Заходь будь-коли — тебе завжди раді бачити.',tip:'Drop by = drop in = навідатися ненадовго, без запрошення'},
+  {verb:'drop off',uk:'підвезти; задрімати; зменшуватися',meaning:'1. Довезти когось. 2. Задрімати. 3. Зменшитися.',example:'Can you drop me off at the station?',exampleUk:'Чи можеш ти довезти мене до станції?',tip:'Drop-off point = місце де висаджують пасажирів'},
+  {verb:'drop out',uk:'кидати (навчання); виходити',meaning:'Залишити навчальний заклад або програму до завершення.',example:'He dropped out of university in his second year.',exampleUk:'Він кинув університет на другому курсі.',tip:'Dropout = людина, яка кинула школу/університет (іменник)'},
+  // EAT
+  {verb:'eat out',uk:'їсти в ресторані',meaning:'Харчуватися поза домом, у ресторані або кафе.',example:'We eat out every Friday night.',exampleUk:'Ми ходимо в ресторан кожну п\'ятницю.',tip:'Eating out vs cooking at home — часта тема в розмовах'},
+  {verb:'eat up',uk:'з\'їдати все; поглинати',meaning:'1. З\'їсти повністю. 2. Споживати (ресурси, час).',example:'Eat up your vegetables!',exampleUk:'З\'їж всі свої овочі!',tip:'Eat up time/resources = поглинати ресурси'},
+  // END
+  {verb:'end up',uk:'в підсумку опинятися; врешті-решт',meaning:'Опинитися в якомусь стані або місці в результаті.',example:'We ended up staying until midnight.',exampleUk:'Ми врешті-решт залишились до опівночі.',tip:'End up + -ing або end up in a place — дуже поширена конструкція'},
+  // FACE
+  {verb:'face up to',uk:'визнавати; дивитися в обличчя',meaning:'Прийняти важку правду або зіткнутися з проблемою.',example:'You need to face up to your responsibilities.',exampleUk:'Тобі треба взяти на себе відповідальність.',tip:'Face up to = acknowledge and deal with something unpleasant'},
+  // FIGURE
+  {verb:'figure out',uk:'розібратися; зрозуміти; вирахувати',meaning:'Знайти відповідь або рішення шляхом роздумів.',example:'I can\'t figure out how this works.',exampleUk:'Я не можу зрозуміти, як це працює.',tip:'Figure out = work out (AmE more common). Figure someone out = зрозуміти мотиви людини'},
+  // FIT
+  {verb:'fit in',uk:'вписуватися; знаходити час',meaning:'1. Почуватися частиною групи. 2. Знайти час для чогось.',example:'She never really fit in at school.',exampleUk:'Вона так і не вписалась у шкільний колектив.',tip:'Fit in with the group = соціально вписуватися'},
+  // HANG
+  {verb:'hang around',uk:'тинятися; проводити час',meaning:'Проводити час без конкретної мети; чекати.',example:'Stop hanging around and do something useful.',exampleUk:'Перестань тинятися і зроби щось корисне.',tip:'Hang around with someone = регулярно проводити час разом'},
+  {verb:'hang on',uk:'зачекай; триматися',meaning:'1. Почекати трохи. 2. Міцно триматися.',example:'Hang on, I\'ll be there in a minute.',exampleUk:'Зачекай, я буду за хвилину.',tip:'Hang on a second! = Hold on — попросити почекати мить'},
+  {verb:'hang out',uk:'проводити час; тусуватися',meaning:'Проводити вільний час у компанії (неформально).',example:'We hang out every weekend.',exampleUk:'Ми тусуємось кожні вихідні.',tip:'Hangout = місце або захід (іменник). Hang out with friends — неформально'},
+  {verb:'hang up',uk:'класти трубку; вішати',meaning:'1. Завершити розмову по телефону. 2. Повісити (одяг).',example:'She hung up without saying goodbye.',exampleUk:'Вона поклала трубку, не попрощавшись.',tip:'Hung-up on something = бути заклопотаним, зациклитися'},
+  // HELP
+  {verb:'help out',uk:'допомагати; виручати',meaning:'Надати допомогу комусь у скрутній ситуації.',example:'Can you help out at the event on Saturday?',exampleUk:'Чи можеш ти допомогти на заході в суботу?',tip:'Help out = offer assistance, often practical or temporary'},
+  // HURRY
+  {verb:'hurry up',uk:'поспішати; квапитися',meaning:'Рухатися або діяти швидше.',example:'Hurry up or we\'ll miss the train!',exampleUk:'Поспішай, або ми пропустимо потяг!',tip:'Hurry up! — дуже поширена команда. Also: hurry up and do something'},
+  // JOIN
+  {verb:'join in',uk:'приєднуватися; брати участь',meaning:'Стати частиною діяльності або розмови.',example:'Everyone joined in the singing.',exampleUk:'Всі приєдналися до співів.',tip:'Join in = participate in something already happening'},
+  // KNOCK
+  {verb:'knock down',uk:'збивати; знищувати; зносити',meaning:'1. Збити (людину або машину). 2. Знести будівлю.',example:'The old stadium was knocked down last year.',exampleUk:'Старий стадіон знесли минулого року.',tip:'Knock down a price = збити ціну (на переговорах)'},
+  {verb:'knock off',uk:'закінчувати роботу; збавляти ціну',meaning:'1. Закінчити роботу на день. 2. Зробити знижку. 3. Зробити швидко.',example:'We knock off at five on Fridays.',exampleUk:'Ми закінчуємо роботу о п\'ятій у п\'ятниці.',tip:'Knock off = stop working (informal). Knock 10% off = зробити знижку 10%'},
+  {verb:'knock out',uk:'нокаутувати; вражати; виснажувати',meaning:'1. Позбавити свідомості. 2. Вилучити з змагання. 3. Сильно вразити.',example:'The view absolutely knocked me out.',exampleUk:'Краєвид просто вразив мене.',tip:'Knockout = нокаут або дуже привабливе (іменник/прикметник)'},
+  // LAY
+  {verb:'lay off',uk:'звільняти; припиняти (робити щось)',meaning:'1. Скоротити персонал. 2. Перестати робити щось шкідливе.',example:'The company laid off two hundred workers.',exampleUk:'Компанія звільнила двісті працівників.',tip:'Layoff = скорочення штату (іменник). Lay off sugar = відмовитись від цукру'},
+  {verb:'lay out',uk:'розкладати; планувати; витрачати',meaning:'1. Акуратно розкласти. 2. Спланувати (дизайн, план). 3. Витратити гроші.',example:'The designer laid out the new office space.',exampleUk:'Дизайнер спланував новий офісний простір.',tip:'Layout = планування, макет (іменник)'},
+  // LET
+  {verb:'let down',uk:'підводити; розчаровувати',meaning:'Не виправдати очікувань або підвести когось.',example:'I don\'t want to let you down.',exampleUk:'Я не хочу підводити тебе.',tip:'Feel let down = відчути розчарування. Let-down = розчарування (іменник)'},
+  {verb:'let off',uk:'вибачати; відпускати; вистрілити',meaning:'1. Не покарати когось. 2. Вистрілити або вибухнути.',example:'The teacher let him off with a warning.',exampleUk:'Вчитель відпустив його з попередженням.',tip:'Let off steam = розрядитися, дати вихід емоціям'},
+  {verb:'let out',uk:'відпускати; здавати в оренду; видавати (звук)',meaning:'1. Випустити. 2. Здати в оренду. 3. Видати звук (крик, сміх).',example:'She let out a scream when she saw it.',exampleUk:'Вона закричала, коли побачила це.',tip:'Let out the house/flat = здавати нерухомість в оренду'},
+  // LIVE
+  {verb:'live on',uk:'жити на; харчуватися',meaning:'1. Мати лише щось як джерело доходу або їжі. 2. Продовжувати існувати.',example:'She lives on a small pension.',exampleUk:'Вона живе на невелику пенсію.',tip:'Live on next to nothing = жити майже без грошей'},
+  {verb:'live up to',uk:'відповідати очікуванням; виправдовувати',meaning:'Бути на висоті очікувань або обіцянок.',example:'The film didn\'t live up to the hype.',exampleUk:'Фільм не виправдав очікувань.',tip:'Live up to expectations/reputation — ключові поєднання'},
+  // LOG
+  {verb:'log in',uk:'входити в систему; авторизуватися',meaning:'Отримати доступ до комп\'ютерної системи або акаунту.',example:'Log in with your email and password.',exampleUk:'Увійдіть за допомогою електронної пошти та паролю.',tip:'Log in / sign in — обидва значать авторизацію. Login = логін (іменник)'},
+  {verb:'log out',uk:'виходити з системи',meaning:'Завершити сеанс в комп\'ютерній системі.',example:'Remember to log out of shared computers.',exampleUk:'Не забувай виходити з акаунту на спільних комп\'ютерах.',tip:'Log off = log out — обидва варіанти правильні'},
+  // MESS
+  {verb:'mess around',uk:'витрачати час; дурити; гратися',meaning:'1. Даремно гаяти час. 2. Поводитися несерйозно.',example:'Stop messing around and focus!',exampleUk:'Перестань дурити і зосередься!',tip:'Mess around with something = тестувати, гратися з (неформально)'},
+  {verb:'mess up',uk:'зіпсувати; наробити безлад',meaning:'1. Зробити помилку або зіпсувати щось. 2. Навести безлад.',example:'I really messed up the presentation.',exampleUk:'Я справді зіпсував презентацію.',tip:'Mess up = make a mistake (informal). A mess = безлад'},
+  // MIX
+  {verb:'mix up',uk:'переплутати; замішати',meaning:'Сплутати одну людину або річ з іншою.',example:'I always mix up their names.',exampleUk:'Я завжди плутаю їхні імена.',tip:'Mix-up = непорозуміння або плутанина (іменник)'},
+  // MOVE
+  {verb:'move in',uk:'переїжджати (на нове місце)',meaning:'Почати жити у новому помешканні.',example:'They moved in last Saturday.',exampleUk:'Вони переїхали в минулу суботу.',tip:'Move in with someone = переїхати жити до когось'},
+  {verb:'move on',uk:'рухатися далі; переходити до наступного',meaning:'1. Залишити позаду щось і рухатися далі. 2. Перейти до наступного пункту.',example:'It\'s time to move on from this relationship.',exampleUk:'Час рухатися далі від цих стосунків.',tip:'Move on! = перестати застрягати на одній темі'},
+  {verb:'move out',uk:'виїжджати; звільняти приміщення',meaning:'Залишити помешкання або офіс.',example:'We have to move out by the end of the month.',exampleUk:'Ми маємо виїхати до кінця місяця.',tip:'Move out vs move in — протилежні дії'},
+  // OPEN
+  {verb:'open up',uk:'відкриватися; ділитися; розширюватися',meaning:'1. Відкрити (двері, магазин). 2. Поділитися почуттями. 3. Розширити можливості.',example:'She finally opened up about her feelings.',exampleUk:'Вона нарешті поділилась своїми почуттями.',tip:'Open up = share emotions — часто в контексті психології'},
+  // OWN
+  {verb:'own up',uk:'зізнаватися; визнавати провину',meaning:'Зізнатися у своїй помилці або провині.',example:'Nobody owned up to breaking the window.',exampleUk:'Ніхто не зізнався, що розбив вікно.',tip:'Own up to = confess. Більш рішуче, ніж просто admit'},
+  // PAY
+  {verb:'pay back',uk:'повертати борг; помщатися',meaning:'1. Повернути позичені гроші. 2. Помститися комусь.',example:'I\'ll pay you back as soon as I can.',exampleUk:'Я поверну тобі гроші, як тільки зможу.',tip:'Payback = помста або виплата (іменник). I\'ll pay you back for this!'},
+  {verb:'pay off',uk:'окупатися; відплатити; підкупити',meaning:'1. Виправдати зусилля. 2. Повністю погасити борг. 3. Підкупити.',example:'All the hard work finally paid off.',exampleUk:'Уся важка праця нарешті окупилась.',tip:'Payoff = результат або хабар (іменник). It paid off = воно виправдалося'},
+  // PLAY
+  {verb:'play along',uk:'підігрувати; вдавати згоду',meaning:'Вдавати, що погоджуєшся або берешь участь.',example:'Just play along and don\'t say anything.',exampleUk:'Просто підігруй і нічого не кажи.',tip:'Play along = pretend to agree to avoid conflict'},
+  {verb:'play down',uk:'применшувати; не надавати значення',meaning:'Зробити щось здаватися менш важливим, ніж є насправді.',example:'The company played down the safety risks.',exampleUk:'Компанія применшила ризики безпеки.',tip:'Антонім: play up — перебільшувати'},
+  // POINT
+  {verb:'point out',uk:'вказувати на; звертати увагу',meaning:'Звернути увагу на щось або когось; зазначити.',example:'She pointed out several errors in the report.',exampleUk:'Вона вказала на кілька помилок у звіті.',tip:'Point out = draw attention to. Корисно: as he pointed out...'},
+  // POP
+  {verb:'pop in',uk:'заскочити ненадовго',meaning:'Зайти до когось на короткий час.',example:'I\'ll pop in for a cup of tea.',exampleUk:'Я заскочу на чашку чаю.',tip:'Pop in / drop in / stop by — всі означають коротко навідатися'},
+  {verb:'pop up',uk:'з\'являтися раптово; спливати',meaning:'З\'явитися раптово або несподівано.',example:'New coffee shops keep popping up everywhere.',exampleUk:'Нові кав\'ярні з\'являються скрізь.',tip:'Pop-up = тимчасовий магазин або спливаюче вікно (іменник)'},
+  // PULL
+  {verb:'pull off',uk:'виконати щось важке; здійснити',meaning:'Успішно зробити щось складне.',example:'She pulled off an amazing performance.',exampleUk:'Вона блискуче виступила.',tip:'Pull off = succeed at something difficult or unlikely'},
+  {verb:'pull out',uk:'виїжджати; виходити; виймати',meaning:'1. Виїхати зі стоянки. 2. Вийти з угоди. 3. Витягнути.',example:'The country pulled out of the trade agreement.',exampleUk:'Країна вийшла з торгової угоди.',tip:'Pull out of = withdraw from. Pull out = also to overtake on the road'},
+  {verb:'pull through',uk:'одужати; пережити; впоратися',meaning:'Вижити або подолати важкий час.',example:'The doctors say she\'ll pull through.',exampleUk:'Лікарі кажуть, що вона виживе.',tip:'Pull through = survive illness or a crisis'},
+  {verb:'pull together',uk:'об\'єднуватися; взяти себе в руки',meaning:'1. Об\'єднати зусилля. 2. Зібратися, заспокоїтись.',example:'The team pulled together in a crisis.',exampleUk:'Команда об\'єдналась у кризовій ситуації.',tip:'Pull yourself together! = заспокойся і зберися'},
+  // PUSH
+  {verb:'push for',uk:'наполягати на; добиватися',meaning:'Активно домагатися чогось.',example:'She\'s pushing for a pay rise.',exampleUk:'Вона домагається підвищення зарплати.',tip:'Push for change/reform = активно лобіювати зміни'},
+  {verb:'push through',uk:'проштовхувати; проводити (закон)',meaning:'Домогтися прийняття чогось попри опір.',example:'They pushed through the new policy quickly.',exampleUk:'Вони швидко провели нову політику.',tip:'Push through legislation = провести закон через парламент'},
+  // RULE
+  {verb:'rule out',uk:'виключати; відхиляти',meaning:'Вирішити, що щось неможливе або неприйнятне.',example:'The doctor ruled out any serious illness.',exampleUk:'Лікар виключив будь-яку серйозну хворобу.',tip:'Rule out = eliminate as an option (медичний, слідчий контекст)'},
+  // SAVE
+  {verb:'save up',uk:'заощаджувати; накопичувати',meaning:'Відкладати гроші впродовж часу для конкретної мети.',example:'We\'re saving up for a holiday.',exampleUk:'Ми заощаджуємо на відпустку.',tip:'Save up for = accumulate money for a specific goal'},
+  // SORT
+  {verb:'sort out',uk:'розбиратися; вирішувати; розкладати',meaning:'1. Вирішити проблему. 2. Організувати. 3. Розібратися з кимось.',example:'I need to sort out my finances.',exampleUk:'Мені треба розібратися зі своїми фінансами.',tip:'Sort it out = вирішіть це між собою. Very common in British English'},
+  // SPEAK
+  {verb:'speak out',uk:'висловлюватися; відкрито говорити',meaning:'Публічно висловити думку, особливо про щось важливе.',example:'She spoke out against the injustice.',exampleUk:'Вона відкрито виступила проти несправедливості.',tip:'Speak out = voice your opinion publicly, often about injustice'},
+  {verb:'speak up',uk:'говорити голосніше; відстоювати',meaning:'1. Говорити голосніше. 2. Висловити думку сміливо.',example:'Speak up! I can\'t hear you.',exampleUk:'Говори голосніше! Я тебе не чую.',tip:'Speak up for someone = відстоювати інтереси когось'},
+  // STAND
+  {verb:'stand by',uk:'підтримувати; чекати в готовності',meaning:'1. Підтримувати когось. 2. Бути готовим до дії. 3. Не втручатися.',example:'I\'ll stand by you no matter what.',exampleUk:'Я підтримуватиму тебе що б не сталося.',tip:'Standby = режим очікування (іменник). Stand by = підтримувати рішення'},
+  {verb:'stand for',uk:'означати; відстоювати; терпіти',meaning:'1. Бути абревіатурою. 2. Підтримувати принцип. 3. Терпіти.',example:'UN stands for United Nations.',exampleUk:'ООН означає Організацію Об\'єднаних Націй.',tip:'What does X stand for? — Що означає скорочення X?'},
+  {verb:'stand out',uk:'виділятися; бути помітним',meaning:'Бути значно кращим або відмінним від інших.',example:'Her talent really stands out.',exampleUk:'Її талант дійсно виділяється.',tip:'Stand-out = видатний (прикметник). Outstanding = синонім'},
+  {verb:'stand up',uk:'вставати; не прийти на побачення',meaning:'1. Підвестися. 2. Не з\'явитися на зустріч (залишити чекати).',example:'He stood me up on our first date.',exampleUk:'Він не прийшов на наше перше побачення.',tip:'Stand up for = відстоювати. Stand up to = протистояти'},
+  {verb:'stand up for',uk:'відстоювати; захищати',meaning:'Захищати або підтримувати когось/щось.',example:'Always stand up for what you believe in.',exampleUk:'Завжди відстоюй те, у що віриш.',tip:'Stand up for yourself = відстоювати власні права'},
+  // STAY
+  {verb:'stay in',uk:'залишатися вдома',meaning:'Провести час вдома замість виходу.',example:'Let\'s stay in and watch a film tonight.',exampleUk:'Давайте залишимось вдома і подивимось фільм.',tip:'Stay in vs go out — типова дилема вечора'},
+  {verb:'stay out',uk:'не повертатися пізно; не вмішуватися',meaning:'1. Залишатися поза домом пізно. 2. Не вмішуватися.',example:'She stayed out all night.',exampleUk:'Вона не поверталась додому всю ніч.',tip:'Stay out of trouble = уникати неприємностей'},
+  {verb:'stay up',uk:'не лягати спати; бодьорувати',meaning:'Лягти спати пізніше, ніж зазвичай.',example:'We stayed up until 3 AM talking.',exampleUk:'Ми не лягали спати до 3 ночі, розмовляючи.',tip:'Stay up late = засидітися допізна'},
+  // STEP
+  {verb:'step back',uk:'відступити; переосмислити',meaning:'Фізично або метафорично відійти назад, щоб оцінити ситуацію.',example:'Sometimes you need to step back and see the bigger picture.',exampleUk:'Іноді потрібно відступити і побачити картину в цілому.',tip:'Step back from a situation = подивитися об\'єктивно'},
+  {verb:'step down',uk:'подавати у відставку; поступатися місцем',meaning:'Залишити посаду або роль добровільно.',example:'The CEO stepped down after the scandal.',exampleUk:'Генеральний директор подав у відставку після скандалу.',tip:'Step down from a role/position = resign or give way'},
+  {verb:'step in',uk:'втрутитися; взяти на себе роль',meaning:'Долучитися, щоб допомогти або взяти контроль.',example:'The government stepped in to prevent the collapse.',exampleUk:'Уряд втрутився, щоб запобігти краху.',tip:'Step in for someone = замінити когось тимчасово'},
+  {verb:'step up',uk:'посилювати; підвищуватися; братися',meaning:'1. Збільшити інтенсивність. 2. Добровільно взятися за роль.',example:'He stepped up when the team needed a leader.',exampleUk:'Він узяв на себе роль лідера, коли це було потрібно команді.',tip:'Step up your game = підняти рівень своїх зусиль'},
+  // STICK
+  {verb:'stick around',uk:'залишатися; не йти',meaning:'Залишитися на місці або поряд.',example:'Stick around — the party\'s just getting started.',exampleUk:'Залишайся — вечірка тільки починається.',tip:'Stick around = stay nearby, often waiting for something'},
+  {verb:'stick out',uk:'стирчати; виділятися',meaning:'1. Виступати за межі. 2. Бути дуже помітним.',example:'His height makes him stick out in a crowd.',exampleUk:'Його зріст робить його помітним у натовпі.',tip:'Stick out like a sore thumb = дуже кидатися в очі'},
+  {verb:'stick to',uk:'дотримуватися; не відступати',meaning:'Залишатися вірним плану, рішенню або позиції.',example:'Stick to your budget.',exampleUk:'Дотримуйся свого бюджету.',tip:'Stick to the point = триматися теми. Stick to your guns = не здаватись'},
+  {verb:'stick up for',uk:'відстоювати; захищати',meaning:'Захищати когось або щось від критики чи нападок.',example:'It\'s good to have friends who stick up for you.',exampleUk:'Добре мати друзів, які тебе захищають.',tip:'Синонім: stand up for — обидва означають відстоювати'},
+  // TRY
+  {verb:'try on',uk:'приміряти',meaning:'Одягнути (одяг, взуття) щоб перевірити, чи підходить.',example:'Can I try on these shoes?',exampleUk:'Чи можу я приміряти це взуття?',tip:'Try on = measure for fit. Try on someone = manipulate them (informal)'},
+  {verb:'try out',uk:'випробувати; пробуватися (на роль)',meaning:'1. Протестувати щось нове. 2. Пройти пробну вправу.',example:'Try out the new features in the app.',exampleUk:'Спробуй нові функції в додатку.',tip:'Try out for a team/role = пройти відбір/кастинг'},
+  // USE
+  {verb:'use up',uk:'використовувати до кінця; вичерпати',meaning:'Повністю витратити або спожити щось.',example:'I\'ve used up all the milk.',exampleUk:'Я використала все молоко.',tip:'Use up = exhaust a supply. Used up = виснажений'},
+  // WAKE
+  {verb:'wake up',uk:'прокидатися; усвідомлювати',meaning:'1. Припинити спати. 2. Почати усвідомлювати щось важливе.',example:'Wake up! You\'re going to be late.',exampleUk:'Прокидайся! Ти запізнишся.',tip:'Wake-up call = дзвінок-будильник або тривожний сигнал (іменник)'},
+  // WARM
+  {verb:'warm up',uk:'розігріватися; ставати теплішим',meaning:'1. Розігріти м\'язи перед спортом. 2. Потеплішати.',example:'Always warm up before exercising.',exampleUk:'Завжди розігрівайся перед тренуванням.',tip:'Warm up = prepare. Also: warm up to someone = поступово прив\'язатися'},
+  // WATCH
+  {verb:'watch out',uk:'остерігатися; бути пильним',meaning:'Бути уважним, щоб уникнути небезпеки.',example:'Watch out for pickpockets in the market.',exampleUk:'Стережися кишенькових злодіїв на ринку.',tip:'Watch out! = Look out! — попередження про небезпеку'},
+  // WEAR
+  {verb:'wear off',uk:'проходити; зникати (поступово)',meaning:'Поступово зменшуватися або зникати (ефект, біль).',example:'The anaesthetic started to wear off.',exampleUk:'Анестезія почала відходити.',tip:'The novelty wears off = новизна зникає з часом'},
+  {verb:'wear out',uk:'зношуватися; виснажувати',meaning:'1. Стати непридатним від тривалого використання. 2. Сильно втомити.',example:'These shoes are completely worn out.',exampleUk:'Це взуття повністю зношене.',tip:'Worn out = worn out / exhausted. Wear someone out = виснажити'},
+  // WIND
+  {verb:'wind down',uk:'поступово завершуватися; розслаблятися',meaning:'1. Поступово закриватися або зменшуватись. 2. Відпочити після роботи.',example:'I need to wind down before going to sleep.',exampleUk:'Мені потрібно розслабитись перед сном.',tip:'Wind down = relax, usually after a busy day or event'},
+  {verb:'wind up',uk:'опинятися в підсумку; заводити; завершувати',meaning:'1. Опинитися десь у результаті. 2. Завести (годинник). 3. Дратувати.',example:'We wound up at a small Italian restaurant.',exampleUk:'Ми опинились у маленькому італійському ресторані.',tip:'Wind up = end up (informal). Also: wind someone up = дратувати (BrE)'},
+  // WIPE
+  {verb:'wipe out',uk:'знищувати; виснажувати; стерти',meaning:'1. Повністю знищити. 2. Сильно втомити. 3. Стерти.',example:'The disease wiped out entire populations.',exampleUk:'Хвороба знищила цілі популяції.',tip:'Wiped out = completely exhausted. Wipeout = повний провал (іменник)'},
+  // WRAP
+  {verb:'wrap up',uk:'загортати; завершувати; одягатися',meaning:'1. Загорнути (подарунок). 2. Завершити (роботу/нараду). 3. Одягнутися тепло.',example:'Let\'s wrap up the meeting.',exampleUk:'Давайте завершимо нараду.',tip:'Wrap it up! = закінчуй! That\'s a wrap! = знімання закінчено (кіно)'},
+  // DRAW
+  {verb:'draw up',uk:'складати (документ); підготовляти',meaning:'Підготувати офіційний документ або план.',example:'The lawyers drew up a contract.',exampleUk:'Юристи склали контракт.',tip:'Draw up a plan/contract/list — ключові поєднання'},
+  {verb:'draw out',uk:'витягувати; затягувати',meaning:'1. Витягнути (гроші, інформацію). 2. Подовжити без потреби.',example:'She drew him out of his shell.',exampleUk:'Вона витягла його з його оболонки.',tip:'Draw someone out = spонукати сором\'язливу людину відкритись'},
+  // PHASE
+  {verb:'phase in',uk:'поступово вводити',meaning:'Вводити або впроваджувати поступово.',example:'The new rules will be phased in over two years.',exampleUk:'Нові правила впроваджуватимуться впродовж двох років.',tip:'Phase in vs phase out — протилежний процес'},
+  {verb:'phase out',uk:'поступово виводити з ужитку',meaning:'Поступово замінити або скасувати.',example:'Coal plants will be phased out by 2035.',exampleUk:'Вугільні станції поступово виведуть з ужитку до 2035 року.',tip:'Phase out = gradually discontinue. A phaseout program'},
+  // PILE
+  {verb:'pile up',uk:'накопичуватися; збиратися в купу',meaning:'Накопичуватися у великій кількості.',example:'Work just keeps piling up.',exampleUk:'Роботи стає дедалі більше.',tip:'Pile-up = масова аварія або нагромадження (іменник)'},
+  // RING
+  {verb:'ring up',uk:'телефонувати; пробивати на касі',meaning:'1. Зателефонувати (BrE). 2. Пробити товар на касі.',example:'I\'ll ring you up later.',exampleUk:'Я зателефоную тобі пізніше.',tip:'Ring up = call (British English). Ring up a sale = провести продаж через касу'},
+  // ROLL
+  {verb:'roll out',uk:'розгортати; запускати',meaning:'Впровадити або представити (продукт, програму) широкій аудиторії.',example:'The app was rolled out to all users last week.',exampleUk:'Додаток запустили для всіх користувачів минулого тижня.',tip:'Rollout = запуск, впровадження (іменник). Product rollout'},
+  // LOCK
+  {verb:'lock up',uk:'замикати; зачиняти на замок',meaning:'Надійно зачинити приміщення або заарештувати.',example:'Don\'t forget to lock up when you leave.',exampleUk:'Не забудь замкнути, коли виходиш.',tip:'Lock up = secure a building. Lockup = в\'язниця (informal)'}
 ];
 
 let phrasalFilter = 'all';
