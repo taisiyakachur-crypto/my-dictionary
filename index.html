@@ -9,40 +9,59 @@
 <title>My English Dictionary</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
 <meta name="description" content="Особистий словник УКР ↔ ENG">
-<meta name="theme-color" content="#5c7a5e">
+<meta name="theme-color" content="#4A8EC2">
 <meta name="description" content="Особистий словник УКР ↔ ENG">
-<meta name="theme-color" content="#5c7a5e">
-<rect width="32" height="32" rx="8" fill="%235c7a5e"/><rect x="7" y="6" width="14" height="20" rx="2" fill="%23fff" opacity=".95"/><rect x="9" y="10" width="10" height="1.5" rx=".75" fill="%235c7a5e"/><rect x="9" y="13" width="8" height="1.5" rx=".75" fill="%235c7a5e"/><rect x="9" y="16" width="9" height="1.5" rx=".75" fill="%235c7a5e"/><rect x="9" y="19" width="6" height="1.5" rx=".75" fill="%235c7a5e"/><path d="M19 6v10l2.5-2 2.5 2V6" fill="%23c5973a"/></svg>">
+<meta name="theme-color" content="#4A8EC2">
+<rect width="32" height="32" rx="8" fill="%234A8EC2"/><rect x="7" y="6" width="14" height="20" rx="2" fill="%23fff" opacity=".95"/><rect x="9" y="10" width="10" height="1.5" rx=".75" fill="%234A8EC2"/><rect x="9" y="13" width="8" height="1.5" rx=".75" fill="%234A8EC2"/><rect x="9" y="16" width="9" height="1.5" rx=".75" fill="%234A8EC2"/><rect x="9" y="19" width="6" height="1.5" rx=".75" fill="%234A8EC2"/><path d="M19 6v10l2.5-2 2.5 2V6" fill="%23C4698A"/></svg>">
 <meta name="description" content="Особистий словник УКР ↔ ENG">
-<meta name="theme-color" content="#5c7a5e">
+<meta name="theme-color" content="#4A8EC2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1714;
-    --paper: #faf7f2;
-    --cream: #f0ebe0;
-    --sage: #5c7a5e;
-    --sage-light: #8aab8c;
-    --sage-pale: #e8f0e8;
-    --gold: #c5973a;
-    --gold-pale: #fdf3e0;
-    --terracotta: #c4614a;
-    --terra-pale: #fdeae6;
-    --lavender: #7b6fa0;
-    --lav-pale: #eeeaf7;
-    --muted: #7a7268;
-    --border: #ddd8ce;
-    --shadow: 0 2px 16px rgba(26,23,20,0.08);
-    --shadow-lg: 0 8px 40px rgba(26,23,20,0.14);
-    --radius: 12px;
-    --radius-sm: 6px;
+    /* ── Core palette ── */
+    --sky:        #4A8EC2;   /* powder blue — primary */
+    --sky-mid:    #78B0D6;
+    --sky-pale:   #D4E8F5;
+    --sky-ultra:  #EBF4FA;
+
+    --rose:       #C4698A;   /* powder rose — accent */
+    --rose-mid:   #DCA3BB;
+    --rose-pale:  #F7E4EE;
+    --rose-ultra: #FDF2F7;
+
+    --ink:        #18243C;
+    --ink2:       #3A4E6A;
+    --paper:      #EEF4F9;
+    --cream:      #D8E8F2;
+    --muted:      #7484A0;
+    --border:     #C2D8E8;
+
+    /* keep legacy names mapped to new palette */
+    --sage:       var(--sky);
+    --sage-light: var(--sky-mid);
+    --sage-pale:  var(--sky-pale);
+    --gold:       var(--rose);
+    --gold-pale:  var(--rose-pale);
+    --terracotta: #B85A78;
+    --terra-pale: var(--rose-pale);
+    --lavender:   #6080B8;
+    --lav-pale:   #DDE6F5;
+
+    --shadow:    0 2px 18px rgba(24,36,60,0.08);
+    --shadow-lg: 0 8px 40px rgba(24,36,60,0.14);
+    --radius:    14px;
+    --radius-sm: 8px;
+
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans:  'Nunito', system-ui, sans-serif;
+    --font-mono:  'JetBrains Mono', 'Courier New', monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-sans);
     background: var(--paper);
     color: var(--ink);
     min-height: 100vh;
@@ -54,53 +73,58 @@
   /* ── NAV ── */
   nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(250,247,242,0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(238,244,249,0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     padding-left: max(24px, env(safe-area-inset-left));
     padding-right: max(24px, env(safe-area-inset-right));
     display: flex; align-items: center; gap: 0;
-    height: 60px;
+    height: 62px;
   }
   .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px; font-weight: 700;
+    font-family: var(--font-serif);
+    font-size: 20px; font-weight: 700;
     color: var(--ink);
     margin-right: auto;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
-  .nav-logo span { color: var(--sage); }
+  .nav-logo span { color: var(--sky); }
   .nav-tabs { display: flex; gap: 2px; }
   .nav-tab {
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
+    padding: 7px 15px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--muted);
     transition: all 0.18s ease;
     border: none; background: none;
     white-space: nowrap;
+    font-family: var(--font-sans);
   }
-  .nav-tab:hover { color: var(--ink); background: var(--cream); }
-  .nav-tab.active { color: var(--sage); background: var(--sage-pale); }
+  .nav-tab:hover { color: var(--ink); background: var(--sky-ultra); }
+  .nav-tab.active { color: #fff; background: var(--sky); box-shadow: 0 2px 10px rgba(74,142,194,0.35); }
 
   /* ── PAGES ── */
-  .page { display: none; min-height: calc(100vh - 60px); padding: 32px 24px; max-width: 980px; margin: 0 auto; }
+  .page { display: none; min-height: calc(100vh - 62px); padding: 32px 24px; max-width: 980px; margin: 0 auto; }
   .page.active { display: block; }
 
   /* ── PAGE HEADERS ── */
   .page-header { margin-bottom: 32px; }
   .page-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px; font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
+    font-family: var(--font-serif);
+    font-size: 36px; font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
     margin-bottom: 6px;
+    background: linear-gradient(120deg, var(--ink) 0%, var(--sky) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .page-header p { color: var(--muted); font-size: 14px; }
+  .page-header p { color: var(--muted); font-size: 14px; font-weight: 400; }
 
   /* ── CARDS ── */
   .card {
@@ -112,170 +136,176 @@
     margin-bottom: 20px;
   }
   .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px; font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 600;
     margin-bottom: 16px;
     display: flex; align-items: center; gap: 8px;
+    color: var(--ink);
   }
 
   /* ── SETUP BANNER ── */
   .setup-banner {
-    background: linear-gradient(135deg, var(--gold-pale), #fff8ed);
-    border: 1px solid #e8c87a;
+    background: linear-gradient(135deg, var(--sky-ultra), #fff);
+    border: 1px solid var(--sky-pale);
     border-radius: var(--radius);
     padding: 20px 24px;
     margin-bottom: 24px;
     display: flex; gap: 16px; align-items: flex-start;
   }
   .setup-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-  .setup-banner h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #8a6420; }
-  .setup-banner p { font-size: 13px; color: #9a7535; margin-bottom: 8px; }
+  .setup-banner h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--sky); }
+  .setup-banner p { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
   .setup-banner code {
     display: block;
-    background: rgba(0,0,0,0.06); border-radius: 4px;
-    padding: 8px 12px; font-family: 'DM Mono', monospace;
-    font-size: 12px; color: #6a4e10;
+    background: rgba(74,142,194,0.07); border-radius: var(--radius-sm);
+    padding: 8px 12px; font-family: var(--font-mono);
+    font-size: 12px; color: var(--ink2);
     word-break: break-all; margin-bottom: 8px;
   }
   .setup-banner input {
-    width: 100%; border: 1px solid #e8c87a; border-radius: var(--radius-sm);
-    padding: 8px 12px; font-size: 13px; font-family: 'DM Mono', monospace;
+    width: 100%; border: 1px solid var(--sky-pale); border-radius: var(--radius-sm);
+    padding: 8px 12px; font-size: 13px; font-family: var(--font-mono);
     background: #fff; outline: none; color: var(--ink);
   }
-  .setup-banner input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,151,58,0.12); }
+  .setup-banner input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(74,142,194,0.14); }
   .setup-save-btn {
     margin-top: 8px;
     padding: 8px 16px; border-radius: var(--radius-sm);
-    background: var(--gold); color: #fff; border: none;
-    font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.15s;
+    background: var(--sky); color: #fff; border: none;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
+    font-family: var(--font-sans);
   }
   .setup-save-btn:hover { opacity: 0.88; }
 
   /* ── FORM ── */
   .input-row { display: flex; gap: 12px; margin-bottom: 12px; }
   .input-group { flex: 1; }
-  .input-group label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .input-group label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--font-sans); }
   .input-group input, .input-group textarea, .input-group select {
-    width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 10px 14px; font-size: 14px; font-family: 'DM Sans', sans-serif;
-    background: var(--paper); outline: none; color: var(--ink); transition: border 0.15s;
+    width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 14px; font-size: 14px; font-family: var(--font-sans);
+    background: #fff; outline: none; color: var(--ink); transition: border 0.15s;
   }
   .input-group textarea { resize: vertical; min-height: 80px; }
   .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
-    border-color: var(--sage); background: #fff;
-    box-shadow: 0 0 0 3px rgba(92,122,94,0.1);
+    border-color: var(--sky); background: #fff;
+    box-shadow: 0 0 0 3px rgba(74,142,194,0.12);
   }
 
   /* ── BUTTONS ── */
   .btn {
-    padding: 10px 20px; border-radius: var(--radius-sm); border: none;
-    font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-    cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 22px; border-radius: 30px; border: none;
+    font-size: 13px; font-weight: 700; font-family: var(--font-sans);
+    cursor: pointer; transition: all 0.16s; display: inline-flex; align-items: center; gap: 6px;
+    letter-spacing: 0.01em;
   }
-  .btn-primary { background: var(--sage); color: #fff; }
-  .btn-primary:hover { background: #4a6b4c; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(92,122,94,0.3); }
-  .btn-secondary { background: var(--cream); color: var(--ink); border: 1px solid var(--border); }
-  .btn-secondary:hover { background: var(--border); }
-  .btn-danger { background: var(--terra-pale); color: var(--terracotta); border: 1px solid #f0b8ad; }
-  .btn-danger:hover { background: #fad5ce; }
+  .btn-primary { background: var(--sky); color: #fff; }
+  .btn-primary:hover { background: #3A7EB5; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(74,142,194,0.38); }
+  .btn-secondary { background: var(--sky-ultra); color: var(--ink2); border: 1.5px solid var(--border); }
+  .btn-secondary:hover { background: var(--sky-pale); border-color: var(--sky-mid); }
+  .btn-danger { background: var(--rose-pale); color: var(--terracotta); border: 1px solid var(--rose-mid); }
+  .btn-danger:hover { background: var(--rose-pale); filter: brightness(0.95); }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 
   /* ── SEARCH BOX ── */
   .search-wrap { position: relative; margin-bottom: 16px; }
   .search-wrap input {
     width: 100%; border: 1.5px solid var(--border); border-radius: 40px;
-    padding: 12px 20px 12px 46px; font-size: 15px; background: #fff;
-    outline: none; transition: all 0.18s; font-family: 'DM Sans', sans-serif;
-    color: var(--ink);
+    padding: 13px 20px 13px 48px; font-size: 15px; background: #fff;
+    outline: none; transition: all 0.18s; font-family: var(--font-sans);
+    color: var(--ink); font-weight: 400;
   }
-  .search-wrap input:focus { border-color: var(--sage); box-shadow: 0 0 0 4px rgba(92,122,94,0.1); }
+  .search-wrap input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(74,142,194,0.12); }
+  .search-wrap input::placeholder { color: var(--muted); }
   .search-icon {
-    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-    color: var(--muted); font-size: 17px; pointer-events: none;
+    position: absolute; left: 17px; top: 50%; transform: translateY(-50%);
+    color: var(--sky-mid); font-size: 17px; pointer-events: none;
   }
   .search-clear {
     position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
     color: var(--muted); background: none; border: none; cursor: pointer; font-size: 18px;
     padding: 2px 4px; border-radius: 50%; transition: background 0.12s;
   }
-  .search-clear:hover { background: var(--cream); color: var(--ink); }
+  .search-clear:hover { background: var(--sky-pale); color: var(--sky); }
 
   /* ── WORD LIST ── */
-  .words-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .words-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
   .word-card {
     background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px; transition: all 0.15s; position: relative; overflow: hidden;
+    padding: 18px 18px 14px; transition: all 0.18s; position: relative; overflow: hidden;
   }
   .word-card::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px; background: var(--sage-light); border-radius: 3px 0 0 3px;
-    transition: width 0.15s;
+    width: 4px; background: linear-gradient(180deg, var(--sky) 0%, var(--rose) 100%);
+    border-radius: 4px 0 0 4px;
   }
-  .word-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); border-color: var(--sage-light); }
-  .word-card:hover::before { width: 4px; }
-  .word-uk { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-  .word-en { font-size: 15px; color: var(--sage); font-weight: 500; margin-bottom: 6px; }
+  .word-card:hover { box-shadow: 0 6px 24px rgba(74,142,194,0.14); transform: translateY(-2px); border-color: var(--sky-pale); }
+  .word-uk { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .word-en { font-size: 15px; color: var(--sky); font-weight: 600; margin-bottom: 6px; }
   .word-gtranslate { font-size: 12px; color: var(--lavender); margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
   .word-gtranslate a { color: var(--lavender); text-decoration: none; opacity: 0.7; font-size: 11px; }
   .word-gtranslate a:hover { opacity: 1; text-decoration: underline; }
   .word-note { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 4px; }
-  .word-date { font-size: 11px; color: var(--border); margin-top: 8px; font-family: 'DM Mono', monospace; }
+  .word-date { font-size: 11px; color: var(--border); margin-top: 8px; font-family: var(--font-mono); }
   /* translate field styles */
   .translate-wrap { position: relative; }
   .translate-btn {
     position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-    background: var(--sage-pale); border: none; border-radius: 4px;
-    color: var(--sage); font-size: 11px; font-weight: 600; padding: 3px 8px;
+    background: var(--sky-ultra); border: 1px solid var(--sky-pale); border-radius: 20px;
+    color: var(--sky); font-size: 11px; font-weight: 700; padding: 3px 10px;
     cursor: pointer; transition: all 0.15s; white-space: nowrap;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-sans);
   }
-  .translate-btn:hover { background: var(--sage); color: #fff; }
+  .translate-btn:hover { background: var(--sky); color: #fff; border-color: var(--sky); }
   .translate-btn.loading { opacity: 0.6; cursor: wait; }
-  .translate-indicator { font-size: 11px; color: var(--sage); margin-top: 3px; height: 14px; font-style: italic; }
+  .translate-indicator { font-size: 11px; color: var(--sky); margin-top: 3px; height: 14px; font-style: italic; }
   .word-actions { position: absolute; top: 12px; right: 12px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s; }
   .word-card:hover .word-actions { opacity: 1; }
   .word-action-btn {
-    width: 28px; height: 28px; border: none; border-radius: 6px;
+    width: 28px; height: 28px; border: none; border-radius: 8px;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
     font-size: 13px; transition: background 0.12s;
   }
-  .word-action-btn.del { background: var(--terra-pale); color: var(--terracotta); }
-  .word-action-btn.del:hover { background: #fad5ce; }
+  .word-action-btn.del { background: var(--rose-pale); color: var(--terracotta); }
+  .word-action-btn.del:hover { background: var(--rose-mid); color: #fff; }
 
   /* ── TAG ── */
   .tag {
-    display: inline-block; padding: 2px 8px; border-radius: 20px;
-    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em;
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    font-family: var(--font-sans);
   }
-  .tag-new { background: var(--sage-pale); color: var(--sage); }
-  .tag-count { background: var(--cream); color: var(--muted); }
+  .tag-new { background: var(--sky-pale); color: var(--sky); }
+  .tag-count { background: var(--sky-ultra); color: var(--muted); }
 
   /* ── SEARCH RESULTS ── */
-  .results-count { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
-  .highlight { background: #fff3c0; border-radius: 2px; padding: 0 1px; }
+  .results-count { font-size: 13px; color: var(--muted); margin-bottom: 12px; font-weight: 500; }
+  .highlight { background: var(--rose-pale); border-radius: 3px; padding: 0 2px; color: var(--rose); }
   .no-results { text-align: center; padding: 60px 20px; }
   .no-results .emoji { font-size: 40px; margin-bottom: 12px; }
-  .no-results h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 8px; }
+  .no-results h3 { font-family: var(--font-serif); font-size: 22px; margin-bottom: 8px; }
   .no-results p { color: var(--muted); font-size: 14px; }
 
   /* ── PAGE 2: VERBS TABLE ── */
   .verbs-table { width: 100%; border-collapse: collapse; }
   .verbs-table th {
     text-align: left; padding: 12px 16px;
-    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
-    color: var(--muted); background: var(--cream);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--sky); background: var(--sky-ultra);
     border-bottom: 1px solid var(--border);
-    position: sticky; top: 60px;
+    position: sticky; top: 62px;
+    font-family: var(--font-sans);
   }
   .verbs-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
   .verbs-table tr:last-child td { border-bottom: none; }
-  .verbs-table tr:hover td { background: var(--paper); }
-  .verb-v1 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; }
-  .verb-v2, .verb-v3 { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--sage); }
+  .verbs-table tr:hover td { background: var(--sky-ultra); }
+  .verb-v1 { font-family: var(--font-serif); font-size: 17px; font-weight: 700; }
+  .verb-v2, .verb-v3 { font-family: var(--font-mono); font-size: 13px; color: var(--sky); }
   .verb-uk { color: var(--muted); font-size: 13px; }
   .verb-cat {
-    display: inline-block; padding: 2px 8px; border-radius: 20px;
-    font-size: 11px; font-weight: 500; background: var(--lav-pale); color: var(--lavender);
+    display: inline-block; padding: 2px 9px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; background: var(--rose-pale); color: var(--rose);
+    font-family: var(--font-sans);
   }
   .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 
@@ -283,41 +313,40 @@
   .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
   .link-card {
     background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 20px; text-decoration: none; color: inherit;
+    padding: 22px; text-decoration: none; color: inherit;
     transition: all 0.18s; display: block;
   }
-  .link-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: var(--sage-light); }
-  .link-icon { font-size: 28px; margin-bottom: 12px; }
-  .link-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-  .link-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
-  .link-url { font-size: 11px; color: var(--sage); font-family: 'DM Mono', monospace; }
+  .link-card:hover { box-shadow: 0 8px 32px rgba(74,142,194,0.15); transform: translateY(-3px); border-color: var(--sky-mid); }
+  .link-icon { font-size: 30px; margin-bottom: 12px; }
+  .link-name { font-family: var(--font-serif); font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+  .link-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.55; }
+  .link-url { font-size: 11px; color: var(--sky); font-family: var(--font-mono); }
   .link-section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px; font-weight: 600;
-    margin: 28px 0 14px;
-    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    font-family: var(--font-serif);
+    font-size: 20px; font-weight: 700;
+    margin: 30px 0 16px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--sky-pale);
     color: var(--ink);
   }
 
   /* ── PAGE 4: NOTES ── */
-
-  /* List view */
   .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 14px; }
   .note-card {
     background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 18px; cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden;
+    padding: 18px; cursor: pointer; transition: all 0.18s; position: relative; overflow: hidden;
   }
   .note-card::before {
-    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-    background: var(--lavender); border-radius:3px 0 0 3px;
+    content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+    background: linear-gradient(180deg, var(--rose) 0%, var(--sky) 100%);
+    border-radius:4px 0 0 4px;
   }
-  .note-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); border-color: var(--lavender); }
-  .note-card-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; margin-bottom:6px; color:var(--ink); }
-  .note-card-preview { font-size:12px; color:var(--muted); line-height:1.5; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-  .note-card-meta { font-size:11px; color:var(--border); margin-top:10px; font-family:'DM Mono',monospace; display:flex; gap:10px; }
-  .note-card-del { position:absolute; top:10px; right:10px; background:var(--terra-pale); border:none; border-radius:5px; color:var(--terracotta); font-size:12px; padding:3px 7px; cursor:pointer; opacity:0; transition:opacity 0.15s; }
+  .note-card:hover { box-shadow: 0 6px 24px rgba(196,105,138,0.14); transform: translateY(-2px); border-color: var(--rose-mid); }
+  .note-card-title { font-family: var(--font-serif); font-size:17px; font-weight:700; margin-bottom:6px; color:var(--ink); }
+  .note-card-preview { font-size:12px; color:var(--muted); line-height:1.55; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .note-card-meta { font-size:11px; color:var(--border); margin-top:10px; font-family:var(--font-mono); display:flex; gap:10px; }
+  .note-card-del { position:absolute; top:10px; right:10px; background:var(--rose-pale); border:none; border-radius:8px; color:var(--terracotta); font-size:12px; padding:3px 8px; cursor:pointer; opacity:0; transition:opacity 0.15s; font-family:var(--font-sans); font-weight:600; }
   .note-card:hover .note-card-del { opacity:1; }
-  .note-tag { display:inline-block; padding:1px 6px; border-radius:10px; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; background:var(--lav-pale); color:var(--lavender); margin-right:4px; }
+  .note-tag { display:inline-block; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; background:var(--rose-pale); color:var(--rose); margin-right:4px; font-family:var(--font-sans); }
 
   /* Editor / viewer */
   .note-editor-wrap { display:none; }
@@ -326,38 +355,38 @@
 
   .notes-toolbar {
     display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; align-items:center;
-    background:var(--cream); border-radius:var(--radius); padding:10px 12px;
+    background:var(--sky-ultra); border-radius:var(--radius); padding:10px 14px;
+    border:1px solid var(--sky-pale);
   }
   .notes-toolbar-btn {
-    padding:5px 11px; border-radius:var(--radius-sm); border:1px solid var(--border);
-    background:#fff; color:var(--ink); font-size:12px; cursor:pointer;
-    transition:all 0.12s; font-family:'DM Sans',sans-serif; font-weight:500;
+    padding:5px 12px; border-radius:20px; border:1px solid var(--border);
+    background:#fff; color:var(--ink2); font-size:12px; cursor:pointer;
+    transition:all 0.14s; font-family:var(--font-sans); font-weight:600;
   }
-  .notes-toolbar-btn:hover { background:var(--lav-pale); border-color:var(--lavender); color:var(--lavender); }
+  .notes-toolbar-btn:hover { background:var(--rose-pale); border-color:var(--rose-mid); color:var(--rose); }
   .notes-toolbar-sep { width:1px; background:var(--border); height:20px; margin:0 2px; }
   .notes-status { font-size:11px; color:var(--muted); font-style:italic; }
 
-  /* Rich editor (contenteditable) */
+  /* Rich editor */
   .rich-editor {
-    min-height:420px; border:1px solid var(--border); border-radius:var(--radius);
-    padding:24px; font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8;
+    min-height:420px; border:1.5px solid var(--border); border-radius:var(--radius);
+    padding:24px; font-family:var(--font-sans); font-size:15px; line-height:1.8;
     color:var(--ink); background:#fff; outline:none; transition:border 0.15s;
     overflow-y:auto;
   }
-  .rich-editor:focus { border-color:var(--lavender); box-shadow:0 0 0 3px rgba(123,111,160,0.1); }
-  .rich-editor h2 { font-family:'Playfair Display',serif; font-size:22px; margin:16px 0 8px; }
-  .rich-editor h3 { font-family:'Playfair Display',serif; font-size:17px; margin:12px 0 6px; }
+  .rich-editor:focus { border-color:var(--sky); box-shadow:0 0 0 3px rgba(74,142,194,0.1); }
+  .rich-editor h2 { font-family:var(--font-serif); font-size:24px; margin:16px 0 8px; }
+  .rich-editor h3 { font-family:var(--font-serif); font-size:18px; margin:12px 0 6px; }
   .rich-editor table { border-collapse:collapse; width:100%; margin:12px 0; }
   .rich-editor th, .rich-editor td { border:1px solid var(--border); padding:8px 12px; text-align:left; font-size:14px; }
-  .rich-editor th { background:var(--cream); font-weight:600; }
+  .rich-editor th { background:var(--sky-ultra); font-weight:700; }
   .rich-editor img { max-width:100%; border-radius:var(--radius-sm); margin:8px 0; }
   .rich-editor ul, .rich-editor ol { padding-left:24px; margin:8px 0; }
-  .rich-editor blockquote { border-left:3px solid var(--lavender); padding-left:16px; color:var(--muted); margin:8px 0; }
+  .rich-editor blockquote { border-left:3px solid var(--rose); padding-left:16px; color:var(--muted); margin:8px 0; background:var(--rose-ultra); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:10px 16px; }
 
   /* Viewer */
   .note-viewer { min-height:300px; }
-  .note-viewer h2 { font-family:'Playfair Display',serif; font-size:22px; margin:16px 0 8px; }
-  /* Таблиці з прокруткою — не виходять за межі */
+  .note-viewer h2 { font-family:var(--font-serif); font-size:24px; margin:16px 0 8px; }
   .note-viewer table, .rich-editor table {
     border-collapse:collapse; width:100%; margin:12px 0;
     table-layout: fixed; word-wrap: break-word;
@@ -365,46 +394,44 @@
   .note-viewer .table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0; }
   .note-viewer .table-scroll table { width:max-content; min-width:100%; margin:0; }
   .note-viewer th, .note-viewer td { border:1px solid var(--border); padding:8px 12px; font-size:14px; vertical-align:top; }
-  .note-viewer th { background:var(--cream); font-weight:600; }
+  .note-viewer th { background:var(--sky-ultra); font-weight:700; }
   .note-viewer img { max-width:100%; border-radius:var(--radius-sm); margin:8px 0; }
   .note-viewer ul, .note-viewer ol { padding-left:24px; margin:8px 0; }
-
-  .notes-status { font-size:12px; color:var(--sage); font-style:italic; }
+  .notes-status { font-size:12px; color:var(--sky); font-style:italic; }
 
   /* ── TOAST ── */
   .toast {
     position: fixed; bottom: 24px; right: 24px; z-index: 999;
-    padding: 12px 20px; border-radius: var(--radius);
+    padding: 13px 22px; border-radius: 30px;
     background: var(--ink); color: #fff;
-    font-size: 13px; font-weight: 500;
+    font-size: 13px; font-weight: 600; font-family: var(--font-sans);
     box-shadow: var(--shadow-lg);
     transform: translateY(100px) scale(0.9); opacity: 0;
     transition: all 0.25s cubic-bezier(.175,.885,.32,1.275);
     max-width: 320px;
   }
   .toast.show { transform: translateY(0) scale(1); opacity: 1; }
-  .toast.success { background: var(--sage); }
+  .toast.success { background: var(--sky); }
   .toast.error { background: var(--terracotta); }
 
   /* ── LOADING ── */
   .loading { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; padding: 20px 0; }
   .spinner {
     width: 18px; height: 18px; border: 2px solid var(--border);
-    border-top-color: var(--sage); border-radius: 50%;
+    border-top-color: var(--sky); border-radius: 50%;
     animation: spin 0.6s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── STATS ROW ── */
   /* ── FILTER ROW ── */
   .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
   .filter-btn {
-    padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
-    background: #fff; color: var(--muted); font-size: 13px; font-weight: 500;
-    cursor: pointer; transition: all 0.14s; font-family: 'DM Sans', sans-serif;
+    padding: 6px 16px; border-radius: 20px; border: 1.5px solid var(--border);
+    background: #fff; color: var(--muted); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.14s; font-family: var(--font-sans);
   }
-  .filter-btn:hover { border-color: var(--sage); color: var(--sage); }
-  .filter-btn.active { background: var(--sage); color: #fff; border-color: var(--sage); }
+  .filter-btn:hover { border-color: var(--sky); color: var(--sky); background: var(--sky-ultra); }
+  .filter-btn.active { background: var(--sky); color: #fff; border-color: var(--sky); box-shadow: 0 2px 8px rgba(74,142,194,0.3); }
 
   /* ── DIVIDER ── */
   .section-divider { height: 1px; background: var(--border); margin: 24px 0; }
@@ -521,19 +548,22 @@
   }
   /* ── Edit Word Modal ── */
   .modal-overlay {
-    position:fixed;inset:0;background:rgba(26,23,20,.45);z-index:500;
+    position:fixed;inset:0;background:rgba(24,36,60,.4);z-index:500;
     display:flex;align-items:center;justify-content:center;padding:16px;
+    backdrop-filter:blur(4px);
   }
   .modal {
-    background:#fff;border-radius:var(--radius);padding:28px;width:100%;max-width:520px;
+    background:#fff;border-radius:var(--radius);padding:30px;width:100%;max-width:520px;
     box-shadow:var(--shadow-lg);position:relative;
+    border-top:4px solid var(--sky);
   }
-  .modal h3 { font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:20px; }
+  .modal h3 { font-family:var(--font-serif);font-size:22px;font-weight:700;margin-bottom:20px;color:var(--ink); }
   .modal-close {
-    position:absolute;top:14px;right:14px;background:none;border:none;
-    font-size:20px;cursor:pointer;color:var(--muted);line-height:1;padding:4px;
+    position:absolute;top:14px;right:14px;background:var(--sky-ultra);border:none;
+    font-size:18px;cursor:pointer;color:var(--muted);line-height:1;padding:6px 8px;
+    border-radius:50%;transition:all 0.14s;
   }
-  .modal-close:hover { color:var(--ink); }
+  .modal-close:hover { background:var(--rose-pale);color:var(--rose); }
 
 </style>
 </head>
@@ -834,7 +864,7 @@
     <div class="notes-grid" id="notes-grid">
       <div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
         <div style="font-size:40px;margin-bottom:12px">📝</div>
-        <div style="font-size:16px;font-family:'Playfair Display',serif;margin-bottom:6px">No notes yet</div>
+        <div style="font-size:16px;font-family:'Cormorant Garamond',Georgia,serif;margin-bottom:6px">No notes yet</div>
         <div style="font-size:13px">Click «＋ New Note» to get started</div>
       </div>
     </div>
@@ -847,7 +877,7 @@
       <button class="btn btn-secondary" onclick="closeEditor()" style="flex-shrink:0">← Back</button>
       <input type="text" id="note-title-input" placeholder="Note title…"
         style="flex:1;min-width:180px;border:none;border-bottom:2px solid var(--border);border-radius:0;
-        background:transparent;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+        background:transparent;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700;
         color:var(--ink);outline:none;padding:4px 0;"
         oninput="markNoteDirty()">
       <span id="note-save-status" class="notes-status">—</span>
@@ -897,13 +927,13 @@
   <div id="notes-viewer-view" style="display:none">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
       <button class="btn btn-secondary" onclick="closeViewer()">← Back</button>
-      <h2 id="viewer-title" style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin:0;flex:1"></h2>
+      <h2 id="viewer-title" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:700;margin:0;flex:1"></h2>
       <button class="btn btn-secondary" onclick="editCurrentNote()">✏️ Edit</button>
     </div>
     <div class="card">
       <div class="note-viewer" id="note-viewer-content"></div>
     </div>
-    <div style="font-size:11px;color:var(--muted);margin-top:12px;font-family:'DM Mono',monospace" id="viewer-meta"></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:12px;font-family:'JetBrains Mono','Courier New',monospace" id="viewer-meta"></div>
   </div>
 
 </div>
@@ -922,7 +952,7 @@
       </div>
       <select id="allwords-sort" onchange="filterAllWords()"
         style="border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;
-        font-size:13px;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);outline:none">
+        font-size:13px;font-family:'Nunito',system-ui,sans-serif;background:var(--paper);color:var(--ink);outline:none">
         <option value="date-desc">Newest first</option>
         <option value="date-asc">Oldest first</option>
         <option value="uk-asc">А→Я (UKR)</option>
@@ -951,7 +981,7 @@
   </div>
   <div id="allwords-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
     <div style="font-size:36px;margin-bottom:12px">🔍</div>
-    <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:6px">Nothing found</div>
+    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;margin-bottom:6px">Nothing found</div>
     <div style="font-size:13px">Try a different search</div>
   </div>
 </div>
@@ -960,7 +990,7 @@
 <div id="page-practice" class="page">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
     <div>
-      <h1 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px">Practice</h1>
+      <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px">Practice</h1>
       <p style="color:var(--muted);font-size:14px">20 random words to study · <span id="practice-pool-size"></span></p>
     </div>
     <button class="btn btn-primary" style="margin-left:auto" onclick="refreshPractice()">
@@ -970,7 +1000,7 @@
 
   <div id="practice-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
     <div style="font-size:40px;margin-bottom:12px">📖</div>
-    <div style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px">No words yet</div>
+    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;margin-bottom:8px">No words yet</div>
     <div style="font-size:14px">Add words in the Dictionary tab first</div>
   </div>
 
@@ -994,11 +1024,11 @@
 <div id="page-quantifiers" class="page" style="padding:0;max-width:100%">
   <style id="quantifiers-styles">
 #quantifiers-scope {
-    --q-bg: #F5F0E8;
-    --q-card: #FFFDF8;
-    --q-ink: #1A1408;
-    --q-muted: #7A7060;
-    --q-border: #E0D8C8;
+    --q-bg: #EEF4F9;
+    --q-card: #FFFFFF;
+    --q-ink: #18243C;
+    --q-muted: #7484A0;
+    --q-border: #C2D8E8;
     --q-count: #1B5E8A;
     --q-count-light: #EAF3FB;
     --q-count-mid: #B5D4F4;
@@ -1015,11 +1045,11 @@
     --q-accent: #D4A017;
     --q-accent-light: #FDF3D0;
     /* map the original var names used inside the page */
-    --bg: #F5F0E8;
-    --card: #FFFDF8;
-    --ink: #1A1408;
-    --muted: #7A7060;
-    --border: #E0D8C8;
+    --bg: #EEF4F9;
+    --card: #FFFFFF;
+    --ink: #18243C;
+    --muted: #7484A0;
+    --border: #C2D8E8;
     --count: #1B5E8A;
     --count-light: #EAF3FB;
     --count-mid: #B5D4F4;
@@ -1067,7 +1097,7 @@
 #quantifiers-scope {
 
     background: var(--bg);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Nunito', system-ui, sans-serif;
     color: var(--ink);
     font-size: 15px;
     line-height: 1.65;
@@ -1095,7 +1125,7 @@
   }
 #quantifiers-scope .hero h1 {
 
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: clamp(2.4rem, 6vw, 4rem);
     font-weight: 900;
     letter-spacing: -0.02em;
@@ -1150,7 +1180,7 @@
   }
 #quantifiers-scope .section-head h2 {
 
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 1.9rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -1220,7 +1250,7 @@
   }
 #quantifiers-scope .card-word {
 
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 1.55rem;
     font-weight: 700;
     line-height: 1.2;
@@ -1292,7 +1322,7 @@
   }
 #quantifiers-scope .compare-header .word {
 
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 1.6rem;
     font-weight: 700;
   }
@@ -1363,7 +1393,7 @@
   }
 #quantifiers-scope .scale-label {
 
-    font-family: 'DM Mono', monospace;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 13px;
     font-weight: 500;
     min-width: 100px;
@@ -1495,7 +1525,7 @@
  background: var(--bg); }
 #quantifiers-scope .noun-table .word-cell {
 
-    font-family: 'DM Mono', monospace;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 13px;
     font-weight: 500;
   }
@@ -1520,7 +1550,7 @@
   }
 #quantifiers-scope .pos-card .pos-num {
 
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 2rem;
     font-weight: 900;
     color: var(--border);
@@ -1571,7 +1601,7 @@
 #quantifiers-scope .mega-table tbody tr:nth-child(even) td {
  background: #FAFAF5; }
 #quantifiers-scope .mega-table .w {
- font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px; }
+ font-family: 'JetBrains Mono', 'Courier New', monospace; font-weight: 500; font-size: 13px; }
 #quantifiers-scope .mega-table .def {
  color: var(--muted); font-size: 12.5px; }
 #quantifiers-scope .mega-table .ex-cell {
@@ -1615,7 +1645,7 @@
 
 
   </style>
-  <div id="quantifiers-scope" style="font-family:'DM Sans',sans-serif">
+  <div id="quantifiers-scope" style="font-family:'Nunito',system-ui,sans-serif">
 <!-- HERO -->
 
 <!-- NAV -->
@@ -2251,19 +2281,19 @@
       <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B0A898;margin-bottom:20px;">Memory cheat sheet</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;font-size:14px;">
         <div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);margin-bottom:6px;">Countable plurals</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:var(--accent);margin-bottom:6px;">Countable plurals</div>
           <div style="line-height:2;font-size:13px;">few · a few · many<br>too many · a lot of · loads of<br>plenty of · enough</div>
         </div>
         <div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#9FE1CB;margin-bottom:6px;">Uncountable</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#9FE1CB;margin-bottom:6px;">Uncountable</div>
           <div style="line-height:2;font-size:13px;">little · a little · much<br>too much · a lot of · loads of<br>plenty of · enough</div>
         </div>
         <div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5A0A0;margin-bottom:6px;">Always negative</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#F5A0A0;margin-bottom:6px;">Always negative</div>
           <div style="line-height:2;font-size:13px;">few (not enough)<br>little (not enough)<br>too many / too much</div>
         </div>
         <div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#A0E8B8;margin-bottom:6px;">Always positive</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#A0E8B8;margin-bottom:6px;">Always positive</div>
           <div style="line-height:2;font-size:13px;">a few (some = good)<br>a little (some = good)<br>enough · plenty of</div>
         </div>
       </div>
@@ -4312,14 +4342,14 @@ function switchTab(btn, panelId) {
 <div id="page-tenses" class="page" style="padding:0;max-width:100%;background:var(--bg)">
   <style id="tenses-styles">
 #tenses-scope {
---bg:#F7F4EE;
-  --bg2:#EDE9E0;
+--bg:#EEF4F9;
+  --bg2:#D8E8F2;
   --card:#FFFFFF;
-  --ink:#1C1A16;
-  --ink2:#3D3A34;
-  --muted:#8A8680;
-  --border:#DDD9D0;
-  --border2:#C8C4BA;
+  --ink:#18243C;
+  --ink2:#3A4E6A;
+  --muted:#7484A0;
+  --border:#C2D8E8;
+  --border2:#A8C8DC;
 
   /* PRESENT family — warm green */
   --pr:#1A6B4A;--prl:#E4F2EC;--prm:#B8DDD0;--prd:#0F4430;
@@ -4350,7 +4380,7 @@ background:var(--border2);border-radius:3px}
 
   background:var(--bg);
   color:var(--ink);
-  font-family:'Lora',serif;
+  font-family:'Cormorant Garamond',Georgia,serif;
   font-size:15px;
   line-height:1.7;
 }
@@ -4983,10 +5013,10 @@ animation:fadeSlide 0.5s ease both}
 <!-- ══════════════════════════════════════════
      TIMELINE — When to use each tense
 ══════════════════════════════════════════ -->
-<div id="timeline" style="background:#f8f6f1;border-bottom:1px solid #e0dbd0;padding:32px 24px 36px;font-family:'DM Sans',sans-serif">
+<div id="timeline" style="background:var(--sky-ultra);border-bottom:1px solid var(--border);padding:32px 24px 36px;font-family:'Nunito',system-ui,sans-serif">
   <div style="max-width:1120px;margin:0 auto">
-    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8a8478;margin-bottom:6px">Visual Timeline</div>
-    <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:24px;color:#1a1814">When to use each tense</h2>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Visual Timeline</div>
+    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:700;margin-bottom:24px;color:var(--ink)">When to use each tense</h2>
 
     <!-- TIMELINE AXIS -->
     <div style="position:relative;padding:0 0 8px">
@@ -6067,15 +6097,16 @@ animation:fadeSlide 0.5s ease both}
 <!-- ════════════════════════════ PAGE 10: PHRASAL VERBS ════════════════════════════ -->
 <div id="page-phrasal" class="page">
   <style>
-    .pv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
-    .pv-verb{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink)}
-    .pv-uk{font-size:15px;color:var(--sage);font-weight:600}
-    .pv-meaning{font-size:13px;color:var(--ink2)}
-    .pv-example{font-size:13px;font-style:italic;color:var(--muted);background:var(--bg2,#f7f4ee);padding:8px 10px;border-radius:6px;border-left:3px solid var(--gold,#c8a96e)}
-    .pv-example span{font-style:normal;color:var(--ink2);display:block;margin-top:3px}
-    .pv-tip{font-size:12px;color:#7c6fcd}
-    .pv-tag{font-size:11px;background:#f0f5f0;color:var(--sage);padding:2px 8px;border-radius:20px;white-space:nowrap}
-    .phrasal-filter-btn.active{background:var(--sage)!important;color:#fff!important;border-color:var(--sage)!important}
+    .pv-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
+    .pv-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
+    .pv-verb{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:700;color:var(--ink)}
+    .pv-uk{font-size:14px;color:var(--sky);font-weight:700}
+    .pv-meaning{font-size:13px;color:var(--ink2);line-height:1.5}
+    .pv-example{font-size:13px;font-style:italic;color:var(--muted);background:var(--sky-ultra);padding:9px 12px;border-radius:var(--radius-sm);border-left:3px solid var(--sky)}
+    .pv-example span{font-style:normal;color:var(--ink2);display:block;margin-top:4px}
+    .pv-tip{font-size:12px;color:var(--rose);font-weight:600}
+    .pv-tag{font-size:11px;background:var(--rose-pale);color:var(--rose);padding:2px 10px;border-radius:20px;white-space:nowrap;font-weight:700}
+    .phrasal-filter-btn.active{background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(74,142,194,0.3)!important}
   </style>
   <div class="page-header">
     <h1>Phrasal Verbs</h1>
@@ -6655,7 +6686,7 @@ function renderNotesList() {
   if (!allNotes.length) {
     document.getElementById('notes-grid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
       <div style="font-size:40px;margin-bottom:12px">📝</div>
-      <div style="font-size:16px;font-family:'Playfair Display',serif;margin-bottom:6px">No notes yet</div>
+      <div style="font-size:16px;font-family:'Cormorant Garamond',Georgia,serif;margin-bottom:6px">No notes yet</div>
       <div style="font-size:13px">Click «＋ New Note» to get started</div></div>`;
     return;
   }
@@ -7134,8 +7165,8 @@ function renderAllWordsTable(words) {
   window._editWords = words;
   tbody.innerHTML = words.map((w, i) => `
     <tr style="transition:background .12s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background=''">
-      <td style="${TD};font-size:12px;color:var(--muted);font-family:'DM Mono',monospace">${i + 1}</td>
-      <td style="${TD};font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
+      <td style="${TD};font-size:12px;color:var(--muted);font-family:'JetBrains Mono','Courier New',monospace">${i + 1}</td>
+      <td style="${TD};font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
       <td style="${TD};font-size:15px;font-weight:500;color:var(--sage)">${esc(w.en)}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtUK || '')}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtEN || '')}</td>
@@ -7143,7 +7174,7 @@ function renderAllWordsTable(words) {
       <td style="${TD};white-space:nowrap">
         <button onclick="openEditWordByIndex(${i})"
           style="background:var(--sage-pale);border:none;border-radius:5px;padding:4px 10px;
-          cursor:pointer;font-size:12px;color:var(--sage);font-family:'DM Sans',sans-serif;font-weight:500">
+          cursor:pointer;font-size:12px;color:var(--sage);font-family:'Nunito',system-ui,sans-serif;font-weight:500">
           ✏️ Edit
         </button>
       </td>
@@ -7273,7 +7304,7 @@ function renderPractice() {
     <tr style="transition:background .12s"
       onmouseover="this.style.background='var(--paper)'"
       onmouseout="this.style.background=''">
-      <td style="${TD};font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
+      <td style="${TD};font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
       <td style="${TD};font-weight:500;color:var(--sage)">${esc(w.en)}</td>
       <td style="${TD};color:var(--lavender)">${esc(w.gtUK || '')}</td>
       <td style="${TD};color:var(--lavender)">${esc(w.gtEN || '')}</td>
@@ -7891,7 +7922,7 @@ function renderPhrasal() {
     </p>
     <textarea id="html-paste-input"
       style="width:100%;height:240px;border:1px solid var(--border);border-radius:var(--radius-sm);
-      padding:12px;font-family:'DM Mono',monospace;font-size:12px;resize:vertical;outline:none;
+      padding:12px;font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;resize:vertical;outline:none;
       background:var(--paper);color:var(--ink);line-height:1.5"
       placeholder="Paste your HTML here…&#10;&#10;Tip: copy everything between <style>...</style> and the content div."></textarea>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap">
