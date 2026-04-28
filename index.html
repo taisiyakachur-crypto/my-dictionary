@@ -7,12 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="My Dictionary">
 <title>My English Dictionary</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
-<meta name="description" content="Особистий словник УКР ↔ ENG">
-<meta name="theme-color" content="#4A8EC2">
-<meta name="description" content="Особистий словник УКР ↔ ENG">
-<meta name="theme-color" content="#4A8EC2">
-<rect width="32" height="32" rx="8" fill="%234A8EC2"/><rect x="7" y="6" width="14" height="20" rx="2" fill="%23fff" opacity=".95"/><rect x="9" y="10" width="10" height="1.5" rx=".75" fill="%234A8EC2"/><rect x="9" y="13" width="8" height="1.5" rx=".75" fill="%234A8EC2"/><rect x="9" y="16" width="9" height="1.5" rx=".75" fill="%234A8EC2"/><rect x="9" y="19" width="6" height="1.5" rx=".75" fill="%234A8EC2"/><path d="M19 6v10l2.5-2 2.5 2V6" fill="%23C4698A"/></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234A8EC2'/%3E%3Crect x='7' y='6' width='14' height='20' rx='2' fill='%23fff' opacity='.95'/%3E%3Crect x='9' y='10' width='10' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Crect x='9' y='13' width='8' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Crect x='9' y='16' width='9' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Crect x='9' y='19' width='6' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Cpath d='M19 6v10l2.5-2 2.5 2V6' fill='%23C4698A'/%3E%3C/svg%3E">
 <meta name="description" content="Особистий словник УКР ↔ ENG">
 <meta name="theme-color" content="#4A8EC2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -293,9 +288,10 @@
     font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
     color: var(--sky); background: var(--sky-ultra);
     border-bottom: 1px solid var(--border);
-    position: sticky; top: 62px;
     font-family: var(--font-sans);
   }
+  .verb-filter-btn { }
+  .verb-filter-btn.active { background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(74,142,194,0.3)!important; }
   .verbs-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
   .verbs-table tr:last-child td { border-bottom: none; }
   .verbs-table tr:hover td { background: var(--sky-ultra); }
@@ -695,13 +691,18 @@
     <p>V1 (Infinitive) · V2 (Past Simple) · V3 (Past Participle)</p>
   </div>
 
-  <div class="search-wrap" style="margin-bottom:20px">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="verb-search" placeholder="Search verb… (to be, був, been)" oninput="searchVerbs()">
-    <button class="search-clear" id="verb-clear" style="display:none" onclick="clearVerbSearch()">✕</button>
+  <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+    <div class="search-wrap" style="flex:1;min-width:220px;margin-bottom:0">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="verb-search" placeholder="Search verb… (to be, був, been)" oninput="searchVerbs()">
+      <button class="search-clear" id="verb-clear" style="display:none" onclick="clearVerbSearch()">✕</button>
+    </div>
+    <div id="verb-count" style="font-size:13px;color:var(--muted);white-space:nowrap"></div>
   </div>
 
-  <div class="table-wrap" id="verbs-table-wrap" style="display:none">
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px" id="verb-filters"></div>
+
+  <div class="table-wrap" id="verbs-table-wrap">
     <table class="verbs-table">
       <thead>
         <tr>
@@ -1065,32 +1066,6 @@
     --pos-light: #E8F5E9;
     --accent: #D4A017;
     --accent-light: #FDF3D0;
-
-    --bg: #F5F0E8;
-    --card: #FFFDF8;
-    --ink: #1A1408;
-    --muted: #7A7060;
-    --border: #E0D8C8;
-
-    --count: #1B5E8A;
-    --count-light: #EAF3FB;
-    --count-mid: #B5D4F4;
-
-    --uncount: #6B3A8C;
-    --uncount-light: #F3EDFB;
-    --uncount-mid: #D4B8F0;
-
-    --both: #1A7A5A;
-    --both-light: #E5F5EE;
-    --both-mid: #9FE1CB;
-
-    --neg: #C04020;
-    --neg-light: #FAEAE4;
-    --pos: #2E7D32;
-    --pos-light: #E8F5E9;
-
-    --accent: #D4A017;
-    --accent-light: #FDF3D0;
   }
 #quantifiers-scope * {
  box-sizing: border-box; margin: 0; padding: 0; }
@@ -1105,7 +1080,7 @@
   .hero {
 
     background: var(--ink);
-    color: #F5F0E8;
+    color: #EEF4F9;
     padding: 64px 40px 56px;
     text-align: center;
     position: relative;
@@ -1150,23 +1125,27 @@
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    padding: 16px 24px;
-    background: #FFFDF8;
-    border-bottom: 1px solid #E0D8C8;
+    padding: 14px 24px;
+    background: rgba(238,244,249,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 62px;
+    z-index: 100;
   }
 #quantifiers-scope .q-nav a {
     text-decoration: none;
     font-size: 13px;
-    font-weight: 500;
-    padding: 6px 14px;
+    font-weight: 600;
+    padding: 5px 14px;
     border-radius: 20px;
-    border: 1px solid #E0D8C8;
-    color: #7A7060;
-    transition: all 0.2s;
-    background: #FFFDF8;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    transition: all 0.18s;
+    background: #fff;
   }
 #quantifiers-scope .q-nav a:hover {
-    border-color: #1A1408; color: #1A1408;
+    border-color: var(--sky); color: var(--sky); background: var(--sky-ultra);
   }
 #quantifiers-scope .q-page {
     max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px;
@@ -1287,9 +1266,9 @@
     font-style: italic;
     line-height: 1.6;
     padding: 10px 14px;
-    background: var(--bg);
+    background: var(--sky-ultra);
     border-radius: 8px;
-    border-left: 3px solid var(--border);
+    border-left: 3px solid var(--sky);
     margin-top: 8px;
   }
 #quantifiers-scope .example + .example {
@@ -1370,67 +1349,89 @@
 
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 32px;
-    margin-bottom: 16px;
+    border-radius: 20px;
+    padding: 28px 72px;
+    margin-bottom: 14px;
   }
+/* ── scoped overrides for unscoped classes (fix #quantifiers-scope * { padding:0 } reset) ── */
+#quantifiers-scope .scale-block     { padding: 28px 72px; margin-bottom: 14px; }
+#quantifiers-scope .section-head    { margin: 56px 0 28px; }
+#quantifiers-scope .badge           { padding: 3px 10px; }
+#quantifiers-scope .section-head .tag { padding: 4px 10px; }
+#quantifiers-scope .rule-box        { padding: 20px 28px; margin: 16px 0; }
+#quantifiers-scope .rule-box h4     { margin-bottom: 10px; }
+#quantifiers-scope .rule-box ul     { gap: 7px; }
+#quantifiers-scope .rule-box ul li  { gap: 10px; }
+#quantifiers-scope .tick-cross      { gap: 6px; margin-top: 8px; }
+#quantifiers-scope .tick-cross .row { gap: 9px; }
+#quantifiers-scope .compare-block   { gap: 16px; margin-bottom: 16px; }
+#quantifiers-scope .enough-positions { gap: 12px; margin-top: 16px; }
+#quantifiers-scope .noun-table th   { padding: 13px 18px; }
+#quantifiers-scope .noun-table td   { padding: 13px 18px; }
+#quantifiers-scope .footer          { padding: 32px; margin-top: 64px; }
 #quantifiers-scope .scale-title {
 
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 20px;
+    color: var(--sky);
+    margin-bottom: 6px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
   }
 #quantifiers-scope .scale-row {
 
-    display: flex;
+    display: grid;
+    grid-template-columns: 100px 1fr 160px;
     align-items: center;
-    gap: 0;
-    margin-bottom: 6px;
-    position: relative;
+    gap: 16px;
+    padding: 11px 0;
+  }
+#quantifiers-scope .scale-row + .scale-row {
+
+    border-top: 1px solid var(--border);
   }
 #quantifiers-scope .scale-label {
 
     font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 13px;
-    font-weight: 500;
-    min-width: 100px;
+    font-weight: 600;
     color: var(--ink);
+    background: var(--sky-ultra);
+    padding: 5px 10px;
+    border-radius: 8px;
+    text-align: center;
+    display: block;
   }
 #quantifiers-scope .scale-bar-wrap {
 
-    flex: 1;
-    height: 28px;
-    background: var(--bg);
-    border-radius: 6px;
+    height: 10px;
+    background: var(--sky-ultra);
+    border-radius: 10px;
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: none;
   }
 #quantifiers-scope .scale-bar {
 
     height: 100%;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-    transition: width 0.6s ease;
+    border-radius: 10px;
+    font-size: 0;
+    transition: width 0.7s cubic-bezier(.4,0,.2,1);
   }
 #quantifiers-scope .scale-note {
 
-    min-width: 130px;
     font-size: 12px;
+    font-weight: 600;
     color: var(--muted);
-    padding-left: 12px;
+    text-align: right;
+    white-space: nowrap;
+    padding-right: 4px;
   }
   .rule-box {
 
-    background: var(--accent-light);
-    border: 1px solid #E8CC70;
+    background: var(--sky-ultra);
+    border: 1px solid var(--sky-pale);
     border-radius: 12px;
     padding: 20px 24px;
     margin: 16px 0;
@@ -1441,7 +1442,7 @@
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: #8A6000;
+    color: var(--sky);
     margin-bottom: 10px;
   }
 #quantifiers-scope .rule-box ul {
@@ -1461,7 +1462,7 @@
 #quantifiers-scope .rule-box ul li::before {
 
     content: '→';
-    color: var(--accent);
+    color: var(--sky);
     font-weight: 700;
     flex-shrink: 0;
     margin-top: 1px;
@@ -1504,8 +1505,8 @@
   }
 #quantifiers-scope .noun-table th {
 
-    background: var(--ink);
-    color: #F5F0E8;
+    background: var(--sky);
+    color: #fff;
     padding: 13px 18px;
     text-align: left;
     font-size: 12px;
@@ -1580,8 +1581,8 @@
   }
 #quantifiers-scope .mega-table thead th {
 
-    background: var(--ink);
-    color: #F5F0E8;
+    background: var(--sky);
+    color: #fff;
     padding: 13px 16px;
     font-size: 12px;
     font-weight: 600;
@@ -1599,13 +1600,13 @@
 #quantifiers-scope .mega-table tbody tr:last-child td {
  border-bottom: none; }
 #quantifiers-scope .mega-table tbody tr:nth-child(even) td {
- background: #FAFAF5; }
+ background: var(--sky-ultra); }
 #quantifiers-scope .mega-table .w {
  font-family: 'JetBrains Mono', 'Courier New', monospace; font-weight: 500; font-size: 13px; }
 #quantifiers-scope .mega-table .def {
  color: var(--muted); font-size: 12.5px; }
 #quantifiers-scope .mega-table .ex-cell {
- font-style: italic; font-size: 13px; color: #3A3020; }
+ font-style: italic; font-size: 13px; color: var(--ink2); }
 #quantifiers-scope .mega-table .ex-cell strong {
  font-style: normal; font-weight: 600; color: var(--ink); }
   .footer {
@@ -1646,7 +1647,11 @@
 
   </style>
   <div id="quantifiers-scope" style="font-family:'Nunito',system-ui,sans-serif">
-<!-- HERO -->
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Quantifiers</h1>
+  <p>Кількісні займенники — скільки і скільки саме</p>
+</div>
 
 <!-- NAV -->
 <div class="q-nav">
@@ -1669,54 +1674,54 @@
     <div class="section-head">
       <h2>How much is it?</h2>
       <div class="line"></div>
-      <span class="tag" style="background:#EEE8D8;color:#5A5040;">Visual scale</span>
+      <span class="tag" style="background:var(--sky-pale);color:var(--sky);">Visual scale</span>
     </div>
 
     <div class="scale-block">
-      <div class="scale-title">Countable nouns (people, books, chairs…)</div>
+      <div class="scale-title">📦 Countable nouns — people, books, chairs…</div>
       <div class="scale-row">
         <span class="scale-label">few</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:18%;background:#C04020;">not enough</div></div>
-        <span class="scale-note">negative feeling 😟</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:18%;background:linear-gradient(90deg,#F4A48A,#C04020);"></div></div>
+        <span class="scale-note" style="color:#C04020;">not enough 😟</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">a few</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:30%;background:#2E7D32;">some = OK</div></div>
-        <span class="scale-note">positive feeling 😊</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:32%;background:linear-gradient(90deg,#7DD9A0,#2E7D32);"></div></div>
+        <span class="scale-note" style="color:#2E7D32;">some — OK 😊</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">many</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:#1B5E8A;">a large number</div></div>
-        <span class="scale-note">neutral / negative</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:linear-gradient(90deg,#78B0D6,#1B5E8A);"></div></div>
+        <span class="scale-note" style="color:#1B5E8A;">a large number 📊</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">too many</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:90%;background:#8B1A1A;">more than needed ⚠</div></div>
-        <span class="scale-note">negative — problem!</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:92%;background:linear-gradient(90deg,#D47A7A,#8B1A1A);"></div></div>
+        <span class="scale-note" style="color:#8B1A1A;">too much ⚠️</span>
       </div>
     </div>
 
     <div class="scale-block">
-      <div class="scale-title">Uncountable nouns (water, money, time…)</div>
+      <div class="scale-title">💧 Uncountable nouns — water, money, time…</div>
       <div class="scale-row">
         <span class="scale-label">little</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:18%;background:#C04020;">not enough</div></div>
-        <span class="scale-note">negative feeling 😟</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:18%;background:linear-gradient(90deg,#F4A48A,#C04020);"></div></div>
+        <span class="scale-note" style="color:#C04020;">not enough 😟</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">a little</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:30%;background:#2E7D32;">some = OK</div></div>
-        <span class="scale-note">positive feeling 😊</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:32%;background:linear-gradient(90deg,#7DD9A0,#2E7D32);"></div></div>
+        <span class="scale-note" style="color:#2E7D32;">some — OK 😊</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">much</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:#6B3A8C;">a large amount</div></div>
-        <span class="scale-note">questions / negatives</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:linear-gradient(90deg,#B48FD8,#6B3A8C);"></div></div>
+        <span class="scale-note" style="color:#6B3A8C;">a large amount 📊</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">too much</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:90%;background:#8B1A1A;">more than needed ⚠</div></div>
-        <span class="scale-note">negative — problem!</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:92%;background:linear-gradient(90deg,#D47A7A,#8B1A1A);"></div></div>
+        <span class="scale-note" style="color:#8B1A1A;">too much ⚠️</span>
       </div>
     </div>
   </div>
@@ -1835,9 +1840,9 @@
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
         <thead>
           <tr>
-            <th style="background:#2C3E20;color:#F5F0E8;padding:12px 18px;text-align:left;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;width:25%"></th>
-            <th style="background:#2C3E20;color:#F5F0E8;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">few / little</th>
-            <th style="background:#2C3E20;color:#F5F0E8;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">a few / a little</th>
+            <th style="background:#18243C;color:#EEF4F9;padding:12px 18px;text-align:left;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;width:25%"></th>
+            <th style="background:#18243C;color:#EEF4F9;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">few / little</th>
+            <th style="background:#18243C;color:#EEF4F9;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">a few / a little</th>
           </tr>
         </thead>
         <tbody>
@@ -2166,7 +2171,7 @@
     <div class="section-head">
       <h2>Full Summary</h2>
       <div class="line"></div>
-      <span class="tag" style="background:var(--ink);color:#F5F0E8;">All quantifiers</span>
+      <span class="tag" style="background:var(--ink);color:#EEF4F9;">All quantifiers</span>
     </div>
 
     <div class="mega-wrap">
@@ -2277,7 +2282,7 @@
     </div>
 
     <!-- MEMORY CHEAT SHEET -->
-    <div style="background:var(--ink);color:#F5F0E8;border-radius:16px;padding:28px 32px;margin-top:24px;">
+    <div style="background:var(--ink);color:#EEF4F9;border-radius:16px;padding:28px 32px;margin-top:24px;">
       <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B0A898;margin-bottom:20px;">Memory cheat sheet</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;font-size:14px;">
         <div>
@@ -2307,17 +2312,17 @@
 </div>
 
 <!-- ════════════════════════════ PAGE 8: CONDITIONALS ════════════════════════════ -->
-<div id="page-conditionals" class="page" style="padding:0;max-width:100%;background:#f5f3ef">
+<div id="page-conditionals" class="page" style="padding:0;max-width:100%;background:var(--paper)">
   <style id="conditionals-styles">
 #conditionals-scope {
-    --bg:       #f5f3ef;
-    --surface:  #eeece8;
+    --bg:       #EEF4F9;
+    --surface:  #D8E8F2;
     --card:     #ffffff;
-    --card2:    #f9f7f3;
-    --border:   rgba(0,0,0,0.10);
-    --border2:  rgba(0,0,0,0.16);
-    --text:     #1a1814;
-    --muted:    #6a6660;
+    --card2:    #F5F9FD;
+    --border:   rgba(74,142,194,0.15);
+    --border2:  rgba(74,142,194,0.25);
+    --text:     #18243C;
+    --muted:    #7484A0;
     --faint:    #d0cec8;
     --z0:  #4A9ECC;
     --z0l: #daeeff;
@@ -2337,8 +2342,8 @@
     --un:  #DD8833;
     --unl: #feecd0;
     --unm: #dd8833;
-    background: #f5f3ef;
-    color: #1a1814;
+    background: #EEF4F9;
+    color: #18243C;
     display: block;
 }
 #conditionals-scope * {
@@ -2350,10 +2355,9 @@
 
   background: var(--bg);
   color: var(--text);
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'Nunito', system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.7;
-  overflow-x: hidden;
 }
 ::-webkit-scrollbar {
  width: 6px; }
@@ -2423,7 +2427,7 @@
 }
 #conditionals-scope .hero h1 {
 
-  font-family: 'Fraunces', serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(3rem, 9vw, 6.5rem);
   font-weight: 900;
   line-height: 0.95;
@@ -2470,7 +2474,7 @@
   cursor: pointer;
 }
 #conditionals-scope .hero-pill:hover {
- transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,142,194,0.2); }
 #conditionals-scope .hp0 {
  background: var(--z0l); color: var(--z0);  border-color: var(--z0m); }
 #conditionals-scope .hp1 {
@@ -2491,9 +2495,22 @@
 .sticky-nav {
 
   position: sticky;
-  top: 0;
+  top: 62px;
   z-index: 200;
-  background: rgba(13,15,20,0.92);
+  background: rgba(238,244,249,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#conditionals-scope .sticky-nav {
+  position: sticky;
+  top: 62px;
+  z-index: 200;
+  background: rgba(238,244,249,0.95);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -2507,17 +2524,17 @@
 #conditionals-scope .nav-item {
 
   flex-shrink: 0;
-  padding: 16px 18px;
+  padding: 14px 18px;
   font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
+  font-weight: 600;
+  color: var(--ink2);
   text-decoration: none;
   border-bottom: 2px solid transparent;
   transition: color 0.2s, border-color 0.2s;
   white-space: nowrap;
 }
 #conditionals-scope .nav-item:hover {
- color: var(--text); }
+ color: var(--ink); }
 #conditionals-scope .nav-item.n0 {
  }
 #conditionals-scope .nav-item.n0:hover {
@@ -2549,11 +2566,12 @@
 }
 #conditionals-scope .sec-num {
 
-  font-family: 'Fraunces', serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 5rem;
   font-weight: 900;
   line-height: 1;
-  opacity: 0.12;
+  color: var(--sky-pale);
+  opacity: 1;
   flex-shrink: 0;
 }
 #conditionals-scope .sec-info {
@@ -2568,7 +2586,7 @@
 }
 #conditionals-scope .sec-title {
 
-  font-family: 'Fraunces', serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 600;
   line-height: 1.1;
@@ -2852,7 +2870,7 @@
 #conditionals-scope .c0 .f-part {
  border-color: rgba(74,158,204,0.25); }
 #conditionals-scope .c0 .ex-tag {
- background: var(--z0m); color: var(--z0); }
+ background: var(--z0); color: #fff; }
 #conditionals-scope .c0 .usage-card:hover {
  border-color: var(--z0); }
 #conditionals-scope .c0 .sec-eyebrow {
@@ -2868,7 +2886,7 @@
 #conditionals-scope .c1 .f-part {
  border-color: rgba(91,184,120,0.25); }
 #conditionals-scope .c1 .ex-tag {
- background: var(--f1m); color: var(--f1); }
+ background: var(--f1); color: #fff; }
 #conditionals-scope .c1 .usage-card:hover {
  border-color: var(--f1); }
 #conditionals-scope .c1 .sec-eyebrow {
@@ -2884,7 +2902,7 @@
 #conditionals-scope .c2 .f-part {
  border-color: rgba(232,160,48,0.25); }
 #conditionals-scope .c2 .ex-tag {
- background: var(--s2m); color: var(--s2); }
+ background: var(--s2); color: #fff; }
 #conditionals-scope .c2 .usage-card:hover {
  border-color: var(--s2); }
 #conditionals-scope .c2 .sec-eyebrow {
@@ -2900,7 +2918,7 @@
 #conditionals-scope .c3 .f-part {
  border-color: rgba(204,85,119,0.25); }
 #conditionals-scope .c3 .ex-tag {
- background: var(--t3m); color: var(--t3); }
+ background: var(--t3); color: #fff; }
 #conditionals-scope .c3 .usage-card:hover {
  border-color: var(--t3); }
 #conditionals-scope .c3 .sec-eyebrow {
@@ -2916,7 +2934,7 @@
 #conditionals-scope .cmx .f-part {
  border-color: rgba(136,102,221,0.25); }
 #conditionals-scope .cmx .ex-tag {
- background: var(--mxm); color: var(--mx); }
+ background: var(--mx); color: #fff; }
 #conditionals-scope .cmx .usage-card:hover {
  border-color: var(--mx); }
 #conditionals-scope .cmx .sec-eyebrow {
@@ -2932,7 +2950,7 @@
 #conditionals-scope .cun .f-part {
  border-color: rgba(221,136,51,0.25); }
 #conditionals-scope .cun .ex-tag {
- background: var(--unm); color: var(--un); }
+ background: var(--un); color: #fff; }
 #conditionals-scope .cun .usage-card:hover {
  border-color: var(--un); }
 #conditionals-scope .cun .sec-eyebrow {
@@ -3079,7 +3097,7 @@
 }
 #conditionals-scope .sum-title {
 
-  font-family: 'Fraunces', serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 8px;
@@ -3177,7 +3195,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'Nunito', system-ui, sans-serif;
 }
 #conditionals-scope .tense-tab.active {
  color: var(--text); }
@@ -3187,7 +3205,7 @@
  display: block; }
 #conditionals-scope .demo-sentence {
 
-  font-family: 'Fraunces', serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.6rem;
   font-weight: 300;
   line-height: 1.4;
@@ -3268,9 +3286,11 @@
 
   </style>
   <div id="conditionals-scope">
-<!-- ════════════════════════════════════════
-     HERO
-════════════════════════════════════════ -->
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Conditionals</h1>
+  <p>Умовні речення — нульовий, перший, другий, третій типи та змішані</p>
+</div>
 
 <!-- STICKY NAV -->
 <nav class="sticky-nav">
@@ -3375,36 +3395,36 @@
     <div class="examples-header">Examples</div>
     <div class="example-row">
       <div>
-        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">science</span>
+        <span class="ex-tag" style="background:var(--z0);color:#fff;">science</span>
         <div class="ex-sentence">If you <em>heat</em> water to 100°C, it <em>boils</em>.</div>
         <div class="ex-note">= always true, physical law</div>
       </div>
       <div>
-        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">science</span>
+        <span class="ex-tag" style="background:var(--z0);color:#fff;">science</span>
         <div class="ex-sentence">If you <em>mix</em> red and blue, you <em>get</em> purple.</div>
         <div class="ex-note">= guaranteed result every time</div>
       </div>
     </div>
     <div class="example-row">
       <div>
-        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">nature</span>
+        <span class="ex-tag" style="background:var(--z0);color:#fff;">nature</span>
         <div class="ex-sentence">Plants <em>die</em> if they <em>don't get</em> water.</div>
         <div class="ex-note">= universal truth</div>
       </div>
       <div>
-        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">nature</span>
+        <span class="ex-tag" style="background:var(--z0);color:#fff;">nature</span>
         <div class="ex-sentence">When it <em>rains</em>, the ground <em>gets</em> wet.</div>
         <div class="ex-note">= "when" = "if" in zero conditional</div>
       </div>
     </div>
     <div class="example-row">
       <div>
-        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">habit</span>
+        <span class="ex-tag" style="background:var(--z0);color:#fff;">habit</span>
         <div class="ex-sentence">If she <em>drinks</em> coffee late, she <em>doesn't sleep</em>.</div>
         <div class="ex-note">= her personal pattern, always</div>
       </div>
       <div>
-        <span class="ex-tag" style="background:var(--z0m);color:var(--z0);">instruction</span>
+        <span class="ex-tag" style="background:var(--z0);color:#fff;">instruction</span>
         <div class="ex-sentence">If the screen <em>freezes</em>, <em>press</em> the reset button.</div>
         <div class="ex-note">= general instruction / manual</div>
       </div>
@@ -4089,13 +4109,13 @@
   <div class="sec-head" style="padding-top:60px;">
     <div class="sec-info">
       <div class="sec-eyebrow" style="color:var(--muted);">All Conditionals</div>
-      <div class="sec-title" style="font-family:'Fraunces',serif;">Compare at a glance</div>
+      <div class="sec-title" style="font-family:'Cormorant Garamond',Georgia,serif;">Compare at a glance</div>
     </div>
   </div>
 
   <div class="summary-grid">
     <div class="sum-card s0">
-      <span class="sum-badge" style="background:var(--z0m);color:var(--z0);">Zero</span>
+      <span class="sum-badge" style="background:var(--z0);color:#fff;">Zero</span>
       <div class="sum-title" style="color:var(--z0);">General truth</div>
       <div class="sum-formula">If + present simple, present simple</div>
       <div class="sum-meaning">Always true. Scientific facts, natural laws, habits. Can replace "if" with "when".</div>
@@ -4220,7 +4240,7 @@
   <div class="sec-head" style="padding-top:40px;">
     <div class="sec-info">
       <div class="sec-eyebrow" style="color:#E05555;">Common Mistakes</div>
-      <div class="sec-title" style="font-family:'Fraunces',serif;">What everyone gets wrong</div>
+      <div class="sec-title" style="font-family:'Cormorant Garamond',Georgia,serif;">What everyone gets wrong</div>
     </div>
   </div>
 
@@ -5030,8 +5050,8 @@ animation:fadeSlide 0.5s ease both}
 
       <!-- Axis line -->
       <div style="position:relative;height:3px;background:linear-gradient(to right,#e0dbd0,#c0b8a8,#e0dbd0);border-radius:2px;margin-bottom:24px">
-        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#1a1814;border-radius:50%;border:3px solid #f8f6f1;box-shadow:0 0 0 2px #1a1814"></div>
-        <div style="position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:11px;font-weight:700;color:#1a1814;white-space:nowrap">NOW</div>
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#18243C;border-radius:50%;border:3px solid #EEF4F9;box-shadow:0 0 0 2px #18243C"></div>
+        <div style="position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:11px;font-weight:700;color:#18243C;white-space:nowrap">NOW</div>
       </div>
 
       <!-- TENSE ROWS -->
@@ -6259,7 +6279,9 @@ function showPage(id) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   event.currentTarget.classList.add('active');
-  if (id === 'verbs') renderVerbs(allVerbs);
+  // Scroll to top on every tab switch
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id === 'verbs') initVerbs();
   if (id === 'allwords') filterAllWords();
   if (id === 'practice') renderPractice();
   if (id === 'quantifiers') initQuantifiers();
@@ -6514,9 +6536,47 @@ function clearSearch() {
 // ════════════════════════════════════════════
 // VERBS
 // ════════════════════════════════════════════
+let verbFilter = 'all';
+
+function initVerbs() {
+  buildVerbFilterBtns();
+  renderVerbs(allVerbs);
+}
+
+function buildVerbFilterBtns() {
+  const letters = [...new Set(allVerbs.map(v => v[0][0].toUpperCase()))].sort();
+  const container = document.getElementById('verb-filters');
+  if (!container) return;
+  container.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'btn btn-secondary verb-filter-btn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = function(){ verbFilterBy('all', this); };
+  container.appendChild(allBtn);
+  letters.forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-secondary verb-filter-btn';
+    btn.textContent = l;
+    btn.onclick = function(){ verbFilterBy(l, this); };
+    container.appendChild(btn);
+  });
+}
+
+function verbFilterBy(letter, btn) {
+  verbFilter = letter;
+  document.querySelectorAll('.verb-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('verb-search').value = '';
+  document.getElementById('verb-clear').style.display = 'none';
+  const list = letter === 'all' ? allVerbs : allVerbs.filter(v => v[0][0].toUpperCase() === letter);
+  renderVerbs(list);
+}
+
 function renderVerbs(verbs) {
   const tbody = document.getElementById('verbs-tbody');
-  document.getElementById('verbs-table-wrap').style.display = 'block';
+  if (!tbody) return;
+  const countEl = document.getElementById('verb-count');
+  if (countEl) countEl.textContent = verbs.length + ' verbs';
   tbody.innerHTML = verbs.map(v => `
     <tr>
       <td><span class="verb-v1">${v[0]}</span></td>
@@ -6529,6 +6589,12 @@ function renderVerbs(verbs) {
 function searchVerbs() {
   const q = document.getElementById('verb-search').value.toLowerCase().trim();
   document.getElementById('verb-clear').style.display = q ? 'block' : 'none';
+  if (q) {
+    verbFilter = 'all';
+    document.querySelectorAll('.verb-filter-btn').forEach(b => b.classList.remove('active'));
+    const allBtn = document.querySelector('.verb-filter-btn');
+    if (allBtn) allBtn.classList.add('active');
+  }
   const filtered = q ? allVerbs.filter(v => v.some(col => col.toLowerCase().includes(q))) : allVerbs;
   renderVerbs(filtered);
 }
@@ -6536,6 +6602,10 @@ function searchVerbs() {
 function clearVerbSearch() {
   document.getElementById('verb-search').value = '';
   document.getElementById('verb-clear').style.display = 'none';
+  verbFilter = 'all';
+  document.querySelectorAll('.verb-filter-btn').forEach(b => b.classList.remove('active'));
+  const allBtn = document.querySelector('.verb-filter-btn');
+  if (allBtn) allBtn.classList.add('active');
   renderVerbs(allVerbs);
 }
 
@@ -7424,7 +7494,7 @@ window.onload = () => {
   updateStats();
   renderRecent();
   renderAllWords();
-  renderVerbs(BUILT_IN_VERBS);
+  initVerbs();
   // Фонова синхронізація з Sheets
   if (API_URL) loadAllData();
 };
