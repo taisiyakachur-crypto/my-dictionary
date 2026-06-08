@@ -86,21 +86,100 @@
     letter-spacing: -0.01em;
   }
   .nav-logo span { color: var(--sky); }
-  .nav-tabs { display: flex; gap: 2px; }
+  /* ── Sidebar toggle button ── */
+  .sidebar-toggle {
+    background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 30px;
+    font-size: 13px; font-weight: 600;
+    color: var(--muted); font-family: var(--font-sans);
+    transition: all 0.18s ease;
+  }
+  .sidebar-toggle:hover { color: var(--ink); background: var(--sky-ultra); }
+  .sidebar-toggle .hamburger {
+    width: 18px; height: 14px; display: flex; flex-direction: column;
+    justify-content: space-between;
+  }
+  .sidebar-toggle .hamburger span {
+    display: block; height: 2px; background: currentColor;
+    border-radius: 2px; transition: all 0.25s ease;
+  }
+
+  /* ── Current tab label in nav ── */
+  .current-tab-label {
+    font-size: 13px; font-weight: 600; color: var(--sky);
+    margin-right: 4px;
+  }
+
+  /* ── Sidebar overlay ── */
+  .sidebar-overlay {
+    position: fixed; inset: 0; z-index: 199;
+    background: rgba(24,36,60,0.25);
+    backdrop-filter: blur(3px);
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .sidebar-overlay.open { opacity: 1; visibility: visible; }
+
+  /* ── Sidebar panel ── */
+  .sidebar {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 280px; max-width: 85vw;
+    z-index: 200;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid var(--border);
+    box-shadow: -8px 0 40px rgba(24,36,60,0.12);
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; flex-direction: column;
+    padding: 0;
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .sidebar-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-header h2 {
+    font-family: var(--font-serif);
+    font-size: 18px; font-weight: 700; color: var(--ink);
+  }
+  .sidebar-close {
+    background: var(--sky-ultra); border: none; cursor: pointer;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 16px;
+    transition: all 0.15s;
+  }
+  .sidebar-close:hover { background: var(--rose-pale); color: var(--rose); }
+
+  .sidebar-nav {
+    flex: 1; overflow-y: auto; padding: 12px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+
   .nav-tab {
-    padding: 7px 15px;
-    border-radius: 30px;
+    padding: 11px 16px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--muted);
     transition: all 0.18s ease;
     border: none; background: none;
     white-space: nowrap;
     font-family: var(--font-sans);
+    text-align: left;
+    display: flex; align-items: center; gap: 10px;
   }
   .nav-tab:hover { color: var(--ink); background: var(--sky-ultra); }
-  .nav-tab.active { color: #fff; background: var(--sky); box-shadow: 0 2px 10px rgba(74,142,194,0.35); }
+  .nav-tab.active {
+    color: var(--sky); background: var(--sky-ultra);
+    border-left: 3px solid var(--sky);
+  }
 
   /* ── PAGES ── */
   .page { display: none; min-height: calc(100vh - 62px); padding: 32px 24px; max-width: 980px; margin: 0 auto; }
@@ -438,12 +517,11 @@
   ══════════════════════════════════════════ */
   @media (max-width: 700px) {
 
-    /* ── Nav: scrollable row ── */
-    nav { padding: 0 12px; height: auto; min-height: 52px; flex-wrap: nowrap; overflow-x: auto; gap: 0; }
-    nav::-webkit-scrollbar { display: none; }
-    .nav-logo { font-size: 14px; white-space: nowrap; padding: 10px 0; margin-right: 8px; flex-shrink: 0; }
-    .nav-tabs { gap: 2px; flex-shrink: 0; }
-    .nav-tab { padding: 8px 10px; font-size: 12px; white-space: nowrap; }
+    /* ── Nav ── */
+    nav { padding: 0 12px; height: 52px; }
+    .nav-logo { font-size: 14px; white-space: nowrap; margin-right: 8px; flex-shrink: 0; }
+    .current-tab-label { font-size: 12px; }
+    .sidebar-toggle { padding: 7px 10px; }
 
     /* ── Pages ── */
     .page { padding: 16px 14px; }
@@ -567,19 +645,31 @@
 
 <nav>
   <div class="nav-logo">My <span>Dictionary</span></div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('dict')">📖 Dictionary</button>
-    <button class="nav-tab" onclick="showPage('allwords')">📋 All Words</button>
-    <button class="nav-tab" onclick="showPage('practice')">🎯 Practice</button>
-    <button class="nav-tab" onclick="showPage('quantifiers')">📊 Quantifiers</button>
-    <button class="nav-tab" onclick="showPage('conditionals')">🔀 Conditionals</button>
-    <button class="nav-tab" onclick="showPage('tenses')">🕐 Tenses</button>
-    <button class="nav-tab" onclick="showPage('verbs')">🔤 Irregular Verbs</button>
-    <button class="nav-tab" onclick="showPage('phrasal')">↗️ Phrasal Verbs</button>
-    <button class="nav-tab" onclick="showPage('links')">🔗 Links</button>
-    <button class="nav-tab" onclick="showPage('notes')">📝 Notes</button>
-  </div>
+  <span class="current-tab-label" id="current-tab-label">📖 Dictionary</span>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </button>
 </nav>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>Menu</h2>
+    <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+  </div>
+  <div class="sidebar-nav">
+    <button class="nav-tab active" onclick="showPage('dict')" data-label="📖 Dictionary">📖 Dictionary</button>
+    <button class="nav-tab" onclick="showPage('allwords')" data-label="📋 All Words">📋 All Words</button>
+    <button class="nav-tab" onclick="showPage('practice')" data-label="🎯 Practice">🎯 Practice</button>
+    <button class="nav-tab" onclick="showPage('quantifiers')" data-label="📊 Quantifiers">📊 Quantifiers</button>
+    <button class="nav-tab" onclick="showPage('conditionals')" data-label="🔀 Conditionals">🔀 Conditionals</button>
+    <button class="nav-tab" onclick="showPage('tenses')" data-label="🕐 Tenses">🕐 Tenses</button>
+    <button class="nav-tab" onclick="showPage('verbs')" data-label="🔤 Irregular Verbs">🔤 Irregular Verbs</button>
+    <button class="nav-tab" onclick="showPage('phrasal')" data-label="↗️ Phrasal Verbs">↗️ Phrasal Verbs</button>
+    <button class="nav-tab" onclick="showPage('links')" data-label="🔗 Links">🔗 Links</button>
+    <button class="nav-tab" onclick="showPage('notes')" data-label="📝 Notes">📝 Notes</button>
+  </div>
+</div>
 
 <!-- ════════════════════════════ PAGE 1: DICTIONARY ════════════════════════════ -->
 <div id="page-dict" class="page active">
@@ -6279,7 +6369,8 @@ function showPage(id) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   event.currentTarget.classList.add('active');
-  // Scroll to top on every tab switch
+  document.getElementById('current-tab-label').textContent = event.currentTarget.getAttribute('data-label');
+  closeSidebar();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (id === 'verbs') initVerbs();
   if (id === 'allwords') filterAllWords();
@@ -6288,6 +6379,17 @@ function showPage(id) {
   if (id === 'conditionals') initConditionals();
   if (id === 'tenses') initTenses();
   if (id === 'phrasal') initPhrasal();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('sidebar').classList.contains('open') ? 'hidden' : '';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ════════════════════════════════════════════
