@@ -666,6 +666,7 @@
     <button class="nav-tab" onclick="showPage('tenses')" data-label="🕐 Tenses">🕐 Tenses</button>
     <button class="nav-tab" onclick="showPage('verbs')" data-label="🔤 Irregular Verbs">🔤 Irregular Verbs</button>
     <button class="nav-tab" onclick="showPage('phrasal')" data-label="↗️ Phrasal Verbs">↗️ Phrasal Verbs</button>
+    <button class="nav-tab" onclick="showPage('prepositions')" data-label="📐 Prepositions">📐 Prepositions</button>
     <button class="nav-tab" onclick="showPage('links')" data-label="🔗 Links">🔗 Links</button>
     <button class="nav-tab" onclick="showPage('notes')" data-label="📝 Notes">📝 Notes</button>
   </div>
@@ -6237,6 +6238,41 @@ animation:fadeSlide 0.5s ease both}
   <div id="phrasal-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px"></div>
 </div>
 
+<!-- ════════════════════════════ PAGE: PREPOSITIONS ════════════════════════════ -->
+<div id="page-prepositions" class="page">
+  <style>
+    .prep-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
+    .prep-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
+    .prep-word{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700;color:var(--sky)}
+    .prep-uk{font-size:14px;color:var(--rose);font-weight:700}
+    .prep-rule{font-size:13px;color:var(--ink2);line-height:1.55;padding:4px 0}
+    .prep-rule strong{color:var(--ink);font-weight:700}
+    .prep-rule code{font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;background:var(--sky-ultra);padding:2px 6px;border-radius:4px;color:var(--sky)}
+    .prep-example{font-size:13px;font-style:italic;color:var(--muted);background:var(--sky-ultra);padding:9px 12px;border-radius:var(--radius-sm);border-left:3px solid var(--sky)}
+    .prep-example span{font-style:normal;color:var(--ink2);display:block;margin-top:4px}
+    .prep-tip{font-size:12px;color:var(--rose);font-weight:600}
+    .prep-cat-tag{font-size:11px;background:var(--rose-pale);color:var(--rose);padding:2px 10px;border-radius:20px;white-space:nowrap;font-weight:700}
+    .prep-filter-btn.active{background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(74,142,194,0.3)!important}
+  </style>
+  <div class="page-header">
+    <h1>Prepositions</h1>
+    <p>Прийменники з правилами, прикладами та порівняннями</p>
+  </div>
+
+  <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+    <div class="search-wrap" style="flex:1;min-width:220px;margin-bottom:0">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="prep-search" placeholder="Пошук: in, at, на, до…" oninput="searchPrepositions()">
+      <button class="search-clear" id="prep-clear" style="display:none" onclick="clearPrepSearch()">✕</button>
+    </div>
+    <div id="prep-count" style="font-size:13px;color:var(--muted);white-space:nowrap"></div>
+  </div>
+
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px" id="prep-filters"></div>
+
+  <div id="prep-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px"></div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -6379,6 +6415,7 @@ function showPage(id) {
   if (id === 'conditionals') initConditionals();
   if (id === 'tenses') initTenses();
   if (id === 'phrasal') initPhrasal();
+  if (id === 'prepositions') initPrepositions();
 }
 
 function toggleSidebar() {
@@ -8043,6 +8080,327 @@ function renderPhrasal() {
     </div>
   `).join('');
 }
+
+// ════════════════════════════════════════════
+// PREPOSITIONS DATA & LOGIC
+// ════════════════════════════════════════════
+const PREPOSITIONS_DATA = [
+  // ⏰ TIME
+  {prep:'in',uk:'в, у, через',cat:'⏰ Time',catKey:'time',
+   rules:['Місяці: <code>in January</code>, <code>in March</code>','Роки: <code>in 2024</code>','Пори дня: <code>in the morning</code>, <code>in the evening</code>','Сезони: <code>in summer</code>','Через (час у майбутньому): <code>in 5 minutes</code>'],
+   examples:[{en:'I was born in September.',uk:'Я народився у вересні.'},{en:'She\'ll arrive in two hours.',uk:'Вона приїде через дві години.'}],
+   tip:'in time = вчасно (до дедлайну) — "We arrived in time for dinner." НЕ плутай з on time!'},
+
+  {prep:'on',uk:'на, в (день/дату)',cat:'⏰ Time',catKey:'time',
+   rules:['Дні тижня: <code>on Monday</code>','Дати: <code>on 25 December</code>','Конкретні дні: <code>on my birthday</code>, <code>on Christmas Day</code>'],
+   examples:[{en:'The meeting is on Friday.',uk:'Зустріч у п\'ятницю.'},{en:'I started on 1 March 2023.',uk:'Я почав 1 березня 2023.'}],
+   tip:'on time = вчасно (пунктуально) — "The train arrived on time." Порівняй з in time!'},
+
+  {prep:'at',uk:'о, в (час, момент)',cat:'⏰ Time',catKey:'time',
+   rules:['Час: <code>at 5 o\'clock</code>, <code>at noon</code>','Свята (період): <code>at Christmas</code>, <code>at Easter</code>','Моменти: <code>at the moment</code>, <code>at the same time</code>'],
+   examples:[{en:'The show starts at 8 pm.',uk:'Шоу починається о 8 вечора.'},{en:'At that moment, everything changed.',uk:'У той момент все змінилося.'}],
+   tip:'at night (НЕ in the night) — але in the morning/afternoon/evening'},
+
+  {prep:'by',uk:'до (не пізніше)',cat:'⏰ Time',catKey:'time',
+   rules:['Дедлайн: <code>by Friday</code> = не пізніше п\'ятниці','<code>by the end of</code> = до кінця','<code>by then</code> = до того часу'],
+   examples:[{en:'Finish the report by 5 pm.',uk:'Закінчи звіт до 17:00.'},{en:'By the time she arrived, he had left.',uk:'Коли вона прийшла, він вже пішов.'}],
+   tip:'by = до (включно з моментом). until = до (протягом часу). "Wait until Friday" vs "Submit by Friday"'},
+
+  {prep:'for',uk:'протягом, впродовж',cat:'⏰ Time',catKey:'time',
+   rules:['Тривалість дії: <code>for 3 hours</code>','<code>for a long time</code>, <code>for ages</code>','З Present/Past Perfect: <code>I\'ve lived here for 5 years</code>'],
+   examples:[{en:'We waited for 20 minutes.',uk:'Ми чекали 20 хвилин.'},{en:'She has worked there for three years.',uk:'Вона працює там три роки.'}],
+   tip:'for = тривалість (скільки). since = початок (з якого моменту). "for 5 years" vs "since 2019"'},
+
+  {prep:'since',uk:'з (моменту), відтоді',cat:'⏰ Time',catKey:'time',
+   rules:['Початок дії: <code>since Monday</code>, <code>since 2020</code>','<code>since then</code> = відтоді','Завжди з Perfect tenses'],
+   examples:[{en:'I haven\'t seen him since July.',uk:'Я не бачив його з липня.'},{en:'She\'s been here since 9 am.',uk:'Вона тут з 9 ранку.'}],
+   tip:'since + конкретний момент. for + тривалість. НІКОЛИ: "since 3 hours" ❌'},
+
+  {prep:'during',uk:'протягом, під час',cat:'⏰ Time',catKey:'time',
+   rules:['Під час події/періоду: <code>during the meeting</code>','<code>during the summer</code>','<code>during my trip</code>'],
+   examples:[{en:'Don\'t use your phone during class.',uk:'Не користуйся телефоном під час уроку.'},{en:'It rained during the night.',uk:'Вночі йшов дощ.'}],
+   tip:'during + іменник (подія). while + речення (дія). "during the movie" vs "while watching the movie"'},
+
+  {prep:'until / till',uk:'до (якогось моменту)',cat:'⏰ Time',catKey:'time',
+   rules:['Тривалість до моменту: <code>until 6 pm</code>','<code>until tomorrow</code>','<code>not until</code> = не раніше, ніж'],
+   examples:[{en:'Wait here until I come back.',uk:'Чекай тут, поки я не повернуся.'},{en:'The shop is open until midnight.',uk:'Магазин працює до півночі.'}],
+   tip:'until = до (вказує на кінець тривалості). by = до (вказує на дедлайн)'},
+
+  // 📍 PLACE & DIRECTION
+  {prep:'in',uk:'в, у (всередині)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Всередині: <code>in the box</code>, <code>in the room</code>','Міста/країни: <code>in Kyiv</code>, <code>in Ukraine</code>','<code>in the street</code> (BrE), <code>in the car</code>'],
+   examples:[{en:'She lives in London.',uk:'Вона живе в Лондоні.'},{en:'The keys are in my bag.',uk:'Ключі в моїй сумці.'}],
+   tip:'in the car / in a taxi — АЛЕ on the bus / on the train (великий транспорт = on)'},
+
+  {prep:'on',uk:'на (поверхні)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['На поверхні: <code>on the table</code>, <code>on the wall</code>','Транспорт (великий): <code>on the bus</code>, <code>on a plane</code>','Вулиця (AmE): <code>on Main Street</code>'],
+   examples:[{en:'Your coffee is on the desk.',uk:'Твоя кава на столі.'},{en:'I met her on the train.',uk:'Я зустрів її в поїзді.'}],
+   tip:'on the left/right — зліва/справа. on the first floor — на першому поверсі'},
+
+  {prep:'at',uk:'біля, в (точка)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Точка/місце: <code>at the door</code>, <code>at the bus stop</code>','Адреса: <code>at 15 Oak Street</code>','Заклади: <code>at school</code>, <code>at work</code>, <code>at home</code>'],
+   examples:[{en:'I\'ll meet you at the station.',uk:'Зустрінемось на станції.'},{en:'She\'s at home right now.',uk:'Вона зараз вдома.'}],
+   tip:'at + точка. in + закритий простір. on + поверхня. "at the cinema" (місце) vs "in the cinema" (всередині)'},
+
+  {prep:'to',uk:'до, в (напрямок)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Напрямок руху: <code>go to school</code>','<code>come to Ukraine</code>','ВИНЯТОК: go home (без to!)'],
+   examples:[{en:'I\'m going to the supermarket.',uk:'Я йду в супермаркет.'},{en:'We flew to Paris last week.',uk:'Ми летіли до Парижа минулого тижня.'}],
+   tip:'go to + місце. АЛЕ: go home, go abroad, go downtown — БЕЗ to!'},
+
+  {prep:'from',uk:'з, від (початкова точка)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Початок руху: <code>from Kyiv</code>','Походження: <code>from Ukraine</code>','<code>from … to …</code> = від … до …'],
+   examples:[{en:'I\'m from Ukraine.',uk:'Я з України.'},{en:'The flight from London to Kyiv takes 3 hours.',uk:'Переліт з Лондона до Києва займає 3 години.'}],
+   tip:'from + початок. to + кінець. "from Monday to Friday", "from 9 to 5"'},
+
+  {prep:'into',uk:'в, у (всередину, рух)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Рух всередину: <code>go into the room</code>','Перетворення: <code>turn into</code>','<code>get into the car</code>'],
+   examples:[{en:'She walked into the office.',uk:'Вона зайшла в офіс.'},{en:'The frog turned into a prince.',uk:'Жаба перетворилася на принца.'}],
+   tip:'in = вже всередині (стан). into = рух всередину (дія). "I\'m in the room" vs "I walked into the room"'},
+
+  {prep:'out of',uk:'з (зсередини назовні)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Рух назовні: <code>get out of the car</code>','<code>run out of</code> = вибігти з; закінчитись','<code>out of time/money</code> = немає часу/грошей'],
+   examples:[{en:'He got out of the taxi.',uk:'Він вийшов з таксі.'},{en:'We\'re out of milk.',uk:'У нас закінчилось молоко.'}],
+   tip:'out of = протилежність into. "get into the car" ↔ "get out of the car"'},
+
+  {prep:'through',uk:'через, крізь',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Крізь простір: <code>through the tunnel</code>','Через перешкоду: <code>through the forest</code>','Весь період: <code>through the night</code>'],
+   examples:[{en:'We drove through the city centre.',uk:'Ми їхали через центр міста.'},{en:'She looked through the window.',uk:'Вона дивилася через вікно.'}],
+   tip:'through = крізь (від початку до кінця). across = через (по поверхні). "swim across the river" vs "walk through the forest"'},
+
+  {prep:'between',uk:'між (двома)',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Між двома: <code>between A and B</code>','<code>between you and me</code>','Час: <code>between 5 and 6 pm</code>'],
+   examples:[{en:'The bank is between the shop and the café.',uk:'Банк знаходиться між магазином і кафе.'},{en:'Choose between tea and coffee.',uk:'Вибирай між чаєм і кавою.'}],
+   tip:'between = між двома. among = серед (3+). "between two options" vs "among all the students"'},
+
+  {prep:'above / over',uk:'над, вище',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Вище: <code>above sea level</code>','Через (зверху): <code>jump over the fence</code>','Більше: <code>over 100 people</code>'],
+   examples:[{en:'The temperature is above 30°C.',uk:'Температура понад 30°C.'},{en:'A bird flew over the house.',uk:'Птах пролетів над будинком.'}],
+   tip:'above = вище (без руху/контакту). over = через, зверху (може бути рух). "above the clouds" vs "climb over the wall"'},
+
+  {prep:'below / under',uk:'під, нижче',cat:'📍 Place & Direction',catKey:'place',
+   rules:['Нижче: <code>below zero</code>','Під (фізично): <code>under the table</code>','Менше: <code>under 18</code>'],
+   examples:[{en:'The cat is under the bed.',uk:'Кіт під ліжком.'},{en:'It\'s 5 degrees below zero.',uk:'П\'ять градусів нижче нуля.'}],
+   tip:'under = під (фізично або менше). below = нижче (рівень). "under the bridge" vs "below average"'},
+
+  // 🔗 CAUSE & PURPOSE
+  {prep:'for',uk:'для, за, заради',cat:'🔗 Cause & Purpose',catKey:'cause',
+   rules:['Мета: <code>for learning</code>','Для когось: <code>a gift for you</code>','Причина: <code>famous for</code>'],
+   examples:[{en:'This book is for beginners.',uk:'Ця книжка для початківців.'},{en:'Thank you for your help.',uk:'Дякую за твою допомогу.'}],
+   tip:'for + -ing (мета речі): "a knife for cutting". to + infinitive (мета дії): "I came to help"'},
+
+  {prep:'because of',uk:'через, завдяки (причина)',cat:'🔗 Cause & Purpose',catKey:'cause',
+   rules:['Причина: <code>because of the rain</code>','Після — іменник/займенник','Синонім: due to (формальніше)'],
+   examples:[{en:'The game was cancelled because of the storm.',uk:'Гру скасували через шторм.'},{en:'Because of you, I\'m smiling.',uk:'Завдяки тобі я усміхаюсь.'}],
+   tip:'because of + іменник. because + речення. "because of the rain" vs "because it was raining"'},
+
+  {prep:'due to',uk:'через, внаслідок (формально)',cat:'🔗 Cause & Purpose',catKey:'cause',
+   rules:['Формальна причина: <code>due to circumstances</code>','Очікується: <code>due to arrive</code>','<code>due to the fact that…</code>'],
+   examples:[{en:'The delay was due to technical issues.',uk:'Затримка була через технічні проблеми.'},{en:'The flight is due to land at 3 pm.',uk:'Рейс має приземлитись о 15:00.'}],
+   tip:'due to = because of (формальніше). "Due to bad weather" (офіційне оголошення)'},
+
+  {prep:'in order to',uk:'для того, щоб',cat:'🔗 Cause & Purpose',catKey:'cause',
+   rules:['Мета (формально): <code>in order to succeed</code>','Негативна: <code>in order not to fail</code>','Можна скоротити до <code>to</code>'],
+   examples:[{en:'She studies hard in order to pass the exam.',uk:'Вона багато вчиться, щоб скласти іспит.'},{en:'In order not to be late, I left early.',uk:'Щоб не запізнитися, я вийшов рано.'}],
+   tip:'in order to = to (формальніше). Для негативної мети: "in order not to" (НЕ "to not")'},
+
+  // ✍️ MANNER & MEANS
+  {prep:'by',uk:'за допомогою, шляхом',cat:'✍️ Manner & Means',catKey:'manner',
+   rules:['Транспорт: <code>by car</code>, <code>by bus</code>','Спосіб: <code>by email</code>, <code>by hand</code>','Автор: <code>a book by Shevchenko</code>'],
+   examples:[{en:'I go to work by train.',uk:'Я їду на роботу поїздом.'},{en:'You can pay by card.',uk:'Можна оплатити карткою.'}],
+   tip:'by + транспорт (без артикля!): by car, by plane. АЛЕ: on foot! І: in my car (конкретна машина)'},
+
+  {prep:'with',uk:'з (інструмент, компанія)',cat:'✍️ Manner & Means',catKey:'manner',
+   rules:['Інструмент: <code>cut with a knife</code>','Компанія: <code>with friends</code>','Характеристика: <code>a girl with blue eyes</code>'],
+   examples:[{en:'I wrote it with a pen.',uk:'Я написав це ручкою.'},{en:'She came with her sister.',uk:'Вона прийшла зі своєю сестрою.'}],
+   tip:'with = інструмент / компанія. by = спосіб / засіб. "write with a pen" (інструмент) vs "write by hand" (спосіб)'},
+
+  {prep:'without',uk:'без',cat:'✍️ Manner & Means',catKey:'manner',
+   rules:['Відсутність: <code>without money</code>','<code>without + -ing</code>: <code>without knowing</code>','<code>without a doubt</code> = без сумніву'],
+   examples:[{en:'She left without saying goodbye.',uk:'Вона пішла, не попрощавшись.'},{en:'You can\'t enter without a ticket.',uk:'Без квитка не увійдеш.'}],
+   tip:'without + -ing (не + дія): "without thinking" = не подумавши'},
+
+  {prep:'like',uk:'як, подібно до',cat:'✍️ Manner & Means',catKey:'manner',
+   rules:['Порівняння: <code>like a hero</code>','Приклад: <code>cities like London</code>','<code>look like</code>, <code>sound like</code>'],
+   examples:[{en:'She sings like a professional.',uk:'Вона співає як професіонал.'},{en:'It looks like rain.',uk:'Схоже на дощ.'}],
+   tip:'like = як (+ іменник): "like a star". as = як (+ речення/роль): "as I said", "work as a teacher"'},
+
+  {prep:'as',uk:'як (у ролі)',cat:'✍️ Manner & Means',catKey:'manner',
+   rules:['Роль: <code>work as a teacher</code>','Як (спосіб): <code>as usual</code>, <code>as expected</code>','<code>as … as</code> — порівняння: <code>as tall as</code>'],
+   examples:[{en:'He works as a doctor.',uk:'Він працює лікарем.'},{en:'Do as I say.',uk:'Роби, як я кажу.'}],
+   tip:'as = роль/функція. like = схожість. "She works as a nurse" (вона медсестра) vs "She works like a nurse" (працює подібно)'},
+
+  // 🧩 POSSESSION & RELATION
+  {prep:'of',uk:'чийсь, належність',cat:'🧩 Possession & Relation',catKey:'relation',
+   rules:['Належність: <code>the color of the car</code>','Частина: <code>a piece of cake</code>','Кількість: <code>a lot of</code>, <code>most of</code>'],
+   examples:[{en:'The roof of the building is red.',uk:'Дах будівлі червоний.'},{en:'A cup of coffee, please.',uk:'Чашку кави, будь ласка.'}],
+   tip:'of = належність (формально). Apostrophe \'s = жива істота. "the dog\'s name" vs "the name of the street"'},
+
+  {prep:'about',uk:'про, щодо',cat:'🧩 Possession & Relation',catKey:'relation',
+   rules:['Тема: <code>a book about history</code>','Приблизно: <code>about 50 people</code>','<code>think about</code>, <code>talk about</code>, <code>worry about</code>'],
+   examples:[{en:'Tell me about your trip.',uk:'Розкажи мені про свою подорож.'},{en:'There were about 200 guests.',uk:'Було приблизно 200 гостей.'}],
+   tip:'about = про (тема) / приблизно (кількість). on = про (формально, науково): "a lecture on physics"'},
+
+  {prep:'with',uk:'з (стосунок, зв\'язок)',cat:'🧩 Possession & Relation',catKey:'relation',
+   rules:['Стосунки: <code>agree with</code>, <code>angry with</code>','Характеристика: <code>a man with a beard</code>','Ситуація: <code>What\'s wrong with…?</code>'],
+   examples:[{en:'I agree with you.',uk:'Я з тобою згоден.'},{en:'What\'s wrong with the printer?',uk:'Що не так з принтером?'}],
+   tip:'angry with a person. angry about a situation. "angry with him" vs "angry about the decision"'},
+
+  // 📌 FIXED PHRASES
+  {prep:'depend on',uk:'залежати від',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>depend on somebody/something</code>','<code>it depends on…</code>','НІКОЛИ: depend of/from ❌'],
+   examples:[{en:'It depends on the weather.',uk:'Це залежить від погоди.'},{en:'You can always depend on her.',uk:'На неї завжди можна покластися.'}],
+   tip:'depend ON (не of, не from!). Informal: "It depends" = "Це залежить від обставин"'},
+
+  {prep:'good at',uk:'добрий в (навичка)',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>good at + -ing</code>: <code>good at cooking</code>','<code>good at + noun</code>: <code>good at maths</code>','Протилежне: <code>bad at</code>'],
+   examples:[{en:'She\'s really good at drawing.',uk:'Вона дуже добре малює.'},{en:'I\'m not good at remembering names.',uk:'Я погано запам\'ятовую імена.'}],
+   tip:'good AT (навичка). good FOR (користь). good WITH (вміння спілкуватися). "good at maths" vs "good for health" vs "good with kids"'},
+
+  {prep:'afraid of',uk:'боятися чогось',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>afraid of + noun</code>: <code>afraid of spiders</code>','<code>afraid of + -ing</code>: <code>afraid of flying</code>','<code>afraid to + verb</code> = боятися зробити'],
+   examples:[{en:'Are you afraid of the dark?',uk:'Ти боїшся темряви?'},{en:'I\'m afraid of making mistakes.',uk:'Я боюся робити помилки.'}],
+   tip:'afraid of = постійний страх. afraid to = нерішучість. "afraid of dogs" vs "afraid to speak"'},
+
+  {prep:'interested in',uk:'цікавитися чимось',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>interested in + noun/gerund</code>','<code>interested in learning</code>','НІКОЛИ: interested of/about ❌'],
+   examples:[{en:'She\'s interested in art.',uk:'Вона цікавиться мистецтвом.'},{en:'Are you interested in joining us?',uk:'Тобі цікаво приєднатися?'}],
+   tip:'interested IN. interesting TO (кому): "It\'s interesting to me." Не плутай!'},
+
+  {prep:'listen to',uk:'слухати',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>listen to music/somebody</code>','НІКОЛИ: listen music ❌','hear — чути (без зусилля). listen to — слухати (свідомо)'],
+   examples:[{en:'I like listening to podcasts.',uk:'Мені подобається слухати подкасти.'},{en:'Listen to your teacher!',uk:'Слухай вчителя!'}],
+   tip:'listen TO (завжди з to!). hear — без прийменника: "I hear music" vs "I listen to music"'},
+
+  {prep:'look at / look for / look after',uk:'дивитися на / шукати / доглядати',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>look at</code> = дивитися на','<code>look for</code> = шукати','<code>look after</code> = доглядати, піклуватися'],
+   examples:[{en:'Look at this photo!',uk:'Подивись на це фото!'},{en:'I\'m looking for my keys.',uk:'Я шукаю свої ключі.'}],
+   tip:'look AT (погляд). look FOR (пошук). look AFTER (догляд). look UP (пошук в словнику). look FORWARD TO (очікувати з нетерпінням)'},
+
+  {prep:'wait for',uk:'чекати на',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>wait for somebody/something</code>','НІКОЛИ: wait somebody ❌','<code>can\'t wait for</code> = не можу дочекатися'],
+   examples:[{en:'I\'m waiting for the bus.',uk:'Я чекаю на автобус.'},{en:'We can\'t wait for the holidays!',uk:'Ми не можемо дочекатися канікул!'}],
+   tip:'wait FOR (завжди з for!). Без for тільки у "wait here", "wait a moment"'},
+
+  {prep:'think about / think of',uk:'думати про',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>think about</code> = роздумувати, обмірковувати','<code>think of</code> = згадати, придумати','<code>What do you think of…?</code> = Що ти думаєш про…?'],
+   examples:[{en:'I\'m thinking about moving abroad.',uk:'Я роздумую про переїзд за кордон.'},{en:'Can you think of a better idea?',uk:'Можеш придумати кращу ідею?'}],
+   tip:'think ABOUT = тривалі роздуми. think OF = спалах ідеї, згадка. "Think about your future" vs "I can\'t think of his name"'},
+
+  {prep:'apologize for',uk:'вибачатися за',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>apologize for + noun/-ing</code>','<code>apologize to somebody</code>','Синонім: <code>sorry for/about</code>'],
+   examples:[{en:'I apologize for being late.',uk:'Вибачте за запізнення.'},{en:'He apologized to her for the mistake.',uk:'Він вибачився перед нею за помилку.'}],
+   tip:'apologize FOR (за що). apologize TO (перед ким). "Apologize to her for the delay"'},
+
+  {prep:'pay for',uk:'платити за',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>pay for something</code>','<code>pay somebody for</code>','НІКОЛИ: pay something (без for) для предметів ❌'],
+   examples:[{en:'Who\'s going to pay for dinner?',uk:'Хто буде платити за вечерю?'},{en:'I paid €50 for this shirt.',uk:'Я заплатив 50€ за цю сорочку.'}],
+   tip:'pay FOR + річ. pay + рахунок (без for): "pay the bill". pay + людину: "pay the driver"'},
+
+  {prep:'proud of',uk:'пишатися чимось',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>proud of somebody/something</code>','<code>proud of + -ing</code>','НІКОЛИ: proud about/for ❌'],
+   examples:[{en:'I\'m so proud of you!',uk:'Я так тобою пишаюся!'},{en:'She\'s proud of winning the award.',uk:'Вона пишається тим, що виграла нагороду.'}],
+   tip:'proud OF. Але: pride IN — "She takes pride in her work"'},
+
+  {prep:'belong to',uk:'належати комусь',cat:'📌 Fixed Phrases',catKey:'fixed',
+   rules:['<code>belong to somebody</code>','<code>belong to a group/club</code>','НІКОЛИ: belong of/for ❌'],
+   examples:[{en:'This phone belongs to me.',uk:'Цей телефон належить мені.'},{en:'She belongs to a book club.',uk:'Вона є членом книжкового клубу.'}],
+   tip:'belong TO (завжди з to). Ніколи не вживається в Continuous: "It belongs to me" (НЕ "is belonging")'}
+];
+
+const PREP_CATEGORIES = [
+  {key:'all', label:'All'},
+  {key:'time', label:'⏰ Time'},
+  {key:'place', label:'📍 Place & Direction'},
+  {key:'cause', label:'🔗 Cause & Purpose'},
+  {key:'manner', label:'✍️ Manner & Means'},
+  {key:'relation', label:'🧩 Possession & Relation'},
+  {key:'fixed', label:'📌 Fixed Phrases'}
+];
+
+let prepFilter = 'all';
+let prepQuery = '';
+
+function initPrepositions() {
+  buildPrepFilterBtns();
+  renderPrepositions();
+}
+
+function buildPrepFilterBtns() {
+  const container = document.getElementById('prep-filters');
+  container.innerHTML = '';
+  PREP_CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-secondary prep-filter-btn' + (cat.key === 'all' ? ' active' : '');
+    btn.textContent = cat.label;
+    btn.onclick = function(){ filterPrepositions(cat.key, this); };
+    container.appendChild(btn);
+  });
+}
+
+function filterPrepositions(key, btn) {
+  prepFilter = key;
+  document.querySelectorAll('.prep-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPrepositions();
+}
+
+function searchPrepositions() {
+  prepQuery = document.getElementById('prep-search').value.trim().toLowerCase();
+  document.getElementById('prep-clear').style.display = prepQuery ? 'block' : 'none';
+  if (prepQuery) {
+    prepFilter = 'all';
+    document.querySelectorAll('.prep-filter-btn').forEach(b => b.classList.remove('active'));
+    const allBtn = document.querySelector('.prep-filter-btn');
+    if (allBtn) allBtn.classList.add('active');
+  }
+  renderPrepositions();
+}
+
+function clearPrepSearch() {
+  document.getElementById('prep-search').value = '';
+  prepQuery = '';
+  document.getElementById('prep-clear').style.display = 'none';
+  renderPrepositions();
+}
+
+function renderPrepositions() {
+  let list = PREPOSITIONS_DATA;
+  if (prepFilter !== 'all') {
+    list = list.filter(p => p.catKey === prepFilter);
+  }
+  if (prepQuery) {
+    const q = prepQuery;
+    list = list.filter(p =>
+      p.prep.toLowerCase().includes(q) ||
+      p.uk.toLowerCase().includes(q) ||
+      p.cat.toLowerCase().includes(q) ||
+      p.rules.join(' ').toLowerCase().includes(q) ||
+      p.examples.some(e => e.en.toLowerCase().includes(q) || e.uk.toLowerCase().includes(q)) ||
+      p.tip.toLowerCase().includes(q)
+    );
+  }
+  const countEl = document.getElementById('prep-count');
+  if (countEl) countEl.textContent = list.length + ' preposition' + (list.length !== 1 ? 's' : '');
+  const grid = document.getElementById('prep-grid');
+  if (!grid) return;
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Нічого не знайдено 🔍</div>';
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="prep-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+        <span class="prep-word">${p.prep}</span>
+        <span class="prep-cat-tag">${p.cat}</span>
+      </div>
+      <div class="prep-uk">${p.uk}</div>
+      <div class="prep-rule">${p.rules.map(r => '• ' + r).join('<br>')}</div>
+      ${p.examples.map(e => `<div class="prep-example">"${e.en}"<span>${e.uk}</span></div>`).join('')}
+      <div class="prep-tip">💡 ${p.tip}</div>
+    </div>
+  `).join('');
+}
+
 </script>
 
 <!-- EDIT WORD MODAL -->
