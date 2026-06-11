@@ -667,6 +667,7 @@
     <button class="nav-tab" onclick="showPage('verbs')" data-label="🔤 Irregular Verbs">🔤 Irregular Verbs</button>
     <button class="nav-tab" onclick="showPage('phrasal')" data-label="↗️ Phrasal Verbs">↗️ Phrasal Verbs</button>
     <button class="nav-tab" onclick="showPage('prepositions')" data-label="📐 Prepositions">📐 Prepositions</button>
+    <button class="nav-tab" onclick="showPage('passive')" data-label="🔄 Passive Voice">🔄 Passive Voice</button>
     <button class="nav-tab" onclick="showPage('links')" data-label="🔗 Links">🔗 Links</button>
     <button class="nav-tab" onclick="showPage('notes')" data-label="📝 Notes">📝 Notes</button>
   </div>
@@ -6273,6 +6274,340 @@ animation:fadeSlide 0.5s ease both}
   <div id="prep-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px"></div>
 </div>
 
+<!-- ════════════════════════════ PAGE: PASSIVE VOICE ════════════════════════════ -->
+<div id="page-passive" class="page" style="padding:0;max-width:100%">
+<style>
+  /* ── Passive Voice scoped styles ── */
+  .pv-hero{background:linear-gradient(135deg,var(--sky-ultra) 0%,#fff 50%,var(--rose-ultra) 100%);border-bottom:1px solid var(--border);padding:40px 24px 36px;text-align:center}
+  .pv-hero h1{font-family:var(--font-serif);font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;margin-bottom:8px;background:linear-gradient(120deg,var(--ink) 0%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .pv-hero p{color:var(--muted);font-size:15px;max-width:520px;margin:0 auto}
+  .pv-formula{display:inline-block;margin-top:16px;background:#fff;border:2px solid var(--sky);border-radius:var(--radius);padding:12px 24px;font-family:var(--font-mono);font-size:14px;color:var(--ink);box-shadow:0 4px 20px rgba(74,142,194,0.12)}
+  .pv-formula b{color:var(--sky)}
+  .pv-formula em{color:var(--rose);font-style:normal}
+
+  .pv-content{max-width:920px;margin:0 auto;padding:0 20px 60px}
+
+  /* section nav */
+  .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:62px;z-index:50;background:rgba(238,244,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
+  .pv-sec-btn{padding:6px 14px;border-radius:30px;font-size:12px;font-weight:700;color:var(--muted);background:none;border:1.5px solid var(--border);cursor:pointer;font-family:var(--font-sans);transition:all .18s;white-space:nowrap;text-decoration:none}
+  .pv-sec-btn:hover{color:var(--ink);background:var(--sky-ultra);border-color:var(--sky-mid)}
+  .pv-sec-btn.active{color:#fff;background:var(--sky);border-color:var(--sky);box-shadow:0 2px 8px rgba(74,142,194,.3)}
+
+  .pv-section{scroll-margin-top:130px;margin-top:36px}
+  .pv-section-badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--sky);margin-bottom:6px}
+  .pv-section h2{font-family:var(--font-serif);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:14px}
+  .pv-section h3{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink2);margin:20px 0 8px}
+
+  .pv-card-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
+
+  /* explain cards */
+  .pv-explain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+  .pv-explain{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:all .18s}
+  .pv-explain:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .pv-explain .num{width:30px;height:30px;border-radius:50%;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-bottom:8px}
+  .pv-explain h4{font-size:14px;font-weight:700;margin-bottom:4px}
+
+  /* tense table */
+  .pv-table-wrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);margin-top:14px;-webkit-overflow-scrolling:touch}
+  .pv-tbl{width:100%;border-collapse:collapse;background:#fff;font-size:13.5px}
+  .pv-tbl thead{background:var(--sky);color:#fff}
+  .pv-tbl th{padding:12px 14px;font-weight:700;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+  .pv-tbl td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+  .pv-tbl tr:last-child td{border-bottom:none}
+  .pv-tbl tbody tr{transition:background .15s}
+  .pv-tbl tbody tr:hover{background:var(--sky-ultra)}
+  .pv-tbl .tn{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pv-tbl .fm{font-family:var(--font-mono);font-size:12px;color:var(--sky);white-space:nowrap}
+  .pv-tbl .ea{color:var(--ink2)}
+  .pv-tbl .ep{color:var(--rose);font-weight:600}
+  .pv-tbl .ar{color:var(--muted);font-size:12px}
+
+  /* alerts */
+  .pv-alert{border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;font-size:13.5px;line-height:1.6;display:flex;gap:12px;align-items:flex-start}
+  .pv-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+  .pv-alert-body{flex:1}
+  .pv-alert-body strong{display:block;margin-bottom:3px}
+  .pv-alert-body ul{margin:5px 0 0 16px}
+  .pv-alert-body li{margin-bottom:2px}
+  .pv-alert-sky{background:var(--sky-ultra);border-left:4px solid var(--sky)}
+  .pv-alert-rose{background:var(--rose-ultra);border-left:4px solid var(--rose)}
+  .pv-alert-red{background:#FFEBEE;border-left:4px solid #E53935}
+  .pv-alert-green{background:#E8F5E9;border-left:4px solid #4CAF50}
+  .pv-alert-purple{background:#EDE7F6;border-left:4px solid #7E57C2}
+  .pv-alert code{font-family:var(--font-mono);font-size:12px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:4px}
+
+  /* examples */
+  .pv-ex{font-size:13px;font-style:italic;color:var(--muted);background:var(--sky-ultra);padding:9px 12px;border-radius:var(--radius-sm);border-left:3px solid var(--sky);margin:8px 0}
+  .pv-ex .p{color:var(--rose);font-weight:600;font-style:normal}
+  .pv-ex .a{color:var(--sky);font-weight:600;font-style:normal}
+  .pv-ex .n{font-style:normal;color:var(--ink2);display:block;margin-top:3px;font-size:12px}
+
+  /* rule cards */
+  .pv-rule{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;border-top:3px solid var(--sky)}
+  .pv-rule h4{font-family:var(--font-serif);font-size:17px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+
+  /* usa box */
+  .pv-usa{background:linear-gradient(135deg,var(--sky-ultra) 0%,var(--rose-ultra) 100%);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-top:14px}
+  .pv-usa h4{font-size:15px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .pv-usa li{margin-bottom:7px;font-size:13.5px;color:var(--ink2);line-height:1.55}
+  .pv-usa code{font-family:var(--font-mono);font-size:12px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:4px}
+
+  /* quiz */
+  .pv-quiz{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px;transition:border-color .3s,background .3s}
+  .pv-quiz.correct{border-color:#4CAF50;background:#F1F8F1}
+  .pv-quiz.wrong{border-color:#E53935;background:#FFF5F5}
+  .pv-quiz-num{font-size:11px;font-weight:800;color:var(--sky);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+  .pv-quiz-prompt{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.5}
+  .pv-quiz-prompt code{font-family:var(--font-mono);font-size:13px;color:var(--sky);background:var(--sky-ultra);padding:2px 6px;border-radius:4px}
+  .pv-quiz-input{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;font-family:var(--font-sans);outline:none;color:var(--ink);transition:border .15s,box-shadow .15s}
+  .pv-quiz-input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(74,142,194,.12)}
+  .pv-quiz-hint{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:4px}
+  .pv-quiz-fb{margin-top:6px;font-size:13px;font-weight:600;min-height:18px}
+  .pv-quiz-fb.correct{color:#388E3C}
+  .pv-quiz-fb.wrong{color:#E53935}
+  .pv-quiz-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .pv-quiz-score{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--sky);margin-top:14px}
+
+  @media(max-width:700px){
+    .pv-hero{padding:28px 14px 24px}
+    .pv-formula{font-size:12px;padding:10px 14px}
+    .pv-content{padding:0 14px 40px}
+    .pv-sec-nav{gap:3px;padding:8px 0;top:52px}
+    .pv-sec-btn{padding:5px 10px;font-size:11px}
+    .pv-section h2{font-size:21px}
+    .pv-explain-grid{grid-template-columns:1fr}
+    .pv-tbl th,.pv-tbl td{padding:9px 10px;font-size:12.5px}
+    .pv-rule{padding:14px 16px}
+    .pv-quiz-actions{flex-direction:column}
+    .pv-quiz-actions .btn{width:100%;justify-content:center}
+  }
+</style>
+
+<!-- Hero -->
+<div class="pv-hero">
+  <h1>Passive Voice</h1>
+  <p>Master the passive voice in American English &mdash; when to use it, how to form it, and common pitfalls to avoid.</p>
+  <div class="pv-formula">Subject + <b>be</b> (correct tense) + <em>past participle (V3)</em></div>
+</div>
+
+<div class="pv-content">
+  <!-- Section nav -->
+  <div class="pv-sec-nav">
+    <a class="pv-sec-btn active" href="#pv-what" onclick="setPvNav(this)">What</a>
+    <a class="pv-sec-btn" href="#pv-tenses" onclick="setPvNav(this)">Tenses</a>
+    <a class="pv-sec-btn" href="#pv-when" onclick="setPvNav(this)">When</a>
+    <a class="pv-sec-btn" href="#pv-rules" onclick="setPvNav(this)">Rules</a>
+    <a class="pv-sec-btn" href="#pv-usa" onclick="setPvNav(this)">American</a>
+    <a class="pv-sec-btn" href="#pv-quiz" onclick="setPvNav(this)">Quiz</a>
+  </div>
+
+  <!-- 1. WHAT IS PASSIVE VOICE -->
+  <div class="pv-section" id="pv-what">
+    <div class="pv-section-badge">Section 1</div>
+    <h2>What is Passive Voice?</h2>
+    <div class="pv-card-wrap">
+      <p>In <strong>active voice</strong>, the subject <em>does</em> the action. In <strong>passive voice</strong>, the subject <em>receives</em> the action.</p>
+      <div class="pv-ex" style="margin-top:14px">
+        <span class="a">Active:</span> The chef <strong>cooks</strong> the meal.<br>
+        <span class="p">Passive:</span> The meal <strong>is cooked</strong> by the chef.
+      </div>
+      <p style="margin-top:12px">We form the passive with the correct tense of <strong>"be"</strong> + <strong>past participle (V3)</strong>. The agent can be added with <strong>"by"</strong>, or omitted.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
+        <div class="pv-alert pv-alert-sky" style="flex:1;min-width:240px;margin:0">
+          <div class="pv-alert-icon">&#x1F536;</div>
+          <div class="pv-alert-body"><strong>Active Voice</strong>Subject + Verb + Object<br><code>Tom writes emails.</code></div>
+        </div>
+        <div class="pv-alert pv-alert-green" style="flex:1;min-width:240px;margin:0">
+          <div class="pv-alert-icon">&#x1F7E2;</div>
+          <div class="pv-alert-body"><strong>Passive Voice</strong>Object &rarr; Subject + be + V3 (+ by agent)<br><code>Emails are written by Tom.</code></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. TENSE TABLE -->
+  <div class="pv-section" id="pv-tenses">
+    <div class="pv-section-badge">Section 2</div>
+    <h2>Passive Voice in Every Tense</h2>
+    <p style="color:var(--muted);margin-bottom:6px">The verb <strong>"be"</strong> changes tense. The main verb stays as <strong>V3</strong>.</p>
+    <div class="pv-table-wrap">
+      <table class="pv-tbl">
+        <thead><tr><th>Tense</th><th>Formula</th><th>Active</th><th></th><th>Passive</th></tr></thead>
+        <tbody>
+          <tr><td class="tn">Present Simple</td><td class="fm">is/are + V3</td><td class="ea">She cleans the house.</td><td class="ar">&rarr;</td><td class="ep">The house is cleaned.</td></tr>
+          <tr><td class="tn">Present Continuous</td><td class="fm">is/are being + V3</td><td class="ea">They are building a bridge.</td><td class="ar">&rarr;</td><td class="ep">A bridge is being built.</td></tr>
+          <tr><td class="tn">Present Perfect</td><td class="fm">has/have been + V3</td><td class="ea">Someone has stolen my bike.</td><td class="ar">&rarr;</td><td class="ep">My bike has been stolen.</td></tr>
+          <tr><td class="tn">Past Simple</td><td class="fm">was/were + V3</td><td class="ea">Edison invented the lightbulb.</td><td class="ar">&rarr;</td><td class="ep">The lightbulb was invented by Edison.</td></tr>
+          <tr><td class="tn">Past Continuous</td><td class="fm">was/were being + V3</td><td class="ea">They were painting the wall.</td><td class="ar">&rarr;</td><td class="ep">The wall was being painted.</td></tr>
+          <tr><td class="tn">Past Perfect</td><td class="fm">had been + V3</td><td class="ea">She had finished the report.</td><td class="ar">&rarr;</td><td class="ep">The report had been finished.</td></tr>
+          <tr><td class="tn">Future Simple</td><td class="fm">will be + V3</td><td class="ea">They will deliver the package.</td><td class="ar">&rarr;</td><td class="ep">The package will be delivered.</td></tr>
+          <tr><td class="tn">Future Perfect</td><td class="fm">will have been + V3</td><td class="ea">They will have completed it.</td><td class="ar">&rarr;</td><td class="ep">It will have been completed.</td></tr>
+          <tr><td class="tn">Modal Verbs</td><td class="fm">modal + be + V3</td><td class="ea">You must submit the form.</td><td class="ar">&rarr;</td><td class="ep">The form must be submitted.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3. WHEN TO USE -->
+  <div class="pv-section" id="pv-when">
+    <div class="pv-section-badge">Section 3</div>
+    <h2>When to Use Passive Voice</h2>
+    <div class="pv-explain-grid">
+      <div class="pv-explain">
+        <div class="num">1</div>
+        <h4>The doer is unknown or unimportant</h4>
+        <p style="font-size:13px;color:var(--ink2)">When we don't know who did the action, or it's not relevant.</p>
+        <div class="pv-ex"><span class="p">"My car was stolen last night."</span><span class="n">We don't know who stole it.</span></div>
+        <div class="pv-ex"><span class="p">"English is spoken all over the world."</span><span class="n">Who speaks it is obvious/unimportant.</span></div>
+      </div>
+      <div class="pv-explain">
+        <div class="num">2</div>
+        <h4>The action/result is more important</h4>
+        <p style="font-size:13px;color:var(--ink2)">In science, news, and formal writing, we focus on what happened.</p>
+        <div class="pv-ex"><span class="p">"The experiment was conducted in 2023."</span><span class="n">Focus: the experiment, not the scientists.</span></div>
+        <div class="pv-ex"><span class="p">"Three people were injured."</span><span class="n">News style: focus on the victims.</span></div>
+      </div>
+    </div>
+    <div class="pv-alert pv-alert-sky" style="margin-top:14px">
+      <div class="pv-alert-icon">&#x1F4A1;</div>
+      <div class="pv-alert-body"><strong>Don't overuse passive!</strong>In American English, active voice is preferred for clear, direct writing. Use passive only when there's a good reason.</div>
+    </div>
+  </div>
+
+  <!-- 4. IMPORTANT RULES -->
+  <div class="pv-section" id="pv-rules">
+    <div class="pv-section-badge">Section 4</div>
+    <h2>Important Rules</h2>
+
+    <div class="pv-rule">
+      <h4>&#x1F504; Multiple Passives from One Active Sentence</h4>
+      <p style="font-size:13.5px;color:var(--ink2);margin-bottom:8px">When an active sentence has <strong>two objects</strong> (direct + indirect), you can make <strong>two different passive sentences</strong>.</p>
+      <div class="pv-ex">
+        <span class="a">Active:</span> The teacher gave <strong>the students</strong> <strong>a test</strong>.<br><br>
+        <span class="p">Passive 1:</span> The students were given a test.<br>
+        <span class="p">Passive 2:</span> A test was given to the students.
+      </div>
+      <div class="pv-alert pv-alert-sky" style="margin-top:8px;margin-bottom:0"><div class="pv-alert-icon">&#x2B50;</div><div class="pv-alert-body">In American English, Passive 1 (person as subject) is much more common.</div></div>
+    </div>
+
+    <div class="pv-rule">
+      <h4>&#x26D4; Intransitive Verbs Cannot Be Passive</h4>
+      <p style="font-size:13.5px;color:var(--ink2);margin-bottom:8px">Verbs without an object have no passive form.</p>
+      <div class="pv-alert pv-alert-red" style="margin-bottom:0">
+        <div class="pv-alert-icon">&#x1F6AB;</div>
+        <div class="pv-alert-body"><strong>No passive for:</strong>
+          <ul>
+            <li><code>appear</code> &mdash; It appeared suddenly. <em>(NOT: "It was appeared.")</em></li>
+            <li><code>die</code> &mdash; He died yesterday. <em>(NOT: "He was died.")</em></li>
+            <li><code>fall</code> &mdash; The tree fell. <em>(NOT: "The tree was fallen.")</em></li>
+            <li><code>go</code> &mdash; She went home. <em>(NOT: "Home was gone to.")</em></li>
+            <li><code>happen</code> &mdash; An accident happened. <em>(NOT: "An accident was happened.")</em></li>
+            <li><code>arrive</code>, <code>sleep</code>, <code>come</code>, <code>exist</code>, <code>live</code>, <code>sit</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-rule">
+      <h4>&#x2753; Questions in Passive Voice</h4>
+      <p style="font-size:13.5px;color:var(--ink2);margin-bottom:8px">Invert the subject and auxiliary <strong>"be"</strong>. The agent goes to the end.</p>
+      <div class="pv-ex">
+        <span class="p">Was</span> the email <span class="p">sent</span> by the manager?<br>
+        <span class="p">Is</span> the project <span class="p">being reviewed</span>?<br>
+        <span class="p">Has</span> the report <span class="p">been submitted</span>?
+      </div>
+      <h3>Wh-questions:</h3>
+      <div class="pv-ex">
+        <span class="a">Active:</span> Who wrote this book?<br>
+        <span class="p">Passive:</span> Who was this book written <strong>by</strong>?<br><br>
+        <span class="a">Active:</span> When did they build this bridge?<br>
+        <span class="p">Passive:</span> When was this bridge built?
+      </div>
+    </div>
+
+    <div class="pv-rule">
+      <h4>&#x1F9E9; Passive with Infinitive and Gerund</h4>
+      <h3 style="margin-top:6px">Modal Verbs + Bare Infinitive</h3>
+      <div class="pv-alert pv-alert-green" style="margin-bottom:8px"><div class="pv-alert-icon">&#x2699;</div><div class="pv-alert-body"><code>modal + be + V3</code><br>The report <strong>can be finished</strong> today.<br>This issue <strong>must be resolved</strong> immediately.</div></div>
+      <h3>Need / Want / Going to + To-Infinitive</h3>
+      <div class="pv-alert pv-alert-sky" style="margin-bottom:8px"><div class="pv-alert-icon">&#x1F4CB;</div><div class="pv-alert-body"><code>need / want / going + to be + V3</code><br>The car <strong>needs to be repaired</strong>.<br>The building <strong>is going to be demolished</strong>.</div></div>
+      <h3>Enjoy / Hate / Like + Being + V3</h3>
+      <div class="pv-alert pv-alert-purple" style="margin-bottom:0"><div class="pv-alert-icon">&#x1F3AD;</div><div class="pv-alert-body"><code>verb + being + V3</code><br>Nobody <strong>enjoys being criticized</strong>.<br>She <strong>hates being ignored</strong>.</div></div>
+    </div>
+
+    <div class="pv-rule">
+      <h4>&#x26A1; GET-Passive (Informal)</h4>
+      <p style="font-size:13.5px;color:var(--ink2);margin-bottom:8px">In spoken American English, <strong>"get"</strong> often replaces <strong>"be"</strong>.</p>
+      <div class="pv-ex">
+        He <span class="p">got fired</span> last week. <em>(= was fired)</em><br>
+        She <span class="p">got promoted</span> to manager.<br>
+        My phone <span class="p">got stolen</span> at the concert.
+      </div>
+      <div class="pv-alert pv-alert-red" style="margin-top:10px;margin-bottom:0">
+        <div class="pv-alert-icon">&#x26A0;</div>
+        <div class="pv-alert-body"><strong>GET-passive rules:</strong>
+          <ul>
+            <li>Only <strong>action verbs</strong>, not state verbs.</li>
+            <li>&#x2705; <code>get injured</code>, <code>get caught</code>, <code>get invited</code></li>
+            <li>&#x274C; NOT: <code>get known</code>, <code>get believed</code>, <code>get owned</code></li>
+            <li>Often implies something <strong>unexpected or negative</strong>.</li>
+            <li>Common: <code>get married</code>, <code>get divorced</code>, <code>get lost</code>, <code>get dressed</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-rule">
+      <h4>&#x1F517; Phrasal Verbs in Passive</h4>
+      <p style="font-size:13.5px;color:var(--ink2);margin-bottom:8px">The preposition/particle <strong>stays attached</strong> to the verb.</p>
+      <div class="pv-ex">
+        <span class="a">Active:</span> They <strong>called off</strong> the meeting.<br>
+        <span class="p">Passive:</span> The meeting was <strong>called off</strong>. &#x2705;
+      </div>
+      <div class="pv-ex">
+        <span class="a">Active:</span> Someone <strong>broke into</strong> the store.<br>
+        <span class="p">Passive:</span> The store was <strong>broken into</strong>.
+      </div>
+      <div class="pv-ex">
+        <span class="a">Active:</span> They <strong>looked after</strong> the children.<br>
+        <span class="p">Passive:</span> The children were <strong>looked after</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. AMERICAN ENGLISH NOTES -->
+  <div class="pv-section" id="pv-usa">
+    <div class="pv-section-badge">Section 5</div>
+    <h2>American English Notes</h2>
+    <div class="pv-usa">
+      <h4>&#x1F1FA;&#x1F1F8; American vs. British Differences</h4>
+      <ul>
+        <li><strong>"Gotten" vs. "Got":</strong> In AmE, past participle is often <code>gotten</code> in perfect tenses: <em>"He has gotten promoted."</em> BrE uses <code>got</code>. In GET-passive, both use <code>got</code>: <em>"He got promoted."</em></li>
+        <li><strong>Active voice preference:</strong> American style guides (AP, Chicago) strongly favor active voice. Use passive only when the agent is truly unknown or when the action matters more.</li>
+        <li><strong>GET-passive is more common:</strong> <code>He got arrested</code> sounds perfectly natural in AmE, while BrE might prefer <code>He was arrested</code>.</li>
+        <li><strong>"By" often dropped:</strong> In conversational AmE, the "by" phrase is usually omitted unless the agent is important or surprising.</li>
+        <li><strong>Past participle forms:</strong> <code>proven</code> (AmE) vs. <code>proved</code> (BrE), <code>gotten</code> vs. <code>got</code>, <code>stricken</code> (AmE formal) vs. <code>struck</code> (BrE).</li>
+        <li><strong>Informal contractions:</strong> <em>"It's been done"</em> instead of <em>"It has been done"</em>, <em>"He's being watched"</em> instead of <em>"He is being watched."</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6. QUIZ -->
+  <div class="pv-section" id="pv-quiz">
+    <div class="pv-section-badge">Section 6</div>
+    <h2>Practice Quiz</h2>
+    <p style="color:var(--muted);margin-bottom:14px">Transform active to passive, fill in the correct form, or identify impossible passives.</p>
+    <div id="pv-quiz-container"></div>
+    <div class="pv-quiz-actions">
+      <button class="btn btn-primary" onclick="checkPassiveQuiz()">&#x2705; Check Answers</button>
+      <button class="btn btn-secondary" onclick="resetPassiveQuiz()">&#x1F504; Try Again</button>
+    </div>
+    <div class="pv-quiz-score" id="pv-quiz-score"></div>
+  </div>
+
+</div><!-- /.pv-content -->
+</div><!-- /#page-passive -->
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -6416,6 +6751,7 @@ function showPage(id) {
   if (id === 'tenses') initTenses();
   if (id === 'phrasal') initPhrasal();
   if (id === 'prepositions') initPrepositions();
+  if (id === 'passive') initPassive();
 }
 
 function toggleSidebar() {
@@ -8399,6 +8735,87 @@ function renderPrepositions() {
       <div class="prep-tip">💡 ${p.tip}</div>
     </div>
   `).join('');
+}
+
+// ════════════════════════════════════════════
+// PASSIVE VOICE — NAV + QUIZ
+// ════════════════════════════════════════════
+function setPvNav(el) {
+  document.querySelectorAll('.pv-sec-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+let pvInited = false;
+function initPassive() {
+  if (pvInited) return;
+  pvInited = true;
+  renderPassiveQuiz();
+  // intersection observer for sub-nav highlight
+  const secs = document.querySelectorAll('.pv-section');
+  const btns = document.querySelectorAll('.pv-sec-btn');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        btns.forEach(b => b.classList.toggle('active', b.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  secs.forEach(s => obs.observe(s));
+}
+
+const PASSIVE_QUIZ = [
+  {type:'transform',prompt:'Rewrite in passive (Present Simple):',sentence:'Millions of people speak English.',answer:'english is spoken by millions of people',alts:['english is spoken by millions of people.'],hint:'Subject + is/are + V3 + by...'},
+  {type:'transform',prompt:'Rewrite in passive (Past Simple):',sentence:'Alexander Graham Bell invented the telephone.',answer:'the telephone was invented by alexander graham bell',alts:['the telephone was invented by alexander graham bell.'],hint:'Subject + was/were + V3 + by...'},
+  {type:'fill',prompt:'Fill in the blank (Present Perfect Passive):',sentence:'The project _______ (complete) ahead of schedule.',answer:'has been completed',alts:[],hint:'has/have + been + V3'},
+  {type:'fill',prompt:'Fill in the blank (Modal Passive):',sentence:'This issue _______ (must / resolve) before Friday.',answer:'must be resolved',alts:[],hint:'modal + be + V3'},
+  {type:'transform',prompt:'Rewrite in passive (Future Simple):',sentence:'They will announce the results tomorrow.',answer:'the results will be announced tomorrow',alts:['the results will be announced tomorrow.','the results will be announced by them tomorrow'],hint:'Subject + will be + V3'},
+  {type:'identify',prompt:'Can this be made passive? If yes, write passive. If no, write "NO":',sentence:'A terrible accident happened on the highway.',answer:'no',alts:[],hint:'"happen" is intransitive — no object!'},
+  {type:'transform',prompt:'Rewrite using GET-passive (informal):',sentence:'She was fired from her job.',answer:'she got fired from her job',alts:['she got fired from her job.'],hint:'Replace "was" with "got"'}
+];
+
+function renderPassiveQuiz() {
+  const c = document.getElementById('pv-quiz-container');
+  if (!c) return;
+  c.innerHTML = PASSIVE_QUIZ.map((q,i) => `
+    <div class="pv-quiz" id="pvq-${i}">
+      <div class="pv-quiz-num">${q.type==='transform'?'Transform':q.type==='fill'?'Fill in':'Identify'} &middot; Question ${i+1}</div>
+      <div class="pv-quiz-prompt">${q.prompt}<br><code>${q.sentence}</code></div>
+      <input class="pv-quiz-input" id="pvqi-${i}" type="text" placeholder="Type your answer…" autocomplete="off">
+      <div class="pv-quiz-hint">${q.hint}</div>
+      <div class="pv-quiz-fb" id="pvqf-${i}"></div>
+    </div>
+  `).join('');
+}
+
+function pvNorm(s){return s.trim().toLowerCase().replace(/[.,!?;:'"]/g,'').replace(/\s+/g,' ')}
+
+function checkPassiveQuiz() {
+  let score = 0;
+  PASSIVE_QUIZ.forEach((q,i) => {
+    const input = document.getElementById('pvqi-'+i);
+    const fb = document.getElementById('pvqf-'+i);
+    const card = document.getElementById('pvq-'+i);
+    const ua = pvNorm(input.value), ca = pvNorm(q.answer);
+    const ok = ua===ca || q.alts.some(a=>pvNorm(a)===ua);
+    card.classList.remove('correct','wrong');
+    if(!ua){fb.textContent='Please type an answer!';fb.className='pv-quiz-fb wrong';card.classList.add('wrong')}
+    else if(ok){score++;fb.textContent='Correct!';fb.className='pv-quiz-fb correct';card.classList.add('correct')}
+    else{fb.innerHTML='Not quite. Answer: <strong>'+q.answer.charAt(0).toUpperCase()+q.answer.slice(1)+'</strong>';fb.className='pv-quiz-fb wrong';card.classList.add('wrong')}
+  });
+  const s=document.getElementById('pv-quiz-score');
+  if(score===PASSIVE_QUIZ.length){s.innerHTML='&#x1F389; Perfect! '+score+'/'+PASSIVE_QUIZ.length;s.style.color='#388E3C'}
+  else if(score>=PASSIVE_QUIZ.length*0.7){s.innerHTML='&#x1F44D; Great job! '+score+'/'+PASSIVE_QUIZ.length;s.style.color='var(--sky)'}
+  else{s.innerHTML='&#x1F4AA; Keep practicing! '+score+'/'+PASSIVE_QUIZ.length;s.style.color='var(--rose)'}
+}
+
+function resetPassiveQuiz() {
+  PASSIVE_QUIZ.forEach((_,i)=>{
+    document.getElementById('pvqi-'+i).value='';
+    document.getElementById('pvqf-'+i).textContent='';
+    document.getElementById('pvq-'+i).classList.remove('correct','wrong');
+  });
+  document.getElementById('pv-quiz-score').textContent='';
 }
 
 </script>
