@@ -6322,6 +6322,39 @@ animation:fadeSlide 0.5s ease both}
   .pv-tbl .ep{color:var(--rose);font-weight:600}
   .pv-tbl .ar{color:var(--muted);font-size:12px}
 
+  /* ── Detailed tense blocks ── */
+  .pv-tense-block{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
+  .pv-tense-title{background:var(--sky);color:#fff;font-family:var(--font-serif);font-size:18px;font-weight:700;padding:12px 18px;text-align:center}
+  .pv-tense-cols{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+  .pv-tense-cols:last-child{border-bottom:none}
+  .pv-col-header{background:var(--sky-ultra);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--sky);padding:8px 16px;text-align:center;border-bottom:1px solid var(--border)}
+  .pv-col-header.right{border-left:1px solid var(--border)}
+  .pv-tense-row{display:grid;grid-template-columns:1fr 1fr}
+  .pv-tense-cell{padding:10px 16px;border-bottom:1px solid rgba(194,216,232,.5);display:flex;gap:10px;align-items:baseline;font-size:13.5px;transition:background .15s}
+  .pv-tense-cell:hover{background:var(--sky-ultra)}
+  .pv-tense-cell.right{border-left:1px solid var(--border)}
+  .pv-tense-cell:last-child{border-bottom:none}
+  .pv-sign{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+  .pv-sign.pos{background:#E8F5E9;color:#388E3C}
+  .pv-sign.neg{background:#FFEBEE;color:#E53935}
+  .pv-sign.que{background:#E3F2FD;color:#1E88E5}
+  .pv-cell-content{flex:1;line-height:1.5}
+  .pv-cell-formula{font-family:var(--font-mono);font-size:12px;color:var(--sky);display:block;margin-bottom:2px}
+  .pv-cell-formula.passive{color:var(--rose)}
+  .pv-tense-example{padding:8px 16px;font-size:13px;border-top:1px solid var(--border);background:var(--sky-ultra)}
+  .pv-tense-example.right{border-left:1px solid var(--border)}
+  .pv-tense-example .lbl{font-weight:700;color:var(--sky);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  .pv-tense-example .lbl.rose{color:var(--rose)}
+  .pv-tense-example strong{color:var(--ink)}
+
+  @media(max-width:700px){
+    .pv-tense-cols,.pv-tense-row{grid-template-columns:1fr}
+    .pv-col-header.right,.pv-tense-cell.right,.pv-tense-example.right{border-left:none;border-top:1px solid var(--border)}
+    .pv-tense-title{font-size:16px;padding:10px 14px}
+    .pv-tense-cell{padding:8px 14px;font-size:13px}
+    .pv-tense-example{padding:6px 14px;font-size:12px}
+  }
+
   /* alerts */
   .pv-alert{border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;font-size:13.5px;line-height:1.6;display:flex;gap:12px;align-items:flex-start}
   .pv-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
@@ -6429,23 +6462,233 @@ animation:fadeSlide 0.5s ease both}
   <div class="pv-section" id="pv-tenses">
     <div class="pv-section-badge">Section 2</div>
     <h2>Passive Voice in Every Tense</h2>
-    <p style="color:var(--muted);margin-bottom:6px">The verb <strong>"be"</strong> changes tense. The main verb stays as <strong>V3</strong>.</p>
-    <div class="pv-table-wrap">
-      <table class="pv-tbl">
-        <thead><tr><th>Tense</th><th>Formula</th><th>Active</th><th></th><th>Passive</th></tr></thead>
-        <tbody>
-          <tr><td class="tn">Present Simple</td><td class="fm">is/are + V3</td><td class="ea">She cleans the house.</td><td class="ar">&rarr;</td><td class="ep">The house is cleaned.</td></tr>
-          <tr><td class="tn">Present Continuous</td><td class="fm">is/are being + V3</td><td class="ea">They are building a bridge.</td><td class="ar">&rarr;</td><td class="ep">A bridge is being built.</td></tr>
-          <tr><td class="tn">Present Perfect</td><td class="fm">has/have been + V3</td><td class="ea">Someone has stolen my bike.</td><td class="ar">&rarr;</td><td class="ep">My bike has been stolen.</td></tr>
-          <tr><td class="tn">Past Simple</td><td class="fm">was/were + V3</td><td class="ea">Edison invented the lightbulb.</td><td class="ar">&rarr;</td><td class="ep">The lightbulb was invented by Edison.</td></tr>
-          <tr><td class="tn">Past Continuous</td><td class="fm">was/were being + V3</td><td class="ea">They were painting the wall.</td><td class="ar">&rarr;</td><td class="ep">The wall was being painted.</td></tr>
-          <tr><td class="tn">Past Perfect</td><td class="fm">had been + V3</td><td class="ea">She had finished the report.</td><td class="ar">&rarr;</td><td class="ep">The report had been finished.</td></tr>
-          <tr><td class="tn">Future Simple</td><td class="fm">will be + V3</td><td class="ea">They will deliver the package.</td><td class="ar">&rarr;</td><td class="ep">The package will be delivered.</td></tr>
-          <tr><td class="tn">Future Perfect</td><td class="fm">will have been + V3</td><td class="ea">They will have completed it.</td><td class="ar">&rarr;</td><td class="ep">It will have been completed.</td></tr>
-          <tr><td class="tn">Modal Verbs</td><td class="fm">modal + be + V3</td><td class="ea">You must submit the form.</td><td class="ar">&rarr;</td><td class="ep">The form must be submitted.</td></tr>
-        </tbody>
-      </table>
+    <p style="color:var(--muted);margin-bottom:6px">The verb <strong>"be"</strong> changes tense. The main verb always stays as <strong>V3</strong> (past participle). Each tense shows positive (+), negative (&minus;), and question (?) forms.</p>
+
+    <!-- Present Simple -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Present Simple</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + V / V<sub>s</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + don't/doesn't + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + not + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Do/Does + S + V?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Am/Is/Are + S + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> People <strong>buy</strong> a lot of cars every year.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> A lot of cars <strong>are bought</strong> every year.</div>
+      </div>
     </div>
+
+    <!-- Past Simple -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Past Simple</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + V<sub>ed</sub> / V<sub>2</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + didn't + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + not + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Did + S + V?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Was/Were + S + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> She <strong>bought</strong> this cake yesterday.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> This cake <strong>was bought</strong> yesterday.</div>
+      </div>
+    </div>
+
+    <!-- Present Continuous -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Present Continuous</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + am/is/are + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + being + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + am/is/are + not + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + not + being + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Am/Is/Are + S + V<sub>ing</sub>?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Am/Is/Are + S + being + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>are building</strong> a new bridge.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> A new bridge <strong>is being built</strong>.</div>
+      </div>
+    </div>
+
+    <!-- Past Continuous -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Past Continuous</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + was/were + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + being + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + was/were + not + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + not + being + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Was/Were + S + V<sub>ing</sub>?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Was/Were + S + being + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>were painting</strong> the wall.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The wall <strong>was being painted</strong>.</div>
+      </div>
+    </div>
+
+    <!-- Present Perfect -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Present Perfect</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + has/have + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + has/have + been + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + hasn't/haven't + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + hasn't/haven't + been + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Has/Have + S + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Has/Have + S + been + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> Someone <strong>has stolen</strong> my bike.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> My bike <strong>has been stolen</strong>.</div>
+      </div>
+    </div>
+
+    <!-- Past Perfect -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Past Perfect</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + had + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + had + been + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + hadn't + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + hadn't + been + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Had + S + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Had + S + been + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> She <strong>had finished</strong> the report.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The report <strong>had been finished</strong>.</div>
+      </div>
+    </div>
+
+    <!-- Future Simple -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Future Simple</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + will + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + will + be + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + won't + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + won't + be + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Will + S + V?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Will + S + be + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>will deliver</strong> the package.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The package <strong>will be delivered</strong>.</div>
+      </div>
+    </div>
+
+    <!-- Future Perfect -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Future Perfect</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + will + have + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + will + have + been + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + won't + have + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + won't + have + been + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Will + S + have + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Will + S + have + been + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>will have completed</strong> it by June.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> It <strong>will have been completed</strong> by June.</div>
+      </div>
+    </div>
+
+    <!-- Modal Verbs -->
+    <div class="pv-tense-block">
+      <div class="pv-tense-title">Modal Verbs (can, must, should, may, might)</div>
+      <div class="pv-tense-cols">
+        <div class="pv-col-header">Active Voice</div>
+        <div class="pv-col-header right">Passive Voice</div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + modal + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + modal + be + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + modal + not + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + modal + not + be + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Modal + S + V?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Modal + S + be + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> You <strong>must submit</strong> the form.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The form <strong>must be submitted</strong>.</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- 3. WHEN TO USE -->
