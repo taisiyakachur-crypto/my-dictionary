@@ -6278,6 +6278,40 @@ animation:fadeSlide 0.5s ease both}
 <div id="page-passive" class="page" style="padding:0;max-width:100%">
 <style>
   /* ── Passive Voice scoped styles ── */
+  #page-passive{--teal:#2A9D8F}
+  .pvc-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
+  .pvc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+  .pvc-grid-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);font-size:13.5px;line-height:1.6}
+  .pvc-grid-item .pvc-emoji{font-size:20px;display:block;margin-bottom:6px}
+  .pvc-grid-item code{font-family:var(--font-mono);font-size:12px;color:var(--teal);background:rgba(42,157,143,.08);padding:2px 6px;border-radius:4px}
+  .pvc-grid-item .pvc-label{font-size:11px;color:var(--muted);margin-top:4px;display:block}
+  .pvc-alert{border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;font-size:13.5px;line-height:1.6;display:flex;gap:12px;align-items:flex-start}
+  .pvc-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+  .pvc-alert-body{flex:1}
+  .pvc-alert-body strong{display:block;margin-bottom:3px}
+  .pvc-alert-body ul{margin:5px 0 0 16px}
+  .pvc-alert-body li{margin-bottom:2px}
+  .pvc-alert-teal{background:rgba(42,157,143,.08);border-left:4px solid var(--teal)}
+  .pvc-alert-amber{background:#FFF8E1;border-left:4px solid #FFB300}
+  .pvc-alert-green{background:#E8F5E9;border-left:4px solid #4CAF50}
+  .pvc-alert-red{background:#FFEBEE;border-left:4px solid #E53935}
+  .pvc-havget{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  .pvc-havget-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+  .pvc-havget-card h4{font-family:var(--font-serif);font-size:16px;margin:0 0 6px;color:var(--teal)}
+  .pvc-havget-card p{font-size:13px;color:var(--ink2);line-height:1.55;margin:0 0 4px}
+  .pvc-tbl{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+  .pvc-tbl th{background:var(--teal);color:#fff;font-family:var(--font-serif);font-size:13px;font-weight:700;padding:10px 14px;text-align:left;border-bottom:1px solid rgba(42,157,143,.3)}
+  .pvc-tbl td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border);color:var(--ink2);line-height:1.5;vertical-align:top}
+  .pvc-tbl tr:last-child td{border-bottom:none}
+  .pvc-tbl tr:nth-child(even) td{background:rgba(42,157,143,.04)}
+  .pvc-tbl td:first-child{font-weight:700;color:var(--teal);white-space:nowrap}
+  .pvc-tbl td code{font-family:var(--font-mono);font-size:11.5px;color:var(--teal);background:rgba(42,157,143,.08);padding:1px 5px;border-radius:3px}
+  .pvc-tbl td em{color:var(--muted);font-size:12px}
+  @media(max-width:600px){
+    .pvc-grid,.pvc-havget{grid-template-columns:1fr}
+    .pvc-tbl td:first-child{white-space:normal}
+    .pvc-tbl th,.pvc-tbl td{padding:8px 10px;font-size:12px}
+  }
   .pv-hero{background:linear-gradient(135deg,var(--sky-ultra) 0%,#fff 50%,var(--rose-ultra) 100%);border-bottom:1px solid var(--border);padding:40px 24px 36px;text-align:center}
   .pv-hero h1{font-family:var(--font-serif);font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;margin-bottom:8px;background:linear-gradient(120deg,var(--ink) 0%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .pv-hero p{color:var(--muted);font-size:15px;max-width:520px;margin:0 auto}
@@ -6322,37 +6356,45 @@ animation:fadeSlide 0.5s ease both}
   .pv-tbl .ep{color:var(--rose);font-weight:600}
   .pv-tbl .ar{color:var(--muted);font-size:12px}
 
-  /* ── Detailed tense blocks ── */
-  .pv-tense-block{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
-  .pv-tense-title{background:var(--sky);color:#fff;font-family:var(--font-serif);font-size:18px;font-weight:700;padding:12px 18px;text-align:center}
+  /* ── Unified tense table ── */
+  .pv-tense-unified{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:14px}
+  .pv-tense-title{background:var(--sky);color:#fff;font-family:var(--font-serif);font-size:14px;font-weight:700;padding:6px 14px;text-align:center;border-bottom:1px solid var(--border)}
   .pv-tense-cols{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
-  .pv-tense-cols:last-child{border-bottom:none}
-  .pv-col-header{background:var(--sky-ultra);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--sky);padding:8px 16px;text-align:center;border-bottom:1px solid var(--border)}
-  .pv-col-header.right{border-left:1px solid var(--border)}
+  .pv-tense-cols.tri{grid-template-columns:1fr 1fr 1fr}
+  .pv-col-header{background:var(--sky);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#fff;padding:8px 10px;text-align:center;position:sticky;top:0;z-index:2}
+  .pv-col-header.right{border-left:1px solid rgba(255,255,255,.25)}
+  .pv-col-header.caus{background:var(--teal)}
   .pv-tense-row{display:grid;grid-template-columns:1fr 1fr}
-  .pv-tense-cell{padding:10px 16px;border-bottom:1px solid rgba(194,216,232,.5);display:flex;gap:10px;align-items:baseline;font-size:13.5px;transition:background .15s}
+  .pv-tense-row.tri{grid-template-columns:1fr 1fr 1fr}
+  .pv-tense-cell{padding:4px 8px;border-bottom:1px solid rgba(194,216,232,.4);display:flex;gap:5px;align-items:baseline;font-size:12px;transition:background .15s}
   .pv-tense-cell:hover{background:var(--sky-ultra)}
   .pv-tense-cell.right{border-left:1px solid var(--border)}
-  .pv-tense-cell:last-child{border-bottom:none}
-  .pv-sign{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+  .pv-sign{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
   .pv-sign.pos{background:#E8F5E9;color:#388E3C}
   .pv-sign.neg{background:#FFEBEE;color:#E53935}
   .pv-sign.que{background:#E3F2FD;color:#1E88E5}
-  .pv-cell-content{flex:1;line-height:1.5}
-  .pv-cell-formula{font-family:var(--font-mono);font-size:12px;color:var(--sky);display:block;margin-bottom:2px}
+  .pv-cell-content{flex:1;line-height:1.35}
+  .pv-cell-formula{font-family:var(--font-mono);font-size:10.5px;color:var(--sky);display:block}
   .pv-cell-formula.passive{color:var(--rose)}
-  .pv-tense-example{padding:8px 16px;font-size:13px;border-top:1px solid var(--border);background:var(--sky-ultra)}
+  .pv-cell-formula.causative{color:var(--teal)}
+  .pv-tense-cell.caus{background:rgba(42,157,143,.03)}
+  .pv-tense-cell.caus:hover{background:rgba(42,157,143,.08)}
+  .pv-tense-example{padding:4px 8px;font-size:11.5px;border-bottom:2px solid var(--border);background:var(--sky-ultra)}
   .pv-tense-example.right{border-left:1px solid var(--border)}
-  .pv-tense-example .lbl{font-weight:700;color:var(--sky);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  .pv-tense-example.caus{background:rgba(42,157,143,.06)}
+  .pv-tense-example .lbl{font-weight:700;color:var(--sky);font-size:9px;text-transform:uppercase;letter-spacing:.05em}
   .pv-tense-example .lbl.rose{color:var(--rose)}
+  .pv-tense-example .lbl.teal{color:var(--teal)}
   .pv-tense-example strong{color:var(--ink)}
+  .pv-tense-note{padding:3px 8px;font-size:10.5px;color:var(--muted);font-style:italic;text-align:center;border-bottom:2px solid var(--border);background:rgba(42,157,143,.03)}
+  .pv-tense-note.right{border-left:1px solid var(--border)}
 
   @media(max-width:700px){
-    .pv-tense-cols,.pv-tense-row{grid-template-columns:1fr}
-    .pv-col-header.right,.pv-tense-cell.right,.pv-tense-example.right{border-left:none;border-top:1px solid var(--border)}
-    .pv-tense-title{font-size:16px;padding:10px 14px}
-    .pv-tense-cell{padding:8px 14px;font-size:13px}
-    .pv-tense-example{padding:6px 14px;font-size:12px}
+    .pv-tense-cols,.pv-tense-row,.pv-tense-cols.tri,.pv-tense-row.tri{grid-template-columns:1fr}
+    .pv-col-header.right,.pv-tense-cell.right,.pv-tense-example.right,.pv-tense-note.right{border-left:none;border-top:1px solid var(--border)}
+    .pv-tense-title{font-size:13px;padding:5px 10px}
+    .pv-tense-cell{padding:4px 8px;font-size:11.5px}
+    .pv-tense-example{padding:3px 8px;font-size:11px}
   }
 
   /* alerts */
@@ -6427,6 +6469,7 @@ animation:fadeSlide 0.5s ease both}
   <!-- Section nav -->
   <div class="pv-sec-nav">
     <a class="pv-sec-btn active" href="#pv-what" onclick="setPvNav(this)">What</a>
+    <a class="pv-sec-btn" href="#pv-causative" onclick="setPvNav(this)">Causative</a>
     <a class="pv-sec-btn" href="#pv-tenses" onclick="setPvNav(this)">Tenses</a>
     <a class="pv-sec-btn" href="#pv-when" onclick="setPvNav(this)">When</a>
     <a class="pv-sec-btn" href="#pv-rules" onclick="setPvNav(this)">Rules</a>
@@ -6458,242 +6501,407 @@ animation:fadeSlide 0.5s ease both}
     </div>
   </div>
 
-  <!-- 2. TENSE TABLE -->
-  <div class="pv-section" id="pv-tenses">
-    <div class="pv-section-badge">Section 2</div>
-    <h2>Passive Voice in Every Tense</h2>
-    <p style="color:var(--muted);margin-bottom:6px">The verb <strong>"be"</strong> changes tense. The main verb always stays as <strong>V3</strong> (past participle). Each tense shows positive (+), negative (&minus;), and question (?) forms.</p>
+  <!-- 2. CAUSATIVE PASSIVE (info) -->
+  <div class="pv-section" id="pv-causative">
+    <div class="pv-section-badge" style="color:var(--teal)">Section 2</div>
+    <h2 style="color:var(--teal)">Causative Passive</h2>
 
-    <!-- Present Simple -->
-    <div class="pv-tense-block">
-      <div class="pv-tense-title">Present Simple</div>
-      <div class="pv-tense-cols">
+    <div class="pvc-alert pvc-alert-teal">
+      <div class="pvc-alert-icon">📘</div>
+      <div class="pvc-alert-body">
+        <strong>Causative Passive = have / get + object + past participle (V3)</strong>
+        <p>We use it when we <em>arrange for someone else</em> to do something for us (usually a professional or paid service). We are <strong>NOT</strong> doing it ourselves.</p>
+        <p style="margin-top:8px;font-weight:600">Two meanings:</p>
+        <ul>
+          <li><strong>Arranging a service:</strong> &ldquo;I <em>had</em> my car <em>washed</em>.&rdquo; &mdash; I paid someone to wash it; I didn&rsquo;t wash it myself.</li>
+          <li><strong>Unpleasant experience</strong> (something happened to us): &ldquo;She <em>had</em> her phone <em>stolen</em>.&rdquo; &mdash; a bad thing happened to her.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px;margin-bottom:10px">have vs get</h3>
+    <div class="pvc-havget">
+      <div class="pvc-havget-card">
+        <h4>have</h4>
+        <p>More <strong>formal</strong>, used in writing and speech.</p>
+        <p style="color:var(--muted);font-style:italic;font-size:12px">I&rsquo;m <strong>having</strong> my hair cut.</p>
+      </div>
+      <div class="pvc-havget-card">
+        <h4>get</h4>
+        <p>More <strong>informal</strong>, common in American English spoken conversation.</p>
+        <p style="color:var(--muted);font-style:italic;font-size:12px">I&rsquo;m <strong>getting</strong> my hair cut.</p>
+      </div>
+    </div>
+    <div class="pvc-alert pvc-alert-green">
+      <div class="pvc-alert-icon">💡</div>
+      <div class="pvc-alert-body">Both are correct in most situations. <strong>&ldquo;I&rsquo;m having my hair cut&rdquo; = &ldquo;I&rsquo;m getting my hair cut&rdquo;</strong></div>
+    </div>
+
+    <h3 style="margin-top:28px;margin-bottom:10px">Common Real-Life Examples</h3>
+    <div class="pvc-grid">
+      <div class="pvc-grid-item"><span class="pvc-emoji">💇</span><code>I get my hair cut every 6 weeks.</code><span class="pvc-label">salon</span></div>
+      <div class="pvc-grid-item"><span class="pvc-emoji">🚗</span><code>She had her car serviced last week.</code><span class="pvc-label">mechanic</span></div>
+      <div class="pvc-grid-item"><span class="pvc-emoji">📦</span><code>We're having groceries delivered tonight.</code><span class="pvc-label">delivery app</span></div>
+      <div class="pvc-grid-item"><span class="pvc-emoji">🏠</span><code>They're getting their apartment renovated.</code><span class="pvc-label">contractor</span></div>
+      <div class="pvc-grid-item"><span class="pvc-emoji">📱</span><code>I need to get my phone screen fixed.</code><span class="pvc-label">repair shop</span></div>
+      <div class="pvc-grid-item"><span class="pvc-emoji">👁️</span><code>He's having his eyes tested tomorrow.</code><span class="pvc-label">optometrist</span></div>
+    </div>
+
+    <h3 style="margin-top:28px;margin-bottom:10px">Watch Out!</h3>
+    <div class="pvc-alert pvc-alert-amber">
+      <div class="pvc-alert-icon">⚠️</div>
+      <div class="pvc-alert-body"><strong>Do NOT confuse:</strong> &ldquo;I cut my hair&rdquo; (I did it myself) vs &ldquo;I <em>had</em> my hair <em>cut</em>&rdquo; (someone did it for me).</div>
+    </div>
+    <div class="pvc-alert pvc-alert-red">
+      <div class="pvc-alert-icon">⚠️</div>
+      <div class="pvc-alert-body"><strong>Unpleasant experiences:</strong> &ldquo;Peter <em>had</em> his wallet <em>stolen</em>.&rdquo; &mdash; here we did NOT arrange anything. It just happened to him.</div>
+    </div>
+    <div class="pvc-alert pvc-alert-green">
+      <div class="pvc-alert-icon">✅</div>
+      <div class="pvc-alert-body"><strong>American English note:</strong> In everyday American speech, <strong>&ldquo;get&rdquo;</strong> is more common than &ldquo;have&rdquo; in causative structures.</div>
+    </div>
+  </div>
+
+  <!-- 3. TENSE TABLE -->
+  <div class="pv-section" id="pv-tenses">
+    <div class="pv-section-badge">Section 3</div>
+    <h2>Passive Voice in Every Tense</h2>
+    <p style="color:var(--muted);margin-bottom:6px">Each tense shows <strong>Active</strong>, <strong>Passive</strong>, and <strong>Causative Passive</strong> with positive (+), negative (&minus;), and question (?) forms.</p>
+
+    <div class="pv-tense-unified">
+      <!-- Column headers — once -->
+      <div class="pv-tense-cols tri">
         <div class="pv-col-header">Active Voice</div>
         <div class="pv-col-header right">Passive Voice</div>
+        <div class="pv-col-header right caus">Causative Passive</div>
       </div>
-      <div class="pv-tense-row">
+
+      <!-- Present Simple -->
+      <div class="pv-tense-title">Present Simple</div>
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + V / V<sub>s</sub></span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + have/has (get/gets) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + don't/doesn't + V</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + not + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + don't/doesn't + have (get) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Do/Does + S + V?</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Am/Is/Are + S + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Do/Does + S + have (get) + obj + V<sub>3</sub>?</span></div></div>
       </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-example"><span class="lbl">e.g.:</span> People <strong>buy</strong> a lot of cars every year.</div>
-        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> A lot of cars <strong>are bought</strong> every year.</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> People <strong>buy</strong> cars.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> Cars <strong>are bought</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> Ann <strong>has</strong> her hair <strong>cut</strong>.</div>
       </div>
-    </div>
 
-    <!-- Past Simple -->
-    <div class="pv-tense-block">
-      <div class="pv-tense-title">Past Simple</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + V<sub>ed</sub> / V<sub>2</sub></span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + V<sub>3</sub></span></div></div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + didn't + V</span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + not + V<sub>3</sub></span></div></div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Did + S + V?</span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Was/Were + S + V<sub>3</sub>?</span></div></div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-example"><span class="lbl">e.g.:</span> She <strong>bought</strong> this cake yesterday.</div>
-        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> This cake <strong>was bought</strong> yesterday.</div>
-      </div>
-    </div>
-
-    <!-- Present Continuous -->
-    <div class="pv-tense-block">
+      <!-- Present Continuous -->
       <div class="pv-tense-title">Present Continuous</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
-      </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + am/is/are + V<sub>ing</sub></span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + being + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + am/is/are having (getting) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + am/is/are + not + V<sub>ing</sub></span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are + not + being + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + am/is/are + not having (getting) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Am/Is/Are + S + V<sub>ing</sub>?</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Am/Is/Are + S + being + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Am/Is/Are + S + having (getting) + obj + V<sub>3</sub>?</span></div></div>
       </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>are building</strong> a new bridge.</div>
-        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> A new bridge <strong>is being built</strong>.</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>are building</strong> a bridge.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> A bridge <strong>is being built</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> Kate <strong>is having</strong> her nails <strong>polished</strong>.</div>
       </div>
-    </div>
 
-    <!-- Past Continuous -->
-    <div class="pv-tense-block">
-      <div class="pv-tense-title">Past Continuous</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + was/were + V<sub>ing</sub></span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + being + V<sub>3</sub></span></div></div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + was/were + not + V<sub>ing</sub></span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + not + being + V<sub>3</sub></span></div></div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Was/Were + S + V<sub>ing</sub>?</span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Was/Were + S + being + V<sub>3</sub>?</span></div></div>
-      </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>were painting</strong> the wall.</div>
-        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The wall <strong>was being painted</strong>.</div>
-      </div>
-    </div>
-
-    <!-- Present Perfect -->
-    <div class="pv-tense-block">
+      <!-- Present Perfect -->
       <div class="pv-tense-title">Present Perfect</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
-      </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + has/have + V<sub>3</sub></span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + has/have + been + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + has/have had (got) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + hasn't/haven't + V<sub>3</sub></span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + hasn't/haven't + been + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + hasn't/haven't had (got) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Has/Have + S + V<sub>3</sub>?</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Has/Have + S + been + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Has/Have + S + had (got) + obj + V<sub>3</sub>?</span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-example"><span class="lbl">e.g.:</span> Someone <strong>has stolen</strong> my bike.</div>
         <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> My bike <strong>has been stolen</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> Mike <strong>has had</strong> his car <strong>repaired</strong>.</div>
       </div>
-    </div>
 
-    <!-- Past Perfect -->
-    <div class="pv-tense-block">
-      <div class="pv-tense-title">Past Perfect</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
+      <!-- Past Simple -->
+      <div class="pv-tense-title">Past Simple</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + V<sub>ed</sub> / V<sub>2</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + had (got) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + didn't + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + not + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + didn't + have (get) + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Did + S + V?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Was/Were + S + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Did + S + have (get) + obj + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> She <strong>bought</strong> a cake.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> A cake <strong>was bought</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> I <strong>had</strong> my furniture <strong>delivered</strong>.</div>
+      </div>
+
+      <!-- Past Continuous -->
+      <div class="pv-tense-title">Past Continuous</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + was/were + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + being + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + was/were having (getting) + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + was/were + not + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + was/were + not + being + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + wasn't/weren't having (getting) + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Was/Were + S + V<sub>ing</sub>?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Was/Were + S + being + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Was/Were + S + having (getting) + obj + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>were painting</strong> the wall.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The wall <strong>was being painted</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> They <strong>were having</strong> the office <strong>decorated</strong>.</div>
+      </div>
+
+      <!-- Past Perfect -->
+      <div class="pv-tense-title">Past Perfect</div>
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + had + V<sub>3</sub></span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + had + been + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + had had (got) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + hadn't + V<sub>3</sub></span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + hadn't + been + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + hadn't had (got) + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Had + S + V<sub>3</sub>?</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Had + S + been + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Had + S + had (got) + obj + V<sub>3</sub>?</span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-example"><span class="lbl">e.g.:</span> She <strong>had finished</strong> the report.</div>
         <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The report <strong>had been finished</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> We <strong>had had</strong> our tests <strong>checked</strong>.</div>
       </div>
-    </div>
 
-    <!-- Future Simple -->
-    <div class="pv-tense-block">
+      <!-- Future Simple -->
       <div class="pv-tense-title">Future Simple</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
-      </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + will + V</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + will + be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + will have/get + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + won't + V</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + won't + be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + won't have/get + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Will + S + V?</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Will + S + be + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Will + S + have/get + obj + V<sub>3</sub>?</span></div></div>
       </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>will deliver</strong> the package.</div>
-        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The package <strong>will be delivered</strong>.</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>will deliver</strong> it.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> It <strong>will be delivered</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> I <strong>will have</strong> my docs <strong>approved</strong>.</div>
       </div>
-    </div>
 
-    <!-- Future Perfect -->
-    <div class="pv-tense-block">
+      <!-- Future Perfect -->
       <div class="pv-tense-title">Future Perfect</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + will have + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + will have been + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + will have had/got + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + will + have + V<sub>3</sub></span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + will + have + been + V<sub>3</sub></span></div></div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + won't have + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + won't have been + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + won't have had/got + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + won't + have + V<sub>3</sub></span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + won't + have + been + V<sub>3</sub></span></div></div>
-      </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Will + S + have + V<sub>3</sub>?</span></div></div>
-        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Will + S + have + been + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Will + S + have been + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Will + S + have had/got + obj + V<sub>3</sub>?</span></div></div>
       </div>
-      <div class="pv-tense-row">
-        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>will have completed</strong> it by June.</div>
-        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> It <strong>will have been completed</strong> by June.</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> They <strong>will have completed</strong> it.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> It <strong>will have been completed</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> I&rsquo;ll <strong>have had</strong> it <strong>delivered</strong>.</div>
       </div>
-    </div>
 
-    <!-- Modal Verbs -->
-    <div class="pv-tense-block">
-      <div class="pv-tense-title">Modal Verbs (can, must, should, may, might)</div>
-      <div class="pv-tense-cols">
-        <div class="pv-col-header">Active Voice</div>
-        <div class="pv-col-header right">Passive Voice</div>
+      <!-- Going to -->
+      <div class="pv-tense-title">Going to</div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + am/is/are going to + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are going to be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + am/is/are going to have/get + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + am/is/are not going to + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + am/is/are not going to be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + am/is/are not going to have/get + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Am/Is/Are + S + going to + V?</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Am/Is/Are + S + going to be + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Am/Is/Are + S + going to have/get + obj + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> She <strong>is going to write</strong> a letter.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> A letter <strong>is going to be written</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> She&rsquo;s <strong>going to have</strong> her back <strong>massaged</strong>.</div>
+      </div>
+
+      <!-- Modal Verbs -->
+      <div class="pv-tense-title">Modal Verbs (can, must, should, may, might)</div>
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">S + modal + V</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + modal + be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + modal + have/get + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">S + modal + not + V</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">S + modal + not + be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + modal + not + have/get + obj + V<sub>3</sub></span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-cell"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula">Modal + S + V?</span></div></div>
         <div class="pv-tense-cell right"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula passive">Modal + S + be + V<sub>3</sub>?</span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Modal + S + have/get + obj + V<sub>3</sub>?</span></div></div>
       </div>
-      <div class="pv-tense-row">
+      <div class="pv-tense-row tri">
         <div class="pv-tense-example"><span class="lbl">e.g.:</span> You <strong>must submit</strong> the form.</div>
         <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The form <strong>must be submitted</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> You <strong>can have</strong> groceries <strong>delivered</strong>.</div>
       </div>
-    </div>
+
+      <!-- Ing-form -->
+      <div class="pv-tense-title">Ing-form <span style="font-weight:400;font-size:11px;opacity:.8">(enjoy, hate, like, love, mind, avoid, imagine, consider, suggest&hellip;)</span></div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">V + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">V + being + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">V + having/getting + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">V + not + V<sub>ing</sub></span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">V + not being + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">V + not having/getting + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> I enjoy <strong>reading</strong> books.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> Nobody enjoys <strong>being criticized</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> I&rsquo;m thinking of <strong>having</strong> my hair <strong>cut</strong>.</div>
+      </div>
+
+      <!-- Infinitive -->
+      <div class="pv-tense-title">Infinitive <span style="font-weight:400;font-size:11px;opacity:.8">(want, need, expect, would like, agree, decide, hope, plan, promise&hellip;)</span></div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula">to + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula passive">to be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">to have/get + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-cell"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula">not to + V</span></div></div>
+        <div class="pv-tense-cell right"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula passive">not to be + V<sub>3</sub></span></div></div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">not to have/get + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example"><span class="lbl">e.g.:</span> I want <strong>to finish</strong> this.</div>
+        <div class="pv-tense-example right"><span class="lbl rose">e.g.:</span> The car needs <strong>to be repaired</strong>.</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> I need <strong>to have</strong> my work <strong>done</strong>.</div>
+      </div>
+
+      <!-- Additional Causative Forms -->
+      <div class="pv-tense-title" style="background:var(--teal)">Additional Causative Forms</div>
+
+      <!-- Future Continuous -->
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note" style="grid-column:1/-1;text-align:center;font-weight:700;font-style:normal;color:var(--teal)">Future Continuous</div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note">&mdash;</div>
+        <div class="pv-tense-note right">&mdash;</div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + will be having/getting + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note">&mdash;</div>
+        <div class="pv-tense-note right">&mdash;</div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + won't be having/getting + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note">&mdash;</div>
+        <div class="pv-tense-note right">&mdash;</div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Will + S + be having/getting + obj + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example">&nbsp;</div>
+        <div class="pv-tense-example right">&nbsp;</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> I&rsquo;ll <strong>be having</strong> my eyes <strong>tested</strong> at 5 pm.</div>
+      </div>
+
+      <!-- Present Perfect Continuous -->
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note" style="grid-column:1/-1;text-align:center;font-weight:700;font-style:normal;color:var(--teal)">Present Perfect Continuous</div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note">&mdash;</div>
+        <div class="pv-tense-note right">&mdash;</div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign pos">+</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + have/has been having/getting + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note">&mdash;</div>
+        <div class="pv-tense-note right">&mdash;</div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign neg">&minus;</div><div class="pv-cell-content"><span class="pv-cell-formula causative">S + haven't/hasn't been having/getting + obj + V<sub>3</sub></span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-note">&mdash;</div>
+        <div class="pv-tense-note right">&mdash;</div>
+        <div class="pv-tense-cell right caus"><div class="pv-sign que">?</div><div class="pv-cell-content"><span class="pv-cell-formula causative">Have/Has + S + been having/getting + obj + V<sub>3</sub>?</span></div></div>
+      </div>
+      <div class="pv-tense-row tri">
+        <div class="pv-tense-example">&nbsp;</div>
+        <div class="pv-tense-example right">&nbsp;</div>
+        <div class="pv-tense-example right caus"><span class="lbl teal">e.g.:</span> We&rsquo;ve <strong>been having</strong> our walls <strong>painted</strong> for 5 hours.</div>
+      </div>
+    </div><!-- /pv-tense-unified -->
+
 
   </div>
 
-  <!-- 3. WHEN TO USE -->
+  <!-- 4. WHEN TO USE -->
   <div class="pv-section" id="pv-when">
-    <div class="pv-section-badge">Section 3</div>
+    <div class="pv-section-badge">Section 4</div>
     <h2>When to Use Passive Voice</h2>
     <div class="pv-explain-grid">
       <div class="pv-explain">
@@ -6717,9 +6925,9 @@ animation:fadeSlide 0.5s ease both}
     </div>
   </div>
 
-  <!-- 4. IMPORTANT RULES -->
+  <!-- 5. IMPORTANT RULES -->
   <div class="pv-section" id="pv-rules">
-    <div class="pv-section-badge">Section 4</div>
+    <div class="pv-section-badge">Section 5</div>
     <h2>Important Rules</h2>
 
     <div class="pv-rule">
@@ -6769,16 +6977,6 @@ animation:fadeSlide 0.5s ease both}
     </div>
 
     <div class="pv-rule">
-      <h4>&#x1F9E9; Passive with Infinitive and Gerund</h4>
-      <h3 style="margin-top:6px">Modal Verbs + Bare Infinitive</h3>
-      <div class="pv-alert pv-alert-green" style="margin-bottom:8px"><div class="pv-alert-icon">&#x2699;</div><div class="pv-alert-body"><code>modal + be + V3</code><br>The report <strong>can be finished</strong> today.<br>This issue <strong>must be resolved</strong> immediately.</div></div>
-      <h3>Need / Want / Going to + To-Infinitive</h3>
-      <div class="pv-alert pv-alert-sky" style="margin-bottom:8px"><div class="pv-alert-icon">&#x1F4CB;</div><div class="pv-alert-body"><code>need / want / going + to be + V3</code><br>The car <strong>needs to be repaired</strong>.<br>The building <strong>is going to be demolished</strong>.</div></div>
-      <h3>Enjoy / Hate / Like + Being + V3</h3>
-      <div class="pv-alert pv-alert-purple" style="margin-bottom:0"><div class="pv-alert-icon">&#x1F3AD;</div><div class="pv-alert-body"><code>verb + being + V3</code><br>Nobody <strong>enjoys being criticized</strong>.<br>She <strong>hates being ignored</strong>.</div></div>
-    </div>
-
-    <div class="pv-rule">
       <h4>&#x26A1; GET-Passive (Informal)</h4>
       <p style="font-size:13.5px;color:var(--ink2);margin-bottom:8px">In spoken American English, <strong>"get"</strong> often replaces <strong>"be"</strong>.</p>
       <div class="pv-ex">
@@ -6818,9 +7016,9 @@ animation:fadeSlide 0.5s ease both}
     </div>
   </div>
 
-  <!-- 5. AMERICAN ENGLISH NOTES -->
+  <!-- 6. AMERICAN ENGLISH NOTES -->
   <div class="pv-section" id="pv-usa">
-    <div class="pv-section-badge">Section 5</div>
+    <div class="pv-section-badge">Section 6</div>
     <h2>American English Notes</h2>
     <div class="pv-usa">
       <h4>&#x1F1FA;&#x1F1F8; American vs. British Differences</h4>
@@ -6835,9 +7033,9 @@ animation:fadeSlide 0.5s ease both}
     </div>
   </div>
 
-  <!-- 6. QUIZ -->
+  <!-- 7. QUIZ -->
   <div class="pv-section" id="pv-quiz">
-    <div class="pv-section-badge">Section 6</div>
+    <div class="pv-section-badge">Section 7</div>
     <h2>Practice Quiz</h2>
     <p style="color:var(--muted);margin-bottom:14px">Transform active to passive, fill in the correct form, or identify impossible passives.</p>
     <div id="pv-quiz-container"></div>
@@ -6847,6 +7045,7 @@ animation:fadeSlide 0.5s ease both}
     </div>
     <div class="pv-quiz-score" id="pv-quiz-score"></div>
   </div>
+
 
 </div><!-- /.pv-content -->
 </div><!-- /#page-passive -->
@@ -9060,6 +9259,7 @@ function resetPassiveQuiz() {
   });
   document.getElementById('pv-quiz-score').textContent='';
 }
+
 
 </script>
 
