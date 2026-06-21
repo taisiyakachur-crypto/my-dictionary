@@ -43,6 +43,8 @@
     --lavender:   #6080B8;
     --lav-pale:   #DDE6F5;
 
+    --card:      #fff;
+
     --shadow:    0 2px 18px rgba(24,36,60,0.08);
     --shadow-lg: 0 8px 40px rgba(24,36,60,0.14);
     --radius:    14px;
@@ -52,6 +54,207 @@
     --font-sans:  'Nunito', system-ui, sans-serif;
     --font-mono:  'JetBrains Mono', 'Courier New', monospace;
   }
+
+  /* ── Dark theme ── */
+  [data-theme="dark"] {
+    --sky:        #5A9FD4;
+    --sky-mid:    #4A8AB8;
+    --sky-pale:   #1E3348;
+    --sky-ultra:  #172838;
+    --rose:       #D4809A;
+    --rose-mid:   #A85A74;
+    --rose-pale:  #2E1A22;
+    --rose-ultra: #241418;
+    --ink:        #E2E8F0;
+    --ink2:       #B0BCC8;
+    --paper:      #0F1720;
+    --cream:      #182430;
+    --muted:      #7A8A9E;
+    --border:     #283848;
+    --sage:       var(--sky);
+    --sage-light: var(--sky-mid);
+    --sage-pale:  var(--sky-pale);
+    --gold:       var(--rose);
+    --gold-pale:  var(--rose-pale);
+    --terracotta: #D0708A;
+    --terra-pale: var(--rose-pale);
+    --lavender:   #7090C8;
+    --lav-pale:   #1E2A40;
+    --card:       #14202C;
+
+    --shadow:     0 2px 18px rgba(0,0,0,0.3);
+    --shadow-lg:  0 8px 40px rgba(0,0,0,0.4);
+    color-scheme: dark;
+  }
+  [data-theme="dark"] nav {
+    background: rgba(15,23,32,0.94);
+  }
+  [data-theme="dark"] .sidebar {
+    background: rgba(20,30,42,0.97);
+  }
+  [data-theme="dark"] .sidebar-overlay {
+    background: rgba(0,0,0,0.45);
+  }
+  [data-theme="dark"] .page-header {
+    background: none;
+  }
+  [data-theme="dark"] input,
+  [data-theme="dark"] select,
+  [data-theme="dark"] textarea {
+    background: #182430;
+    color: var(--ink);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] table {
+    background: #14202C;
+  }
+  [data-theme="dark"] table thead {
+    background: var(--sky-pale);
+  }
+  [data-theme="dark"] table tbody tr:hover {
+    background: #1A2838;
+  }
+  [data-theme="dark"] .btn-primary {
+    background: var(--sky);
+  }
+  [data-theme="dark"] .pv-tense-unified {
+    background: #14202C;
+  }
+  [data-theme="dark"] .pv-tense-example {
+    background: #172838;
+  }
+  [data-theme="dark"] .pv-tense-cell.caus {
+    background: rgba(42,157,143,.06);
+  }
+  [data-theme="dark"] .pv-tense-example.caus {
+    background: rgba(42,157,143,.08);
+  }
+  [data-theme="dark"] .pv-sign.pos { background: #1A2E1A; color: #66BB6A; }
+  [data-theme="dark"] .pv-sign.neg { background: #2E1A1A; color: #EF5350; }
+  [data-theme="dark"] .pv-sign.que { background: #1A2240; color: #42A5F5; }
+  [data-theme="dark"] .pv-section { background: #14202C; }
+  [data-theme="dark"] .pv-rule { background: #14202C; }
+  [data-theme="dark"] .pv-explain { background: #14202C; }
+  [data-theme="dark"] .pv-alert { background: #14202C; }
+  [data-theme="dark"] .pv-alert-red { background: #2E1A1A; }
+  [data-theme="dark"] .pv-alert-green { background: #1A2E1A; }
+  [data-theme="dark"] .pv-alert-purple { background: #201830; }
+  [data-theme="dark"] .pvc-alert-amber { background: #2E2818; }
+  [data-theme="dark"] .pvc-alert-green { background: #1A2E1A; }
+  [data-theme="dark"] .pvc-alert-red { background: #2E1A1A; }
+  [data-theme="dark"] .pv-usa { background: #14202C; }
+  [data-theme="dark"] code {
+    background: rgba(255,255,255,.08);
+  }
+  [data-theme="dark"] .pv-inf-block,
+  [data-theme="dark"] .pvc-tbl {
+    background: #14202C;
+  }
+  /* dark theme for other pages */
+  [data-theme="dark"] .q-cheatsheet { background: #1A2838 !important; }
+  [data-theme="dark"] #quantifiers-scope .mega-table thead th { background: #1A2838; }
+  [data-theme="dark"] #quantifiers-scope {
+    --q-bg: #0F1720;
+    --q-card: #14202C;
+    --q-ink: #E2E8F0;
+    --q-muted: #7A8A9E;
+    --q-border: #283848;
+    --q-count: #5A9FD4;
+    --q-count-light: #1A2838;
+    --q-count-mid: #2A4060;
+    --q-uncount: #A070CC;
+    --q-uncount-light: #201830;
+    --q-uncount-mid: #382850;
+    --q-both: #40B088;
+    --q-both-light: #142820;
+    --q-both-mid: #1E3830;
+    --q-neg: #E06050;
+    --q-neg-light: #2E1A18;
+    --q-pos: #4CAF50;
+    --q-pos-light: #1A2E1A;
+    --q-accent: #E0B840;
+    --q-accent-light: #2E2818;
+    --bg: #0F1720;
+    --card: #14202C;
+    --ink: #E2E8F0;
+    --muted: #7A8A9E;
+    --border: #283848;
+    --count: #5A9FD4;
+    --count-light: #1A2838;
+    --count-mid: #2A4060;
+    --uncount: #A070CC;
+    --uncount-light: #201830;
+    --uncount-mid: #382850;
+    --both: #40B088;
+    --both-light: #142820;
+    --both-mid: #1E3830;
+    --neg: #E06050;
+    --neg-light: #2E1A18;
+    --pos: #4CAF50;
+    --pos-light: #1A2E1A;
+    --accent: #E0B840;
+    --accent-light: #2E2818;
+  }
+  [data-theme="dark"] #page-tenses,
+  [data-theme="dark"] #tenses-scope {
+    --bg: #0F1720;
+    --bg2: #182430;
+    --card: #14202C;
+    --ink: #E2E8F0;
+    --ink2: #B0BCC8;
+    --muted: #7A8A9E;
+    --border: #283848;
+    --border2: #304050;
+    --pr: #4CAF78; --prl: #1A2E22; --prm: #2A4A34; --prd: #88D4A4;
+    --pa: #D4709A; --pal: #2E1A24; --pam: #4A2838; --pad: #E8A0B8;
+    --fu: #5A9FD4; --ful: #1A2838; --fum: #2A4060; --fud: #90C0E8;
+    --gd: #D4A040; --gdl: #2E2818; --gdm: #4A3E20;
+    --co: #E07060; --col: #2E1A18; --com: #4A2820;
+    --pc: #9070C0; --pcl: #201830; --pcm: #382848;
+  }
+  [data-theme="dark"] #tenses-scope .comp-table th { background: #1A2838; }
+  [data-theme="dark"] #page-conditionals,
+  [data-theme="dark"] #conditionals-scope {
+    --bg: #0F1720;
+    --bg2: #182430;
+    --card: #14202C;
+    --card2: #182430;
+    --surface: #1A2838;
+    --text: #E2E8F0;
+    --muted: #7A8A9E;
+    --faint: #384858;
+    --border: rgba(90,159,212,0.2);
+    --border2: rgba(90,159,212,0.3);
+    --z0: #5AB0E0; --z0l: #142838; --z0m: #2A4868;
+    --f1: #60C888; --f1l: #142820; --f1m: #2A4838;
+    --s2: #F0B040; --s2l: #2E2818; --s2m: #4A3E20;
+    --t3: #E06888; --t3l: #2E1A22; --t3m: #4A2838;
+    --mx: #9978E8; --mxl: #201838; --mxm: #382858;
+    --un: #E89840; --unl: #2E2418; --unm: #4A3820;
+  }
+  [data-theme="dark"] .card { background: #14202C; }
+  [data-theme="dark"] .setup-banner { background: linear-gradient(135deg, #1A2838, #14202C); }
+  [data-theme="dark"] .search-input { background: #182430; color: var(--ink); }
+  [data-theme="dark"] .table-wrap { background: #14202C; }
+  [data-theme="dark"] .word-row { background: #14202C; }
+  [data-theme="dark"] .word-row:hover { background: #1A2838; }
+  [data-theme="dark"] .filter-btn { background: #182430; color: var(--ink2); }
+  [data-theme="dark"] .pill-group .pill { background: #182430; color: var(--ink2); }
+  [data-theme="dark"] .translate-btn { background: #182430; color: var(--ink2); }
+  [data-theme="dark"] .modal-content { background: #14202C; }
+  [data-theme="dark"] .verb-filter-btn { background: #182430; color: var(--ink2); border-color: var(--border); }
+  [data-theme="dark"] .word-action-btn { background: #182430; }
+  [data-theme="dark"] .tab-btn { background: #182430; color: var(--ink2); }
+  /* theme toggle button */
+  .theme-toggle {
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; padding: 6px;
+    border-radius: 50%;
+    transition: background .2s;
+    line-height: 1;
+    margin-right: 2px;
+  }
+  .theme-toggle:hover { background: var(--sky-ultra); }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -202,7 +405,7 @@
 
   /* ── CARDS ── */
   .card {
-    background: #fff;
+    background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 24px;
@@ -219,7 +422,7 @@
 
   /* ── SETUP BANNER ── */
   .setup-banner {
-    background: linear-gradient(135deg, var(--sky-ultra), #fff);
+    background: linear-gradient(135deg, var(--sky-ultra), var(--card));
     border: 1px solid var(--sky-pale);
     border-radius: var(--radius);
     padding: 20px 24px;
@@ -239,7 +442,7 @@
   .setup-banner input {
     width: 100%; border: 1px solid var(--sky-pale); border-radius: var(--radius-sm);
     padding: 8px 12px; font-size: 13px; font-family: var(--font-mono);
-    background: #fff; outline: none; color: var(--ink);
+    background: var(--card); outline: none; color: var(--ink);
   }
   .setup-banner input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(74,142,194,0.14); }
   .setup-save-btn {
@@ -258,11 +461,11 @@
   .input-group input, .input-group textarea, .input-group select {
     width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
     padding: 10px 14px; font-size: 14px; font-family: var(--font-sans);
-    background: #fff; outline: none; color: var(--ink); transition: border 0.15s;
+    background: var(--card); outline: none; color: var(--ink); transition: border 0.15s;
   }
   .input-group textarea { resize: vertical; min-height: 80px; }
   .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
-    border-color: var(--sky); background: #fff;
+    border-color: var(--sky); background: var(--card);
     box-shadow: 0 0 0 3px rgba(74,142,194,0.12);
   }
 
@@ -285,7 +488,7 @@
   .search-wrap { position: relative; margin-bottom: 16px; }
   .search-wrap input {
     width: 100%; border: 1.5px solid var(--border); border-radius: 40px;
-    padding: 13px 20px 13px 48px; font-size: 15px; background: #fff;
+    padding: 13px 20px 13px 48px; font-size: 15px; background: var(--card);
     outline: none; transition: all 0.18s; font-family: var(--font-sans);
     color: var(--ink); font-weight: 400;
   }
@@ -305,7 +508,7 @@
   /* ── WORD LIST ── */
   .words-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
   .word-card {
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 18px 18px 14px; transition: all 0.18s; position: relative; overflow: hidden;
   }
   .word-card::before {
@@ -382,12 +585,12 @@
     font-size: 11px; font-weight: 600; background: var(--rose-pale); color: var(--rose);
     font-family: var(--font-sans);
   }
-  .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 
   /* ── PAGE 3: LINKS ── */
   .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
   .link-card {
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 22px; text-decoration: none; color: inherit;
     transition: all 0.18s; display: block;
   }
@@ -407,7 +610,7 @@
   /* ── PAGE 4: NOTES ── */
   .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 14px; }
   .note-card {
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 18px; cursor: pointer; transition: all 0.18s; position: relative; overflow: hidden;
   }
   .note-card::before {
@@ -435,7 +638,7 @@
   }
   .notes-toolbar-btn {
     padding:5px 12px; border-radius:20px; border:1px solid var(--border);
-    background:#fff; color:var(--ink2); font-size:12px; cursor:pointer;
+    background:var(--card); color:var(--ink2); font-size:12px; cursor:pointer;
     transition:all 0.14s; font-family:var(--font-sans); font-weight:600;
   }
   .notes-toolbar-btn:hover { background:var(--rose-pale); border-color:var(--rose-mid); color:var(--rose); }
@@ -446,7 +649,7 @@
   .rich-editor {
     min-height:420px; border:1.5px solid var(--border); border-radius:var(--radius);
     padding:24px; font-family:var(--font-sans); font-size:15px; line-height:1.8;
-    color:var(--ink); background:#fff; outline:none; transition:border 0.15s;
+    color:var(--ink); background:var(--card); outline:none; transition:border 0.15s;
     overflow-y:auto;
   }
   .rich-editor:focus { border-color:var(--sky); box-shadow:0 0 0 3px rgba(74,142,194,0.1); }
@@ -502,7 +705,7 @@
   .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
   .filter-btn {
     padding: 6px 16px; border-radius: 20px; border: 1.5px solid var(--border);
-    background: #fff; color: var(--muted); font-size: 13px; font-weight: 600;
+    background: var(--card); color: var(--muted); font-size: 13px; font-weight: 600;
     cursor: pointer; transition: all 0.14s; font-family: var(--font-sans);
   }
   .filter-btn:hover { border-color: var(--sky); color: var(--sky); background: var(--sky-ultra); }
@@ -627,7 +830,7 @@
     backdrop-filter:blur(4px);
   }
   .modal {
-    background:#fff;border-radius:var(--radius);padding:30px;width:100%;max-width:520px;
+    background:var(--card);border-radius:var(--radius);padding:30px;width:100%;max-width:520px;
     box-shadow:var(--shadow-lg);position:relative;
     border-top:4px solid var(--sky);
   }
@@ -641,11 +844,13 @@
 
 </style>
 </head>
+<script>if(localStorage.getItem('dict-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')</script>
 <body>
 
 <nav>
-  <div class="nav-logo">My <span>Dictionary</span></div>
+  <a class="nav-logo" href="#" onclick="event.preventDefault();goHome();" style="text-decoration:none;color:inherit;cursor:pointer">My <span>Dictionary</span></a>
   <span class="current-tab-label" id="current-tab-label">📖 Dictionary</span>
+  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
   <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">
     <div class="hamburger"><span></span><span></span><span></span></div>
   </button>
@@ -1218,7 +1423,7 @@
     gap: 8px;
     justify-content: center;
     padding: 14px 24px;
-    background: rgba(238,244,249,0.95);
+    background: var(--bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     position: sticky;
@@ -1234,7 +1439,7 @@
     border: 1.5px solid var(--border);
     color: var(--muted);
     transition: all 0.18s;
-    background: #fff;
+    background: var(--card);
   }
 #quantifiers-scope .q-nav a:hover {
     border-color: var(--sky); color: var(--sky); background: var(--sky-ultra);
@@ -2374,7 +2579,7 @@
     </div>
 
     <!-- MEMORY CHEAT SHEET -->
-    <div style="background:var(--ink);color:#EEF4F9;border-radius:16px;padding:28px 32px;margin-top:24px;">
+    <div class="q-cheatsheet" style="background:#18243C;color:#EEF4F9;border-radius:16px;padding:28px 32px;margin-top:24px;">
       <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B0A898;margin-bottom:20px;">Memory cheat sheet</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;font-size:14px;">
         <div>
@@ -2434,8 +2639,8 @@
     --un:  #DD8833;
     --unl: #feecd0;
     --unm: #dd8833;
-    background: #EEF4F9;
-    color: #18243C;
+    background: var(--bg);
+    color: var(--text);
     display: block;
 }
 #conditionals-scope * {
@@ -2589,7 +2794,7 @@
   position: sticky;
   top: 62px;
   z-index: 200;
-  background: rgba(238,244,249,0.95);
+  background: var(--bg, rgba(238,244,249,0.95));
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -2602,7 +2807,7 @@
   position: sticky;
   top: 62px;
   z-index: 200;
-  background: rgba(238,244,249,0.95);
+  background: var(--bg);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -4968,7 +5173,7 @@ font-size:12px;color:var(--muted);margin-left:24px;margin-top:-4px;font-family:'
 }
 #tenses-scope .comp-table th {
 
-  background:var(--ink);
+  background:#18243C;
   color:#F7F4EE;
   padding:13px 16px;
   font-family:'Syne',sans-serif;
@@ -5119,6 +5324,39 @@ animation:fadeSlide 0.5s ease both}
   <div class="nav-section">
     <a class="nav-item" href="#compare">Compare All</a>
     <a class="nav-item" href="#mistakes">Mistakes</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     COMPARE ALL
+═══════════════════════════════════════ -->
+<div id="compare">
+  <div class="family-head" style="padding-top:32px">
+    <div class="family-icon">📊</div>
+    <div>
+      <div class="family-eyebrow" style="color:var(--muted)">All 12 Tenses</div>
+      <div class="family-title">Compare at a glance</div>
+    </div>
+    <div class="family-desc">All tenses, their formulas, time reference, signal words and one key example in a single table.</div>
+  </div>
+  <div class="comp-wrap">
+    <table class="comp-table">
+      <thead><tr><th>Tense</th><th>Formula</th><th>Time</th><th>Key signal</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td class="tname" style="color:var(--pr)">Present Simple</td><td class="mono">S + V(s/es)</td><td>always / generally</td><td>always, every day, never</td><td class="ex-c">She <strong>works</strong> every day.</td></tr>
+        <tr><td class="tname" style="color:var(--pr)">Present Continuous</td><td class="mono">am/is/are + V-ing</td><td>right now / temporary</td><td>now, at the moment</td><td class="ex-c">She <strong>is working</strong> right now.</td></tr>
+        <tr><td class="tname" style="color:var(--pr)">Present Perfect</td><td class="mono">have/has + p.p.</td><td>past → present link</td><td>already, just, ever, yet</td><td class="ex-c">She <strong>has worked</strong> here for years.</td></tr>
+        <tr><td class="tname" style="color:var(--pr)">Pres. Perf. Continuous</td><td class="mono">have/has + been + V-ing</td><td>duration → now</td><td>for, since, how long, all day</td><td class="ex-c">She <strong>has been working</strong> all morning.</td></tr>
+        <tr><td class="tname" style="color:var(--pa)">Past Simple</td><td class="mono">S + V2 (past form)</td><td>specific finished past</td><td>yesterday, ago, last year</td><td class="ex-c">She <strong>worked</strong> there in 2018.</td></tr>
+        <tr><td class="tname" style="color:var(--pa)">Past Continuous</td><td class="mono">was/were + V-ing</td><td>ongoing at past moment</td><td>when, while, at 9 pm</td><td class="ex-c">She <strong>was working</strong> when I called.</td></tr>
+        <tr><td class="tname" style="color:var(--pa)">Past Perfect</td><td class="mono">had + p.p.</td><td>before another past</td><td>by the time, already, before</td><td class="ex-c">She <strong>had worked</strong> there before I joined.</td></tr>
+        <tr><td class="tname" style="color:var(--pa)">Past Perf. Continuous</td><td class="mono">had + been + V-ing</td><td>duration before past</td><td>for, since, all day, before</td><td class="ex-c">She <strong>had been working</strong> for 3 hrs when I arrived.</td></tr>
+        <tr><td class="tname" style="color:var(--fu)">Future Simple (will)</td><td class="mono">will + base verb</td><td>prediction / spontaneous</td><td>tomorrow, probably, I think</td><td class="ex-c">She <strong>will work</strong> late tonight.</td></tr>
+        <tr><td class="tname" style="color:var(--fu)">Future Continuous</td><td class="mono">will be + V-ing</td><td>ongoing at future moment</td><td>at this time tomorrow, when</td><td class="ex-c">She <strong>will be working</strong> at midnight.</td></tr>
+        <tr><td class="tname" style="color:var(--fu)">Future Perfect</td><td class="mono">will have + p.p.</td><td>completed before future</td><td>by then, by next year</td><td class="ex-c">She <strong>will have worked</strong> here 10 years by June.</td></tr>
+        <tr><td class="tname" style="color:var(--fu)">Future Perf. Continuous</td><td class="mono">will have been + V-ing</td><td>duration until future</td><td>for, by the time, how long</td><td class="ex-c">She <strong>will have been working</strong> for 30 yrs by then.</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -6015,120 +6253,6 @@ animation:fadeSlide 0.5s ease both}
 <div class="sec-div"></div>
 
 <!-- ═══════════════════════════════════════
-     COMPARE ALL
-═══════════════════════════════════════ -->
-<div id="compare">
-  <div class="family-head" style="padding-top:60px">
-    <div class="family-icon">📊</div>
-    <div>
-      <div class="family-eyebrow" style="color:var(--muted)">All 12 Tenses</div>
-      <div class="family-title">Compare at a glance</div>
-    </div>
-    <div class="family-desc">All tenses, their formulas, time reference, signal words and one key example in a single table.</div>
-  </div>
-
-  <div class="comp-wrap">
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Tense</th>
-          <th>Formula</th>
-          <th>Time</th>
-          <th>Key signal</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="tname" style="color:var(--pr)">Present Simple</td>
-          <td class="mono">S + V(s/es)</td>
-          <td>always / generally</td>
-          <td>always, every day, never</td>
-          <td class="ex-c">She <strong>works</strong> every day.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--pr)">Present Continuous</td>
-          <td class="mono">am/is/are + V-ing</td>
-          <td>right now / temporary</td>
-          <td>now, at the moment</td>
-          <td class="ex-c">She <strong>is working</strong> right now.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--pr)">Present Perfect</td>
-          <td class="mono">have/has + p.p.</td>
-          <td>past → present link</td>
-          <td>already, just, ever, yet</td>
-          <td class="ex-c">She <strong>has worked</strong> here for years.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--pr)">Pres. Perf. Continuous</td>
-          <td class="mono">have/has + been + V-ing</td>
-          <td>duration → now</td>
-          <td>for, since, how long, all day</td>
-          <td class="ex-c">She <strong>has been working</strong> all morning.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--pa)">Past Simple</td>
-          <td class="mono">S + V2 (past form)</td>
-          <td>specific finished past</td>
-          <td>yesterday, ago, last year</td>
-          <td class="ex-c">She <strong>worked</strong> there in 2018.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--pa)">Past Continuous</td>
-          <td class="mono">was/were + V-ing</td>
-          <td>ongoing at past moment</td>
-          <td>when, while, at 9 pm</td>
-          <td class="ex-c">She <strong>was working</strong> when I called.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--pa)">Past Perfect</td>
-          <td class="mono">had + p.p.</td>
-          <td>before another past</td>
-          <td>by the time, already, before</td>
-          <td class="ex-c">She <strong>had worked</strong> there before I joined.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--pa)">Past Perf. Continuous</td>
-          <td class="mono">had + been + V-ing</td>
-          <td>duration before past</td>
-          <td>for, since, all day, before</td>
-          <td class="ex-c">She <strong>had been working</strong> for 3 hrs when I arrived.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--fu)">Future Simple (will)</td>
-          <td class="mono">will + base verb</td>
-          <td>prediction / spontaneous</td>
-          <td>tomorrow, probably, I think</td>
-          <td class="ex-c">She <strong>will work</strong> late tonight.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--fu)">Future Continuous</td>
-          <td class="mono">will be + V-ing</td>
-          <td>ongoing at future moment</td>
-          <td>at this time tomorrow, when</td>
-          <td class="ex-c">She <strong>will be working</strong> at midnight.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--fu)">Future Perfect</td>
-          <td class="mono">will have + p.p.</td>
-          <td>completed before future</td>
-          <td>by then, by next year</td>
-          <td class="ex-c">She <strong>will have worked</strong> here 10 years by June.</td>
-        </tr>
-        <tr>
-          <td class="tname" style="color:var(--fu)">Future Perf. Continuous</td>
-          <td class="mono">will have been + V-ing</td>
-          <td>duration until future</td>
-          <td>for, by the time, how long</td>
-          <td class="ex-c">She <strong>will have been working</strong> for 30 yrs by then.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
      COMMON MISTAKES
 ═══════════════════════════════════════ -->
 <div id="mistakes">
@@ -6209,7 +6333,7 @@ animation:fadeSlide 0.5s ease both}
 <!-- ════════════════════════════ PAGE 10: PHRASAL VERBS ════════════════════════════ -->
 <div id="page-phrasal" class="page">
   <style>
-    .pv-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
+    .pv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
     .pv-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
     .pv-verb{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:700;color:var(--ink)}
     .pv-uk{font-size:14px;color:var(--sky);font-weight:700}
@@ -6242,7 +6366,7 @@ animation:fadeSlide 0.5s ease both}
 <!-- ════════════════════════════ PAGE: PREPOSITIONS ════════════════════════════ -->
 <div id="page-prepositions" class="page">
   <style>
-    .prep-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
+    .prep-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
     .prep-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
     .prep-word{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700;color:var(--sky)}
     .prep-uk{font-size:14px;color:var(--rose);font-weight:700}
@@ -6279,9 +6403,9 @@ animation:fadeSlide 0.5s ease both}
 <style>
   /* ── Passive Voice scoped styles ── */
   #page-passive{--teal:#2A9D8F}
-  .pvc-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
+  .pvc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
   .pvc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-  .pvc-grid-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);font-size:13.5px;line-height:1.6}
+  .pvc-grid-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);font-size:13.5px;line-height:1.6}
   .pvc-grid-item .pvc-emoji{font-size:20px;display:block;margin-bottom:6px}
   .pvc-grid-item code{font-family:var(--font-mono);font-size:12px;color:var(--teal);background:rgba(42,157,143,.08);padding:2px 6px;border-radius:4px}
   .pvc-grid-item .pvc-label{font-size:11px;color:var(--muted);margin-top:4px;display:block}
@@ -6296,7 +6420,7 @@ animation:fadeSlide 0.5s ease both}
   .pvc-alert-green{background:#E8F5E9;border-left:4px solid #4CAF50}
   .pvc-alert-red{background:#FFEBEE;border-left:4px solid #E53935}
   .pvc-havget{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
-  .pvc-havget-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+  .pvc-havget-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
   .pvc-havget-card h4{font-family:var(--font-serif);font-size:16px;margin:0 0 6px;color:var(--teal)}
   .pvc-havget-card p{font-size:13px;color:var(--ink2);line-height:1.55;margin:0 0 4px}
   .pvc-tbl{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
@@ -6312,17 +6436,17 @@ animation:fadeSlide 0.5s ease both}
     .pvc-tbl td:first-child{white-space:normal}
     .pvc-tbl th,.pvc-tbl td{padding:8px 10px;font-size:12px}
   }
-  .pv-hero{background:linear-gradient(135deg,var(--sky-ultra) 0%,#fff 50%,var(--rose-ultra) 100%);border-bottom:1px solid var(--border);padding:40px 24px 36px;text-align:center}
+  .pv-hero{background:linear-gradient(135deg,var(--sky-ultra) 0%,var(--card) 50%,var(--rose-ultra) 100%);border-bottom:1px solid var(--border);padding:40px 24px 36px;text-align:center}
   .pv-hero h1{font-family:var(--font-serif);font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;margin-bottom:8px;background:linear-gradient(120deg,var(--ink) 0%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .pv-hero p{color:var(--muted);font-size:15px;max-width:520px;margin:0 auto}
-  .pv-formula{display:inline-block;margin-top:16px;background:#fff;border:2px solid var(--sky);border-radius:var(--radius);padding:12px 24px;font-family:var(--font-mono);font-size:14px;color:var(--ink);box-shadow:0 4px 20px rgba(74,142,194,0.12)}
+  .pv-formula{display:inline-block;margin-top:16px;background:var(--card);border:2px solid var(--sky);border-radius:var(--radius);padding:12px 24px;font-family:var(--font-mono);font-size:14px;color:var(--ink);box-shadow:0 4px 20px rgba(74,142,194,0.12)}
   .pv-formula b{color:var(--sky)}
   .pv-formula em{color:var(--rose);font-style:normal}
 
   .pv-content{max-width:920px;margin:0 auto;padding:0 20px 60px}
 
   /* section nav */
-  .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:62px;z-index:50;background:rgba(238,244,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
+  .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:62px;z-index:50;background:var(--paper);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
   .pv-sec-btn{padding:6px 14px;border-radius:30px;font-size:12px;font-weight:700;color:var(--muted);background:none;border:1.5px solid var(--border);cursor:pointer;font-family:var(--font-sans);transition:all .18s;white-space:nowrap;text-decoration:none}
   .pv-sec-btn:hover{color:var(--ink);background:var(--sky-ultra);border-color:var(--sky-mid)}
   .pv-sec-btn.active{color:#fff;background:var(--sky);border-color:var(--sky);box-shadow:0 2px 8px rgba(74,142,194,.3)}
@@ -6332,18 +6456,18 @@ animation:fadeSlide 0.5s ease both}
   .pv-section h2{font-family:var(--font-serif);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:14px}
   .pv-section h3{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink2);margin:20px 0 8px}
 
-  .pv-card-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
+  .pv-card-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
 
   /* explain cards */
   .pv-explain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
-  .pv-explain{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:all .18s}
+  .pv-explain{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:all .18s}
   .pv-explain:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
   .pv-explain .num{width:30px;height:30px;border-radius:50%;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-bottom:8px}
   .pv-explain h4{font-size:14px;font-weight:700;margin-bottom:4px}
 
   /* tense table */
   .pv-table-wrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);margin-top:14px;-webkit-overflow-scrolling:touch}
-  .pv-tbl{width:100%;border-collapse:collapse;background:#fff;font-size:13.5px}
+  .pv-tbl{width:100%;border-collapse:collapse;background:var(--card);font-size:13.5px}
   .pv-tbl thead{background:var(--sky);color:#fff}
   .pv-tbl th{padding:12px 14px;font-weight:700;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
   .pv-tbl td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
@@ -6357,7 +6481,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-tbl .ar{color:var(--muted);font-size:12px}
 
   /* ── Unified tense table ── */
-  .pv-tense-unified{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:14px}
+  .pv-tense-unified{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:14px}
   .pv-tense-title{background:var(--sky);color:#fff;font-family:var(--font-serif);font-size:14px;font-weight:700;padding:6px 14px;text-align:center;border-bottom:1px solid var(--border)}
   .pv-tense-cols{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
   .pv-tense-cols.tri{grid-template-columns:1fr 1fr 1fr}
@@ -6418,7 +6542,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-ex .n{font-style:normal;color:var(--ink2);display:block;margin-top:3px;font-size:12px}
 
   /* rule cards */
-  .pv-rule{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;border-top:3px solid var(--sky)}
+  .pv-rule{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;border-top:3px solid var(--sky)}
   .pv-rule h4{font-family:var(--font-serif);font-size:17px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 
   /* usa box */
@@ -6428,7 +6552,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-usa code{font-family:var(--font-mono);font-size:12px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:4px}
 
   /* quiz */
-  .pv-quiz{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px;transition:border-color .3s,background .3s}
+  .pv-quiz{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px;transition:border-color .3s,background .3s}
   .pv-quiz.correct{border-color:#4CAF50;background:#F1F8F1}
   .pv-quiz.wrong{border-color:#E53935;background:#FFF5F5}
   .pv-quiz-num{font-size:11px;font-weight:800;color:var(--sky);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
@@ -7175,6 +7299,24 @@ let displayedCount = 0;
 const PAGE_SIZE = 30;
 
 // ════════════════════════════════════════════
+// THEME
+// ════════════════════════════════════════════
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('dict-theme', next);
+}
+(function() {
+  const saved = localStorage.getItem('dict-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-toggle').textContent = '☀️';
+  }
+})();
+
+// ════════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════════
 function showPage(id) {
@@ -7194,6 +7336,15 @@ function showPage(id) {
   if (id === 'phrasal') initPhrasal();
   if (id === 'prepositions') initPrepositions();
   if (id === 'passive') initPassive();
+}
+function goHome(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-dict').classList.add('active');
+  var b=document.querySelector('.nav-tab[onclick*="dict"]');
+  if(b){b.classList.add('active');}
+  document.getElementById('current-tab-label').textContent='📖 Dictionary';
+  closeSidebar();window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function toggleSidebar() {
@@ -9329,7 +9480,7 @@ function resetPassiveQuiz() {
         color:var(--muted);margin-bottom:10px">Preview</div>
       <div id="html-paste-preview-content"
         style="border:1px solid var(--border);border-radius:var(--radius-sm);
-        padding:16px;max-height:400px;overflow-y:auto;background:#fff"></div>
+        padding:16px;max-height:400px;overflow-y:auto;background:var(--card)"></div>
     </div>
   </div>
 </div>
