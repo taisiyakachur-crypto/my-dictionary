@@ -132,7 +132,7 @@
   [data-theme="dark"] .pv-sign.pos { background: #1A2E1A; color: #66BB6A; }
   [data-theme="dark"] .pv-sign.neg { background: #2E1A1A; color: #EF5350; }
   [data-theme="dark"] .pv-sign.que { background: #1A2240; color: #42A5F5; }
-  [data-theme="dark"] .pv-section { background: #14202C; }
+  [data-theme="dark"] .pv-section { background: transparent; }
   [data-theme="dark"] .pv-rule { background: #14202C; }
   [data-theme="dark"] .pv-explain { background: #14202C; }
   [data-theme="dark"] .pv-alert { background: #14202C; }
@@ -387,6 +387,8 @@
   /* ── PAGES ── */
   .page { display: none; min-height: calc(100vh - 62px); padding: 32px 24px; max-width: 980px; margin: 0 auto; }
   .page.active { display: block; }
+  .page-wide { max-width: 100%; padding: 32px 40px; }
+  @media(max-width:700px) { .page-wide { padding: 16px 14px; } }
 
   /* ── PAGE HEADERS ── */
   .page-header { margin-bottom: 32px; }
@@ -1030,7 +1032,7 @@
 </div>
 
 <!-- ════════════════════════════ PAGE 3: LINKS ════════════════════════════ -->
-<div id="page-links" class="page">
+<div id="page-links" class="page page-wide">
   <div class="page-header">
     <h1>Useful Links</h1>
     <p>Resources for learning English</p>
@@ -1139,7 +1141,7 @@
 </div>
 
 <!-- ════════════════════════════ PAGE 4: NOTES ════════════════════════════ -->
-<div id="page-notes" class="page">
+<div id="page-notes" class="page page-wide">
 
   <!-- LIST VIEW -->
   <div id="notes-list-view" class="note-list-wrap">
@@ -1237,7 +1239,7 @@
 </div>
 
 <!-- ════════════════════════════ PAGE 5: ALL WORDS ════════════════════════════ -->
-<div id="page-allwords" class="page">
+<div id="page-allwords" class="page page-wide">
   <div class="page-header" style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
     <div>
       <h1 style="margin-bottom:4px">All Words</h1>
@@ -1285,7 +1287,7 @@
 </div>
 
 <!-- ════════════════════════════ PAGE 6: PRACTICE ════════════════════════════ -->
-<div id="page-practice" class="page">
+<div id="page-practice" class="page page-wide">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
     <div>
       <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px">Practice</h1>
@@ -1445,7 +1447,7 @@
     border-color: var(--sky); color: var(--sky); background: var(--sky-ultra);
   }
 #quantifiers-scope .q-page {
-    max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px;
+    max-width: 100%; margin: 0 auto; padding: 48px 40px 80px;
   }
   .section-head {
 
@@ -1505,7 +1507,7 @@
 #quantifiers-scope .word-card {
 
     background: var(--card);
-    border: 1px solid var(--border);
+    border: none;
     border-radius: 16px;
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -1655,6 +1657,10 @@
 #quantifiers-scope .section-head    { margin: 56px 0 28px; }
 #quantifiers-scope .badge           { padding: 3px 10px; }
 #quantifiers-scope .section-head .tag { padding: 4px 10px; }
+#quantifiers-scope .q-side-by-side   { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+#quantifiers-scope .q-side-by-side .rule-box { margin:0; }
+#quantifiers-scope .q-side-by-side .tick-cross { margin:0; }
+@media(max-width:700px){ #quantifiers-scope .q-side-by-side { grid-template-columns:1fr; } }
 #quantifiers-scope .rule-box        { padding: 20px 28px; margin: 16px 0; }
 #quantifiers-scope .rule-box h4     { margin-bottom: 10px; }
 #quantifiers-scope .rule-box ul     { gap: 7px; }
@@ -1952,6 +1958,7 @@
 
 <!-- NAV -->
 <div class="q-nav">
+  <a href="#summary">Full Summary</a>
   <a href="#overview">Overview</a>
   <a href="#little-few">Little vs A Little</a>
   <a href="#few-afew">Few vs A Few</a>
@@ -1959,10 +1966,151 @@
   <a href="#alot">A lot of / lots of</a>
   <a href="#too">Too much / Too many</a>
   <a href="#enough">Enough</a>
-  <a href="#summary">Full Summary</a>
 </div>
 
 <div class="q-page">
+  <!-- ══════════════════════════════════════════
+       SECTION 8 — FULL SUMMARY TABLE
+  ══════════════════════════════════════════ -->
+  <div id="summary">
+    <div class="section-head">
+      <h2>Full Summary</h2>
+      <div class="line"></div>
+      <span class="tag" style="background:var(--ink);color:#EEF4F9;">All quantifiers</span>
+    </div>
+
+    <div class="mega-wrap">
+      <table class="mega-table">
+        <thead>
+          <tr>
+            <th style="width:14%">Word</th>
+            <th style="width:18%">Meaning</th>
+            <th style="width:16%">Noun type</th>
+            <th style="width:14%">Tone</th>
+            <th style="width:38%">Examples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="w">a lot of / lots of</td>
+            <td>a large quantity</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">neutral / +</span></td>
+            <td class="ex-cell"><strong>Lots of people</strong> enjoy dessert after dinner.<br><strong>A lot of</strong> energy comes from a good breakfast.</td>
+          </tr>
+          <tr>
+            <td class="w">plenty of</td>
+            <td>more than enough</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell"><strong>Plenty of nutrients</strong> can be found in leafy greens.<br>There's <strong>plenty of time</strong> — don't rush.</td>
+          </tr>
+          <tr>
+            <td class="w">loads of</td>
+            <td>same as a lot of (informal)</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">informal +</span></td>
+            <td class="ex-cell">She has <strong>loads of energy</strong> in the morning.<br>He spent <strong>loads of money</strong> on gadgets.</td>
+          </tr>
+          <tr>
+            <td class="w">many</td>
+            <td>a large number</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:#8A5000;font-weight:600;">neutral</span></td>
+            <td class="ex-cell"><strong>Many people</strong> attended the festival.<br>There weren't <strong>many options</strong> for vegetarians.</td>
+          </tr>
+          <tr>
+            <td class="w">much</td>
+            <td>a large amount</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">neg / questions</span></td>
+            <td class="ex-cell">Did you consume <strong>much sugar</strong>?<br>I didn't eat <strong>much</strong> for dinner.</td>
+          </tr>
+          <tr>
+            <td class="w">too many</td>
+            <td>more than needed</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative ⚠</span></td>
+            <td class="ex-cell">He consumed <strong>too many desserts</strong>, putting on weight.<br>There are <strong>too many people</strong> in this room.</td>
+          </tr>
+          <tr>
+            <td class="w">too much</td>
+            <td>more than needed</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative ⚠</span></td>
+            <td class="ex-cell">He had <strong>too much caffeine</strong> and couldn't sleep.<br>There's <strong>too much noise</strong> in here.</td>
+          </tr>
+          <tr>
+            <td class="w">enough</td>
+            <td>as much as you need</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell">There is <strong>enough protein</strong> in this meal.<br>Have you slept <strong>enough</strong>? She's <strong>tall enough</strong>.</td>
+          </tr>
+          <tr>
+            <td class="w">not enough</td>
+            <td>less than you need</td>
+            <td><span class="badge both">both</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
+            <td class="ex-cell">There are <strong>not enough servings</strong> of vegetables.<br>I don't have <strong>enough time</strong> to finish.</td>
+          </tr>
+          <tr>
+            <td class="w">few</td>
+            <td>not many</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
+            <td class="ex-cell">There are <strong>few vegetables</strong> in the fridge — buy more.<br><strong>Few students</strong> passed the exam.</td>
+          </tr>
+          <tr>
+            <td class="w">little</td>
+            <td>not much</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
+            <td class="ex-cell">He has <strong>little experience</strong> with baking.<br>There's <strong>little hope</strong> of finding them.</td>
+          </tr>
+          <tr>
+            <td class="w">a few</td>
+            <td>some, a small number</td>
+            <td><span class="badge count">countable</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell">I have <strong>a few cookbooks</strong> I often refer to.<br>Give me <strong>a few minutes</strong> — I'll be ready.</td>
+          </tr>
+          <tr>
+            <td class="w">a little</td>
+            <td>some, a small amount</td>
+            <td><span class="badge uncount">uncountable</span></td>
+            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
+            <td class="ex-cell">There is <strong>a little milk</strong> left — enough for coffee.<br>She has <strong>a little time</strong> before the meeting.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MEMORY CHEAT SHEET -->
+    <div class="q-cheatsheet" style="background:#18243C;color:#EEF4F9;border-radius:16px;padding:28px 32px;margin-top:24px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B0A898;margin-bottom:20px;">Memory cheat sheet</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;font-size:14px;">
+        <div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:var(--accent);margin-bottom:6px;">Countable plurals</div>
+          <div style="line-height:2;font-size:13px;">few · a few · many<br>too many · a lot of · loads of<br>plenty of · enough</div>
+        </div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#9FE1CB;margin-bottom:6px;">Uncountable</div>
+          <div style="line-height:2;font-size:13px;">little · a little · much<br>too much · a lot of · loads of<br>plenty of · enough</div>
+        </div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#F5A0A0;margin-bottom:6px;">Always negative</div>
+          <div style="line-height:2;font-size:13px;">few (not enough)<br>little (not enough)<br>too many / too much</div>
+        </div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#A0E8B8;margin-bottom:6px;">Always positive</div>
+          <div style="line-height:2;font-size:13px;">a few (some = good)<br>a little (some = good)<br>enough · plenty of</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
   <!-- ══════════════════════════════════════════
        SECTION 1 — OVERVIEW SCALE
@@ -2216,21 +2364,22 @@
       </div>
     </div>
 
-    <div class="rule-box" style="margin-top:16px;">
-      <h4>Much vs Many — quick rule</h4>
-      <ul>
-        <li><strong>much</strong> = with uncountable nouns (water, sugar, time, money)</li>
-        <li><strong>many</strong> = with countable plural nouns (people, books, ideas)</li>
-        <li>Both prefer <strong>negative sentences and questions</strong></li>
-        <li>In positive sentences → use <strong>a lot of</strong> instead (sounds more natural)</li>
-      </ul>
-    </div>
-
-    <div class="tick-cross" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-top:8px;">
-      <div class="row right"><span class="icon">✔</span><span>I don't have <strong>much money</strong> this week.</span></div>
-      <div class="row right"><span class="icon">✔</span><span>There aren't <strong>many seats</strong> left.</span></div>
-      <div class="row right"><span class="icon">✔</span><span>I have <strong>a lot of</strong> money this week. (positive → a lot of)</span></div>
-      <div class="row wrong"><span class="icon">✘</span><span class="strikethrough">I have much money this week.</span> ← sounds unnatural in everyday speech</div>
+    <div class="q-side-by-side" style="margin-top:16px;">
+      <div class="rule-box">
+        <h4>Much vs Many — quick rule</h4>
+        <ul>
+          <li><strong>much</strong> = with uncountable nouns (water, sugar, time, money)</li>
+          <li><strong>many</strong> = with countable plural nouns (people, books, ideas)</li>
+          <li>Both prefer <strong>negative sentences and questions</strong></li>
+          <li>In positive sentences → use <strong>a lot of</strong> instead (sounds more natural)</li>
+        </ul>
+      </div>
+      <div class="tick-cross" style="background:var(--card);border:none;border-radius:12px;padding:18px 22px;">
+        <div class="row right"><span class="icon">✔</span><span>I don't have <strong>much money</strong> this week.</span></div>
+        <div class="row right"><span class="icon">✔</span><span>There aren't <strong>many seats</strong> left.</span></div>
+        <div class="row right"><span class="icon">✔</span><span>I have <strong>a lot of</strong> money this week. (positive → a lot of)</span></div>
+        <div class="row wrong"><span class="icon">✘</span><span class="strikethrough">I have much money this week.</span> ← sounds unnatural in everyday speech</div>
+      </div>
     </div>
   </div>
 
@@ -2425,7 +2574,7 @@
     </div>
 
     <!-- WHERE DOES ENOUGH GO? -->
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:8px;">
+    <div style="background:var(--card);border:none;border-radius:16px;padding:24px 28px;margin-bottom:8px;">
       <div style="font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Where to place "enough" in a sentence</div>
       <div class="enough-positions">
         <div class="pos-card">
@@ -2453,7 +2602,7 @@
       </div>
     </div>
 
-    <div class="tick-cross" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;">
+    <div class="tick-cross" style="background:var(--card);border:none;border-radius:12px;padding:18px 22px;">
       <div class="row right"><span class="icon">✔</span><span>Is it <strong>hot enough</strong>? (adjective + enough)</span></div>
       <div class="row right"><span class="icon">✔</span><span>I have <strong>enough time</strong> to finish. (enough + noun)</span></div>
       <div class="row wrong"><span class="icon">✘</span><span class="strikethrough">Is it enough hot?</span> ← wrong order with adjectives</div>
@@ -2461,148 +2610,6 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════
-       SECTION 8 — FULL SUMMARY TABLE
-  ══════════════════════════════════════════ -->
-  <div id="summary">
-    <div class="section-head">
-      <h2>Full Summary</h2>
-      <div class="line"></div>
-      <span class="tag" style="background:var(--ink);color:#EEF4F9;">All quantifiers</span>
-    </div>
-
-    <div class="mega-wrap">
-      <table class="mega-table">
-        <thead>
-          <tr>
-            <th style="width:14%">Word</th>
-            <th style="width:18%">Meaning</th>
-            <th style="width:16%">Noun type</th>
-            <th style="width:14%">Tone</th>
-            <th style="width:38%">Examples</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="w">a lot of / lots of</td>
-            <td>a large quantity</td>
-            <td><span class="badge both">both</span></td>
-            <td><span style="color:var(--pos);font-weight:600;">neutral / +</span></td>
-            <td class="ex-cell"><strong>Lots of people</strong> enjoy dessert after dinner.<br><strong>A lot of</strong> energy comes from a good breakfast.</td>
-          </tr>
-          <tr>
-            <td class="w">plenty of</td>
-            <td>more than enough</td>
-            <td><span class="badge both">both</span></td>
-            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
-            <td class="ex-cell"><strong>Plenty of nutrients</strong> can be found in leafy greens.<br>There's <strong>plenty of time</strong> — don't rush.</td>
-          </tr>
-          <tr>
-            <td class="w">loads of</td>
-            <td>same as a lot of (informal)</td>
-            <td><span class="badge both">both</span></td>
-            <td><span style="color:var(--pos);font-weight:600;">informal +</span></td>
-            <td class="ex-cell">She has <strong>loads of energy</strong> in the morning.<br>He spent <strong>loads of money</strong> on gadgets.</td>
-          </tr>
-          <tr>
-            <td class="w">many</td>
-            <td>a large number</td>
-            <td><span class="badge count">countable</span></td>
-            <td><span style="color:#8A5000;font-weight:600;">neutral</span></td>
-            <td class="ex-cell"><strong>Many people</strong> attended the festival.<br>There weren't <strong>many options</strong> for vegetarians.</td>
-          </tr>
-          <tr>
-            <td class="w">much</td>
-            <td>a large amount</td>
-            <td><span class="badge uncount">uncountable</span></td>
-            <td><span style="color:var(--neg);font-weight:600;">neg / questions</span></td>
-            <td class="ex-cell">Did you consume <strong>much sugar</strong>?<br>I didn't eat <strong>much</strong> for dinner.</td>
-          </tr>
-          <tr>
-            <td class="w">too many</td>
-            <td>more than needed</td>
-            <td><span class="badge count">countable</span></td>
-            <td><span style="color:var(--neg);font-weight:600;">negative ⚠</span></td>
-            <td class="ex-cell">He consumed <strong>too many desserts</strong>, putting on weight.<br>There are <strong>too many people</strong> in this room.</td>
-          </tr>
-          <tr>
-            <td class="w">too much</td>
-            <td>more than needed</td>
-            <td><span class="badge uncount">uncountable</span></td>
-            <td><span style="color:var(--neg);font-weight:600;">negative ⚠</span></td>
-            <td class="ex-cell">He had <strong>too much caffeine</strong> and couldn't sleep.<br>There's <strong>too much noise</strong> in here.</td>
-          </tr>
-          <tr>
-            <td class="w">enough</td>
-            <td>as much as you need</td>
-            <td><span class="badge both">both</span></td>
-            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
-            <td class="ex-cell">There is <strong>enough protein</strong> in this meal.<br>Have you slept <strong>enough</strong>? She's <strong>tall enough</strong>.</td>
-          </tr>
-          <tr>
-            <td class="w">not enough</td>
-            <td>less than you need</td>
-            <td><span class="badge both">both</span></td>
-            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
-            <td class="ex-cell">There are <strong>not enough servings</strong> of vegetables.<br>I don't have <strong>enough time</strong> to finish.</td>
-          </tr>
-          <tr>
-            <td class="w">few</td>
-            <td>not many</td>
-            <td><span class="badge count">countable</span></td>
-            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
-            <td class="ex-cell">There are <strong>few vegetables</strong> in the fridge — buy more.<br><strong>Few students</strong> passed the exam.</td>
-          </tr>
-          <tr>
-            <td class="w">little</td>
-            <td>not much</td>
-            <td><span class="badge uncount">uncountable</span></td>
-            <td><span style="color:var(--neg);font-weight:600;">negative −</span></td>
-            <td class="ex-cell">He has <strong>little experience</strong> with baking.<br>There's <strong>little hope</strong> of finding them.</td>
-          </tr>
-          <tr>
-            <td class="w">a few</td>
-            <td>some, a small number</td>
-            <td><span class="badge count">countable</span></td>
-            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
-            <td class="ex-cell">I have <strong>a few cookbooks</strong> I often refer to.<br>Give me <strong>a few minutes</strong> — I'll be ready.</td>
-          </tr>
-          <tr>
-            <td class="w">a little</td>
-            <td>some, a small amount</td>
-            <td><span class="badge uncount">uncountable</span></td>
-            <td><span style="color:var(--pos);font-weight:600;">positive +</span></td>
-            <td class="ex-cell">There is <strong>a little milk</strong> left — enough for coffee.<br>She has <strong>a little time</strong> before the meeting.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- MEMORY CHEAT SHEET -->
-    <div class="q-cheatsheet" style="background:#18243C;color:#EEF4F9;border-radius:16px;padding:28px 32px;margin-top:24px;">
-      <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B0A898;margin-bottom:20px;">Memory cheat sheet</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;font-size:14px;">
-        <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:var(--accent);margin-bottom:6px;">Countable plurals</div>
-          <div style="line-height:2;font-size:13px;">few · a few · many<br>too many · a lot of · loads of<br>plenty of · enough</div>
-        </div>
-        <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#9FE1CB;margin-bottom:6px;">Uncountable</div>
-          <div style="line-height:2;font-size:13px;">little · a little · much<br>too much · a lot of · loads of<br>plenty of · enough</div>
-        </div>
-        <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#F5A0A0;margin-bottom:6px;">Always negative</div>
-          <div style="line-height:2;font-size:13px;">few (not enough)<br>little (not enough)<br>too many / too much</div>
-        </div>
-        <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#A0E8B8;margin-bottom:6px;">Always positive</div>
-          <div style="line-height:2;font-size:13px;">a few (some = good)<br>a little (some = good)<br>enough · plenty of</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
 
 
   </div>
@@ -2850,7 +2857,7 @@
    PAGE LAYOUT
 ══════════════════════════ */
 .c-page {
- max-width: 1100px; margin: 0 auto; padding: 0 24px 120px; }
+ max-width: 100%; margin: 0 auto; padding: 0 40px 120px; }
 #conditionals-scope /* ══════════════════════════
    SECTION HEADERS
 ══════════════════════════ */
@@ -2904,7 +2911,7 @@
   border-radius: 16px;
   padding: 28px 32px;
   margin-bottom: 24px;
-  border: 1px solid;
+  border: none;
 }
 #conditionals-scope .formula-label {
 
@@ -2964,7 +2971,7 @@
 #conditionals-scope .usage-card {
 
   background: var(--card);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 14px;
   padding: 20px;
   transition: border-color 0.2s, transform 0.2s;
@@ -2995,7 +3002,7 @@
 .examples-block {
 
   background: var(--card);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 24px;
@@ -3060,7 +3067,7 @@
 .mistakes-block {
 
   background: var(--card);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 24px;
@@ -3343,7 +3350,7 @@
 #conditionals-scope .sum-card {
 
   border-radius: 16px;
-  border: 1px solid;
+  border: none;
   padding: 24px;
   position: relative;
   overflow: hidden;
@@ -3591,17 +3598,149 @@
 
 <!-- STICKY NAV -->
 <nav class="sticky-nav">
+  <a class="nav-item" href="#compare">Compare all</a>
   <a class="nav-item n0" href="#zero">Zero</a>
   <a class="nav-item n1" href="#first">First</a>
   <a class="nav-item n2" href="#second">Second</a>
   <a class="nav-item n3" href="#third">Third</a>
   <a class="nav-item nmx" href="#mixed">Mixed</a>
   <a class="nav-item nun" href="#unless">Unless</a>
-  <a class="nav-item" href="#compare">Compare all</a>
   <a class="nav-item" href="#mistakes">Mistakes</a>
 </nav>
 
 <div class="c-page">
+
+<!-- ════════════════════════════════════
+     COMPARE ALL
+════════════════════════════════════ -->
+<section id="compare">
+  <div class="sec-head" style="padding-top:60px;">
+    <div class="sec-info">
+      <div class="sec-eyebrow" style="color:var(--muted);">All Conditionals</div>
+      <div class="sec-title" style="font-family:'Cormorant Garamond',Georgia,serif;">Compare at a glance</div>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="sum-card s0">
+      <span class="sum-badge" style="background:var(--z0);color:#fff;">Zero</span>
+      <div class="sum-title" style="color:var(--z0);">General truth</div>
+      <div class="sum-formula">If + present simple, present simple</div>
+      <div class="sum-meaning">Always true. Scientific facts, natural laws, habits. Can replace "if" with "when".</div>
+      <div class="sum-ex">If you heat water to 100°C, it boils.</div>
+    </div>
+    <div class="sum-card s1">
+      <span class="sum-badge" style="background:var(--f1m);color:var(--f1);">First</span>
+      <div class="sum-title" style="color:var(--f1);">Real future</div>
+      <div class="sum-formula">If + present simple, will + base verb</div>
+      <div class="sum-meaning">Real, likely future situation. Warnings, promises, plans, predictions.</div>
+      <div class="sum-ex">If it rains tomorrow, I will stay home.</div>
+    </div>
+    <div class="sum-card s2">
+      <span class="sum-badge" style="background:var(--s2m);color:var(--s2);">Second</span>
+      <div class="sum-title" style="color:var(--s2);">Unreal present</div>
+      <div class="sum-formula">If + past simple, would + base verb</div>
+      <div class="sum-meaning">Imaginary, hypothetical, unlikely. Dreams, wishes, polite advice.</div>
+      <div class="sum-ex">If I had more time, I would learn piano.</div>
+    </div>
+    <div class="sum-card s3">
+      <span class="sum-badge" style="background:var(--t3m);color:var(--t3);">Third</span>
+      <div class="sum-title" style="color:var(--t3);">Unreal past</div>
+      <div class="sum-formula">If + past perfect, would have + p.p.</div>
+      <div class="sum-meaning">Impossible — past cannot be changed. Regrets, criticism, speculation.</div>
+      <div class="sum-ex">If I had known, I would have helped.</div>
+    </div>
+    <div class="sum-card smx">
+      <span class="sum-badge" style="background:var(--mxm);color:var(--mx);">Mixed A</span>
+      <div class="sum-title" style="color:var(--mx);">Past → present</div>
+      <div class="sum-formula">If + past perfect, would + base verb</div>
+      <div class="sum-meaning">Past event still affects the present. A decision made then = current state.</div>
+      <div class="sum-ex">If I had studied medicine, I would be a doctor now.</div>
+    </div>
+    <div class="sum-card sun">
+      <span class="sum-badge" style="background:var(--unm);color:var(--un);">Unless</span>
+      <div class="sum-title" style="color:var(--un);">The exception</div>
+      <div class="sum-formula">Unless + positive present simple</div>
+      <div class="sum-meaning">= "if not". States the ONE thing that prevents the result. Zero &amp; first only.</div>
+      <div class="sum-ex">Unless you hurry, we'll miss the train.</div>
+    </div>
+  </div>
+
+  <!-- MEGA COMPARISON TABLE -->
+  <div style="overflow-x:auto;border-radius:16px;border:1px solid var(--border);margin-bottom:24px;">
+    <table class="comp-table" style="min-width:750px;">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>IF clause</th>
+          <th>Main clause</th>
+          <th>Time</th>
+          <th>Reality</th>
+          <th>Key use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:700;color:var(--z0);">Zero</td>
+          <td>present simple</td>
+          <td>present simple</td>
+          <td>always</td>
+          <td>100% true</td>
+          <td>facts, laws, habits</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--f1);">First</td>
+          <td>present simple</td>
+          <td>will / can / might + base</td>
+          <td>future</td>
+          <td>real / likely</td>
+          <td>warnings, promises, plans</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--s2);">Second</td>
+          <td>past simple</td>
+          <td>would / could + base</td>
+          <td>present/future</td>
+          <td>unreal / unlikely</td>
+          <td>wishes, dreams, advice</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--t3);">Third</td>
+          <td>past perfect</td>
+          <td>would/could have + p.p.</td>
+          <td>past</td>
+          <td>impossible</td>
+          <td>regrets, criticism</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--mx);">Mixed A</td>
+          <td>past perfect</td>
+          <td>would + base</td>
+          <td>past → now</td>
+          <td>unreal</td>
+          <td>past cause, present effect</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--mx);">Mixed B</td>
+          <td>past simple</td>
+          <td>would have + p.p.</td>
+          <td>now → past</td>
+          <td>unreal</td>
+          <td>present state, past effect</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--un);">Unless</td>
+          <td>present simple (+)</td>
+          <td>same as zero or first</td>
+          <td>general / future</td>
+          <td>real</td>
+          <td>exceptions, warnings</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 
 <!-- ════════════════════════════════════
      REALITY SCALE
@@ -4398,138 +4537,6 @@
 </section>
 
 <div class="section-divider"></div>
-
-<!-- ════════════════════════════════════
-     COMPARE ALL
-════════════════════════════════════ -->
-<section id="compare">
-  <div class="sec-head" style="padding-top:60px;">
-    <div class="sec-info">
-      <div class="sec-eyebrow" style="color:var(--muted);">All Conditionals</div>
-      <div class="sec-title" style="font-family:'Cormorant Garamond',Georgia,serif;">Compare at a glance</div>
-    </div>
-  </div>
-
-  <div class="summary-grid">
-    <div class="sum-card s0">
-      <span class="sum-badge" style="background:var(--z0);color:#fff;">Zero</span>
-      <div class="sum-title" style="color:var(--z0);">General truth</div>
-      <div class="sum-formula">If + present simple, present simple</div>
-      <div class="sum-meaning">Always true. Scientific facts, natural laws, habits. Can replace "if" with "when".</div>
-      <div class="sum-ex">If you heat water to 100°C, it boils.</div>
-    </div>
-    <div class="sum-card s1">
-      <span class="sum-badge" style="background:var(--f1m);color:var(--f1);">First</span>
-      <div class="sum-title" style="color:var(--f1);">Real future</div>
-      <div class="sum-formula">If + present simple, will + base verb</div>
-      <div class="sum-meaning">Real, likely future situation. Warnings, promises, plans, predictions.</div>
-      <div class="sum-ex">If it rains tomorrow, I will stay home.</div>
-    </div>
-    <div class="sum-card s2">
-      <span class="sum-badge" style="background:var(--s2m);color:var(--s2);">Second</span>
-      <div class="sum-title" style="color:var(--s2);">Unreal present</div>
-      <div class="sum-formula">If + past simple, would + base verb</div>
-      <div class="sum-meaning">Imaginary, hypothetical, unlikely. Dreams, wishes, polite advice.</div>
-      <div class="sum-ex">If I had more time, I would learn piano.</div>
-    </div>
-    <div class="sum-card s3">
-      <span class="sum-badge" style="background:var(--t3m);color:var(--t3);">Third</span>
-      <div class="sum-title" style="color:var(--t3);">Unreal past</div>
-      <div class="sum-formula">If + past perfect, would have + p.p.</div>
-      <div class="sum-meaning">Impossible — past cannot be changed. Regrets, criticism, speculation.</div>
-      <div class="sum-ex">If I had known, I would have helped.</div>
-    </div>
-    <div class="sum-card smx">
-      <span class="sum-badge" style="background:var(--mxm);color:var(--mx);">Mixed A</span>
-      <div class="sum-title" style="color:var(--mx);">Past → present</div>
-      <div class="sum-formula">If + past perfect, would + base verb</div>
-      <div class="sum-meaning">Past event still affects the present. A decision made then = current state.</div>
-      <div class="sum-ex">If I had studied medicine, I would be a doctor now.</div>
-    </div>
-    <div class="sum-card sun">
-      <span class="sum-badge" style="background:var(--unm);color:var(--un);">Unless</span>
-      <div class="sum-title" style="color:var(--un);">The exception</div>
-      <div class="sum-formula">Unless + positive present simple</div>
-      <div class="sum-meaning">= "if not". States the ONE thing that prevents the result. Zero &amp; first only.</div>
-      <div class="sum-ex">Unless you hurry, we'll miss the train.</div>
-    </div>
-  </div>
-
-  <!-- MEGA COMPARISON TABLE -->
-  <div style="overflow-x:auto;border-radius:16px;border:1px solid var(--border);margin-bottom:24px;">
-    <table class="comp-table" style="min-width:750px;">
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>IF clause</th>
-          <th>Main clause</th>
-          <th>Time</th>
-          <th>Reality</th>
-          <th>Key use</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-weight:700;color:var(--z0);">Zero</td>
-          <td>present simple</td>
-          <td>present simple</td>
-          <td>always</td>
-          <td>100% true</td>
-          <td>facts, laws, habits</td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:var(--f1);">First</td>
-          <td>present simple</td>
-          <td>will / can / might + base</td>
-          <td>future</td>
-          <td>real / likely</td>
-          <td>warnings, promises, plans</td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:var(--s2);">Second</td>
-          <td>past simple</td>
-          <td>would / could + base</td>
-          <td>present/future</td>
-          <td>unreal / unlikely</td>
-          <td>wishes, dreams, advice</td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:var(--t3);">Third</td>
-          <td>past perfect</td>
-          <td>would/could have + p.p.</td>
-          <td>past</td>
-          <td>impossible</td>
-          <td>regrets, criticism</td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:var(--mx);">Mixed A</td>
-          <td>past perfect</td>
-          <td>would + base</td>
-          <td>past → now</td>
-          <td>unreal</td>
-          <td>past cause, present effect</td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:var(--mx);">Mixed B</td>
-          <td>past simple</td>
-          <td>would have + p.p.</td>
-          <td>now → past</td>
-          <td>unreal</td>
-          <td>present state, past effect</td>
-        </tr>
-        <tr>
-          <td style="font-weight:700;color:var(--un);">Unless</td>
-          <td>present simple (+)</td>
-          <td>same as zero or first</td>
-          <td>general / future</td>
-          <td>real</td>
-          <td>exceptions, warnings</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
 <!-- ════════════════════════════════════
      COMMON MISTAKES
 ════════════════════════════════════ -->
@@ -4909,7 +4916,7 @@ border-color:var(--pa);color:var(--pa)}
 #tenses-scope .t-nav .nav-item.fu:hover {
 border-color:var(--fu);color:var(--fu)}
 #tenses-scope .t-page {
-max-width:1120px;margin:0 auto;padding:0 24px 120px}
+max-width:100%;margin:0 auto;padding:0 40px 120px}
 #tenses-scope .family-head {
 
   padding:72px 0 0;
@@ -4950,7 +4957,7 @@ max-width:1120px;margin:0 auto;padding:0 24px 120px}
 #tenses-scope .tense-card {
 
   background:var(--card);
-  border:1px solid var(--border);
+  border:none;
   border-radius:20px;
   overflow:hidden;
   margin-bottom:24px;
@@ -5321,10 +5328,8 @@ animation:fadeSlide 0.5s ease both}
     <a class="nav-item fu" href="#fp">Perfect</a>
     <a class="nav-item fu" href="#fpc">Perf. Cont.</a>
   </div>
-  <div class="nav-section">
-    <a class="nav-item" href="#compare">Compare All</a>
-    <a class="nav-item" href="#mistakes">Mistakes</a>
-  </div>
+  <a class="nav-item" href="#compare">Compare All</a>
+  <a class="nav-item" href="#mistakes">Mistakes</a>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -5364,7 +5369,7 @@ animation:fadeSlide 0.5s ease both}
      TIMELINE — When to use each tense
 ══════════════════════════════════════════ -->
 <div id="timeline" style="background:var(--sky-ultra);border-bottom:1px solid var(--border);padding:32px 24px 36px;font-family:'Nunito',system-ui,sans-serif">
-  <div style="max-width:1120px;margin:0 auto">
+  <div style="max-width:100%;margin:0 auto">
     <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Visual Timeline</div>
     <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:700;margin-bottom:24px;color:var(--ink)">When to use each tense</h2>
 
@@ -6331,9 +6336,9 @@ animation:fadeSlide 0.5s ease both}
 </div>
 
 <!-- ════════════════════════════ PAGE 10: PHRASAL VERBS ════════════════════════════ -->
-<div id="page-phrasal" class="page">
+<div id="page-phrasal" class="page page-wide">
   <style>
-    .pv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
+    .pv-card{background:var(--card);border:none;border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
     .pv-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
     .pv-verb{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:700;color:var(--ink)}
     .pv-uk{font-size:14px;color:var(--sky);font-weight:700}
@@ -6364,9 +6369,9 @@ animation:fadeSlide 0.5s ease both}
 </div>
 
 <!-- ════════════════════════════ PAGE: PREPOSITIONS ════════════════════════════ -->
-<div id="page-prepositions" class="page">
+<div id="page-prepositions" class="page page-wide">
   <style>
-    .prep-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
+    .prep-card{background:var(--card);border:none;border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
     .prep-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
     .prep-word{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700;color:var(--sky)}
     .prep-uk{font-size:14px;color:var(--rose);font-weight:700}
@@ -6403,9 +6408,9 @@ animation:fadeSlide 0.5s ease both}
 <style>
   /* ── Passive Voice scoped styles ── */
   #page-passive{--teal:#2A9D8F}
-  .pvc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
-  .pvc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-  .pvc-grid-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);font-size:13.5px;line-height:1.6}
+  .pvc-card{background:var(--card);border:none;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
+  .pvc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:16px}
+  .pvc-grid-item{background:var(--card);border:none;border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);font-size:13.5px;line-height:1.6}
   .pvc-grid-item .pvc-emoji{font-size:20px;display:block;margin-bottom:6px}
   .pvc-grid-item code{font-family:var(--font-mono);font-size:12px;color:var(--teal);background:rgba(42,157,143,.08);padding:2px 6px;border-radius:4px}
   .pvc-grid-item .pvc-label{font-size:11px;color:var(--muted);margin-top:4px;display:block}
@@ -6419,8 +6424,8 @@ animation:fadeSlide 0.5s ease both}
   .pvc-alert-amber{background:#FFF8E1;border-left:4px solid #FFB300}
   .pvc-alert-green{background:#E8F5E9;border-left:4px solid #4CAF50}
   .pvc-alert-red{background:#FFEBEE;border-left:4px solid #E53935}
-  .pvc-havget{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
-  .pvc-havget-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+  .pvc-havget{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:14px 0}
+  .pvc-havget-card{background:var(--card);border:none;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
   .pvc-havget-card h4{font-family:var(--font-serif);font-size:16px;margin:0 0 6px;color:var(--teal)}
   .pvc-havget-card p{font-size:13px;color:var(--ink2);line-height:1.55;margin:0 0 4px}
   .pvc-tbl{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
@@ -6443,7 +6448,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-formula b{color:var(--sky)}
   .pv-formula em{color:var(--rose);font-style:normal}
 
-  .pv-content{max-width:920px;margin:0 auto;padding:0 20px 60px}
+  .pv-content{max-width:100%;margin:0 auto;padding:0 40px 60px}
 
   /* section nav */
   .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:62px;z-index:50;background:var(--paper);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
@@ -6456,11 +6461,11 @@ animation:fadeSlide 0.5s ease both}
   .pv-section h2{font-family:var(--font-serif);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:14px}
   .pv-section h3{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink2);margin:20px 0 8px}
 
-  .pv-card-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
+  .pv-card-wrap{background:var(--card);border:none;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
 
   /* explain cards */
   .pv-explain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
-  .pv-explain{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:all .18s}
+  .pv-explain{background:var(--card);border:none;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:all .18s}
   .pv-explain:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
   .pv-explain .num{width:30px;height:30px;border-radius:50%;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-bottom:8px}
   .pv-explain h4{font-size:14px;font-weight:700;margin-bottom:4px}
@@ -6481,7 +6486,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-tbl .ar{color:var(--muted);font-size:12px}
 
   /* ── Unified tense table ── */
-  .pv-tense-unified{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:14px}
+  .pv-tense-unified{background:var(--card);border:none;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:14px}
   .pv-tense-title{background:var(--sky);color:#fff;font-family:var(--font-serif);font-size:14px;font-weight:700;padding:6px 14px;text-align:center;border-bottom:1px solid var(--border)}
   .pv-tense-cols{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
   .pv-tense-cols.tri{grid-template-columns:1fr 1fr 1fr}
@@ -6537,35 +6542,22 @@ animation:fadeSlide 0.5s ease both}
 
   /* examples */
   .pv-ex{font-size:13px;font-style:italic;color:var(--muted);background:var(--sky-ultra);padding:9px 12px;border-radius:var(--radius-sm);border-left:3px solid var(--sky);margin:8px 0}
+  [data-theme="dark"] .pv-ex{background:rgba(255,255,255,.05);border-left-color:var(--muted)}
   .pv-ex .p{color:var(--rose);font-weight:600;font-style:normal}
   .pv-ex .a{color:var(--sky);font-weight:600;font-style:normal}
   .pv-ex .n{font-style:normal;color:var(--ink2);display:block;margin-top:3px;font-size:12px}
 
   /* rule cards */
-  .pv-rule{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;border-top:3px solid var(--sky)}
+  .pv-rule{background:var(--card);border:none;border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;border-top:3px solid var(--sky)}
   .pv-rule h4{font-family:var(--font-serif);font-size:17px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 
   /* usa box */
-  .pv-usa{background:linear-gradient(135deg,var(--sky-ultra) 0%,var(--rose-ultra) 100%);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-top:14px}
+  .pv-usa{background:linear-gradient(135deg,var(--sky-ultra) 0%,var(--rose-ultra) 100%);border:none;border-radius:var(--radius);padding:22px;margin-top:14px}
   .pv-usa h4{font-size:15px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
   .pv-usa li{margin-bottom:7px;font-size:13.5px;color:var(--ink2);line-height:1.55}
   .pv-usa code{font-family:var(--font-mono);font-size:12px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:4px}
 
   /* quiz */
-  .pv-quiz{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px;transition:border-color .3s,background .3s}
-  .pv-quiz.correct{border-color:#4CAF50;background:#F1F8F1}
-  .pv-quiz.wrong{border-color:#E53935;background:#FFF5F5}
-  .pv-quiz-num{font-size:11px;font-weight:800;color:var(--sky);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-  .pv-quiz-prompt{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.5}
-  .pv-quiz-prompt code{font-family:var(--font-mono);font-size:13px;color:var(--sky);background:var(--sky-ultra);padding:2px 6px;border-radius:4px}
-  .pv-quiz-input{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;font-family:var(--font-sans);outline:none;color:var(--ink);transition:border .15s,box-shadow .15s}
-  .pv-quiz-input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(74,142,194,.12)}
-  .pv-quiz-hint{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:4px}
-  .pv-quiz-fb{margin-top:6px;font-size:13px;font-weight:600;min-height:18px}
-  .pv-quiz-fb.correct{color:#388E3C}
-  .pv-quiz-fb.wrong{color:#E53935}
-  .pv-quiz-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-  .pv-quiz-score{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--sky);margin-top:14px}
 
   @media(max-width:700px){
     .pv-hero{padding:28px 14px 24px}
@@ -6577,8 +6569,6 @@ animation:fadeSlide 0.5s ease both}
     .pv-explain-grid{grid-template-columns:1fr}
     .pv-tbl th,.pv-tbl td{padding:9px 10px;font-size:12.5px}
     .pv-rule{padding:14px 16px}
-    .pv-quiz-actions{flex-direction:column}
-    .pv-quiz-actions .btn{width:100%;justify-content:center}
   }
 </style>
 
@@ -6598,7 +6588,6 @@ animation:fadeSlide 0.5s ease both}
     <a class="pv-sec-btn" href="#pv-when" onclick="setPvNav(this)">When</a>
     <a class="pv-sec-btn" href="#pv-rules" onclick="setPvNav(this)">Rules</a>
     <a class="pv-sec-btn" href="#pv-usa" onclick="setPvNav(this)">American</a>
-    <a class="pv-sec-btn" href="#pv-quiz" onclick="setPvNav(this)">Quiz</a>
   </div>
 
   <!-- 1. WHAT IS PASSIVE VOICE -->
@@ -7157,18 +7146,6 @@ animation:fadeSlide 0.5s ease both}
     </div>
   </div>
 
-  <!-- 7. QUIZ -->
-  <div class="pv-section" id="pv-quiz">
-    <div class="pv-section-badge">Section 7</div>
-    <h2>Practice Quiz</h2>
-    <p style="color:var(--muted);margin-bottom:14px">Transform active to passive, fill in the correct form, or identify impossible passives.</p>
-    <div id="pv-quiz-container"></div>
-    <div class="pv-quiz-actions">
-      <button class="btn btn-primary" onclick="checkPassiveQuiz()">&#x2705; Check Answers</button>
-      <button class="btn btn-secondary" onclick="resetPassiveQuiz()">&#x1F504; Try Again</button>
-    </div>
-    <div class="pv-quiz-score" id="pv-quiz-score"></div>
-  </div>
 
 
 </div><!-- /.pv-content -->
@@ -9342,7 +9319,6 @@ let pvInited = false;
 function initPassive() {
   if (pvInited) return;
   pvInited = true;
-  renderPassiveQuiz();
   // intersection observer for sub-nav highlight
   const secs = document.querySelectorAll('.pv-section');
   const btns = document.querySelectorAll('.pv-sec-btn');
@@ -9357,59 +9333,6 @@ function initPassive() {
   secs.forEach(s => obs.observe(s));
 }
 
-const PASSIVE_QUIZ = [
-  {type:'transform',prompt:'Rewrite in passive (Present Simple):',sentence:'Millions of people speak English.',answer:'english is spoken by millions of people',alts:['english is spoken by millions of people.'],hint:'Subject + is/are + V3 + by...'},
-  {type:'transform',prompt:'Rewrite in passive (Past Simple):',sentence:'Alexander Graham Bell invented the telephone.',answer:'the telephone was invented by alexander graham bell',alts:['the telephone was invented by alexander graham bell.'],hint:'Subject + was/were + V3 + by...'},
-  {type:'fill',prompt:'Fill in the blank (Present Perfect Passive):',sentence:'The project _______ (complete) ahead of schedule.',answer:'has been completed',alts:[],hint:'has/have + been + V3'},
-  {type:'fill',prompt:'Fill in the blank (Modal Passive):',sentence:'This issue _______ (must / resolve) before Friday.',answer:'must be resolved',alts:[],hint:'modal + be + V3'},
-  {type:'transform',prompt:'Rewrite in passive (Future Simple):',sentence:'They will announce the results tomorrow.',answer:'the results will be announced tomorrow',alts:['the results will be announced tomorrow.','the results will be announced by them tomorrow'],hint:'Subject + will be + V3'},
-  {type:'identify',prompt:'Can this be made passive? If yes, write passive. If no, write "NO":',sentence:'A terrible accident happened on the highway.',answer:'no',alts:[],hint:'"happen" is intransitive — no object!'},
-  {type:'transform',prompt:'Rewrite using GET-passive (informal):',sentence:'She was fired from her job.',answer:'she got fired from her job',alts:['she got fired from her job.'],hint:'Replace "was" with "got"'}
-];
-
-function renderPassiveQuiz() {
-  const c = document.getElementById('pv-quiz-container');
-  if (!c) return;
-  c.innerHTML = PASSIVE_QUIZ.map((q,i) => `
-    <div class="pv-quiz" id="pvq-${i}">
-      <div class="pv-quiz-num">${q.type==='transform'?'Transform':q.type==='fill'?'Fill in':'Identify'} &middot; Question ${i+1}</div>
-      <div class="pv-quiz-prompt">${q.prompt}<br><code>${q.sentence}</code></div>
-      <input class="pv-quiz-input" id="pvqi-${i}" type="text" placeholder="Type your answer…" autocomplete="off">
-      <div class="pv-quiz-hint">${q.hint}</div>
-      <div class="pv-quiz-fb" id="pvqf-${i}"></div>
-    </div>
-  `).join('');
-}
-
-function pvNorm(s){return s.trim().toLowerCase().replace(/[.,!?;:'"]/g,'').replace(/\s+/g,' ')}
-
-function checkPassiveQuiz() {
-  let score = 0;
-  PASSIVE_QUIZ.forEach((q,i) => {
-    const input = document.getElementById('pvqi-'+i);
-    const fb = document.getElementById('pvqf-'+i);
-    const card = document.getElementById('pvq-'+i);
-    const ua = pvNorm(input.value), ca = pvNorm(q.answer);
-    const ok = ua===ca || q.alts.some(a=>pvNorm(a)===ua);
-    card.classList.remove('correct','wrong');
-    if(!ua){fb.textContent='Please type an answer!';fb.className='pv-quiz-fb wrong';card.classList.add('wrong')}
-    else if(ok){score++;fb.textContent='Correct!';fb.className='pv-quiz-fb correct';card.classList.add('correct')}
-    else{fb.innerHTML='Not quite. Answer: <strong>'+q.answer.charAt(0).toUpperCase()+q.answer.slice(1)+'</strong>';fb.className='pv-quiz-fb wrong';card.classList.add('wrong')}
-  });
-  const s=document.getElementById('pv-quiz-score');
-  if(score===PASSIVE_QUIZ.length){s.innerHTML='&#x1F389; Perfect! '+score+'/'+PASSIVE_QUIZ.length;s.style.color='#388E3C'}
-  else if(score>=PASSIVE_QUIZ.length*0.7){s.innerHTML='&#x1F44D; Great job! '+score+'/'+PASSIVE_QUIZ.length;s.style.color='var(--sky)'}
-  else{s.innerHTML='&#x1F4AA; Keep practicing! '+score+'/'+PASSIVE_QUIZ.length;s.style.color='var(--rose)'}
-}
-
-function resetPassiveQuiz() {
-  PASSIVE_QUIZ.forEach((_,i)=>{
-    document.getElementById('pvqi-'+i).value='';
-    document.getElementById('pvqf-'+i).textContent='';
-    document.getElementById('pvq-'+i).classList.remove('correct','wrong');
-  });
-  document.getElementById('pv-quiz-score').textContent='';
-}
 
 
 </script>
