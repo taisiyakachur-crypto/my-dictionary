@@ -1108,7 +1108,7 @@
   <div class="card">
     <div class="card-title">📚 All words <span class="tag tag-count" id="all-count-tag">…</span></div>
     <div class="words-grid" id="all-words-grid"></div>
-    <div style="margin-top:16px" id="load-more-wrap" style="display:none">
+    <div style="margin-top:16px;display:none" id="load-more-wrap">
       <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreWords()">Load more…</button>
     </div>
   </div>
@@ -5295,7 +5295,7 @@ background:rgba(71,66,56,0.25);color:#C0B6A5;border-color:rgba(71,66,56,0.5)}
   display:flex;
 }
 /* Compensate for the sticky nav bar so jump targets don't land hidden behind it */
-#tenses-scope .tense-card, #tenses-scope #compare, #tenses-scope #mistakes {
+#tenses-scope .tense-card, #tenses-scope #t-compare, #tenses-scope #t-mistakes {
   scroll-margin-top: 68px;
 }
 #tenses-scope .t-nav::-webkit-scrollbar {
@@ -5751,14 +5751,14 @@ animation:fadeSlide 0.5s ease both}
     <a class="nav-item fu" href="#fp">Perfect</a>
     <a class="nav-item fu" href="#fpc">Perf. Cont.</a>
   </div>
-  <a class="nav-item" href="#compare">Compare All</a>
-  <a class="nav-item" href="#mistakes">Mistakes</a>
+  <a class="nav-item" href="#t-compare">Compare All</a>
+  <a class="nav-item" href="#t-mistakes">Mistakes</a>
 </div>
 
 <!-- ═══════════════════════════════════════
      COMPARE ALL
 ═══════════════════════════════════════ -->
-<div id="compare">
+<div id="t-compare">
   <div class="family-head" style="padding-top:32px">
     <div class="family-icon">📊</div>
     <div>
@@ -6683,7 +6683,7 @@ animation:fadeSlide 0.5s ease both}
 <!-- ═══════════════════════════════════════
      COMMON MISTAKES
 ═══════════════════════════════════════ -->
-<div id="mistakes">
+<div id="t-mistakes">
   <div class="family-head" style="padding-top:40px">
     <div class="family-icon">⚠️</div>
     <div>
@@ -7693,7 +7693,8 @@ let toastTimer;
 // ════════════════════════════════════════════
 let API_URL = localStorage.getItem('dict_api_url') || '';
 let allWords = [];
-let allVerbs = BUILT_IN_VERBS;
+let userVerbs = JSON.parse(localStorage.getItem('user_verbs') || '[]');
+let allVerbs = [...BUILT_IN_VERBS, ...userVerbs];
 let currentFilter = 'all';
 let displayedCount = 0;
 const PAGE_SIZE = 30;
@@ -7863,7 +7864,9 @@ function loadAllData() {
   // Дієслова
   apiFetch('getVerbs').then(vData => {
     if (!vData || !Array.isArray(vData.verbs) || !vData.verbs.length) return;
-    allVerbs = [...BUILT_IN_VERBS, ...vData.verbs];
+    const sheetKeys = new Set(vData.verbs.map(v => v[0] + '|' + v[1] + '|' + v[2]));
+    const localOnly = userVerbs.filter(v => !sheetKeys.has(v[0] + '|' + v[1] + '|' + v[2]));
+    allVerbs = [...BUILT_IN_VERBS, ...vData.verbs, ...localOnly];
     renderVerbs(allVerbs);
   }).catch(() => {});
   // Посилання — синхронізуємо з Sheets
@@ -7910,7 +7913,7 @@ async function addWord() {
   document.getElementById('word-note').value = '';
   document.getElementById('indicator-uk').textContent = '';
   document.getElementById('indicator-en').textContent = '';
-  btn.disabled = false; btn.innerHTML = '＋ Add word';
+  btn.disabled = false; btn.innerHTML = '＋ Додати слово';
   updateStats(); renderRecent(); renderAllWords();
   showToast('✓ Слово «' + uk + '» додано!', 'success');
 
@@ -8018,7 +8021,7 @@ function onSearch() {
     countEl.textContent = 'No results found';
   } else {
     grid.innerHTML = results.map(w => wordCardHTML(w, q)).join('');
-    countEl.textContent = `Found: ${results.length} words`;
+    countEl.textContent = `Found ${results.length} ${results.length === 1 ? 'word' : 'words'}`;
   }
 }
 
@@ -8097,7 +8100,7 @@ function renderVerbs(verbs) {
   const tbody = document.getElementById('verbs-tbody');
   if (!tbody) return;
   const countEl = document.getElementById('verb-count');
-  if (countEl) countEl.textContent = verbs.length + ' verbs';
+  if (countEl) countEl.textContent = verbs.length + (verbs.length === 1 ? ' verb' : ' verbs');
   tbody.innerHTML = verbs.map(v => `
     <tr>
       <td><span class="verb-v1">${v[0]}</span></td>
@@ -8135,12 +8138,18 @@ async function addVerb() {
   const v3 = document.getElementById('v3').value.trim();
   const uk = document.getElementById('v-uk').value.trim();
   if (!v1 || !v2 || !v3) { showToast('Fill in V1, V2, V3!', 'error'); return; }
-  const verb = [v1, v2, v3, uk, cat];
+  const verb = [v1, v2, v3, uk];
+  userVerbs.push(verb);
   allVerbs.push(verb);
-  if (API_URL) await apiPost('addVerb', { v1, v2, v3, uk, cat });
+  saveVerbsLocal();
+  if (API_URL) await apiPost('addVerb', { v1, v2, v3, uk });
   renderVerbs(allVerbs);
   ['v1','v2','v3','v-uk'].forEach(id => document.getElementById(id).value = '');
   showToast('✓ Verb added!', 'success');
+}
+
+function saveVerbsLocal() {
+  localStorage.setItem('user_verbs', JSON.stringify(userVerbs));
 }
 
 // ════════════════════════════════════════════
@@ -8538,8 +8547,8 @@ function searchNotes() {
 
   countEl.style.display = 'block';
   countEl.textContent = results.length
-    ? `Found: ${results.length} notes for «${q}»`
-    : `Nothing found за «${q}»`;
+    ? `Found ${results.length} ${results.length === 1 ? 'note' : 'notes'} for «${q}»`
+    : `Nothing found for «${q}»`;
 
   renderNotesGrid(results, q);
 }
@@ -8759,7 +8768,7 @@ function renderAllWordsTable(words) {
   const empty = document.getElementById('allwords-empty');
   const countEl = document.getElementById('allwords-count');
 
-  countEl.textContent = words.length + ' words';
+  countEl.textContent = words.length + (words.length === 1 ? ' word' : ' words');
 
   if (!words.length) {
     tbody.innerHTML = '';
@@ -9005,20 +9014,26 @@ function renderFlashcard() {
     return;
   }
 
-  flashcard.style.display = '';
-  actions.style.display = 'none';
   practiceRevealed = false;
+  if (actions) actions.style.display = 'none';
 
+  // Rebuild the card's inner markup from scratch every time — the "session
+  // complete" screen (showPracticeComplete) replaces this same innerHTML,
+  // so renderFlashcard() can never assume fc-front/fc-gt/fc-answer/fc-hint
+  // still exist from a previous render.
   const w = practiceWords[practiceIndex];
-  document.getElementById('fc-front').textContent = w.uk;
-  document.getElementById('fc-gt').textContent = w.gtUK ? ('🤖 ' + w.gtUK) : '';
-  document.getElementById('fc-en').textContent = w.en;
   const noteBits = [];
-  if (w.note) noteBits.push('“' + w.note + '”');
-  if (w.date) noteBits.push('added ' + w.date);
-  document.getElementById('fc-note').textContent = noteBits.join(' · ');
-  document.getElementById('fc-answer').style.display = 'none';
-  document.getElementById('fc-hint').style.display = '';
+  if (w.note) noteBits.push('“' + esc(w.note) + '”');
+  if (w.date) noteBits.push('added ' + esc(w.date));
+  flashcard.innerHTML = `
+    <div class="flashcard-eyebrow">Ukrainian → English</div>
+    <div class="flashcard-front" id="fc-front">${esc(w.uk)}</div>
+    <div class="flashcard-gt" id="fc-gt">${w.gtUK ? '🤖 ' + esc(w.gtUK) : ''}</div>
+    <div class="flashcard-answer" id="fc-answer" style="display:none">
+      <div class="flashcard-en" id="fc-en">${esc(w.en)}</div>
+      <div class="flashcard-note" id="fc-note">${noteBits.join(' · ')}</div>
+    </div>
+    <div class="flashcard-hint" id="fc-hint">Click or press Space to reveal</div>`;
 
   if (progFill) progFill.style.width = Math.round((practiceIndex / total) * 100) + '%';
   if (progLbl) progLbl.textContent = `· card ${practiceIndex + 1} of ${total}`;
