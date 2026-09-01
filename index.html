@@ -7,30 +7,35 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="My Dictionary">
 <title>My English Dictionary</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234A8EC2'/%3E%3Crect x='7' y='6' width='14' height='20' rx='2' fill='%23fff' opacity='.95'/%3E%3Crect x='9' y='10' width='10' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Crect x='9' y='13' width='8' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Crect x='9' y='16' width='9' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Crect x='9' y='19' width='6' height='1.5' rx='.75' fill='%234A8EC2'/%3E%3Cpath d='M19 6v10l2.5-2 2.5 2V6' fill='%23C4698A'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C67139'/%3E%3Crect x='7' y='6' width='14' height='20' rx='2' fill='%23fff' opacity='.95'/%3E%3Crect x='9' y='10' width='10' height='1.5' rx='.75' fill='%23C67139'/%3E%3Crect x='9' y='13' width='8' height='1.5' rx='.75' fill='%23C67139'/%3E%3Crect x='9' y='16' width='9' height='1.5' rx='.75' fill='%23C67139'/%3E%3Crect x='9' y='19' width='6' height='1.5' rx='.75' fill='%23C67139'/%3E%3Cpath d='M19 6v10l2.5-2 2.5 2V6' fill='%237A8A5E'/%3E%3C/svg%3E">
 <meta name="description" content="Особистий словник УКР ↔ ENG">
-<meta name="theme-color" content="#4A8EC2">
+<meta name="theme-color" content="#C67139">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* ── Core palette ── */
-    --sky:        #4A8EC2;   /* powder blue — primary */
-    --sky-mid:    #78B0D6;
-    --sky-pale:   #D4E8F5;
-    --sky-ultra:  #EBF4FA;
+    /* Always-dark chip color — deliberately NOT redefined in [data-theme="dark"],
+       for elements (toasts, hero banners) that assume --ink is always dark for a
+       background; --ink itself flips per theme and must not be used that way. */
+    --chip-dark: #201E1D;
 
-    --rose:       #C4698A;   /* powder rose — accent */
-    --rose-mid:   #DCA3BB;
-    --rose-pale:  #F7E4EE;
-    --rose-ultra: #FDF2F7;
+    /* ── Core palette — Organic (terracotta / sage / warm paper) ── */
+    --sky:        #C67139;   /* terracotta — primary accent */
+    --sky-mid:    #D67F48;
+    --sky-pale:   #FFE1D0;
+    --sky-ultra:  #FFF2EB;
 
-    --ink:        #18243C;
-    --ink2:       #3A4E6A;
-    --paper:      #EEF4F9;
-    --cream:      #D8E8F2;
-    --muted:      #7484A0;
-    --border:     #C2D8E8;
+    --rose:       #7A8A5E;   /* sage — secondary accent (GT, tags, highlights) */
+    --rose-mid:   #AEBF92;
+    --rose-pale:  #E1EECC;
+    --rose-ultra: #F0FAE1;
+
+    --ink:        #201E1D;
+    --ink2:       #474238;
+    --paper:      #F5EAD8;
+    --cream:      #EBDDC5;
+    --muted:      #82796A;
+    --border:     #DCD3C4;
 
     /* keep legacy names mapped to new palette */
     --sage:       var(--sky);
@@ -38,52 +43,54 @@
     --sage-pale:  var(--sky-pale);
     --gold:       var(--rose);
     --gold-pale:  var(--rose-pale);
-    --terracotta: #B85A78;
-    --terra-pale: var(--rose-pale);
-    --lavender:   #6080B8;
-    --lav-pale:   #DDE6F5;
+    --terracotta: #B8493A;   /* genuine warm red, for destructive actions only */
+    --terra-pale: #F6E2DC;
+    --lavender:   #56633F;   /* sage-dark, used for GT / meta accents */
+    --lav-pale:   var(--rose-ultra);
+    --sky-deep:   #8C491A;   /* darkest accent step, for active/emphasis text */
 
-    --card:      #fff;
+    --card:      #F9F4ED;
 
-    --shadow:    0 2px 18px rgba(24,36,60,0.08);
-    --shadow-lg: 0 8px 40px rgba(24,36,60,0.14);
-    --radius:    14px;
-    --radius-sm: 8px;
+    --shadow:    0 1px 2px rgba(46,43,37,0.14);
+    --shadow-lg: 0 12px 32px rgba(46,43,37,0.22);
+    --radius:    20px;
+    --radius-sm: 12px;
 
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans:  'Nunito', system-ui, sans-serif;
+    --font-serif: 'Caprasimo', system-ui, sans-serif;
+    --font-sans:  'Figtree', system-ui, sans-serif;
     --font-mono:  'JetBrains Mono', 'Courier New', monospace;
   }
 
   /* ── Dark theme ── */
   [data-theme="dark"] {
-    --sky:        #5A9FD4;
-    --sky-mid:    #4A8AB8;
-    --sky-pale:   #1E3348;
-    --sky-ultra:  #172838;
-    --rose:       #D4809A;
-    --rose-mid:   #A85A74;
-    --rose-pale:  #2E1A22;
-    --rose-ultra: #241418;
-    --ink:        #E2E8F0;
-    --ink2:       #B0BCC8;
-    --paper:      #0F1720;
-    --cream:      #182430;
-    --muted:      #7A8A9E;
-    --border:     #283848;
+    --sky:        #E08A4E;
+    --sky-mid:    #F0A76D;
+    --sky-pale:   #4A331F;
+    --sky-ultra:  #3A2A1C;
+    --rose:       #9AAB7A;
+    --rose-mid:   #B3C393;
+    --rose-pale:  #33402A;
+    --rose-ultra: #262E1B;
+    --ink:        #F3E7D5;
+    --ink2:       #C8BBA7;
+    --paper:      #221D18;
+    --cream:      #2E2721;
+    --muted:      #9C917F;
+    --border:     #4A4238;
     --sage:       var(--sky);
     --sage-light: var(--sky-mid);
     --sage-pale:  var(--sky-pale);
     --gold:       var(--rose);
     --gold-pale:  var(--rose-pale);
-    --terracotta: #D0708A;
-    --terra-pale: var(--rose-pale);
-    --lavender:   #7090C8;
-    --lav-pale:   #1E2A40;
-    --card:       #14202C;
+    --terracotta: #E0725A;
+    --terra-pale: #3A2420;
+    --lavender:   #B3C393;
+    --lav-pale:   var(--rose-pale);
+    --sky-deep:   #F6C193;
+    --card:       #2A241E;
 
-    --shadow:     0 2px 18px rgba(0,0,0,0.3);
-    --shadow-lg:  0 8px 40px rgba(0,0,0,0.4);
+    --shadow:     0 2px 18px rgba(0,0,0,0.35);
+    --shadow-lg:  0 8px 40px rgba(0,0,0,0.5);
     color-scheme: dark;
   }
   [data-theme="dark"] nav {
@@ -101,160 +108,150 @@
   [data-theme="dark"] input,
   [data-theme="dark"] select,
   [data-theme="dark"] textarea {
-    background: #182430;
+    background: #2E2721;
     color: var(--ink);
     border-color: var(--border);
   }
   [data-theme="dark"] table {
-    background: #14202C;
+    background: #2A241E;
   }
   [data-theme="dark"] table thead {
     background: var(--sky-pale);
   }
   [data-theme="dark"] table tbody tr:hover {
-    background: #1A2838;
+    background: #352E26;
   }
   [data-theme="dark"] .btn-primary {
     background: var(--sky);
   }
   [data-theme="dark"] .pv-tense-unified {
-    background: #14202C;
+    background: #2A241E;
   }
   [data-theme="dark"] .pv-tense-example {
-    background: #172838;
+    background: #352E26;
   }
   [data-theme="dark"] .pv-tense-cell.caus {
-    background: rgba(42,157,143,.06);
+    background: rgba(163,118,31,.06);
   }
   [data-theme="dark"] .pv-tense-example.caus {
-    background: rgba(42,157,143,.08);
+    background: rgba(163,118,31,.08);
   }
   [data-theme="dark"] .pv-sign.pos { background: #1A2E1A; color: #66BB6A; }
   [data-theme="dark"] .pv-sign.neg { background: #2E1A1A; color: #EF5350; }
-  [data-theme="dark"] .pv-sign.que { background: #1A2240; color: #42A5F5; }
+  [data-theme="dark"] .pv-sign.que { background: #3A342C; color: #C8BBA7; }
   [data-theme="dark"] .pv-section { background: transparent; }
-  [data-theme="dark"] .pv-rule { background: #14202C; }
-  [data-theme="dark"] .pv-explain { background: #14202C; }
-  [data-theme="dark"] .pv-alert { background: #14202C; }
+  [data-theme="dark"] .pv-rule { background: #2A241E; }
+  [data-theme="dark"] .pv-explain { background: #2A241E; }
+  [data-theme="dark"] .pv-alert { background: #2A241E; }
   [data-theme="dark"] .pv-alert-red { background: #2E1A1A; }
   [data-theme="dark"] .pv-alert-green { background: #1A2E1A; }
-  [data-theme="dark"] .pv-alert-purple { background: #201830; }
-  [data-theme="dark"] .pvc-alert-amber { background: #2E2818; }
+  [data-theme="dark"] .pv-alert-purple { background: #2E2028; }
+  [data-theme="dark"] .pvc-alert-amber { background: #362C16; }
   [data-theme="dark"] .pvc-alert-green { background: #1A2E1A; }
   [data-theme="dark"] .pvc-alert-red { background: #2E1A1A; }
-  [data-theme="dark"] .pv-usa { background: #14202C; }
+  [data-theme="dark"] .pv-usa { background: #2A241E; }
   [data-theme="dark"] code {
     background: rgba(255,255,255,.08);
   }
   [data-theme="dark"] .pv-inf-block,
   [data-theme="dark"] .pvc-tbl {
-    background: #14202C;
+    background: #2A241E;
   }
   /* dark theme for other pages */
-  [data-theme="dark"] .q-cheatsheet { background: #1A2838 !important; }
-  [data-theme="dark"] #quantifiers-scope .mega-table thead th { background: #1A2838; }
+  [data-theme="dark"] .q-cheatsheet { background: #2E2721 !important; }
+  [data-theme="dark"] #quantifiers-scope .mega-table thead th { background: #2E2721; }
   [data-theme="dark"] #quantifiers-scope {
-    --q-bg: #0F1720;
-    --q-card: #14202C;
-    --q-ink: #E2E8F0;
-    --q-muted: #7A8A9E;
-    --q-border: #283848;
-    --q-count: #5A9FD4;
-    --q-count-light: #1A2838;
-    --q-count-mid: #2A4060;
-    --q-uncount: #A070CC;
-    --q-uncount-light: #201830;
-    --q-uncount-mid: #382850;
-    --q-both: #40B088;
-    --q-both-light: #142820;
-    --q-both-mid: #1E3830;
-    --q-neg: #E06050;
-    --q-neg-light: #2E1A18;
-    --q-pos: #4CAF50;
-    --q-pos-light: #1A2E1A;
-    --q-accent: #E0B840;
-    --q-accent-light: #2E2818;
-    --bg: #0F1720;
-    --card: #14202C;
-    --ink: #E2E8F0;
-    --muted: #7A8A9E;
-    --border: #283848;
-    --count: #5A9FD4;
-    --count-light: #1A2838;
-    --count-mid: #2A4060;
-    --uncount: #A070CC;
-    --uncount-light: #201830;
-    --uncount-mid: #382850;
-    --both: #40B088;
-    --both-light: #142820;
-    --both-mid: #1E3830;
-    --neg: #E06050;
-    --neg-light: #2E1A18;
-    --pos: #4CAF50;
-    --pos-light: #1A2E1A;
-    --accent: #E0B840;
-    --accent-light: #2E2818;
+    --q-bg: #221D18;
+    --q-card: #2A241E;
+    --q-ink: #F3E7D5;
+    --q-muted: #9C917F;
+    --q-border: #4A4238;
+    --q-count: #E08A4E;
+    --q-count-light: #3A2A1C;
+    --q-count-mid: #5C3A22;
+    --q-uncount: #C79BB5;
+    --q-uncount-light: #2E2028;
+    --q-uncount-mid: #4A3242;
+    --q-both: #9AAB7A;
+    --q-both-light: #262E1B;
+    --q-both-mid: #3C4A2C;
+    --q-neg: #E0725A;
+    --q-neg-light: #3A2420;
+    --q-pos: #8CB56E;
+    --q-pos-light: #26301C;
+    --q-accent: #D4A545;
+    --q-accent-light: #362C16;
+    --bg: #221D18;
+    --card: #2A241E;
+    --ink: #F3E7D5;
+    --muted: #9C917F;
+    --border: #4A4238;
+    --count: #E08A4E;
+    --count-light: #3A2A1C;
+    --count-mid: #5C3A22;
+    --uncount: #C79BB5;
+    --uncount-light: #2E2028;
+    --uncount-mid: #4A3242;
+    --both: #9AAB7A;
+    --both-light: #262E1B;
+    --both-mid: #3C4A2C;
+    --neg: #E0725A;
+    --neg-light: #3A2420;
+    --pos: #8CB56E;
+    --pos-light: #26301C;
+    --accent: #D4A545;
+    --accent-light: #362C16;
   }
   [data-theme="dark"] #page-tenses,
   [data-theme="dark"] #tenses-scope {
-    --bg: #0F1720;
-    --bg2: #182430;
-    --card: #14202C;
-    --ink: #E2E8F0;
-    --ink2: #B0BCC8;
-    --muted: #7A8A9E;
-    --border: #283848;
-    --border2: #304050;
-    --pr: #4CAF78; --prl: #1A2E22; --prm: #2A4A34; --prd: #88D4A4;
-    --pa: #D4709A; --pal: #2E1A24; --pam: #4A2838; --pad: #E8A0B8;
-    --fu: #5A9FD4; --ful: #1A2838; --fum: #2A4060; --fud: #90C0E8;
-    --gd: #D4A040; --gdl: #2E2818; --gdm: #4A3E20;
-    --co: #E07060; --col: #2E1A18; --com: #4A2820;
-    --pc: #9070C0; --pcl: #201830; --pcm: #382848;
+    --bg: #221D18;
+    --bg2: #2E2721;
+    --card: #2A241E;
+    --ink: #F3E7D5;
+    --ink2: #C8BBA7;
+    --muted: #9C917F;
+    --border: #4A4238;
+    --border2: #5A5040;
+    --pr: #9AAB7A; --prl: #262E1B; --prm: #3C4A2C; --prd: #CBD8B0;
+    --pa: #E08A4E; --pal: #3A2A1C; --pam: #5C3A22; --pad: #F6C193;
+    --fu: #C8BBA7; --ful: #2E2721; --fum: #4A4238; --fud: #F3E7D5;
+    --gd: #D4A545; --gdl: #362C16; --gdm: #5C4A22;
+    --co: #D47F5F; --col: #34201A; --com: #543528;
+    --pc: #C79BB5; --pcl: #2E2028; --pcm: #4A3242;
   }
-  [data-theme="dark"] #tenses-scope .comp-table th { background: #1A2838; }
+  [data-theme="dark"] #tenses-scope .comp-table th { background: #352E26; }
   [data-theme="dark"] #page-conditionals,
   [data-theme="dark"] #conditionals-scope {
-    --bg: #0F1720;
-    --bg2: #182430;
-    --card: #14202C;
-    --card2: #182430;
-    --surface: #1A2838;
-    --text: #E2E8F0;
-    --muted: #7A8A9E;
-    --faint: #384858;
-    --border: rgba(90,159,212,0.2);
-    --border2: rgba(90,159,212,0.3);
-    --z0: #5AB0E0; --z0l: #142838; --z0m: #2A4868;
-    --f1: #60C888; --f1l: #142820; --f1m: #2A4838;
-    --s2: #F0B040; --s2l: #2E2818; --s2m: #4A3E20;
-    --t3: #E06888; --t3l: #2E1A22; --t3m: #4A2838;
-    --mx: #9978E8; --mxl: #201838; --mxm: #382858;
-    --un: #E89840; --unl: #2E2418; --unm: #4A3820;
+    --bg: #221D18;
+    --bg2: #2E2721;
+    --card: #2A241E;
+    --card2: #2E2721;
+    --surface: #2E2721;
+    --text: #F3E7D5;
+    --muted: #9C917F;
+    --faint: #4A4238;
+    --border: rgba(243,231,213,0.14);
+    --border2: rgba(243,231,213,0.22);
+    --z0: #9AAB7A; --z0l: #262E1B; --z0m: #3C4A2C;
+    --f1: #E08A4E; --f1l: #3A2A1C; --f1m: #5C3A22;
+    --s2: #D4A545; --s2l: #362C16; --s2m: #5C4A22;
+    --t3: #C9BEAC; --t3l: #221E18; --t3m: #423A2E;
+    --mx: #C79BB5; --mxl: #2E2028; --mxm: #4A3242;
+    --un: #D47F5F; --unl: #34201A; --unm: #543528;
   }
-  [data-theme="dark"] .card { background: #14202C; }
-  [data-theme="dark"] .setup-banner { background: linear-gradient(135deg, #1A2838, #14202C); }
-  [data-theme="dark"] .search-input { background: #182430; color: var(--ink); }
-  [data-theme="dark"] .table-wrap { background: #14202C; }
-  [data-theme="dark"] .word-row { background: #14202C; }
-  [data-theme="dark"] .word-row:hover { background: #1A2838; }
-  [data-theme="dark"] .filter-btn { background: #182430; color: var(--ink2); }
-  [data-theme="dark"] .pill-group .pill { background: #182430; color: var(--ink2); }
-  [data-theme="dark"] .translate-btn { background: #182430; color: var(--ink2); }
-  [data-theme="dark"] .modal-content { background: #14202C; }
-  [data-theme="dark"] .verb-filter-btn { background: #182430; color: var(--ink2); border-color: var(--border); }
-  [data-theme="dark"] .word-action-btn { background: #182430; }
-  [data-theme="dark"] .tab-btn { background: #182430; color: var(--ink2); }
-  /* theme toggle button */
-  .theme-toggle {
-    background: none; border: none; cursor: pointer;
-    font-size: 18px; padding: 6px;
-    border-radius: 50%;
-    transition: background .2s;
-    line-height: 1;
-    margin-right: 2px;
-  }
-  .theme-toggle:hover { background: var(--sky-ultra); }
+  [data-theme="dark"] .card { background: #2A241E; }
+  [data-theme="dark"] .setup-banner { background: linear-gradient(135deg, #352E26, #2A241E); }
+  [data-theme="dark"] .search-input { background: #2E2721; color: var(--ink); }
+  [data-theme="dark"] .table-wrap { background: #2A241E; }
+  [data-theme="dark"] .word-row { background: #2A241E; }
+  [data-theme="dark"] .word-row:hover { background: #352E26; }
+  [data-theme="dark"] .filter-btn { background: #2E2721; color: var(--ink2); }
+  [data-theme="dark"] .pill-group .pill { background: #2E2721; color: var(--ink2); }
+  [data-theme="dark"] .translate-btn { background: #2E2721; color: var(--ink2); }
+  [data-theme="dark"] .modal-content { background: #2A241E; }
+  [data-theme="dark"] .verb-filter-btn { background: #2E2721; color: var(--ink2); border-color: var(--border); }
+  [data-theme="dark"] .word-action-btn { background: #2E2721; }
+  [data-theme="dark"] .tab-btn { background: #2E2721; color: var(--ink2); }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -268,156 +265,149 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(238,244,249,0.94);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    padding-left: max(24px, env(safe-area-inset-left));
-    padding-right: max(24px, env(safe-area-inset-right));
-    display: flex; align-items: center; gap: 0;
-    height: 62px;
-  }
-  .nav-logo {
-    font-family: var(--font-serif);
-    font-size: 20px; font-weight: 700;
-    color: var(--ink);
-    margin-right: auto;
-    letter-spacing: -0.01em;
-  }
-  .nav-logo span { color: var(--sky); }
-  /* ── Sidebar toggle button ── */
-  .sidebar-toggle {
-    background: none; border: none; cursor: pointer;
-    display: flex; align-items: center; gap: 6px;
-    padding: 7px 14px; border-radius: 30px;
-    font-size: 13px; font-weight: 600;
-    color: var(--muted); font-family: var(--font-sans);
-    transition: all 0.18s ease;
-  }
-  .sidebar-toggle:hover { color: var(--ink); background: var(--sky-ultra); }
-  .sidebar-toggle .hamburger {
-    width: 18px; height: 14px; display: flex; flex-direction: column;
-    justify-content: space-between;
-  }
-  .sidebar-toggle .hamburger span {
-    display: block; height: 2px; background: currentColor;
-    border-radius: 2px; transition: all 0.25s ease;
-  }
-
-  /* ── Current tab label in nav ── */
-  .current-tab-label {
-    font-size: 13px; font-weight: 600; color: var(--sky);
-    margin-right: 4px;
-  }
-
-  /* ── Sidebar overlay ── */
+  /* ── Rail overlay scrim (mobile only) ── */
   .sidebar-overlay {
     position: fixed; inset: 0; z-index: 199;
-    background: rgba(24,36,60,0.25);
+    background: rgba(46,43,37,0.35);
     backdrop-filter: blur(3px);
     opacity: 0; visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
   .sidebar-overlay.open { opacity: 1; visibility: visible; }
 
-  /* ── Sidebar panel ── */
+  /* ── Rail / sidebar panel — persistent left rail on desktop,
+       slide-in drawer on mobile (same element, different mode) ── */
   .sidebar {
-    position: fixed; top: 0; right: 0; bottom: 0;
-    width: 280px; max-width: 85vw;
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; max-width: 85vw;
     z-index: 200;
-    background: rgba(255,255,255,0.97);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-left: 1px solid var(--border);
-    box-shadow: -8px 0 40px rgba(24,36,60,0.12);
-    transform: translateX(100%);
-    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--cream);
+    border-right: 1px solid var(--border);
+    box-shadow: 8px 0 40px rgba(46,43,37,0.12);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex; flex-direction: column;
-    padding: 0;
+    gap: 16px;
+    padding: 18px 14px;
+    padding-top: max(18px, env(safe-area-inset-top));
+    padding-left: max(14px, env(safe-area-inset-left));
   }
   .sidebar.open { transform: translateX(0); }
 
-  /* ── Pinned sidebar ── */
-  body.sidebar-pinned .sidebar {
-    position: fixed; transform: translateX(0);
-    box-shadow: none;
-  }
-  body.sidebar-pinned .sidebar-overlay { display: none; }
-  body.sidebar-pinned .sidebar-toggle { display: none; }
-  body.sidebar-pinned .page,
-  body.sidebar-pinned .page-header,
-  body.sidebar-pinned nav { margin-right: 280px; }
-  @media (max-width: 700px) {
-    body.sidebar-pinned .sidebar { position: fixed; }
-    body.sidebar-pinned .page,
-    body.sidebar-pinned .page-header,
-    body.sidebar-pinned nav { margin-right: 0; }
-    body.sidebar-pinned .sidebar-toggle { display: flex; }
-  }
-
-  .sidebar-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 20px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  .sidebar-header h2 {
-    font-family: var(--font-serif);
-    font-size: 18px; font-weight: 700; color: var(--ink);
-  }
-  .sidebar-header-buttons { display: flex; align-items: center; gap: 6px; }
-  .sidebar-pin {
-    background: var(--sky-ultra); border: none; cursor: pointer;
-    width: 32px; height: 32px; border-radius: 50%;
+  .sidebar-header { display: flex; align-items: center; gap: 10px; padding: 0 6px; }
+  .rail-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; margin-right: auto; min-width: 0; }
+  .rail-logo-badge {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    background: var(--sky); color: var(--card);
     display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: 15px;
-    transition: all 0.15s;
+    font-family: var(--font-serif); font-size: 15px;
   }
-  .sidebar-pin:hover { background: var(--sky-pale); color: var(--sky); }
-  body.sidebar-pinned .sidebar-pin { color: var(--sky); background: var(--sky-pale); transform: rotate(45deg); }
+  .rail-logo-text { font-family: var(--font-serif); font-size: 16px; color: var(--ink); line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sidebar-close {
-    background: var(--sky-ultra); border: none; cursor: pointer;
-    width: 32px; height: 32px; border-radius: 50%;
+    background: none; border: none; cursor: pointer; flex-shrink: 0;
+    width: 30px; height: 30px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: 16px;
+    color: var(--muted); font-size: 18px; line-height: 1;
     transition: all 0.15s;
   }
-  .sidebar-close:hover { background: var(--rose-pale); color: var(--rose); }
-  body.sidebar-pinned .sidebar-close { display: none; }
+  .sidebar-close:hover { background: var(--sky-ultra); color: var(--sky); }
+
+  .rail-search {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    padding: 9px 12px; border-radius: 999px;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--muted); font-size: 13px; font-family: var(--font-sans);
+    cursor: pointer; text-align: left; transition: all 0.15s;
+  }
+  .rail-search:hover { border-color: var(--sky-mid); color: var(--ink); }
+  .rail-search svg { flex-shrink: 0; }
+  .rail-search span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rail-search kbd {
+    margin-left: auto; flex-shrink: 0; font-size: 10.5px; font-family: var(--font-mono);
+    color: var(--muted); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px;
+  }
 
   .sidebar-nav {
-    flex: 1; overflow-y: auto; padding: 12px;
-    display: flex; flex-direction: column; gap: 4px;
+    flex: 1; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 1px;
+    margin: 0 -4px; padding: 0 4px;
   }
+  .rail-group-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); padding: 14px 12px 5px; font-family: var(--font-sans);
+  }
+  .rail-group-label:first-child { padding-top: 2px; }
 
   .nav-tab {
-    padding: 11px 16px;
-    border-radius: 10px;
+    padding: 9px 12px;
+    border-radius: 999px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    color: var(--muted);
-    transition: all 0.18s ease;
+    color: var(--ink2);
+    transition: all 0.15s ease;
     border: none; background: none;
     white-space: nowrap;
     font-family: var(--font-sans);
     text-align: left;
     display: flex; align-items: center; gap: 10px;
   }
-  .nav-tab:hover { color: var(--ink); background: var(--sky-ultra); }
-  .nav-tab.active {
-    color: var(--sky); background: var(--sky-ultra);
-    border-left: 3px solid var(--sky);
+  .nav-tab .rail-icon { font-size: 15px; flex-shrink: 0; width: 18px; text-align: center; }
+  .nav-tab .rail-count {
+    margin-left: auto; font-size: 11px; font-weight: 700; color: var(--muted);
   }
+  .nav-tab:hover { color: var(--ink); background: rgba(46,43,37,0.06); }
+  .nav-tab.active {
+    color: var(--sky-deep); background: var(--sky-pale);
+  }
+  .nav-tab.active .rail-count { color: var(--sky-deep); }
+
+  .sidebar-footer { padding: 0 2px; }
+  .theme-toggle {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    background: var(--card); border: 1px solid var(--border); cursor: pointer;
+    padding: 8px 12px; border-radius: 999px;
+    color: var(--ink2); font-size: 12.5px; font-family: var(--font-sans); font-weight: 600;
+    transition: all 0.15s;
+  }
+  .theme-toggle:hover { border-color: var(--sky-mid); }
+
+  /* ── Bottom tab bar (mobile only) ── */
+  .bottom-tabs {
+    display: none;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    padding: 8px 6px max(8px, env(safe-area-inset-bottom));
+    justify-content: space-around;
+  }
+  .bottom-tab {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    min-width: 56px; padding: 4px 6px;
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-family: var(--font-sans);
+  }
+  .bottom-tab .bt-icon { font-size: 20px; line-height: 1; }
+  .bottom-tab span:last-child { font-size: 10.5px; font-weight: 600; }
+  .bottom-tab.active { color: var(--sky-deep); }
 
   /* ── PAGES ── */
-  .page { display: none; min-height: calc(100vh - 62px); padding: 32px 24px; max-width: 980px; margin: 0 auto; }
+  .page { display: none; min-height: 100vh; padding: 32px 24px; max-width: 980px; margin: 0 auto; }
   .page.active { display: block; }
   .page-wide { max-width: 100%; padding: 32px 40px; }
   @media(max-width:700px) { .page-wide { padding: 16px 14px; } }
+
+  /* ── Desktop: rail is permanently docked, no overlay/hamburger/bottom-bar ── */
+  @media (min-width: 701px) {
+    body { padding-left: 240px; }
+    .sidebar { transform: translateX(0); box-shadow: none; }
+    .sidebar-overlay, .sidebar-close, .bottom-tabs { display: none; }
+  }
+  /* ── Mobile: drawer + bottom tabs, reserve space for the fixed bottom bar ── */
+  @media (max-width: 700px) {
+    .bottom-tabs { display: flex; }
+    body { padding-bottom: 68px; }
+  }
 
   /* ── PAGE HEADERS ── */
   .page-header { margin-bottom: 32px; }
@@ -465,7 +455,7 @@
   .setup-banner p { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
   .setup-banner code {
     display: block;
-    background: rgba(74,142,194,0.07); border-radius: var(--radius-sm);
+    background: rgba(198,113,57,0.07); border-radius: var(--radius-sm);
     padding: 8px 12px; font-family: var(--font-mono);
     font-size: 12px; color: var(--ink2);
     word-break: break-all; margin-bottom: 8px;
@@ -475,7 +465,7 @@
     padding: 8px 12px; font-size: 13px; font-family: var(--font-mono);
     background: var(--card); outline: none; color: var(--ink);
   }
-  .setup-banner input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(74,142,194,0.14); }
+  .setup-banner input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(198,113,57,0.14); }
   .setup-save-btn {
     margin-top: 8px;
     padding: 8px 16px; border-radius: var(--radius-sm);
@@ -490,14 +480,15 @@
   .input-group { flex: 1; }
   .input-group label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--font-sans); }
   .input-group input, .input-group textarea, .input-group select {
-    width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-    padding: 10px 14px; font-size: 14px; font-family: var(--font-sans);
+    width: 100%; border: 1.5px solid var(--border); border-radius: 999px;
+    padding: 10px 16px; font-size: 14px; font-family: var(--font-sans);
     background: var(--card); outline: none; color: var(--ink); transition: border 0.15s;
   }
-  .input-group textarea { resize: vertical; min-height: 80px; }
+  .input-group textarea { resize: vertical; min-height: 80px; border-radius: var(--radius-sm); }
+  .input-group select { padding-right: 30px; }
   .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
     border-color: var(--sky); background: var(--card);
-    box-shadow: 0 0 0 3px rgba(74,142,194,0.12);
+    box-shadow: 0 0 0 3px rgba(198,113,57,0.12);
   }
 
   /* ── BUTTONS ── */
@@ -508,7 +499,7 @@
     letter-spacing: 0.01em;
   }
   .btn-primary { background: var(--sky); color: #fff; }
-  .btn-primary:hover { background: #3A7EB5; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(74,142,194,0.38); }
+  .btn-primary:hover { background: var(--sky-deep); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(198,113,57,0.38); }
   .btn-secondary { background: var(--sky-ultra); color: var(--ink2); border: 1.5px solid var(--border); }
   .btn-secondary:hover { background: var(--sky-pale); border-color: var(--sky-mid); }
   .btn-danger { background: var(--rose-pale); color: var(--terracotta); border: 1px solid var(--rose-mid); }
@@ -523,7 +514,7 @@
     outline: none; transition: all 0.18s; font-family: var(--font-sans);
     color: var(--ink); font-weight: 400;
   }
-  .search-wrap input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(74,142,194,0.12); }
+  .search-wrap input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(198,113,57,0.12); }
   .search-wrap input::placeholder { color: var(--muted); }
   .search-icon {
     position: absolute; left: 17px; top: 50%; transform: translateY(-50%);
@@ -547,7 +538,7 @@
     width: 4px; background: linear-gradient(180deg, var(--sky) 0%, var(--rose) 100%);
     border-radius: 4px 0 0 4px;
   }
-  .word-card:hover { box-shadow: 0 6px 24px rgba(74,142,194,0.14); transform: translateY(-2px); border-color: var(--sky-pale); }
+  .word-card:hover { box-shadow: 0 6px 24px rgba(198,113,57,0.14); transform: translateY(-2px); border-color: var(--sky-pale); }
   .word-uk { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
   .word-en { font-size: 15px; color: var(--sky); font-weight: 600; margin-bottom: 6px; }
   .word-gtranslate { font-size: 12px; color: var(--lavender); margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
@@ -604,7 +595,7 @@
     font-family: var(--font-sans);
   }
   .verb-filter-btn { }
-  .verb-filter-btn.active { background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(74,142,194,0.3)!important; }
+  .verb-filter-btn.active { background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(198,113,57,0.3)!important; }
   .verbs-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
   .verbs-table tr:last-child td { border-bottom: none; }
   .verbs-table tr:hover td { background: var(--sky-ultra); }
@@ -625,7 +616,7 @@
     padding: 22px; text-decoration: none; color: inherit;
     transition: all 0.18s; display: block;
   }
-  .link-card:hover { box-shadow: 0 8px 32px rgba(74,142,194,0.15); transform: translateY(-3px); border-color: var(--sky-mid); }
+  .link-card:hover { box-shadow: 0 8px 32px rgba(198,113,57,0.15); transform: translateY(-3px); border-color: var(--sky-mid); }
   .link-icon { font-size: 30px; margin-bottom: 12px; }
   .link-name { font-family: var(--font-serif); font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
   .link-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.55; }
@@ -649,7 +640,7 @@
     background: linear-gradient(180deg, var(--rose) 0%, var(--sky) 100%);
     border-radius:4px 0 0 4px;
   }
-  .note-card:hover { box-shadow: 0 6px 24px rgba(196,105,138,0.14); transform: translateY(-2px); border-color: var(--rose-mid); }
+  .note-card:hover { box-shadow: 0 6px 24px rgba(122,138,94,0.14); transform: translateY(-2px); border-color: var(--rose-mid); }
   .note-card-title { font-family: var(--font-serif); font-size:17px; font-weight:700; margin-bottom:6px; color:var(--ink); }
   .note-card-preview { font-size:12px; color:var(--muted); line-height:1.55; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
   .note-card-meta { font-size:11px; color:var(--border); margin-top:10px; font-family:var(--font-mono); display:flex; gap:10px; }
@@ -683,7 +674,7 @@
     color:var(--ink); background:var(--card); outline:none; transition:border 0.15s;
     overflow-y:auto;
   }
-  .rich-editor:focus { border-color:var(--sky); box-shadow:0 0 0 3px rgba(74,142,194,0.1); }
+  .rich-editor:focus { border-color:var(--sky); box-shadow:0 0 0 3px rgba(198,113,57,0.1); }
   .rich-editor h2 { font-family:var(--font-serif); font-size:24px; margin:16px 0 8px; }
   .rich-editor h3 { font-family:var(--font-serif); font-size:18px; margin:12px 0 6px; }
   .rich-editor table { border-collapse:collapse; width:100%; margin:12px 0; }
@@ -712,7 +703,7 @@
   .toast {
     position: fixed; bottom: 24px; right: 24px; z-index: 999;
     padding: 13px 22px; border-radius: 30px;
-    background: var(--ink); color: #fff;
+    background: var(--chip-dark); color: #fff;
     font-size: 13px; font-weight: 600; font-family: var(--font-sans);
     box-shadow: var(--shadow-lg);
     transform: translateY(100px) scale(0.9); opacity: 0;
@@ -740,7 +731,7 @@
     cursor: pointer; transition: all 0.14s; font-family: var(--font-sans);
   }
   .filter-btn:hover { border-color: var(--sky); color: var(--sky); background: var(--sky-ultra); }
-  .filter-btn.active { background: var(--sky); color: #fff; border-color: var(--sky); box-shadow: 0 2px 8px rgba(74,142,194,0.3); }
+  .filter-btn.active { background: var(--sky); color: #fff; border-color: var(--sky); box-shadow: 0 2px 8px rgba(198,113,57,0.3); }
 
   /* ── DIVIDER ── */
   .section-divider { height: 1px; background: var(--border); margin: 24px 0; }
@@ -856,7 +847,7 @@
   }
   /* ── Edit Word Modal ── */
   .modal-overlay {
-    position:fixed;inset:0;background:rgba(24,36,60,.4);z-index:500;
+    position:fixed;inset:0;background:rgba(32,30,29,.4);z-index:500;
     display:flex;align-items:center;justify-content:center;padding:16px;
     backdrop-filter:blur(4px);
   }
@@ -878,39 +869,53 @@
 <script>if(localStorage.getItem('dict-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')</script>
 <body>
 
-<nav>
-  <a class="nav-logo" href="#" onclick="event.preventDefault();goHome();" style="text-decoration:none;color:inherit;cursor:pointer">My <span>Dictionary</span></a>
-  <span class="current-tab-label" id="current-tab-label">📖 Dictionary</span>
-  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
-  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">
-    <div class="hamburger"><span></span><span></span><span></span></div>
-  </button>
-</nav>
+<!-- Retired top bar: showPage()/goHome() still write to #current-tab-label, so it
+     stays in the DOM (hidden) rather than touching that JS. -->
+<div hidden><span class="current-tab-label" id="current-tab-label">📖 Dictionary</span></div>
 
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
-    <h2>Menu</h2>
-    <div class="sidebar-header-buttons">
-      <button class="sidebar-pin" onclick="togglePinSidebar()" title="Pin menu">📌</button>
-      <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
-    </div>
+    <a class="rail-logo" href="#" onclick="event.preventDefault();goHome();">
+      <span class="rail-logo-badge">M</span>
+      <span class="rail-logo-text">My Dictionary</span>
+    </a>
+    <button class="sidebar-close" onclick="closeSidebar()" aria-label="Close menu">&times;</button>
   </div>
+  <button class="rail-search" onclick="goHome();document.getElementById('search-input').focus()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+    <span>Search everything</span>
+    <kbd>⌘K</kbd>
+  </button>
   <div class="sidebar-nav">
-    <button class="nav-tab active" onclick="showPage('dict')" data-label="📖 Dictionary">📖 Dictionary</button>
-    <button class="nav-tab" onclick="showPage('allwords')" data-label="📋 All Words">📋 All Words</button>
-    <button class="nav-tab" onclick="showPage('practice')" data-label="🎯 Practice">🎯 Practice</button>
-    <button class="nav-tab" onclick="showPage('quantifiers')" data-label="📊 Quantifiers">📊 Quantifiers</button>
-    <button class="nav-tab" onclick="showPage('conditionals')" data-label="🔀 Conditionals">🔀 Conditionals</button>
-    <button class="nav-tab" onclick="showPage('tenses')" data-label="🕐 Tenses">🕐 Tenses</button>
-    <button class="nav-tab" onclick="showPage('verbs')" data-label="🔤 Irregular Verbs">🔤 Irregular Verbs</button>
-    <button class="nav-tab" onclick="showPage('phrasal')" data-label="↗️ Phrasal Verbs">↗️ Phrasal Verbs</button>
-    <button class="nav-tab" onclick="showPage('prepositions')" data-label="📐 Prepositions">📐 Prepositions</button>
-    <button class="nav-tab" onclick="showPage('passive')" data-label="🔄 Passive Voice">🔄 Passive Voice</button>
-    <button class="nav-tab" onclick="showPage('links')" data-label="🔗 Links">🔗 Links</button>
-    <button class="nav-tab" onclick="showPage('notes')" data-label="📝 Notes">📝 Notes</button>
+    <div class="rail-group-label">Vocabulary</div>
+    <button class="nav-tab active" onclick="showPage('dict')" data-label="📖 Dictionary"><span class="rail-icon">📖</span><span>Dictionary</span></button>
+    <button class="nav-tab" onclick="showPage('allwords')" data-label="📋 All Words"><span class="rail-icon">📋</span><span>All words</span></button>
+    <button class="nav-tab" onclick="showPage('practice')" data-label="🎯 Practice"><span class="rail-icon">🎯</span><span>Practice</span></button>
+    <div class="rail-group-label">Grammar</div>
+    <button class="nav-tab" onclick="showPage('tenses')" data-label="🕐 Tenses"><span class="rail-icon">🕐</span><span>Tenses</span></button>
+    <button class="nav-tab" onclick="showPage('conditionals')" data-label="🔀 Conditionals"><span class="rail-icon">🔀</span><span>Conditionals</span></button>
+    <button class="nav-tab" onclick="showPage('verbs')" data-label="🔤 Irregular Verbs"><span class="rail-icon">🔤</span><span>Irregular verbs</span></button>
+    <button class="nav-tab" onclick="showPage('phrasal')" data-label="↗️ Phrasal Verbs"><span class="rail-icon">↗️</span><span>Phrasal verbs</span></button>
+    <button class="nav-tab" onclick="showPage('prepositions')" data-label="📐 Prepositions"><span class="rail-icon">📐</span><span>Prepositions</span></button>
+    <button class="nav-tab" onclick="showPage('passive')" data-label="🔄 Passive Voice"><span class="rail-icon">🔄</span><span>Passive voice</span></button>
+    <button class="nav-tab" onclick="showPage('quantifiers')" data-label="📊 Quantifiers"><span class="rail-icon">📊</span><span>Quantifiers</span></button>
+    <div class="rail-group-label">Library</div>
+    <button class="nav-tab" onclick="showPage('notes')" data-label="📝 Notes"><span class="rail-icon">📝</span><span>Notes</span></button>
+    <button class="nav-tab" onclick="showPage('links')" data-label="🔗 Links"><span class="rail-icon">🔗</span><span>Links</span></button>
+  </div>
+  <div class="sidebar-footer">
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-toggle-icon">🌙</span><span>Dark mode</span></button>
   </div>
 </div>
+
+<nav class="bottom-tabs" id="bottom-tabs">
+  <button class="nav-tab bottom-tab active" onclick="showPage('dict')" data-label="📖 Dictionary"><span class="bt-icon">📖</span><span>Words</span></button>
+  <button class="nav-tab bottom-tab" onclick="showPage('practice')" data-label="🎯 Practice"><span class="bt-icon">🎯</span><span>Practice</span></button>
+  <button class="nav-tab bottom-tab" onclick="showPage('tenses')" data-label="🕐 Tenses"><span class="bt-icon">🕐</span><span>Grammar</span></button>
+  <button class="nav-tab bottom-tab" onclick="showPage('notes')" data-label="📝 Notes"><span class="bt-icon">📝</span><span>Notes</span></button>
+  <button class="bottom-tab" onclick="toggleSidebar()" aria-label="Menu"><span class="bt-icon">☰</span><span>Menu</span></button>
+</nav>
 
 <!-- ════════════════════════════ PAGE 1: DICTIONARY ════════════════════════════ -->
 <div id="page-dict" class="page active">
@@ -1196,7 +1201,7 @@
     <div class="notes-grid" id="notes-grid">
       <div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
         <div style="font-size:40px;margin-bottom:12px">📝</div>
-        <div style="font-size:16px;font-family:'Cormorant Garamond',Georgia,serif;margin-bottom:6px">No notes yet</div>
+        <div style="font-size:16px;font-family:'Caprasimo',system-ui,sans-serif;margin-bottom:6px">No notes yet</div>
         <div style="font-size:13px">Click «＋ New Note» to get started</div>
       </div>
     </div>
@@ -1209,7 +1214,7 @@
       <button class="btn btn-secondary" onclick="closeEditor()" style="flex-shrink:0">← Back</button>
       <input type="text" id="note-title-input" placeholder="Note title…"
         style="flex:1;min-width:180px;border:none;border-bottom:2px solid var(--border);border-radius:0;
-        background:transparent;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700;
+        background:transparent;font-family:'Caprasimo',system-ui,sans-serif;font-size:22px;font-weight:700;
         color:var(--ink);outline:none;padding:4px 0;"
         oninput="markNoteDirty()">
       <span id="note-save-status" class="notes-status">—</span>
@@ -1259,7 +1264,7 @@
   <div id="notes-viewer-view" style="display:none">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
       <button class="btn btn-secondary" onclick="closeViewer()">← Back</button>
-      <h2 id="viewer-title" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:700;margin:0;flex:1"></h2>
+      <h2 id="viewer-title" style="font-family:'Caprasimo',system-ui,sans-serif;font-size:24px;font-weight:700;margin:0;flex:1"></h2>
       <button class="btn btn-secondary" onclick="editCurrentNote()">✏️ Edit</button>
     </div>
     <div class="card">
@@ -1283,8 +1288,8 @@
         <input type="text" id="allwords-search" placeholder="Filter…" oninput="filterAllWords()">
       </div>
       <select id="allwords-sort" onchange="filterAllWords()"
-        style="border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;
-        font-size:13px;font-family:'Nunito',system-ui,sans-serif;background:var(--paper);color:var(--ink);outline:none">
+        style="border:1px solid var(--border);border-radius:999px;padding:10px 16px;
+        font-size:13px;font-family:'Figtree',system-ui,sans-serif;background:var(--card);color:var(--ink);outline:none">
         <option value="date-desc">Newest first</option>
         <option value="date-asc">Oldest first</option>
         <option value="uk-asc">А→Я (UKR)</option>
@@ -1313,7 +1318,7 @@
   </div>
   <div id="allwords-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
     <div style="font-size:36px;margin-bottom:12px">🔍</div>
-    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;margin-bottom:6px">Nothing found</div>
+    <div style="font-family:'Caprasimo',system-ui,sans-serif;font-size:18px;margin-bottom:6px">Nothing found</div>
     <div style="font-size:13px">Try a different search</div>
   </div>
 </div>
@@ -1322,7 +1327,7 @@
 <div id="page-practice" class="page page-wide">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
     <div>
-      <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px">Practice</h1>
+      <h1 style="font-family:'Caprasimo',system-ui,sans-serif;font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px">Practice</h1>
       <p style="color:var(--muted);font-size:14px">20 random words to study · <span id="practice-pool-size"></span></p>
     </div>
     <button class="btn btn-primary" style="margin-left:auto" onclick="refreshPractice()">
@@ -1332,7 +1337,7 @@
 
   <div id="practice-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
     <div style="font-size:40px;margin-bottom:12px">📖</div>
-    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;margin-bottom:8px">No words yet</div>
+    <div style="font-family:'Caprasimo',system-ui,sans-serif;font-size:20px;margin-bottom:8px">No words yet</div>
     <div style="font-size:14px">Add words in the Dictionary tab first</div>
   </div>
 
@@ -1356,62 +1361,62 @@
 <div id="page-quantifiers" class="page" style="padding:0;max-width:100%">
   <style id="quantifiers-styles">
 #quantifiers-scope {
-    --q-bg: #EEF4F9;
-    --q-card: #FFFFFF;
-    --q-ink: #18243C;
-    --q-muted: #7484A0;
-    --q-border: #C2D8E8;
-    --q-count: #1B5E8A;
-    --q-count-light: #EAF3FB;
-    --q-count-mid: #B5D4F4;
-    --q-uncount: #6B3A8C;
-    --q-uncount-light: #F3EDFB;
-    --q-uncount-mid: #D4B8F0;
-    --q-both: #1A7A5A;
-    --q-both-light: #E5F5EE;
-    --q-both-mid: #9FE1CB;
-    --q-neg: #C04020;
-    --q-neg-light: #FAEAE4;
-    --q-pos: #2E7D32;
-    --q-pos-light: #E8F5E9;
-    --q-accent: #D4A017;
-    --q-accent-light: #FDF3D0;
+    --q-bg: #F5EAD8;
+    --q-card: #F9F4ED;
+    --q-ink: #201E1D;
+    --q-muted: #82796A;
+    --q-border: #DCD3C4;
+    --q-count: #B2622D;
+    --q-count-light: #FFE1D0;
+    --q-count-mid: #FFC6A5;
+    --q-uncount: #7D5A6E;
+    --q-uncount-light: #F2E7EE;
+    --q-uncount-mid: #D3B8C6;
+    --q-both: #56633F;
+    --q-both-light: #E1EECC;
+    --q-both-mid: #AEBF92;
+    --q-neg: #B8493A;
+    --q-neg-light: #F6E2DC;
+    --q-pos: #4F7A3D;
+    --q-pos-light: #E6EFDC;
+    --q-accent: #A3761F;
+    --q-accent-light: #F7EDD7;
     /* map the original var names used inside the page */
-    --bg: #EEF4F9;
-    --card: #FFFFFF;
-    --ink: #18243C;
-    --muted: #7484A0;
-    --border: #C2D8E8;
-    --count: #1B5E8A;
-    --count-light: #EAF3FB;
-    --count-mid: #B5D4F4;
-    --uncount: #6B3A8C;
-    --uncount-light: #F3EDFB;
-    --uncount-mid: #D4B8F0;
-    --both: #1A7A5A;
-    --both-light: #E5F5EE;
-    --both-mid: #9FE1CB;
-    --neg: #C04020;
-    --neg-light: #FAEAE4;
-    --pos: #2E7D32;
-    --pos-light: #E8F5E9;
-    --accent: #D4A017;
-    --accent-light: #FDF3D0;
+    --bg: #F5EAD8;
+    --card: #F9F4ED;
+    --ink: #201E1D;
+    --muted: #82796A;
+    --border: #DCD3C4;
+    --count: #B2622D;
+    --count-light: #FFE1D0;
+    --count-mid: #FFC6A5;
+    --uncount: #7D5A6E;
+    --uncount-light: #F2E7EE;
+    --uncount-mid: #D3B8C6;
+    --both: #56633F;
+    --both-light: #E1EECC;
+    --both-mid: #AEBF92;
+    --neg: #B8493A;
+    --neg-light: #F6E2DC;
+    --pos: #4F7A3D;
+    --pos-light: #E6EFDC;
+    --accent: #A3761F;
+    --accent-light: #F7EDD7;
   }
 #quantifiers-scope * {
  box-sizing: border-box; margin: 0; padding: 0; }
 #quantifiers-scope {
 
     background: var(--bg);
-    font-family: 'Nunito', system-ui, sans-serif;
+    font-family: 'Figtree', system-ui, sans-serif;
     color: var(--ink);
     font-size: 15px;
     line-height: 1.65;
   }
   .hero {
 
-    background: var(--ink);
-    color: #EEF4F9;
+    background: var(--chip-dark);
+    color: #F5EAD8;
     padding: 64px 40px 56px;
     text-align: center;
     position: relative;
@@ -1431,7 +1436,7 @@
   }
 #quantifiers-scope .hero h1 {
 
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Caprasimo', system-ui, sans-serif;
     font-size: clamp(2.4rem, 6vw, 4rem);
     font-weight: 900;
     letter-spacing: -0.02em;
@@ -1461,7 +1466,7 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     position: sticky;
-    top: 62px;
+    top: 0;
     z-index: 100;
   }
 #quantifiers-scope .q-nav a {
@@ -1490,7 +1495,7 @@
   }
 #quantifiers-scope .section-head h2 {
 
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Caprasimo', system-ui, sans-serif;
     font-size: 1.9rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -1560,7 +1565,7 @@
   }
 #quantifiers-scope .card-word {
 
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Caprasimo', system-ui, sans-serif;
     font-size: 1.55rem;
     font-weight: 700;
     line-height: 1.2;
@@ -1632,7 +1637,7 @@
   }
 #quantifiers-scope .compare-header .word {
 
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Caprasimo', system-ui, sans-serif;
     font-size: 1.6rem;
     font-weight: 700;
   }
@@ -1886,7 +1891,7 @@
   }
 #quantifiers-scope .pos-card .pos-num {
 
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Caprasimo', system-ui, sans-serif;
     font-size: 2rem;
     font-weight: 900;
     color: var(--border);
@@ -1981,7 +1986,7 @@
 
 
   </style>
-  <div id="quantifiers-scope" style="font-family:'Nunito',system-ui,sans-serif">
+  <div id="quantifiers-scope" style="font-family:'Figtree',system-ui,sans-serif">
 <!-- HEADER -->
 <div class="page-header">
   <h1>Quantifiers</h1>
@@ -2008,7 +2013,7 @@
     <div class="section-head">
       <h2>Full Summary</h2>
       <div class="line"></div>
-      <span class="tag" style="background:var(--ink);color:#EEF4F9;">All quantifiers</span>
+      <span class="tag" style="background:var(--chip-dark);color:#F5EAD8;">All quantifiers</span>
     </div>
 
     <div class="mega-wrap">
@@ -2119,23 +2124,23 @@
     </div>
 
     <!-- MEMORY CHEAT SHEET -->
-    <div class="q-cheatsheet" style="background:#18243C;color:#EEF4F9;border-radius:16px;padding:28px 32px;margin-top:24px;">
+    <div class="q-cheatsheet" style="background:#201E1D;color:#F5EAD8;border-radius:16px;padding:28px 32px;margin-top:24px;">
       <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B0A898;margin-bottom:20px;">Memory cheat sheet</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;font-size:14px;">
         <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:var(--accent);margin-bottom:6px;">Countable plurals</div>
+          <div style="font-family:'Caprasimo',system-ui,sans-serif;font-size:1.1rem;color:var(--accent);margin-bottom:6px;">Countable plurals</div>
           <div style="line-height:2;font-size:13px;">few · a few · many<br>too many · a lot of · loads of<br>plenty of · enough</div>
         </div>
         <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#9FE1CB;margin-bottom:6px;">Uncountable</div>
+          <div style="font-family:'Caprasimo',system-ui,sans-serif;font-size:1.1rem;color:#D3B8C6;margin-bottom:6px;">Uncountable</div>
           <div style="line-height:2;font-size:13px;">little · a little · much<br>too much · a lot of · loads of<br>plenty of · enough</div>
         </div>
         <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#F5A0A0;margin-bottom:6px;">Always negative</div>
+          <div style="font-family:'Caprasimo',system-ui,sans-serif;font-size:1.1rem;color:#F5A0A0;margin-bottom:6px;">Always negative</div>
           <div style="line-height:2;font-size:13px;">few (not enough)<br>little (not enough)<br>too many / too much</div>
         </div>
         <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#A0E8B8;margin-bottom:6px;">Always positive</div>
+          <div style="font-family:'Caprasimo',system-ui,sans-serif;font-size:1.1rem;color:#AEBF92;margin-bottom:6px;">Always positive</div>
           <div style="line-height:2;font-size:13px;">a few (some = good)<br>a little (some = good)<br>enough · plenty of</div>
         </div>
       </div>
@@ -2168,8 +2173,8 @@
       </div>
       <div class="scale-row">
         <span class="scale-label">many</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:linear-gradient(90deg,#78B0D6,#1B5E8A);"></div></div>
-        <span class="scale-note" style="color:#1B5E8A;">a large number 📊</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:linear-gradient(90deg,#E0C37E,#A3761F);"></div></div>
+        <span class="scale-note" style="color:#A3761F;">a large number 📊</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">too many</span>
@@ -2192,8 +2197,8 @@
       </div>
       <div class="scale-row">
         <span class="scale-label">much</span>
-        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:linear-gradient(90deg,#B48FD8,#6B3A8C);"></div></div>
-        <span class="scale-note" style="color:#6B3A8C;">a large amount 📊</span>
+        <div class="scale-bar-wrap"><div class="scale-bar" style="width:65%;background:linear-gradient(90deg,#D3B8C6,#7D5A6E);"></div></div>
+        <span class="scale-note" style="color:#7D5A6E;">a large amount 📊</span>
       </div>
       <div class="scale-row">
         <span class="scale-label">too much</span>
@@ -2317,9 +2322,9 @@
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
         <thead>
           <tr>
-            <th style="background:#18243C;color:#EEF4F9;padding:12px 18px;text-align:left;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;width:25%"></th>
-            <th style="background:#18243C;color:#EEF4F9;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">few / little</th>
-            <th style="background:#18243C;color:#EEF4F9;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">a few / a little</th>
+            <th style="background:#201E1D;color:#F5EAD8;padding:12px 18px;text-align:left;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;width:25%"></th>
+            <th style="background:#201E1D;color:#F5EAD8;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">few / little</th>
+            <th style="background:#201E1D;color:#F5EAD8;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">a few / a little</th>
           </tr>
         </thead>
         <tbody>
@@ -2651,33 +2656,39 @@
 <div id="page-conditionals" class="page" style="padding:0;max-width:100%;background:var(--paper)">
   <style id="conditionals-styles">
 #conditionals-scope {
-    --bg:       #EEF4F9;
-    --surface:  #D8E8F2;
-    --card:     #ffffff;
-    --card2:    #F5F9FD;
-    --border:   rgba(74,142,194,0.15);
-    --border2:  rgba(74,142,194,0.25);
-    --text:     #18243C;
-    --muted:    #7484A0;
-    --faint:    #d0cec8;
-    --z0:  #4A9ECC;
-    --z0l: #daeeff;
-    --z0m: #7ab8e0;
-    --f1:  #5BB878;
-    --f1l: #d4f5e2;
-    --f1m: #5cb87a;
-    --s2:  #E8A030;
-    --s2l: #fdf0d0;
-    --s2m: #d4940a;
-    --t3:  #CC5577;
-    --t3l: #fde0ea;
-    --t3m: #cc5577;
-    --mx:  #8866DD;
-    --mxl: #ece6fa;
-    --mxm: #8866dd;
-    --un:  #DD8833;
-    --unl: #feecd0;
-    --unm: #dd8833;
+    --bg:       #F5EAD8;
+    --surface:  #EBDDC5;
+    --card:     #F9F4ED;
+    --card2:    #FFF8EE;
+    --border:   rgba(32,30,29,0.12);
+    --border2:  rgba(32,30,29,0.2);
+    --text:     #201E1D;
+    --muted:    #82796A;
+    --faint:    #DCD3C4;
+    /* zero — sage, "always true" */
+    --z0:  #728157;
+    --z0l: #EEF2E6;
+    --z0m: #C9D4B8;
+    /* first — terracotta, "real future" */
+    --f1:  #B2622D;
+    --f1l: #FBE9DD;
+    --f1m: #EAB98E;
+    /* second — amber, "unreal present" */
+    --s2:  #A3761F;
+    --s2l: #F7EDD7;
+    --s2m: #E0C37E;
+    /* third — deep ink, "unreal past / regret" */
+    --t3:  #3D3227;
+    --t3l: #E9E4DC;
+    --t3m: #BEB2A0;
+    /* mixed — dusty plum, the exception blend */
+    --mx:  #7D5A6E;
+    --mxl: #F2E7EE;
+    --mxm: #D3B8C6;
+    /* unless — rust, the "one condition" negative */
+    --un:  #96432F;
+    --unl: #F7E3DC;
+    --unm: #E0A68F;
     background: var(--bg);
     color: var(--text);
     display: block;
@@ -2691,7 +2702,7 @@
 
   background: var(--bg);
   color: var(--text);
-  font-family: 'Nunito', system-ui, sans-serif;
+  font-family: 'Figtree', system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.7;
 }
@@ -2763,7 +2774,7 @@
 }
 #conditionals-scope .hero h1 {
 
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Caprasimo', system-ui, sans-serif;
   font-size: clamp(3rem, 9vw, 6.5rem);
   font-weight: 900;
   line-height: 0.95;
@@ -2810,7 +2821,7 @@
   cursor: pointer;
 }
 #conditionals-scope .hero-pill:hover {
- transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,142,194,0.2); }
+ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(198,113,57,0.2); }
 #conditionals-scope .hp0 {
  background: var(--z0l); color: var(--z0);  border-color: var(--z0m); }
 #conditionals-scope .hp1 {
@@ -2831,7 +2842,7 @@
 .sticky-nav {
 
   position: sticky;
-  top: 62px;
+  top: 0;
   z-index: 200;
   background: var(--bg, rgba(238,244,249,0.95));
   backdrop-filter: blur(16px);
@@ -2844,7 +2855,7 @@
 }
 #conditionals-scope .sticky-nav {
   position: sticky;
-  top: 62px;
+  top: 0;
   z-index: 200;
   background: var(--bg);
   backdrop-filter: blur(16px);
@@ -2902,7 +2913,7 @@
 }
 #conditionals-scope .sec-num {
 
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Caprasimo', system-ui, sans-serif;
   font-size: 5rem;
   font-weight: 900;
   line-height: 1;
@@ -2922,7 +2933,7 @@
 }
 #conditionals-scope .sec-title {
 
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Caprasimo', system-ui, sans-serif;
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 600;
   line-height: 1.1;
@@ -3138,7 +3149,7 @@
 
   font-family: 'Instrument Serif', serif;
   font-size: 14px;
-  color: #66CC77;
+  color: #56633F;
   margin-bottom: 4px;
 }
 #conditionals-scope .mis-why {
@@ -3433,7 +3444,7 @@
 }
 #conditionals-scope .sum-title {
 
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Caprasimo', system-ui, sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 8px;
@@ -3531,7 +3542,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  font-family: 'Nunito', system-ui, sans-serif;
+  font-family: 'Figtree', system-ui, sans-serif;
 }
 #conditionals-scope .tense-tab.active {
  color: var(--text); }
@@ -3541,7 +3552,7 @@
  display: block; }
 #conditionals-scope .demo-sentence {
 
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Caprasimo', system-ui, sans-serif;
   font-size: 1.6rem;
   font-weight: 300;
   line-height: 1.4;
@@ -3650,7 +3661,7 @@
   <div class="sec-head" style="padding-top:60px;">
     <div class="sec-info">
       <div class="sec-eyebrow" style="color:var(--muted);">All Conditionals</div>
-      <div class="sec-title" style="font-family:'Cormorant Garamond',Georgia,serif;">Compare at a glance</div>
+      <div class="sec-title" style="font-family:'Caprasimo',system-ui,sans-serif;">Compare at a glance</div>
     </div>
   </div>
 
@@ -4786,7 +4797,7 @@
   <div class="sec-head" style="padding-top:40px;">
     <div class="sec-info">
       <div class="sec-eyebrow" style="color:#E05555;">Common Mistakes</div>
-      <div class="sec-title" style="font-family:'Cormorant Garamond',Georgia,serif;">What everyone gets wrong</div>
+      <div class="sec-title" style="font-family:'Caprasimo',system-ui,sans-serif;">What everyone gets wrong</div>
     </div>
   </div>
 
@@ -4908,27 +4919,27 @@ function switchTab(btn, panelId) {
 <div id="page-tenses" class="page" style="padding:0;max-width:100%;background:var(--bg)">
   <style id="tenses-styles">
 #tenses-scope {
---bg:#EEF4F9;
-  --bg2:#D8E8F2;
-  --card:#FFFFFF;
-  --ink:#18243C;
-  --ink2:#3A4E6A;
-  --muted:#7484A0;
-  --border:#C2D8E8;
-  --border2:#A8C8DC;
+--bg:#F5EAD8;
+  --bg2:#EBDDC5;
+  --card:#F9F4ED;
+  --ink:#201E1D;
+  --ink2:#474238;
+  --muted:#82796A;
+  --border:#DCD3C4;
+  --border2:#C0B6A5;
 
-  /* PRESENT family — warm green */
-  --pr:#1A6B4A;--prl:#E4F2EC;--prm:#B8DDD0;--prd:#0F4430;
-  /* PAST family — deep burgundy */
-  --pa:#7A2040;--pal:#F5E8ED;--pam:#E0B0C0;--pad:#4A1028;
-  /* FUTURE family — ocean blue */
-  --fu:#1A4E7A;--ful:#E4EDF7;--fum:#B0C8E4;--fud:#0D2E4E;
+  /* PRESENT family — sage */
+  --pr:#56633F;--prl:#E1EECC;--prm:#AEBF92;--prd:#272E1B;
+  /* PAST family — terracotta */
+  --pa:#8C491A;--pal:#FFE1D0;--pam:#FFC6A5;--pad:#402310;
+  /* FUTURE family — ink / neutral */
+  --fu:#474238;--ful:#F9F4ED;--fum:#DCD3C4;--fud:#2E2B25;
   /* PERFECT accent — gold */
-  --gd:#B07A10;--gdl:#FDF3DC;--gdm:#F0C870;
-  /* CONTINUOUS accent — coral */
-  --co:#C04830;--col:#FCEAE6;--com:#F0B0A0;
-  /* PERFECT CONTINUOUS — purple */
-  --pc:#5A3A8A;--pcl:#F0EAFB;--pcm:#C8B0E8;
+  --gd:#A3761F;--gdl:#F7EDD7;--gdm:#E0C37E;
+  /* CONTINUOUS accent — rust */
+  --co:#A34328;--col:#F7E1D8;--com:#E3A98C;
+  /* PERFECT CONTINUOUS — dusty plum */
+  --pc:#6B4E68;--pcl:#F0E5EC;--pcm:#CBAAC1;
     display: block;
 }
 #tenses-scope * {
@@ -4946,13 +4957,13 @@ background:var(--border2);border-radius:3px}
 
   background:var(--bg);
   color:var(--ink);
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Caprasimo',system-ui,sans-serif;
   font-size:15px;
   line-height:1.7;
 }
 #tenses-scope .hero {
 
-  background:var(--ink);
+  background:var(--chip-dark);
   color:#F7F4EE;
   min-height:100vh;
   display:flex;
@@ -5066,7 +5077,7 @@ transform:translate(-20px,30px)}
   width:12px;height:12px;
   border-radius:50%;
   border:2px solid rgba(255,255,255,0.3);
-  background:var(--ink);
+  background:var(--chip-dark);
   flex-shrink:0;
   cursor:default;
   position:relative;
@@ -5103,13 +5114,13 @@ transform:translate(-20px,30px)}
 #tenses-scope .fam-pill:hover {
 transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.35)}
 #tenses-scope .fp-pr {
-background:rgba(26,107,74,0.25);color:#7ADDB4;border-color:rgba(26,107,74,0.5)}
+background:rgba(86,99,63,0.25);color:#AEBF92;border-color:rgba(86,99,63,0.5)}
 #tenses-scope .fp-pa {
-background:rgba(122,32,64,0.25);color:#E89AB8;border-color:rgba(122,32,64,0.5)}
+background:rgba(140,73,26,0.25);color:#FFC6A5;border-color:rgba(140,73,26,0.5)}
 #tenses-scope .fp-fu {
-background:rgba(26,78,122,0.25);color:#7AB4E8;border-color:rgba(26,78,122,0.5)}
+background:rgba(71,66,56,0.25);color:#C0B6A5;border-color:rgba(71,66,56,0.5)}
 #tenses-scope .t-nav {
-  position:sticky;top:60px;z-index:10;
+  position:sticky;top:0;z-index:10;
   background:rgba(247,244,238,0.97);
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
@@ -5422,7 +5433,7 @@ font-size:12px;color:var(--muted);margin-left:24px;margin-top:-4px;font-family:'
 }
 #tenses-scope .comp-table th {
 
-  background:#18243C;
+  background:#201E1D;
   color:#F7F4EE;
   padding:13px 16px;
   font-family:'Syne',sans-serif;
@@ -5610,10 +5621,10 @@ animation:fadeSlide 0.5s ease both}
 <!-- ══════════════════════════════════════════
      TIMELINE — When to use each tense
 ══════════════════════════════════════════ -->
-<div id="timeline" style="background:var(--sky-ultra);border-bottom:1px solid var(--border);padding:32px 24px 36px;font-family:'Nunito',system-ui,sans-serif">
+<div id="timeline" style="background:var(--sky-ultra);border-bottom:1px solid var(--border);padding:32px 24px 36px;font-family:'Figtree',system-ui,sans-serif">
   <div style="max-width:100%;margin:0 auto">
     <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Visual Timeline</div>
-    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:700;margin-bottom:24px;color:var(--ink)">When to use each tense</h2>
+    <h2 style="font-family:'Caprasimo',system-ui,sans-serif;font-size:24px;font-weight:700;margin-bottom:24px;color:var(--ink)">When to use each tense</h2>
 
     <!-- TIMELINE AXIS -->
     <div style="position:relative;padding:0 0 8px">
@@ -5627,8 +5638,8 @@ animation:fadeSlide 0.5s ease both}
 
       <!-- Axis line -->
       <div style="position:relative;height:3px;background:linear-gradient(to right,#e0dbd0,#c0b8a8,#e0dbd0);border-radius:2px;margin-bottom:24px">
-        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#18243C;border-radius:50%;border:3px solid #EEF4F9;box-shadow:0 0 0 2px #18243C"></div>
-        <div style="position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:11px;font-weight:700;color:#18243C;white-space:nowrap">NOW</div>
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#201E1D;border-radius:50%;border:3px solid #F5EAD8;box-shadow:0 0 0 2px #201E1D"></div>
+        <div style="position:absolute;left:50%;top:18px;transform:translateX(-50%);font-size:11px;font-weight:700;color:#201E1D;white-space:nowrap">NOW</div>
       </div>
 
       <!-- TENSE ROWS -->
@@ -5636,44 +5647,44 @@ animation:fadeSlide 0.5s ease both}
 
         <!-- PRESENT SIMPLE -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#2e7d32">Present Simple</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#3D472B">Present Simple</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:40%;right:0%;top:50%;transform:translateY(-50%);height:6px;background:#e8f5e9;border:1.5px solid #5cb87a;border-radius:3px"></div>
-            <div style="position:absolute;left:40%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#2e7d32;border-radius:50%"></div></div>
+            <div style="position:absolute;left:40%;right:0%;top:50%;transform:translateY(-50%);height:6px;background:#E1EECC;border:1.5px solid #AEBF92;border-radius:3px"></div>
+            <div style="position:absolute;left:40%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#3D472B;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Habits, facts, states — always true</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Habits, facts, states — always true</div>
         </div>
 
         <!-- PRESENT CONTINUOUS -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#1976d2">Present Continuous</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#56633F">Present Continuous</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:38%;right:38%;top:50%;transform:translateY(-50%);height:6px;background:#daeeff;border:1.5px solid #7ab8e0;border-radius:3px"></div>
-            <div style="position:absolute;left:38%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#1976d2;border-radius:50%"></div></div>
+            <div style="position:absolute;left:38%;right:38%;top:50%;transform:translateY(-50%);height:6px;background:#EBF3DC;border:1.5px solid #C3D1A8;border-radius:3px"></div>
+            <div style="position:absolute;left:38%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#56633F;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Happening right now / around now</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Happening right now / around now</div>
         </div>
 
         <!-- PRESENT PERFECT -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#00838f">Present Perfect</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#728157">Present Perfect</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:20%;right:42%;top:50%;transform:translateY(-50%);height:6px;background:#e0f7fa;border:1.5px solid #4dd0e1;border-radius:3px"></div>
-            <div style="position:absolute;left:20%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#b0bec5;border-radius:50%"></div></div>
-            <div style="position:absolute;right:42%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#00838f;border-radius:50%"></div></div>
+            <div style="position:absolute;left:20%;right:42%;top:50%;transform:translateY(-50%);height:6px;background:#F0FAE1;border:1.5px solid #CCDBB2;border-radius:3px"></div>
+            <div style="position:absolute;left:20%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#C0B6A5;border-radius:50%"></div></div>
+            <div style="position:absolute;right:42%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#728157;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Past action → result visible NOW</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Past action → result visible NOW</div>
         </div>
 
         <!-- PRESENT PERFECT CONTINUOUS -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#00695c">Pres. Perf. Cont.</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#8FA073">Pres. Perf. Cont.</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:18%;right:40%;top:50%;transform:translateY(-50%);height:6px;background:#e0f2f1;border:1.5px dashed #4db6ac;border-radius:3px"></div>
-            <div style="position:absolute;left:18%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#b0bec5;border-radius:50%"></div></div>
-            <div style="position:absolute;right:40%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#00695c;border-radius:50%"></div></div>
+            <div style="position:absolute;left:18%;right:40%;top:50%;transform:translateY(-50%);height:6px;background:#F0FAE1;border:1.5px dashed #CCDBB2;border-radius:3px"></div>
+            <div style="position:absolute;left:18%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#C0B6A5;border-radius:50%"></div></div>
+            <div style="position:absolute;right:40%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#8FA073;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Started in past, still ongoing now</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Started in past, still ongoing now</div>
         </div>
 
         <!-- Divider -->
@@ -5681,33 +5692,33 @@ animation:fadeSlide 0.5s ease both}
 
         <!-- PAST SIMPLE -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#c62828">Past Simple</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#8C491A">Past Simple</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:22%;width:14%;top:50%;transform:translateY(-50%);height:6px;background:#ffebee;border:1.5px solid #ef9a9a;border-radius:3px"></div>
-            <div style="position:absolute;left:22%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#c62828;border-radius:50%"></div></div>
+            <div style="position:absolute;left:22%;width:14%;top:50%;transform:translateY(-50%);height:6px;background:#FFE1D0;border:1.5px solid #FFC6A5;border-radius:3px"></div>
+            <div style="position:absolute;left:22%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#8C491A;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Completed action at a specific past time</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Completed action at a specific past time</div>
         </div>
 
         <!-- PAST CONTINUOUS -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#ad1457">Past Continuous</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#B2622D">Past Continuous</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:15%;width:22%;top:50%;transform:translateY(-50%);height:6px;background:#fce4ec;border:1.5px dashed #f48fb1;border-radius:3px"></div>
-            <div style="position:absolute;left:15%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#b0bec5;border-radius:50%"></div></div>
+            <div style="position:absolute;left:15%;width:22%;top:50%;transform:translateY(-50%);height:6px;background:#FFEBE0;border:1.5px dashed #FFC6A5;border-radius:3px"></div>
+            <div style="position:absolute;left:15%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#C0B6A5;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Was in progress at a past moment</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Was in progress at a past moment</div>
         </div>
 
         <!-- PAST PERFECT -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#6a1b9a">Past Perfect</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#643312">Past Perfect</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:8%;width:18%;top:50%;transform:translateY(-50%);height:6px;background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:3px"></div>
-            <div style="position:absolute;left:8%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#b0bec5;border-radius:50%"></div></div>
-            <div style="position:absolute;left:26%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#6a1b9a;border-radius:50%"></div></div>
+            <div style="position:absolute;left:8%;width:18%;top:50%;transform:translateY(-50%);height:6px;background:#FFF2EB;border:1.5px solid #FFC6A5;border-radius:3px"></div>
+            <div style="position:absolute;left:8%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#C0B6A5;border-radius:50%"></div></div>
+            <div style="position:absolute;left:26%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#643312;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Before another past event ("had done")</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Before another past event ("had done")</div>
         </div>
 
         <!-- Divider -->
@@ -5715,33 +5726,33 @@ animation:fadeSlide 0.5s ease both}
 
         <!-- FUTURE SIMPLE -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#e65100">Future Simple</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#474238">Future Simple</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:52%;width:18%;top:50%;transform:translateY(-50%);height:6px;background:#fff3e0;border:1.5px solid #ffb74d;border-radius:3px"></div>
-            <div style="position:absolute;left:52%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#e65100;border-radius:50%"></div></div>
+            <div style="position:absolute;left:52%;width:18%;top:50%;transform:translateY(-50%);height:6px;background:#EEE7DB;border:1.5px solid #C0B6A5;border-radius:3px"></div>
+            <div style="position:absolute;left:52%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#474238;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Decision/prediction about the future</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Decision/prediction about the future</div>
         </div>
 
         <!-- FUTURE CONTINUOUS -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#bf360c">Future Continuous</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#645C50">Future Continuous</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:50%;width:26%;top:50%;transform:translateY(-50%);height:6px;background:#fbe9e7;border:1.5px dashed #ff8a65;border-radius:3px"></div>
-            <div style="position:absolute;left:50%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#b0bec5;border-radius:50%"></div></div>
+            <div style="position:absolute;left:50%;width:26%;top:50%;transform:translateY(-50%);height:6px;background:#EEE7DB;border:1.5px dashed #C0B6A5;border-radius:3px"></div>
+            <div style="position:absolute;left:50%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#C0B6A5;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Will be in progress at a future moment</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Will be in progress at a future moment</div>
         </div>
 
         <!-- FUTURE PERFECT -->
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#4527a0">Future Perfect</div>
+          <div style="width:160px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:#2E2B25">Future Perfect</div>
           <div style="flex:1;position:relative;height:28px">
-            <div style="position:absolute;left:48%;width:22%;top:50%;transform:translateY(-50%);height:6px;background:#ede7f6;border:1.5px solid #b39ddb;border-radius:3px"></div>
-            <div style="position:absolute;left:48%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#b0bec5;border-radius:50%"></div></div>
-            <div style="position:absolute;left:70%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#4527a0;border-radius:50%"></div></div>
+            <div style="position:absolute;left:48%;width:22%;top:50%;transform:translateY(-50%);height:6px;background:#DCD3C4;border:1.5px solid #A19786;border-radius:3px"></div>
+            <div style="position:absolute;left:48%;top:0;height:100%;display:flex;align-items:center"><div style="width:8px;height:8px;background:#C0B6A5;border-radius:50%"></div></div>
+            <div style="position:absolute;left:70%;top:0;height:100%;display:flex;align-items:center"><div style="width:10px;height:10px;background:#2E2B25;border-radius:50%"></div></div>
           </div>
-          <div style="width:240px;font-size:12px;color:#555;flex-shrink:0">Will be completed before a future point</div>
+          <div style="width:240px;font-size:12px;color:#6b6358;flex-shrink:0">Will be completed before a future point</div>
         </div>
 
       </div><!-- end tense rows -->
@@ -6581,15 +6592,15 @@ animation:fadeSlide 0.5s ease both}
 <div id="page-phrasal" class="page page-wide">
   <style>
     .pv-card{background:var(--card);border:none;border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
-    .pv-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
-    .pv-verb{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:700;color:var(--ink)}
+    .pv-card:hover{box-shadow:0 6px 24px rgba(198,113,57,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
+    .pv-verb{font-family:'Caprasimo',system-ui,sans-serif;font-size:19px;font-weight:700;color:var(--ink)}
     .pv-uk{font-size:14px;color:var(--sky);font-weight:700}
     .pv-meaning{font-size:13px;color:var(--ink2);line-height:1.5}
     .pv-example{font-size:13px;font-style:italic;color:var(--muted);background:var(--sky-ultra);padding:9px 12px;border-radius:var(--radius-sm);border-left:3px solid var(--sky)}
     .pv-example span{font-style:normal;color:var(--ink2);display:block;margin-top:4px}
     .pv-tip{font-size:12px;color:var(--rose);font-weight:600}
     .pv-tag{font-size:11px;background:var(--rose-pale);color:var(--rose);padding:2px 10px;border-radius:20px;white-space:nowrap;font-weight:700}
-    .phrasal-filter-btn.active{background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(74,142,194,0.3)!important}
+    .phrasal-filter-btn.active{background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(198,113,57,0.3)!important}
   </style>
   <div class="page-header">
     <h1>Phrasal Verbs</h1>
@@ -6614,8 +6625,8 @@ animation:fadeSlide 0.5s ease both}
 <div id="page-prepositions" class="page page-wide">
   <style>
     .prep-card{background:var(--card);border:none;border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;transition:all 0.18s}
-    .prep-card:hover{box-shadow:0 6px 24px rgba(74,142,194,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
-    .prep-word{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700;color:var(--sky)}
+    .prep-card:hover{box-shadow:0 6px 24px rgba(198,113,57,0.13);transform:translateY(-2px);border-color:var(--sky-pale)}
+    .prep-word{font-family:'Caprasimo',system-ui,sans-serif;font-size:22px;font-weight:700;color:var(--sky)}
     .prep-uk{font-size:14px;color:var(--rose);font-weight:700}
     .prep-rule{font-size:13px;color:var(--ink2);line-height:1.55;padding:4px 0}
     .prep-rule strong{color:var(--ink);font-weight:700}
@@ -6624,7 +6635,7 @@ animation:fadeSlide 0.5s ease both}
     .prep-example span{font-style:normal;color:var(--ink2);display:block;margin-top:4px}
     .prep-tip{font-size:12px;color:var(--rose);font-weight:600}
     .prep-cat-tag{font-size:11px;background:var(--rose-pale);color:var(--rose);padding:2px 10px;border-radius:20px;white-space:nowrap;font-weight:700}
-    .prep-filter-btn.active{background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(74,142,194,0.3)!important}
+    .prep-filter-btn.active{background:var(--sky)!important;color:#fff!important;border-color:var(--sky)!important;box-shadow:0 2px 8px rgba(198,113,57,0.3)!important}
   </style>
   <div class="page-header">
     <h1>Prepositions</h1>
@@ -6649,12 +6660,12 @@ animation:fadeSlide 0.5s ease both}
 <div id="page-passive" class="page" style="padding:0;max-width:100%">
 <style>
   /* ── Passive Voice scoped styles ── */
-  #page-passive{--teal:#2A9D8F}
+  #page-passive{--teal:#A3761F}
   .pvc-card{background:var(--card);border:none;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
   .pvc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:16px}
   .pvc-grid-item{background:var(--card);border:none;border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);font-size:13.5px;line-height:1.6}
   .pvc-grid-item .pvc-emoji{font-size:20px;display:block;margin-bottom:6px}
-  .pvc-grid-item code{font-family:var(--font-mono);font-size:12px;color:var(--teal);background:rgba(42,157,143,.08);padding:2px 6px;border-radius:4px}
+  .pvc-grid-item code{font-family:var(--font-mono);font-size:12px;color:var(--teal);background:rgba(163,118,31,.08);padding:2px 6px;border-radius:4px}
   .pvc-grid-item .pvc-label{font-size:11px;color:var(--muted);margin-top:4px;display:block}
   .pvc-alert{border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;font-size:13.5px;line-height:1.6;display:flex;gap:12px;align-items:flex-start}
   .pvc-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
@@ -6662,7 +6673,7 @@ animation:fadeSlide 0.5s ease both}
   .pvc-alert-body strong{display:block;margin-bottom:3px}
   .pvc-alert-body ul{margin:5px 0 0 16px}
   .pvc-alert-body li{margin-bottom:2px}
-  .pvc-alert-teal{background:rgba(42,157,143,.08);border-left:4px solid var(--teal)}
+  .pvc-alert-teal{background:rgba(163,118,31,.08);border-left:4px solid var(--teal)}
   .pvc-alert-amber{background:#FFF8E1;border-left:4px solid #FFB300}
   .pvc-alert-green{background:#E8F5E9;border-left:4px solid #4CAF50}
   .pvc-alert-red{background:#FFEBEE;border-left:4px solid #E53935}
@@ -6671,12 +6682,12 @@ animation:fadeSlide 0.5s ease both}
   .pvc-havget-card h4{font-family:var(--font-serif);font-size:16px;margin:0 0 6px;color:var(--teal)}
   .pvc-havget-card p{font-size:13px;color:var(--ink2);line-height:1.55;margin:0 0 4px}
   .pvc-tbl{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
-  .pvc-tbl th{background:var(--teal);color:#fff;font-family:var(--font-serif);font-size:13px;font-weight:700;padding:10px 14px;text-align:left;border-bottom:1px solid rgba(42,157,143,.3)}
+  .pvc-tbl th{background:var(--teal);color:#fff;font-family:var(--font-serif);font-size:13px;font-weight:700;padding:10px 14px;text-align:left;border-bottom:1px solid rgba(163,118,31,.3)}
   .pvc-tbl td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border);color:var(--ink2);line-height:1.5;vertical-align:top}
   .pvc-tbl tr:last-child td{border-bottom:none}
-  .pvc-tbl tr:nth-child(even) td{background:rgba(42,157,143,.04)}
+  .pvc-tbl tr:nth-child(even) td{background:rgba(163,118,31,.04)}
   .pvc-tbl td:first-child{font-weight:700;color:var(--teal);white-space:nowrap}
-  .pvc-tbl td code{font-family:var(--font-mono);font-size:11.5px;color:var(--teal);background:rgba(42,157,143,.08);padding:1px 5px;border-radius:3px}
+  .pvc-tbl td code{font-family:var(--font-mono);font-size:11.5px;color:var(--teal);background:rgba(163,118,31,.08);padding:1px 5px;border-radius:3px}
   .pvc-tbl td em{color:var(--muted);font-size:12px}
   @media(max-width:600px){
     .pvc-grid,.pvc-havget{grid-template-columns:1fr}
@@ -6686,17 +6697,17 @@ animation:fadeSlide 0.5s ease both}
   .pv-hero{background:linear-gradient(135deg,var(--sky-ultra) 0%,var(--card) 50%,var(--rose-ultra) 100%);border-bottom:1px solid var(--border);padding:40px 24px 36px;text-align:center}
   .pv-hero h1{font-family:var(--font-serif);font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;margin-bottom:8px;background:linear-gradient(120deg,var(--ink) 0%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .pv-hero p{color:var(--muted);font-size:15px;max-width:520px;margin:0 auto}
-  .pv-formula{display:inline-block;margin-top:16px;background:var(--card);border:2px solid var(--sky);border-radius:var(--radius);padding:12px 24px;font-family:var(--font-mono);font-size:14px;color:var(--ink);box-shadow:0 4px 20px rgba(74,142,194,0.12)}
+  .pv-formula{display:inline-block;margin-top:16px;background:var(--card);border:2px solid var(--sky);border-radius:var(--radius);padding:12px 24px;font-family:var(--font-mono);font-size:14px;color:var(--ink);box-shadow:0 4px 20px rgba(198,113,57,0.12)}
   .pv-formula b{color:var(--sky)}
   .pv-formula em{color:var(--rose);font-style:normal}
 
   .pv-content{max-width:100%;margin:0 auto;padding:0 40px 60px}
 
   /* section nav */
-  .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:62px;z-index:50;background:var(--paper);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
+  .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:0;z-index:50;background:var(--paper);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
   .pv-sec-btn{padding:6px 14px;border-radius:30px;font-size:12px;font-weight:700;color:var(--muted);background:none;border:1.5px solid var(--border);cursor:pointer;font-family:var(--font-sans);transition:all .18s;white-space:nowrap;text-decoration:none}
   .pv-sec-btn:hover{color:var(--ink);background:var(--sky-ultra);border-color:var(--sky-mid)}
-  .pv-sec-btn.active{color:#fff;background:var(--sky);border-color:var(--sky);box-shadow:0 2px 8px rgba(74,142,194,.3)}
+  .pv-sec-btn.active{color:#fff;background:var(--sky);border-color:var(--sky);box-shadow:0 2px 8px rgba(198,113,57,.3)}
 
   .pv-section{scroll-margin-top:130px;margin-top:36px}
   .pv-section-badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--sky);margin-bottom:6px}
@@ -6743,21 +6754,21 @@ animation:fadeSlide 0.5s ease both}
   .pv-sign{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
   .pv-sign.pos{background:#E8F5E9;color:#388E3C}
   .pv-sign.neg{background:#FFEBEE;color:#E53935}
-  .pv-sign.que{background:#E3F2FD;color:#1E88E5}
+  .pv-sign.que{background:#EDE7DD;color:#645C50}
   .pv-cell-content{flex:1;line-height:1.35}
   .pv-cell-formula{font-family:var(--font-mono);font-size:10.5px;color:var(--sky);display:block}
   .pv-cell-formula.passive{color:var(--rose)}
   .pv-cell-formula.causative{color:var(--teal)}
-  .pv-tense-cell.caus{background:rgba(42,157,143,.03)}
-  .pv-tense-cell.caus:hover{background:rgba(42,157,143,.08)}
+  .pv-tense-cell.caus{background:rgba(163,118,31,.03)}
+  .pv-tense-cell.caus:hover{background:rgba(163,118,31,.08)}
   .pv-tense-example{padding:4px 8px;font-size:11.5px;border-bottom:2px solid var(--border);background:var(--sky-ultra)}
   .pv-tense-example.right{border-left:1px solid var(--border)}
-  .pv-tense-example.caus{background:rgba(42,157,143,.06)}
+  .pv-tense-example.caus{background:rgba(163,118,31,.06)}
   .pv-tense-example .lbl{font-weight:700;color:var(--sky);font-size:9px;text-transform:uppercase;letter-spacing:.05em}
   .pv-tense-example .lbl.rose{color:var(--rose)}
   .pv-tense-example .lbl.teal{color:var(--teal)}
   .pv-tense-example strong{color:var(--ink)}
-  .pv-tense-note{padding:3px 8px;font-size:10.5px;color:var(--muted);font-style:italic;text-align:center;border-bottom:2px solid var(--border);background:rgba(42,157,143,.03)}
+  .pv-tense-note{padding:3px 8px;font-size:10.5px;color:var(--muted);font-style:italic;text-align:center;border-bottom:2px solid var(--border);background:rgba(163,118,31,.03)}
   .pv-tense-note.right{border-left:1px solid var(--border)}
 
   @media(max-width:700px){
@@ -6779,7 +6790,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-alert-rose{background:var(--rose-ultra);border-left:4px solid var(--rose)}
   .pv-alert-red{background:#FFEBEE;border-left:4px solid #E53935}
   .pv-alert-green{background:#E8F5E9;border-left:4px solid #4CAF50}
-  .pv-alert-purple{background:#EDE7F6;border-left:4px solid #7E57C2}
+  .pv-alert-purple{background:#F2E7EE;border-left:4px solid #7D5A6E}
   .pv-alert code{font-family:var(--font-mono);font-size:12px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:4px}
 
   /* examples */
@@ -6805,7 +6816,7 @@ animation:fadeSlide 0.5s ease both}
     .pv-hero{padding:28px 14px 24px}
     .pv-formula{font-size:12px;padding:10px 14px}
     .pv-content{padding:0 14px 40px}
-    .pv-sec-nav{gap:3px;padding:8px 0;top:52px}
+    .pv-sec-nav{gap:3px;padding:8px 0;top:0}
     .pv-sec-btn{padding:5px 10px;font-size:11px}
     .pv-section h2{font-size:21px}
     .pv-explain-grid{grid-template-columns:1fr}
@@ -7524,14 +7535,14 @@ function toggleTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const next = isDark ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
-  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+  document.getElementById('theme-toggle-icon').textContent = next === 'dark' ? '☀️' : '🌙';
   localStorage.setItem('dict-theme', next);
 }
 (function() {
   const saved = localStorage.getItem('dict-theme');
   if (saved === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('theme-toggle').textContent = '☀️';
+    document.getElementById('theme-toggle-icon').textContent = '☀️';
   }
 })();
 
@@ -7542,7 +7553,7 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.nav-tab[onclick*="showPage(\'' + id + '\')"]').forEach(t => t.classList.add('active'));
   document.getElementById('current-tab-label').textContent = event.currentTarget.getAttribute('data-label');
   closeSidebar();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -7560,8 +7571,7 @@ function goHome(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-dict').classList.add('active');
-  var b=document.querySelector('.nav-tab[onclick*="dict"]');
-  if(b){b.classList.add('active');}
+  document.querySelectorAll('.nav-tab[onclick*="dict"]').forEach(function(b){b.classList.add('active');});
   document.getElementById('current-tab-label').textContent='📖 Dictionary';
   closeSidebar();window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -8061,7 +8071,7 @@ function renderNotesList() {
   if (!allNotes.length) {
     document.getElementById('notes-grid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)">
       <div style="font-size:40px;margin-bottom:12px">📝</div>
-      <div style="font-size:16px;font-family:'Cormorant Garamond',Georgia,serif;margin-bottom:6px">No notes yet</div>
+      <div style="font-size:16px;font-family:'Caprasimo',system-ui,sans-serif;margin-bottom:6px">No notes yet</div>
       <div style="font-size:13px">Click «＋ New Note» to get started</div></div>`;
     return;
   }
@@ -8550,7 +8560,7 @@ function renderAllWordsTable(words) {
   tbody.innerHTML = words.map((w, i) => `
     <tr style="transition:background .12s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background=''">
       <td style="${TD};font-size:12px;color:var(--muted);font-family:'JetBrains Mono','Courier New',monospace">${i + 1}</td>
-      <td style="${TD};font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
+      <td style="${TD};font-family:'Caprasimo',system-ui,sans-serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
       <td style="${TD};font-size:15px;font-weight:500;color:var(--sage)">${esc(w.en)}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtUK || '')}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtEN || '')}</td>
@@ -8558,7 +8568,7 @@ function renderAllWordsTable(words) {
       <td style="${TD};white-space:nowrap">
         <button onclick="openEditWordByIndex(${i})"
           style="background:var(--sage-pale);border:none;border-radius:5px;padding:4px 10px;
-          cursor:pointer;font-size:12px;color:var(--sage);font-family:'Nunito',system-ui,sans-serif;font-weight:500">
+          cursor:pointer;font-size:12px;color:var(--sage);font-family:'Figtree',system-ui,sans-serif;font-weight:500">
           ✏️ Edit
         </button>
       </td>
@@ -8688,7 +8698,7 @@ function renderPractice() {
     <tr style="transition:background .12s"
       onmouseover="this.style.background='var(--paper)'"
       onmouseout="this.style.background=''">
-      <td style="${TD};font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
+      <td style="${TD};font-family:'Caprasimo',system-ui,sans-serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
       <td style="${TD};font-weight:500;color:var(--sage)">${esc(w.en)}</td>
       <td style="${TD};color:var(--lavender)">${esc(w.gtUK || '')}</td>
       <td style="${TD};color:var(--lavender)">${esc(w.gtEN || '')}</td>
