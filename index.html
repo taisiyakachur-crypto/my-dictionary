@@ -1416,8 +1416,8 @@
             <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:18%">🇬🇧 English</th>
             <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → UKR</th>
             <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → EN</th>
-            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">Note</th>
-            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:72px"></th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:22%">Note</th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);border-left:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:84px"></th>
           </tr>
         </thead>
         <tbody id="allwords-tbody">
@@ -1612,9 +1612,9 @@
 #quantifiers-scope .q-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    padding: 14px 24px;
+    gap: 6px;
+    justify-content: flex-start;
+    padding: 10px 40px;
     background: var(--bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
@@ -1627,14 +1627,14 @@
   #quantifiers-scope #summary, #quantifiers-scope #overview, #quantifiers-scope #little-few,
   #quantifiers-scope #few-afew, #quantifiers-scope #much-many, #quantifiers-scope #alot,
   #quantifiers-scope #too, #quantifiers-scope #enough {
-    scroll-margin-top: 130px;
+    scroll-margin-top: 116px;
   }
 #quantifiers-scope .q-nav a {
     text-decoration: none;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
-    padding: 5px 14px;
-    border-radius: 20px;
+    padding: 6px 14px;
+    border-radius: 999px;
     border: 1.5px solid var(--border);
     color: var(--muted);
     transition: all 0.18s;
@@ -3022,9 +3022,10 @@
   background: var(--bg);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  padding: 0 24px;
+  padding: 10px 40px;
   display: flex;
-  gap: 0;
+  align-items: center;
+  gap: 6px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -3034,22 +3035,25 @@
 #conditionals-scope #compare, #conditionals-scope #zero, #conditionals-scope #first,
 #conditionals-scope #futuretime, #conditionals-scope #second, #conditionals-scope #third,
 #conditionals-scope #mixed, #conditionals-scope #unless, #conditionals-scope #mistakes {
-  scroll-margin-top: 72px;
+  scroll-margin-top: 60px;
 }
 #conditionals-scope .nav-item {
 
   flex-shrink: 0;
-  padding: 14px 18px;
-  font-size: 13px;
+  padding: 6px 14px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
   font-weight: 600;
-  color: var(--ink2);
+  color: var(--muted);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  transition: all 0.18s;
   white-space: nowrap;
 }
 #conditionals-scope .nav-item:hover {
- color: var(--ink); }
+ color: var(--ink); background: var(--sky-ultra); }
 #conditionals-scope .nav-item.n0 {
  }
 #conditionals-scope .nav-item.n0:hover {
@@ -5291,51 +5295,50 @@ background:rgba(140,73,26,0.25);color:#FFC6A5;border-color:rgba(140,73,26,0.5)}
 background:rgba(71,66,56,0.25);color:#C0B6A5;border-color:rgba(71,66,56,0.5)}
 #tenses-scope .t-nav {
   position:sticky;top:0;z-index:10;
-  background:rgba(247,244,238,0.97);
+  background:var(--bg);
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
   border-bottom:1px solid var(--border);
   overflow-x:auto;scrollbar-width:none;
-  display:flex;
+  display:flex;align-items:center;gap:16px;
+  padding:10px 40px;
 }
 /* Compensate for the sticky nav bar so jump targets don't land hidden behind it */
 #tenses-scope .tense-card, #tenses-scope #t-compare, #tenses-scope #t-mistakes {
-  scroll-margin-top: 68px;
+  scroll-margin-top: 60px;
 }
 #tenses-scope .t-nav::-webkit-scrollbar {
 display:none}
 #tenses-scope .t-nav .nav-section {
 
-  display:flex;
-  border-right:1px solid var(--border);
+  display:flex;align-items:center;gap:6px;
   flex-shrink:0;
 }
-#tenses-scope .t-nav .nav-section:last-child {
-border-right:none}
 #tenses-scope .t-nav .nav-label {
 
-  font-family:'Syne',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.14em;text-transform:uppercase;
-  padding:8px 14px 0;
+  font-family:var(--font-sans);
+  font-size:10.5px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding-right:2px;
   color:var(--muted);
-  align-self:flex-end;
   white-space:nowrap;
 }
 #tenses-scope .t-nav .nav-item {
 
-  padding:14px 16px;
-  font-family:'Syne',sans-serif;
-  font-size:12px;font-weight:600;
+  padding:6px 14px;
+  font-family:var(--font-sans);
+  font-size:12.5px;font-weight:600;
   color:var(--muted);
   text-decoration:none;
-  border-bottom:2px solid transparent;
-  transition:color 0.2s,border-color 0.2s;
+  border:1.5px solid var(--border);
+  border-radius:999px;
+  background:var(--card);
+  transition:all 0.18s;
   white-space:nowrap;
   flex-shrink:0;
 }
 #tenses-scope .t-nav .nav-item:hover {
-color:var(--ink)}
+color:var(--ink);background:var(--sky-ultra)}
 #tenses-scope .t-nav .nav-item.pr:hover {
 border-color:var(--pr);color:var(--pr)}
 #tenses-scope .t-nav .nav-item.pa:hover {
@@ -5730,7 +5733,12 @@ animation:fadeSlide 0.5s ease both}
 
   </style>
   <div id="tenses-scope">
-<!-- ══════════════ HERO ══════════════ -->
+<!-- ══════════════ HEADER ══════════════ -->
+<div style="padding:32px 40px 20px">
+  <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Grammar · 12 tenses</div>
+  <h1 style="margin:4px 0 6px">Tenses</h1>
+  <p style="font-size:14px;color:var(--ink2);max-width:640px;margin:0">Every tense on one page: formula, when to use it, examples, spelling exceptions and signal words. Jump with the index below, or search from anywhere.</p>
+</div>
 
 <!-- ══════════════ NAV ══════════════ -->
 <div class="t-nav">
@@ -6868,17 +6876,10 @@ animation:fadeSlide 0.5s ease both}
     .pvc-tbl td:first-child{white-space:normal}
     .pvc-tbl th,.pvc-tbl td{padding:8px 10px;font-size:12px}
   }
-  .pv-hero{background:linear-gradient(135deg,var(--sky-ultra) 0%,var(--card) 50%,var(--rose-ultra) 100%);border-bottom:1px solid var(--border);padding:40px 24px 36px;text-align:center}
-  .pv-hero h1{font-family:var(--font-serif);font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;margin-bottom:8px;background:linear-gradient(120deg,var(--ink) 0%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  .pv-hero p{color:var(--muted);font-size:15px;max-width:520px;margin:0 auto}
-  .pv-formula{display:inline-block;margin-top:16px;background:var(--card);border:2px solid var(--sky);border-radius:var(--radius);padding:12px 24px;font-family:var(--font-mono);font-size:14px;color:var(--ink);box-shadow:0 4px 20px rgba(198,113,57,0.12)}
-  .pv-formula b{color:var(--sky)}
-  .pv-formula em{color:var(--rose);font-style:normal}
-
   .pv-content{max-width:960px;margin:0 auto;padding:0 40px 60px}
 
   /* section nav */
-  .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:0;z-index:50;background:var(--paper);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
+  .pv-sec-nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 -40px 24px;position:sticky;top:0;z-index:50;background:var(--paper);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 40px;border-bottom:1px solid var(--border)}
   .pv-sec-btn{padding:6px 14px;border-radius:30px;font-size:12px;font-weight:700;color:var(--muted);background:none;border:1.5px solid var(--border);cursor:pointer;font-family:var(--font-sans);transition:all .18s;white-space:nowrap;text-decoration:none}
   .pv-sec-btn:hover{color:var(--ink);background:var(--sky-ultra);border-color:var(--sky-mid)}
   .pv-sec-btn.active{color:#fff;background:var(--sky);border-color:var(--sky);box-shadow:0 2px 8px rgba(198,113,57,.3)}
@@ -6987,10 +6988,8 @@ animation:fadeSlide 0.5s ease both}
   /* quiz */
 
   @media(max-width:700px){
-    .pv-hero{padding:28px 14px 24px}
-    .pv-formula{font-size:12px;padding:10px 14px}
     .pv-content{padding:0 14px 40px}
-    .pv-sec-nav{gap:3px;padding:8px 0;top:0}
+    .pv-sec-nav{gap:3px;margin:0 -14px 16px;padding:8px 14px;top:0}
     .pv-sec-btn{padding:5px 10px;font-size:11px}
     .pv-section h2{font-size:21px}
     .pv-explain-grid{grid-template-columns:1fr}
@@ -6999,14 +6998,15 @@ animation:fadeSlide 0.5s ease both}
   }
 </style>
 
-<!-- Hero -->
-<div class="pv-hero">
-  <h1>Passive Voice</h1>
-  <p>Master the passive voice in American English &mdash; when to use it, how to form it, and common pitfalls to avoid.</p>
-  <div class="pv-formula">Subject + <b>be</b> (correct tense) + <em>past participle (V3)</em></div>
-</div>
-
 <div class="pv-content">
+  <!-- Header -->
+  <div style="padding:32px 0 20px">
+    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Grammar · Passive voice</div>
+    <h1 style="margin:4px 0 6px">Passive Voice</h1>
+    <p style="font-size:14px;color:var(--ink2);max-width:640px;margin:0 0 14px">Master the passive voice in American English &mdash; when to use it, how to form it, and common pitfalls to avoid.</p>
+    <code style="display:inline-block;font-family:var(--font-mono);font-size:12.5px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;color:var(--ink)">Subject + <b>be</b> (correct tense) + <em>past participle (V3)</em></code>
+  </div>
+
   <!-- Section nav -->
   <div class="pv-sec-nav">
     <a class="pv-sec-btn active" href="#pv-what" onclick="setPvNav(this)">What</a>
@@ -8798,7 +8798,7 @@ function renderAllWordsTable(words) {
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtUK || '')}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtEN || '')}</td>
       <td style="${TD};font-size:13px;color:var(--muted);font-style:italic">${esc(w.note || '')}</td>
-      <td style="${TD};white-space:nowrap">
+      <td style="${TD};white-space:nowrap;border-left:1px solid var(--border);text-align:center">
         <button onclick="openEditWordByIndex(${i})"
           style="background:var(--sage-pale);border:none;border-radius:5px;padding:4px 10px;
           cursor:pointer;font-size:12px;color:var(--sage);font-family:'Figtree',system-ui,sans-serif;font-weight:500">
