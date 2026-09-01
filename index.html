@@ -457,6 +457,15 @@
     background-clip: text;
   }
   .page-header p { color: var(--muted); font-size: 14px; font-weight: 400; }
+  /* These four grammar pages manage their own full-bleed sticky nav bars, so
+     their own page wrapper has padding:0 — give the header itself some
+     breathing room instead of sitting flush against the top-left corner. */
+  #conditionals-scope .page-header,
+  #quantifiers-scope .page-header,
+  #tenses-scope .page-header {
+    padding: 28px 40px 0;
+  }
+  .pv-content .page-header { padding-top: 28px; }
 
   /* ── CARDS ── */
   .card {
@@ -5734,10 +5743,9 @@ animation:fadeSlide 0.5s ease both}
   </style>
   <div id="tenses-scope">
 <!-- ══════════════ HEADER ══════════════ -->
-<div style="padding:32px 40px 20px">
-  <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Grammar · 12 tenses</div>
-  <h1 style="margin:4px 0 6px">Tenses</h1>
-  <p style="font-size:14px;color:var(--ink2);max-width:640px;margin:0">Every tense on one page: formula, when to use it, examples, spelling exceptions and signal words. Jump with the index below, or search from anywhere.</p>
+<div class="page-header">
+  <h1>Tenses</h1>
+  <p>Every tense on one page: formula, when to use it, examples, spelling exceptions and signal words.</p>
 </div>
 
 <!-- ══════════════ NAV ══════════════ -->
@@ -7000,11 +7008,10 @@ animation:fadeSlide 0.5s ease both}
 
 <div class="pv-content">
   <!-- Header -->
-  <div style="padding:32px 0 20px">
-    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Grammar · Passive voice</div>
-    <h1 style="margin:4px 0 6px">Passive Voice</h1>
-    <p style="font-size:14px;color:var(--ink2);max-width:640px;margin:0 0 14px">Master the passive voice in American English &mdash; when to use it, how to form it, and common pitfalls to avoid.</p>
-    <code style="display:inline-block;font-family:var(--font-mono);font-size:12.5px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;color:var(--ink)">Subject + <b>be</b> (correct tense) + <em>past participle (V3)</em></code>
+  <div class="page-header">
+    <h1>Passive Voice</h1>
+    <p>Master the passive voice in American English &mdash; when to use it, how to form it, and common pitfalls to avoid.</p>
+    <code style="display:inline-block;margin-top:12px;font-family:var(--font-mono);font-size:12.5px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;color:var(--ink)">Subject + <b>be</b> (correct tense) + <em>past participle (V3)</em></code>
   </div>
 
   <!-- Section nav -->
