@@ -316,6 +316,36 @@
   }
   .sidebar-close:hover { background: var(--sky-ultra); color: var(--sky); }
 
+  /* ── Rail collapse toggle (desktop only) ── */
+  .rail-collapse-toggle {
+    background: none; border: none; cursor: pointer; flex-shrink: 0;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    color: var(--muted); transition: all 0.15s;
+  }
+  .rail-collapse-toggle svg { transition: transform 0.2s ease; }
+  .rail-collapse-toggle:hover { background: var(--sky-ultra); color: var(--sky); }
+  @media (min-width: 701px) {
+    .rail-collapse-toggle { display: flex; }
+  }
+
+  /* ── Collapsed rail state (desktop only) ── */
+  @media (min-width: 701px) {
+    body.rail-collapsed { padding-left: 70px; }
+    body.rail-collapsed .sidebar { width: 70px; }
+    body.rail-collapsed .rail-collapse-toggle svg { transform: rotate(180deg); }
+    body.rail-collapsed .sidebar-header { flex-direction: column; gap: 10px; }
+    body.rail-collapsed .rail-logo { margin-right: 0; }
+    body.rail-collapsed .rail-logo-text { display: none; }
+    body.rail-collapsed .rail-search { justify-content: center; padding: 9px; }
+    body.rail-collapsed .rail-search span, body.rail-collapsed .rail-search kbd { display: none; }
+    body.rail-collapsed .rail-group-label { display: none; }
+    body.rail-collapsed .nav-tab { justify-content: center; padding: 9px; }
+    body.rail-collapsed .nav-tab span:not(.rail-icon) { display: none; }
+    body.rail-collapsed .theme-toggle { justify-content: center; padding: 8px; }
+    body.rail-collapsed .theme-toggle span:not(#theme-toggle-icon) { display: none; }
+  }
+
   .rail-search {
     display: flex; align-items: center; gap: 8px; width: 100%;
     padding: 9px 12px; border-radius: 999px;
@@ -924,6 +954,7 @@
 </head>
 <script>if(localStorage.getItem('dict-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')</script>
 <body>
+<script>if(localStorage.getItem('rail-collapsed')==='1')document.body.classList.add('rail-collapsed')</script>
 
 <!-- Retired top bar: showPage()/goHome() still write to #current-tab-label, so it
      stays in the DOM (hidden) rather than touching that JS. -->
@@ -936,32 +967,35 @@
       <span class="rail-logo-badge">M</span>
       <span class="rail-logo-text">My Dictionary</span>
     </a>
+    <button class="rail-collapse-toggle" id="rail-collapse-toggle" onclick="toggleRailCollapse()" title="Collapse menu" aria-label="Collapse menu">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+    </button>
     <button class="sidebar-close" onclick="closeSidebar()" aria-label="Close menu">&times;</button>
   </div>
-  <button class="rail-search" onclick="goHome();document.getElementById('search-input').focus()">
+  <button class="rail-search" onclick="goHome();document.getElementById('search-input').focus()" title="Search everything">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
     <span>Search everything</span>
     <kbd>⌘K</kbd>
   </button>
   <div class="sidebar-nav">
     <div class="rail-group-label">Vocabulary</div>
-    <button class="nav-tab active" onclick="showPage('dict')" data-label="📖 Dictionary"><span class="rail-icon">📖</span><span>Dictionary</span></button>
-    <button class="nav-tab" onclick="showPage('allwords')" data-label="📋 All Words"><span class="rail-icon">📋</span><span>All words</span></button>
-    <button class="nav-tab" onclick="showPage('practice')" data-label="🎯 Practice"><span class="rail-icon">🎯</span><span>Practice</span></button>
+    <button class="nav-tab active" onclick="showPage('dict')" data-label="📖 Dictionary" title="Dictionary"><span class="rail-icon">📖</span><span>Dictionary</span></button>
+    <button class="nav-tab" onclick="showPage('allwords')" data-label="📋 All Words" title="All words"><span class="rail-icon">📋</span><span>All words</span></button>
+    <button class="nav-tab" onclick="showPage('practice')" data-label="🎯 Practice" title="Practice"><span class="rail-icon">🎯</span><span>Practice</span></button>
     <div class="rail-group-label">Grammar</div>
-    <button class="nav-tab" onclick="showPage('tenses')" data-label="🕐 Tenses"><span class="rail-icon">🕐</span><span>Tenses</span></button>
-    <button class="nav-tab" onclick="showPage('conditionals')" data-label="🔀 Conditionals"><span class="rail-icon">🔀</span><span>Conditionals</span></button>
-    <button class="nav-tab" onclick="showPage('verbs')" data-label="🔤 Irregular Verbs"><span class="rail-icon">🔤</span><span>Irregular verbs</span></button>
-    <button class="nav-tab" onclick="showPage('phrasal')" data-label="↗️ Phrasal Verbs"><span class="rail-icon">↗️</span><span>Phrasal verbs</span></button>
-    <button class="nav-tab" onclick="showPage('prepositions')" data-label="📐 Prepositions"><span class="rail-icon">📐</span><span>Prepositions</span></button>
-    <button class="nav-tab" onclick="showPage('passive')" data-label="🔄 Passive Voice"><span class="rail-icon">🔄</span><span>Passive voice</span></button>
-    <button class="nav-tab" onclick="showPage('quantifiers')" data-label="📊 Quantifiers"><span class="rail-icon">📊</span><span>Quantifiers</span></button>
+    <button class="nav-tab" onclick="showPage('tenses')" data-label="🕐 Tenses" title="Tenses"><span class="rail-icon">🕐</span><span>Tenses</span></button>
+    <button class="nav-tab" onclick="showPage('conditionals')" data-label="🔀 Conditionals" title="Conditionals"><span class="rail-icon">🔀</span><span>Conditionals</span></button>
+    <button class="nav-tab" onclick="showPage('verbs')" data-label="🔤 Irregular Verbs" title="Irregular verbs"><span class="rail-icon">🔤</span><span>Irregular verbs</span></button>
+    <button class="nav-tab" onclick="showPage('phrasal')" data-label="↗️ Phrasal Verbs" title="Phrasal verbs"><span class="rail-icon">↗️</span><span>Phrasal verbs</span></button>
+    <button class="nav-tab" onclick="showPage('prepositions')" data-label="📐 Prepositions" title="Prepositions"><span class="rail-icon">📐</span><span>Prepositions</span></button>
+    <button class="nav-tab" onclick="showPage('passive')" data-label="🔄 Passive Voice" title="Passive voice"><span class="rail-icon">🔄</span><span>Passive voice</span></button>
+    <button class="nav-tab" onclick="showPage('quantifiers')" data-label="📊 Quantifiers" title="Quantifiers"><span class="rail-icon">📊</span><span>Quantifiers</span></button>
     <div class="rail-group-label">Library</div>
-    <button class="nav-tab" onclick="showPage('notes')" data-label="📝 Notes"><span class="rail-icon">📝</span><span>Notes</span></button>
-    <button class="nav-tab" onclick="showPage('links')" data-label="🔗 Links"><span class="rail-icon">🔗</span><span>Links</span></button>
+    <button class="nav-tab" onclick="showPage('notes')" data-label="📝 Notes" title="Notes"><span class="rail-icon">📝</span><span>Notes</span></button>
+    <button class="nav-tab" onclick="showPage('links')" data-label="🔗 Links" title="Links"><span class="rail-icon">🔗</span><span>Links</span></button>
   </div>
   <div class="sidebar-footer">
-    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-toggle-icon">🌙</span><span>Dark mode</span></button>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><span id="theme-toggle-icon">🌙</span><span>Dark mode</span></button>
   </div>
 </div>
 
@@ -7743,6 +7777,15 @@ if (localStorage.getItem('sidebar-pinned') === '1' && window.innerWidth > 700) {
   document.getElementById('sidebar').classList.add('open');
 }
 
+function toggleRailCollapse() {
+  var collapsed = document.body.classList.toggle('rail-collapsed');
+  var btn = document.getElementById('rail-collapse-toggle');
+  btn.title = collapsed ? 'Expand menu' : 'Collapse menu';
+  btn.setAttribute('aria-label', collapsed ? 'Expand menu' : 'Collapse menu');
+  if (collapsed) localStorage.setItem('rail-collapsed', '1');
+  else localStorage.removeItem('rail-collapsed');
+}
+
 // ════════════════════════════════════════════
 // SETUP
 // ════════════════════════════════════════════
@@ -9130,6 +9173,11 @@ function initConditionals() {}
 function initQuantifiers() {}
 
 window.onload = () => {
+  // Sync the rail collapse-toggle's label with the state already restored by the early inline script
+  if (document.body.classList.contains('rail-collapsed')) {
+    const railBtn = document.getElementById('rail-collapse-toggle');
+    if (railBtn) { railBtn.title = 'Expand menu'; railBtn.setAttribute('aria-label', 'Expand menu'); }
+  }
   // Одразу рендеримо все — без очікування
   const stored = JSON.parse(localStorage.getItem('dict_words') || '[]');
   allWords = stored;
