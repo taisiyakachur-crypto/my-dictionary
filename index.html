@@ -255,6 +255,10 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
   body {
     font-family: var(--font-sans);
     background: var(--paper);
@@ -478,6 +482,8 @@
   /* ── FORM ── */
   .input-row { display: flex; gap: 12px; margin-bottom: 12px; }
   .input-group { flex: 1; }
+  .add-word-grid { display: grid; grid-template-columns: 1fr 1fr 1.3fr auto; gap: 14px; align-items: end; }
+  .add-word-gt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; padding-top: 16px; border-top: 1px solid var(--border); }
   .input-group label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--font-sans); }
   .input-group input, .input-group textarea, .input-group select {
     width: 100%; border: 1.5px solid var(--border); border-radius: 999px;
@@ -736,6 +742,55 @@
   /* ── DIVIDER ── */
   .section-divider { height: 1px; background: var(--border); margin: 24px 0; }
 
+  /* ── PRACTICE: FLASHCARDS ── */
+  .practice-progress-bar { height: 6px; border-radius: 999px; background: var(--sky-ultra); overflow: hidden; margin-bottom: 22px; }
+  .practice-progress-fill { height: 100%; background: var(--rose); border-radius: 999px; transition: width 0.25s ease; }
+  .flashcard {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 44px 40px; text-align: center; box-shadow: var(--shadow-lg); cursor: pointer;
+  }
+  .flashcard-eyebrow { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .flashcard-front { font-family: var(--font-serif); font-size: 40px; line-height: 1.15; margin: 14px 0 8px; color: var(--ink); }
+  .flashcard-gt { font-size: 13px; color: var(--muted); font-style: italic; min-height: 18px; }
+  .flashcard-answer { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--border); }
+  .flashcard-en { font-size: 28px; color: var(--sky-deep); font-weight: 700; }
+  .flashcard-note { font-size: 13px; color: var(--ink2); font-style: italic; margin-top: 6px; }
+  .flashcard-hint { font-size: 12px; color: var(--muted); margin-top: 22px; }
+  .flashcard-actions { display: none; gap: 10px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }
+  .fc-rate {
+    padding: 11px 22px; border-radius: 999px; font-size: 14px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--card); color: var(--ink); cursor: pointer;
+    font-family: var(--font-sans); transition: all 0.15s;
+  }
+  .fc-rate.again { background: var(--sky-ultra); border-color: var(--sky-pale); color: var(--sky-deep); }
+  .fc-rate.again:hover { background: var(--sky-pale); }
+  .fc-rate.hard:hover { background: var(--sky-ultra); }
+  .fc-rate.good { background: var(--rose); border-color: var(--rose); color: #fff; }
+  .fc-rate.good:hover { background: var(--rose-mid); }
+  .flashcard-keys { text-align: center; font-size: 12px; color: var(--muted); margin-top: 14px; }
+  .practice-stats { display: flex; gap: 12px; margin-top: 22px; }
+  .practice-stat { flex: 1; background: var(--sky-ultra); border-radius: var(--radius-sm); padding: 14px 18px; }
+  .practice-stat-num { font-family: var(--font-serif); font-size: 24px; color: var(--ink); }
+  .practice-stat div:last-child { font-size: 12px; color: var(--ink2); }
+  .practice-complete { text-align: center; padding: 50px 20px; }
+  .practice-complete .emoji { font-size: 42px; margin-bottom: 10px; }
+
+  /* ── ALL WORDS: A–Я JUMP RAIL ── */
+  .az-jump {
+    flex: none; width: 34px; padding: 8px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+    position: sticky; top: 12px; align-self: flex-start;
+  }
+  .az-jump-letter {
+    width: 24px; height: 18px; border: none; background: none; cursor: pointer;
+    font-size: 11px; font-weight: 600; color: var(--muted); border-radius: 4px;
+    font-family: var(--font-sans); line-height: 18px; padding: 0;
+  }
+  .az-jump-letter:hover:not(:disabled) { background: var(--sky-ultra); color: var(--sky); }
+  .az-jump-letter.current { color: var(--sky-deep); font-weight: 700; }
+  .az-jump-letter:disabled { color: var(--border); cursor: default; opacity: 0.5; }
+  @media (max-width: 900px) { .az-jump { display: none; } }
+
   /* ── RESPONSIVE ── */
   /* ══════════════════════════════════════════
      MOBILE — iPhone 14 Pro Max (430px wide)
@@ -759,6 +814,7 @@
 
     /* ── Forms ── */
     .input-row { flex-direction: column; gap: 8px; }
+    .add-word-grid, .add-word-gt-grid { grid-template-columns: 1fr; }
     .input-group input, .input-group textarea, .input-group select { font-size: 16px; } /* prevent iOS zoom */
 
     /* ── Words grid ── */
@@ -956,8 +1012,8 @@
   <!-- Add word -->
   <div class="card">
     <div class="card-title">✏️ Add New Word</div>
-    <div class="input-row">
-      <div class="input-group">
+    <div class="add-word-grid">
+      <div class="input-group" style="margin-bottom:0">
         <label>🇺🇦 Ukrainian word</label>
         <div class="translate-wrap">
           <input type="text" id="word-uk" placeholder="e.g. яблуко" autocomplete="off"
@@ -966,7 +1022,7 @@
         </div>
         <div class="translate-indicator" id="indicator-uk"></div>
       </div>
-      <div class="input-group">
+      <div class="input-group" style="margin-bottom:0">
         <label>🇬🇧 English word</label>
         <div class="translate-wrap">
           <input type="text" id="word-en" placeholder="e.g. apple" autocomplete="off"
@@ -975,9 +1031,18 @@
         </div>
         <div class="translate-indicator" id="indicator-en"></div>
       </div>
+      <div class="input-group" style="margin-bottom:0">
+        <label>Note (optional)</label>
+        <input type="text" id="word-note" placeholder="e.g. context, example, grammar…">
+      </div>
+      <div>
+        <button class="btn btn-primary" id="add-btn" onclick="addWord()" style="white-space:nowrap">
+          ＋ Додати слово
+        </button>
+      </div>
     </div>
-    <div class="input-row">
-      <div class="input-group">
+    <div class="add-word-gt-grid">
+      <div class="input-group" style="margin-bottom:0">
         <label>🤖 Google Translate → UKR</label>
         <div class="translate-wrap">
           <input type="text" id="word-gt-uk" placeholder="Автоматично з'явиться переклад…" readonly
@@ -985,7 +1050,7 @@
           <button class="translate-btn" onclick="doTranslateTo('en','uk')" title="Оновити">↺ GT</button>
         </div>
       </div>
-      <div class="input-group">
+      <div class="input-group" style="margin-bottom:0">
         <label>🤖 Google Translate → EN</label>
         <div class="translate-wrap">
           <input type="text" id="word-gt-en" placeholder="Автоматично з'явиться переклад…" readonly
@@ -994,14 +1059,9 @@
         </div>
       </div>
     </div>
-    <div class="input-group" style="margin-bottom:16px">
-      <label>Note (optional)</label>
-      <input type="text" id="word-note" placeholder="e.g. context, example, grammar…">
+    <div style="margin-top:10px">
+      <span id="add-status" style="font-size:13px; color:var(--muted)"></span>
     </div>
-    <button class="btn btn-primary" id="add-btn" onclick="addWord()">
-      ＋ Додати слово
-    </button>
-    <span id="add-status" style="margin-left:12px; font-size:13px; color:var(--muted)"></span>
   </div>
 
   <!-- Recent words -->
@@ -1034,6 +1094,12 @@
       <button class="search-clear" id="verb-clear" style="display:none" onclick="clearVerbSearch()">✕</button>
     </div>
     <div id="verb-count" style="font-size:13px;color:var(--muted);white-space:nowrap"></div>
+  </div>
+
+  <div class="filter-row" id="verb-pattern-filters">
+    <button class="filter-btn active" data-pattern="all" onclick="verbPatternFilterBy('all', this)">All</button>
+    <button class="filter-btn" data-pattern="same" onclick="verbPatternFilterBy('same', this)">Same V2=V3</button>
+    <button class="filter-btn" data-pattern="different" onclick="verbPatternFilterBy('different', this)">All different</button>
   </div>
 
   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px" id="verb-filters"></div>
@@ -1295,26 +1361,33 @@
         <option value="uk-asc">А→Я (UKR)</option>
         <option value="en-asc">A→Z (EN)</option>
       </select>
+      <div class="filter-row" id="allwords-density-toggle" style="margin-bottom:0">
+        <button class="filter-btn active" data-density="comfortable" onclick="setWordsDensity('comfortable')">Comfortable</button>
+        <button class="filter-btn" data-density="compact" onclick="setWordsDensity('compact')">Compact</button>
+      </div>
     </div>
   </div>
 
-  <div class="card" style="padding:0;overflow:hidden">
-    <table id="allwords-table" style="width:100%;border-collapse:collapse;table-layout:fixed">
-      <thead>
-        <tr>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:36px">#</th>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:18%">🇺🇦 Ukrainian</th>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:18%">🇬🇧 English</th>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → UKR</th>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → EN</th>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">Note</th>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:72px"></th>
-        </tr>
-      </thead>
-      <tbody id="allwords-tbody">
-        <tr><td colspan="5" style="padding:40px;text-align:center;color:var(--muted)">Loading…</td></tr>
-      </tbody>
-    </table>
+  <div style="display:flex;gap:10px;align-items:flex-start">
+    <div class="card" style="padding:0;overflow:hidden;flex:1;min-width:0">
+      <table id="allwords-table" style="width:100%;border-collapse:collapse;table-layout:fixed">
+        <thead>
+          <tr>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:36px">#</th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:18%">🇺🇦 Ukrainian</th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:18%">🇬🇧 English</th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → UKR</th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:16%">🤖 GT → EN</th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap">Note</th>
+            <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;width:72px"></th>
+          </tr>
+        </thead>
+        <tbody id="allwords-tbody">
+          <tr><td colspan="5" style="padding:40px;text-align:center;color:var(--muted)">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="az-jump" id="allwords-az-jump"></div>
   </div>
   <div id="allwords-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
     <div style="font-size:36px;margin-bottom:12px">🔍</div>
@@ -1324,15 +1397,19 @@
 </div>
 
 <!-- ════════════════════════════ PAGE 6: PRACTICE ════════════════════════════ -->
-<div id="page-practice" class="page page-wide">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+<div id="page-practice" class="page page-wide" style="max-width:820px">
+  <div style="display:flex;align-items:flex-end;gap:12px;margin-bottom:20px;flex-wrap:wrap">
     <div>
       <h1 style="font-family:'Caprasimo',system-ui,sans-serif;font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px">Practice</h1>
-      <p style="color:var(--muted);font-size:14px">20 random words to study · <span id="practice-pool-size"></span></p>
+      <p style="color:var(--muted);font-size:14px">20 random words to study · <span id="practice-pool-size"></span> <span id="practice-progress-label"></span></p>
     </div>
-    <button class="btn btn-primary" style="margin-left:auto" onclick="refreshPractice()">
-      🔀 New random set
-    </button>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div class="filter-row" id="practice-view-toggle" style="margin-bottom:0">
+        <button class="filter-btn active" data-view="cards" onclick="setPracticeView('cards')">Cards</button>
+        <button class="filter-btn" data-view="list" onclick="setPracticeView('list')">List view</button>
+      </div>
+      <button class="btn btn-secondary" onclick="refreshPractice()">🔀 New set</button>
+    </div>
   </div>
 
   <div id="practice-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--muted)">
@@ -1341,19 +1418,55 @@
     <div style="font-size:14px">Add words in the Dictionary tab first</div>
   </div>
 
-  <div class="card" style="padding:0;overflow:hidden" id="practice-card">
-    <table style="width:100%;border-collapse:collapse;table-layout:fixed">
-      <thead>
-        <tr>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:20%">🇺🇦 Ukrainian</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:20%">🇬🇧 English</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:16%">🤖 GT → UKR</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:16%">🤖 GT → EN</th>
-          <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border)">Note</th>
-        </tr>
-      </thead>
-      <tbody id="practice-tbody"></tbody>
-    </table>
+  <div id="practice-body" style="display:none">
+
+    <!-- CARDS VIEW -->
+    <div id="practice-cards-view">
+      <div class="practice-progress-bar"><div class="practice-progress-fill" id="practice-progress-fill" style="width:0%"></div></div>
+
+      <div class="flashcard" id="flashcard" onclick="revealPracticeCard()">
+        <div class="flashcard-eyebrow">Ukrainian → English</div>
+        <div class="flashcard-front" id="fc-front"></div>
+        <div class="flashcard-gt" id="fc-gt"></div>
+        <div class="flashcard-answer" id="fc-answer" style="display:none">
+          <div class="flashcard-en" id="fc-en"></div>
+          <div class="flashcard-note" id="fc-note"></div>
+        </div>
+        <div class="flashcard-hint" id="fc-hint">Click or press Space to reveal</div>
+      </div>
+
+      <div class="flashcard-actions" id="flashcard-actions">
+        <span class="fc-rate again" onclick="event.stopPropagation();ratePracticeCard('again')">Again</span>
+        <span class="fc-rate hard" onclick="event.stopPropagation();ratePracticeCard('hard')">Hard</span>
+        <span class="fc-rate good" onclick="event.stopPropagation();ratePracticeCard('good')">Got it</span>
+      </div>
+      <div class="flashcard-keys">Space = reveal · 1 / 2 / 3 = rate · ← → = move</div>
+
+      <div class="practice-stats">
+        <div class="practice-stat"><div class="practice-stat-num" id="stat-known">0</div><div>known this session</div></div>
+        <div class="practice-stat"><div class="practice-stat-num" id="stat-repeat">0</div><div>to repeat</div></div>
+        <div class="practice-stat"><div class="practice-stat-num" id="stat-time">0:00</div><div>time on task</div></div>
+      </div>
+    </div>
+
+    <!-- LIST VIEW -->
+    <div id="practice-list-view" style="display:none">
+      <div class="card" style="padding:0;overflow:hidden" id="practice-card">
+        <table style="width:100%;border-collapse:collapse;table-layout:fixed">
+          <thead>
+            <tr>
+              <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:20%">🇺🇦 Ukrainian</th>
+              <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:20%">🇬🇧 English</th>
+              <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:16%">🤖 GT → UKR</th>
+              <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border);width:16%">🤖 GT → EN</th>
+              <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--cream);border-bottom:1px solid var(--border)">Note</th>
+            </tr>
+          </thead>
+          <tbody id="practice-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1412,6 +1525,8 @@
     color: var(--ink);
     font-size: 15px;
     line-height: 1.65;
+    max-width: 960px;
+    margin: 0 auto;
   }
   .hero {
 
@@ -1468,6 +1583,13 @@
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+  /* Compensate for the sticky nav bar (it can wrap to 2 lines) so jump
+     targets don't land hidden behind it */
+  #quantifiers-scope #summary, #quantifiers-scope #overview, #quantifiers-scope #little-few,
+  #quantifiers-scope #few-afew, #quantifiers-scope #much-many, #quantifiers-scope #alot,
+  #quantifiers-scope #too, #quantifiers-scope #enough {
+    scroll-margin-top: 130px;
   }
 #quantifiers-scope .q-nav a {
     text-decoration: none;
@@ -2705,6 +2827,8 @@
   font-family: 'Figtree', system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.7;
+  max-width: 960px;
+  margin: 0 auto;
 }
 ::-webkit-scrollbar {
  width: 6px; }
@@ -2868,6 +2992,12 @@
 }
 #conditionals-scope .sticky-nav::-webkit-scrollbar {
  display: none; }
+/* Compensate for the sticky nav bar so jump targets don't land hidden behind it */
+#conditionals-scope #compare, #conditionals-scope #zero, #conditionals-scope #first,
+#conditionals-scope #futuretime, #conditionals-scope #second, #conditionals-scope #third,
+#conditionals-scope #mixed, #conditionals-scope #unless, #conditionals-scope #mistakes {
+  scroll-margin-top: 72px;
+}
 #conditionals-scope .nav-item {
 
   flex-shrink: 0;
@@ -4960,6 +5090,8 @@ background:var(--border2);border-radius:3px}
   font-family:'Caprasimo',system-ui,sans-serif;
   font-size:15px;
   line-height:1.7;
+  max-width:960px;
+  margin:0 auto;
 }
 #tenses-scope .hero {
 
@@ -5127,6 +5259,10 @@ background:rgba(71,66,56,0.25);color:#C0B6A5;border-color:rgba(71,66,56,0.5)}
   border-bottom:1px solid var(--border);
   overflow-x:auto;scrollbar-width:none;
   display:flex;
+}
+/* Compensate for the sticky nav bar so jump targets don't land hidden behind it */
+#tenses-scope .tense-card, #tenses-scope #compare, #tenses-scope #mistakes {
+  scroll-margin-top: 68px;
 }
 #tenses-scope .t-nav::-webkit-scrollbar {
 display:none}
@@ -6701,7 +6837,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-formula b{color:var(--sky)}
   .pv-formula em{color:var(--rose);font-style:normal}
 
-  .pv-content{max-width:100%;margin:0 auto;padding:0 40px 60px}
+  .pv-content{max-width:960px;margin:0 auto;padding:0 40px 60px}
 
   /* section nav */
   .pv-sec-nav{display:flex;gap:4px;flex-wrap:wrap;margin:24px 0 8px;position:sticky;top:0;z-index:50;background:var(--paper);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--border)}
@@ -6709,7 +6845,7 @@ animation:fadeSlide 0.5s ease both}
   .pv-sec-btn:hover{color:var(--ink);background:var(--sky-ultra);border-color:var(--sky-mid)}
   .pv-sec-btn.active{color:#fff;background:var(--sky);border-color:var(--sky);box-shadow:0 2px 8px rgba(198,113,57,.3)}
 
-  .pv-section{scroll-margin-top:130px;margin-top:36px}
+  .pv-section{scroll-margin-top:76px;margin-top:36px}
   .pv-section-badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--sky);margin-bottom:6px}
   .pv-section h2{font-family:var(--font-serif);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:14px}
   .pv-section h3{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink2);margin:20px 0 8px}
@@ -7557,6 +7693,7 @@ function showPage(id) {
   document.getElementById('current-tab-label').textContent = event.currentTarget.getAttribute('data-label');
   closeSidebar();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id !== 'practice' && typeof practiceTimerId !== 'undefined' && practiceTimerId) { clearInterval(practiceTimerId); practiceTimerId = null; }
   if (id === 'verbs') initVerbs();
   if (id === 'allwords') filterAllWords();
   if (id === 'practice') renderPractice();
@@ -7573,6 +7710,7 @@ function goHome(){
   document.getElementById('page-dict').classList.add('active');
   document.querySelectorAll('.nav-tab[onclick*="dict"]').forEach(function(b){b.classList.add('active');});
   document.getElementById('current-tab-label').textContent='📖 Dictionary';
+  if (typeof practiceTimerId !== 'undefined' && practiceTimerId) { clearInterval(practiceTimerId); practiceTimerId = null; }
   closeSidebar();window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -7852,10 +7990,36 @@ function clearSearch() {
 // VERBS
 // ════════════════════════════════════════════
 let verbFilter = 'all';
+let verbPatternFilter = 'all';
 
 function initVerbs() {
   buildVerbFilterBtns();
-  renderVerbs(allVerbs);
+  applyVerbFilters();
+}
+
+function verbPatternOf(v) {
+  return (v[1] || '').trim().toLowerCase() === (v[2] || '').trim().toLowerCase() ? 'same' : 'different';
+}
+
+function verbPatternFilterBy(pattern, btn) {
+  verbPatternFilter = pattern;
+  document.querySelectorAll('#verb-pattern-filters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyVerbFilters();
+}
+
+function applyVerbFilters() {
+  const q = (document.getElementById('verb-search').value || '').toLowerCase().trim();
+  let list = allVerbs;
+  if (q) {
+    list = list.filter(v => v.some(col => col.toLowerCase().includes(q)));
+  } else if (verbFilter !== 'all') {
+    list = list.filter(v => v[0][0].toUpperCase() === verbFilter);
+  }
+  if (verbPatternFilter !== 'all') {
+    list = list.filter(v => verbPatternOf(v) === verbPatternFilter);
+  }
+  renderVerbs(list);
 }
 
 function buildVerbFilterBtns() {
@@ -7883,8 +8047,7 @@ function verbFilterBy(letter, btn) {
   btn.classList.add('active');
   document.getElementById('verb-search').value = '';
   document.getElementById('verb-clear').style.display = 'none';
-  const list = letter === 'all' ? allVerbs : allVerbs.filter(v => v[0][0].toUpperCase() === letter);
-  renderVerbs(list);
+  applyVerbFilters();
 }
 
 function renderVerbs(verbs) {
@@ -7910,8 +8073,7 @@ function searchVerbs() {
     const allBtn = document.querySelector('.verb-filter-btn');
     if (allBtn) allBtn.classList.add('active');
   }
-  const filtered = q ? allVerbs.filter(v => v.some(col => col.toLowerCase().includes(q))) : allVerbs;
-  renderVerbs(filtered);
+  applyVerbFilters();
 }
 
 function clearVerbSearch() {
@@ -7921,7 +8083,7 @@ function clearVerbSearch() {
   document.querySelectorAll('.verb-filter-btn').forEach(b => b.classList.remove('active'));
   const allBtn = document.querySelector('.verb-filter-btn');
   if (allBtn) allBtn.classList.add('active');
-  renderVerbs(allVerbs);
+  applyVerbFilters();
 }
 
 async function addVerb() {
@@ -8540,6 +8702,15 @@ function showToast(msg, type = '') {
 // ════════════════════════════════════════════
 // PAGE 5 — ALL WORDS TABLE
 // ════════════════════════════════════════════
+let allWordsDensity = 'comfortable';
+const UA_ALPHABET = ['А','Б','В','Г','Ґ','Д','Е','Є','Ж','З','И','І','Ї','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ю','Я'];
+
+function setWordsDensity(mode) {
+  allWordsDensity = mode;
+  document.querySelectorAll('#allwords-density-toggle .filter-btn').forEach(b => b.classList.toggle('active', b.dataset.density === mode));
+  filterAllWords();
+}
+
 function renderAllWordsTable(words) {
   const tbody = document.getElementById('allwords-tbody');
   const empty = document.getElementById('allwords-empty');
@@ -8550,18 +8721,24 @@ function renderAllWordsTable(words) {
   if (!words.length) {
     tbody.innerHTML = '';
     empty.style.display = 'block';
+    renderAzJump([]);
     return;
   }
   empty.style.display = 'none';
 
-  const TD = 'padding:9px 12px;vertical-align:top;border-bottom:1px solid var(--border);word-break:break-word';
+  const compact = allWordsDensity === 'compact';
+  const TD = `padding:${compact ? '4px 12px' : '9px 12px'};vertical-align:top;border-bottom:1px solid var(--border);word-break:break-word;scroll-margin-top:50px`;
+  const ukSize = compact ? '13px' : '16px';
+  const enSize = compact ? '13px' : '15px';
   // Зберігаємо поточний список для edit за індексом
   window._editWords = words;
-  tbody.innerHTML = words.map((w, i) => `
-    <tr style="transition:background .12s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background=''">
+  tbody.innerHTML = words.map((w, i) => {
+    const letter = (w.uk || '').trim().charAt(0).toUpperCase();
+    return `
+    <tr data-letter="${letter}" style="transition:background .12s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background=''">
       <td style="${TD};font-size:12px;color:var(--muted);font-family:'JetBrains Mono','Courier New',monospace">${i + 1}</td>
-      <td style="${TD};font-family:'Caprasimo',system-ui,sans-serif;font-size:16px;font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
-      <td style="${TD};font-size:15px;font-weight:500;color:var(--sage)">${esc(w.en)}</td>
+      <td style="${TD};font-family:'Caprasimo',system-ui,sans-serif;font-size:${ukSize};font-weight:600;color:var(--ink)">${esc(w.uk)}</td>
+      <td style="${TD};font-size:${enSize};font-weight:500;color:var(--sage)">${esc(w.en)}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtUK || '')}</td>
       <td style="${TD};font-size:13px;color:var(--lavender)">${esc(w.gtEN || '')}</td>
       <td style="${TD};font-size:13px;color:var(--muted);font-style:italic">${esc(w.note || '')}</td>
@@ -8572,7 +8749,30 @@ function renderAllWordsTable(words) {
           ✏️ Edit
         </button>
       </td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
+
+  renderAzJump(words);
+}
+
+function renderAzJump(words) {
+  const rail = document.getElementById('allwords-az-jump');
+  if (!rail) return;
+  const present = new Set(words.map(w => (w.uk || '').trim().charAt(0).toUpperCase()).filter(Boolean));
+  rail.innerHTML = UA_ALPHABET.map(l =>
+    `<button class="az-jump-letter" ${present.has(l) ? '' : 'disabled'} onclick="jumpToLetter('${l}')">${l}</button>`
+  ).join('');
+}
+
+function jumpToLetter(letter) {
+  const sortSel = document.getElementById('allwords-sort');
+  if (sortSel.value !== 'uk-asc') {
+    sortSel.value = 'uk-asc';
+    filterAllWords();
+  }
+  const row = document.querySelector('#allwords-tbody tr[data-letter="' + letter + '"]');
+  if (row) row.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.az-jump-letter').forEach(b => b.classList.toggle('current', b.textContent === letter));
 }
 
 function esc(s) {
@@ -8674,27 +8874,70 @@ function getRandomWords(pool, n) {
   return shuffled.slice(0, Math.min(n, shuffled.length));
 }
 
+// ── Flashcard session state ──
+let practiceWords = [];
+let practiceIndex = 0;
+let practiceRevealed = false;
+let practiceKnown = 0;
+let practiceRepeat = 0;
+let practiceStartTs = 0;
+let practiceTimerId = null;
+let practiceView = 'cards';
+
 function renderPractice() {
-  const tbody   = document.getElementById('practice-tbody');
-  const card    = document.getElementById('practice-card');
-  const empty   = document.getElementById('practice-empty');
-  const poolEl  = document.getElementById('practice-pool-size');
+  const body   = document.getElementById('practice-body');
+  const empty  = document.getElementById('practice-empty');
+  const poolEl = document.getElementById('practice-pool-size');
 
   if (!allWords.length) {
-    card.style.display = 'none';
+    body.style.display = 'none';
     empty.style.display = 'block';
     poolEl.textContent = '';
     return;
   }
 
-  card.style.display = 'block';
+  body.style.display = 'block';
   empty.style.display = 'none';
   poolEl.textContent = `from ${allWords.length} total`;
 
-  const words = getRandomWords(allWords, PRACTICE_COUNT);
-  const TD = 'padding:10px 14px;vertical-align:top;border-bottom:1px solid var(--border);font-size:14px;word-break:break-word';
+  practiceWords = getRandomWords(allWords, PRACTICE_COUNT);
+  practiceIndex = 0;
+  practiceKnown = 0;
+  practiceRepeat = 0;
+  practiceRevealed = false;
+  practiceStartTs = Date.now();
+  startPracticeTimer();
 
-  tbody.innerHTML = words.map((w, i) => `
+  renderPracticeListTable();
+  renderFlashcard();
+  updatePracticeStats();
+  setPracticeView(practiceView);
+}
+
+function refreshPractice() {
+  renderPractice();
+  // Brief visual feedback on the button
+  const btn = event.currentTarget;
+  const original = btn.innerHTML;
+  btn.textContent = '✓ Updated!';
+  setTimeout(() => { btn.innerHTML = original; }, 1200);
+}
+
+function setPracticeView(view) {
+  practiceView = view;
+  const toggle = document.getElementById('practice-view-toggle');
+  if (toggle) toggle.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  const cardsView = document.getElementById('practice-cards-view');
+  const listView = document.getElementById('practice-list-view');
+  if (cardsView) cardsView.style.display = view === 'cards' ? 'block' : 'none';
+  if (listView) listView.style.display = view === 'list' ? 'block' : 'none';
+}
+
+function renderPracticeListTable() {
+  const tbody = document.getElementById('practice-tbody');
+  if (!tbody) return;
+  const TD = 'padding:10px 14px;vertical-align:top;border-bottom:1px solid var(--border);font-size:14px;word-break:break-word';
+  tbody.innerHTML = practiceWords.map((w) => `
     <tr style="transition:background .12s"
       onmouseover="this.style.background='var(--paper)'"
       onmouseout="this.style.background=''">
@@ -8706,13 +8949,112 @@ function renderPractice() {
     </tr>`).join('');
 }
 
-function refreshPractice() {
-  renderPractice();
-  // Brief visual feedback on the button
-  const btn = event.currentTarget;
-  btn.textContent = '✓ Updated!';
-  setTimeout(() => { btn.innerHTML = '🔀 New random set'; }, 1200);
+function renderFlashcard() {
+  const flashcard = document.getElementById('flashcard');
+  const actions   = document.getElementById('flashcard-actions');
+  const progLbl   = document.getElementById('practice-progress-label');
+  const progFill  = document.getElementById('practice-progress-fill');
+  if (!flashcard) return;
+  const total = practiceWords.length;
+
+  if (!total || practiceIndex >= total) {
+    showPracticeComplete();
+    return;
+  }
+
+  flashcard.style.display = '';
+  actions.style.display = 'none';
+  practiceRevealed = false;
+
+  const w = practiceWords[practiceIndex];
+  document.getElementById('fc-front').textContent = w.uk;
+  document.getElementById('fc-gt').textContent = w.gtUK ? ('🤖 ' + w.gtUK) : '';
+  document.getElementById('fc-en').textContent = w.en;
+  const noteBits = [];
+  if (w.note) noteBits.push('“' + w.note + '”');
+  if (w.date) noteBits.push('added ' + w.date);
+  document.getElementById('fc-note').textContent = noteBits.join(' · ');
+  document.getElementById('fc-answer').style.display = 'none';
+  document.getElementById('fc-hint').style.display = '';
+
+  if (progFill) progFill.style.width = Math.round((practiceIndex / total) * 100) + '%';
+  if (progLbl) progLbl.textContent = `· card ${practiceIndex + 1} of ${total}`;
 }
+
+function revealPracticeCard() {
+  if (practiceRevealed || practiceIndex >= practiceWords.length) return;
+  practiceRevealed = true;
+  document.getElementById('fc-answer').style.display = '';
+  document.getElementById('fc-hint').style.display = 'none';
+  document.getElementById('flashcard-actions').style.display = 'flex';
+}
+
+function ratePracticeCard(rating) {
+  if (!practiceRevealed || practiceIndex >= practiceWords.length) return;
+  const w = practiceWords[practiceIndex];
+  if (rating === 'good') {
+    practiceKnown++;
+  } else {
+    practiceRepeat++;
+    practiceWords.push(w); // requeue so it resurfaces before the session ends
+  }
+  practiceIndex++;
+  updatePracticeStats();
+  renderFlashcard();
+}
+
+function movePracticeCard(delta) {
+  if (!practiceWords.length) return;
+  const max = practiceWords.length - 1;
+  practiceIndex = Math.min(max, Math.max(0, practiceIndex + delta));
+  renderFlashcard();
+}
+
+function showPracticeComplete() {
+  const flashcard = document.getElementById('flashcard');
+  const actions   = document.getElementById('flashcard-actions');
+  const progLbl   = document.getElementById('practice-progress-label');
+  const progFill  = document.getElementById('practice-progress-fill');
+  if (progFill) progFill.style.width = '100%';
+  if (progLbl) progLbl.textContent = '· session complete';
+  actions.style.display = 'none';
+  flashcard.innerHTML = `
+    <div class="practice-complete">
+      <div class="emoji">🎉</div>
+      <div style="font-family:'Caprasimo',system-ui,sans-serif;font-size:22px;margin-bottom:6px">Session complete</div>
+      <div style="font-size:13px;color:var(--muted)">${practiceKnown} known · ${practiceRepeat} repeated — start a new set?</div>
+    </div>`;
+}
+
+function updatePracticeStats() {
+  const known  = document.getElementById('stat-known');
+  const repeat = document.getElementById('stat-repeat');
+  if (known) known.textContent = practiceKnown;
+  if (repeat) repeat.textContent = practiceRepeat;
+}
+
+function startPracticeTimer() {
+  if (practiceTimerId) clearInterval(practiceTimerId);
+  practiceTimerId = setInterval(() => {
+    const secs = Math.floor((Date.now() - practiceStartTs) / 1000);
+    const m = Math.floor(secs / 60), s = secs % 60;
+    const el = document.getElementById('stat-time');
+    if (el) el.textContent = m + ':' + String(s).padStart(2, '0');
+  }, 1000);
+}
+
+document.addEventListener('keydown', function(e) {
+  const page = document.getElementById('page-practice');
+  if (!page || !page.classList.contains('active') || practiceView !== 'cards') return;
+  const tag = document.activeElement && document.activeElement.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || (document.activeElement && document.activeElement.isContentEditable)) return;
+  if (e.code === 'Space') { e.preventDefault(); revealPracticeCard(); }
+  else if (e.key === '1') { ratePracticeCard('again'); }
+  else if (e.key === '2') { ratePracticeCard('hard'); }
+  else if (e.key === '3') { ratePracticeCard('good'); }
+  else if (e.key === 'ArrowLeft') { movePracticeCard(-1); }
+  else if (e.key === 'ArrowRight') { movePracticeCard(1); }
+});
 
 // ════════════════════════════════════════════
 // HTML PASTE — insert raw HTML into note
@@ -8777,39 +9119,15 @@ function insertHtmlPaste() {
   showToast('✓ HTML inserted!', 'success');
 }
 
-function initTenses() {
-  document.querySelectorAll('#tenses-scope .t-nav a').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const id = a.getAttribute('href').replace('#','');
-      const target = document.getElementById(id);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-}
-
-function initConditionals() {
-  // Fix internal anchor links
-  document.querySelectorAll('#conditionals-scope .sticky-nav a').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const id = a.getAttribute('href').replace('#','');
-      const target = document.getElementById(id);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-}
-
-function initQuantifiers() {
-  // Fix internal anchor links inside the quantifiers page
-  document.querySelectorAll('#quantifiers-scope .q-nav a').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href').replace('#', '#'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-}
+// Tenses/Conditionals/Quantifiers in-page nav links are plain <a href="#id">
+// anchors now: native browser anchor-jump handles them (smooth, via the
+// global `html{scroll-behavior:smooth}` rule) and automatically respects
+// each target's scroll-margin-top, so it always lands below the sticky
+// sub-nav instead of behind it. No JS needed — these are kept as harmless
+// no-ops since showPage() still calls them.
+function initTenses() {}
+function initConditionals() {}
+function initQuantifiers() {}
 
 window.onload = () => {
   // Одразу рендеримо все — без очікування
