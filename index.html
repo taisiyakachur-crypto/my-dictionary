@@ -1111,12 +1111,6 @@
     </div>
   </div>
 
-  <!-- Recent words -->
-  <div class="card">
-    <div class="card-title">🕐 Recently added <span class="tag tag-new" id="recent-count-tag">…</span></div>
-    <div class="words-grid" id="recent-words-grid"></div>
-  </div>
-
   <!-- All words (lazy loaded) -->
   <div class="card">
     <div class="card-title">📚 All words <span class="tag tag-count" id="all-count-tag">…</span></div>
@@ -7871,7 +7865,7 @@ function loadAllData() {
     const localOnly = allWords.filter(w => !sheetKeys.has(w.uk + '|' + w.en));
     allWords = [...data.words, ...localOnly];
     saveLocal();
-    updateStats(); renderRecent(); renderAllWords(); filterAllWords();
+    updateStats(); renderAllWords(); filterAllWords();
     showToast('☁️ Synced with Google Sheets', 'success');
   }).catch(() => {});
   // Дієслова
@@ -7892,7 +7886,6 @@ function renderLocalWords() {
   const stored = JSON.parse(localStorage.getItem('dict_words') || '[]');
   allWords = stored;
   updateStats();
-  renderRecent();
   renderAllWords();
 }
 
@@ -7927,7 +7920,7 @@ async function addWord() {
   document.getElementById('indicator-uk').textContent = '';
   document.getElementById('indicator-en').textContent = '';
   btn.disabled = false; btn.innerHTML = '＋ Додати слово';
-  updateStats(); renderRecent(); renderAllWords();
+  updateStats(); renderAllWords();
   showToast('✓ Слово «' + uk + '» додано!', 'success');
 
   if (API_URL) { apiFetch('addWord', word).catch(() => {}); }
@@ -7962,13 +7955,6 @@ function wordCardHTML(w, highlight = '') {
     </div>`;
 }
 
-function renderRecent() {
-  const grid = document.getElementById('recent-words-grid');
-  const recent = allWords.slice(0, 10);
-  document.getElementById('recent-count-tag').textContent = recent.length;
-  grid.innerHTML = recent.map(w => wordCardHTML(w)).join('');
-}
-
 function renderAllWords() {
   const grid = document.getElementById('all-words-grid');
   displayedCount = Math.min(PAGE_SIZE, allWords.length);
@@ -7995,7 +7981,7 @@ async function deleteWord(uk, en, btn) {
   allWords = allWords.filter(w => w.uk !== uk || w.en !== en);
   saveLocal();
   if (API_URL) await apiPost('deleteWord', { uk, en });
-  updateStats(); renderRecent(); renderAllWords();
+  updateStats(); renderAllWords();
   showToast('Word deleted', 'success');
 }
 
@@ -8919,7 +8905,7 @@ async function saveEditWord() {
   // Update locally
   allWords[idx] = { ...allWords[idx], uk: newUk, en: newEn, gtUK, gtEN, note };
   saveLocal();
-  renderRecent(); renderAllWords(); filterAllWords();
+  renderAllWords(); filterAllWords();
   closeEditModal();
   showToast('✓ Word updated!', 'success');
 
@@ -9213,7 +9199,6 @@ window.onload = () => {
   const stored = JSON.parse(localStorage.getItem('dict_words') || '[]');
   allWords = stored;
   updateStats();
-  renderRecent();
   renderAllWords();
   initVerbs();
   // Фонова синхронізація з Sheets
